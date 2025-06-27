@@ -70,36 +70,7 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-
-          // 3. achievement & setting 按鈕
-          Positioned(
-            top: 64,
-            right: 20,
-            child: Column(
-              children: [
-                // 成就按鈕
-                FloatingActionButton(
-                  heroTag: 'achievement',
-                  onPressed: () => context.go('/f-achievement'),
-                  backgroundColor: Colors.white,
-                  elevation: 4,
-                  child: Icon(Icons.emoji_events, color: const Color.fromARGB(255, 82, 189, 255), size: 26),
-                ),
-                const SizedBox(height: 16),
-                // 設定按鈕
-                FloatingActionButton(
-                  heroTag: 'setting',
-                  onPressed: () => context.go('/setting'),
-                  backgroundColor: Colors.white,
-                  elevation: 4,
-                  child: Icon(Icons.settings, color: Colors.indigo, size: 26),
-                ),
-              ],
-            ),
-          ),
-
-
-          // 4. ground
+          // 3. ground
           Positioned(
             bottom: 0,
             left: 0,
@@ -110,13 +81,13 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-          // 5. person
+          // 4. person
           Align(
             alignment: const Alignment(0, 0.65),
             child: Image.asset('assets/images/home_person.png', height: 250,),
           ),
           
-          // 6. 星星
+          // 5. 星星
           Positioned(
             top: 140,
             left: 20,
@@ -202,7 +173,7 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-          // 7. character 按鈕
+          // 6. character 按鈕
           Positioned(
             bottom: MediaQuery.of(context).size.height * 0.10,
             left: MediaQuery.of(context).size.width * 0.10,
@@ -219,7 +190,7 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-          // 8. start 按鈕
+          // 7. start 按鈕
           Positioned(
             bottom: MediaQuery.of(context).size.height * 0.10,
             right: MediaQuery.of(context).size.width * 0.10,
@@ -235,7 +206,9 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-          // 9. 其他文字
+          
+
+          // 8. 其他文字
           Positioned.fill(
             child: Column(  
 
@@ -253,6 +226,34 @@ class Pagehome extends StatelessWidget {
               ],
             ),
           ),
+
+          // 9. achievement & setting 按鈕
+          Positioned(
+            top: 64,
+            right: 20,
+            child: Column(
+              children: [
+                // 成就按鈕
+                FloatingActionButton(
+                  heroTag: 'achievement',
+                  onPressed: () => context.go('/f-achievement'),
+                  backgroundColor: Colors.white,
+                  elevation: 4,
+                  child: Icon(Icons.emoji_events, color: const Color.fromARGB(255, 82, 189, 255), size: 26),
+                ),
+                const SizedBox(height: 16),
+                // 設定按鈕
+                FloatingActionButton(
+                  heroTag: 'setting',
+                  onPressed: () => context.go('/setting'),
+                  backgroundColor: Colors.white,
+                  elevation: 4,
+                  child: Icon(Icons.settings, color: Colors.indigo, size: 26),
+                ),
+              ],
+            ),
+          ),
+
         ],    
       ),
     );
