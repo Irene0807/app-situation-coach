@@ -11,3 +11,15 @@ List<Journey> dummyJourneys = [
   Journey(id: '8', name: 'Bangkok Tour', character: 'Trump', isCompleted: true),
   Journey(id: '9', name: 'America Adventure', character: 'Trump', isCompleted: false),
 ];
+
+const int dummyDialogCount = 6;
+const int dummyLoginDays = 4;
+
+const Map<String, double> dummyEnglishAbilities = {
+  'Fluency': 68,
+  'Pronunciation': 72,
+  'Vocabulary': 61,
+  'Grammar': 78,
+  'Comprehensibility': 70,
+  'Confidence': 83,
+};

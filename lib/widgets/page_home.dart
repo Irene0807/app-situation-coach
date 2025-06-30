@@ -1,4 +1,3 @@
-// 📁 lib/pages/home_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../state/journey_list_notifier.dart';

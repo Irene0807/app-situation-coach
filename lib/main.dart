@@ -8,6 +8,7 @@ import 'state/journey_state_notifier.dart';
 import 'state/character_notifier.dart';
 import 'state/conversation_notifier.dart';
 import 'state/journey_list_notifier.dart';
+import 'state/setting_notifier.dart';
 
 import 'data/dummy_data.dart';
 
@@ -15,7 +16,7 @@ final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
-    seedColor: const Color.fromARGB(255, 131, 57, 0),
+    seedColor: const Color.fromARGB(255, 0, 103, 131),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
@@ -28,6 +29,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => CharacterNotifier()),
         ChangeNotifierProvider(create: (_) => ConversationNotifier()),
         ChangeNotifierProvider(create: (_) => JourneyListNotifier()..addAll(dummyJourneys)),
+        ChangeNotifierProvider(create: (_) => SettingNotifier()),
       ],
       child: const App(),
     ),
