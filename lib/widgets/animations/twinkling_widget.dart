@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-//這個widget應該可以取代twinking star 看有沒有要調整
-
 class TwinklingWidget extends StatefulWidget {
   //主要設定 child enableSwing enableGlow glowWidth glowHeight 即可
   final Widget child; // 要顯示的子 widget

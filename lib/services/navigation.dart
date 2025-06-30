@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lab08_example/widgets/frame_achievement.dart';
+import 'package:app_situational_coach/widgets/frame_achievement.dart';
 
 import '../widgets/page_home.dart';
 import '../widgets/page_journey_add.dart';
@@ -11,8 +11,6 @@ import '../widgets/page_setting.dart';
 import '../widgets/page_journey_start.dart';
 
 //測試router可以用chrome而不是用android模擬器來debug 這樣可以看到當下的path 顯示在網址
-
-//老師的code有做一個NavigationService來統一使用 context.go() 感覺沒必要?
 
 final routerConfig = GoRouter(
   routes: [

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lab08_example/widgets/page_achievement.dart';
-import 'package:lab08_example/widgets/page_evaluation.dart';
-import 'package:lab08_example/widgets/page_list.dart';
+import 'package:app_situational_coach/widgets/page_achievement.dart';
+import 'package:app_situational_coach/widgets/page_evaluation.dart';
+import 'package:app_situational_coach/widgets/page_list.dart';
 
 enum FrameInformTab {
   //由最左頁至最右頁

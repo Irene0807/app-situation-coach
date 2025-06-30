@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'animations/twinking_widget.dart';
+import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
 
 class PageJourneyStart extends StatelessWidget {
