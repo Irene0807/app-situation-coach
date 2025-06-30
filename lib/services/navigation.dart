@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:app_situational_coach/widgets/frame_achievement.dart';
 
+import '../widgets/frame_achievement.dart';
 import '../widgets/page_home.dart';
 import '../widgets/page_journey_add.dart';
 import '../widgets/page_journey_continue.dart';
