@@ -41,3 +41,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# 新增
+# Ignore all files in platform-specific folders
+android/
+linux/
+macos/
+windows/
