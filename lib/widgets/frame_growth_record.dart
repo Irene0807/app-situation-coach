@@ -12,8 +12,6 @@ import '../widgets/page_list.dart';
   growth_record 老實說也覺得這個不夠好 看有沒又更精確又同時有創意的?
 */
 
-//另外 由於以下使用page做頁面切換 route的切換會有bug 我暫時找不到解法 所以route統一成growth_record
-
 enum FrameGrowthRecordTab {
   //由最左頁至最右頁
   achievement,

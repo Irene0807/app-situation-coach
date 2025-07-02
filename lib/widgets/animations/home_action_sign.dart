@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../page_character.dart';
 import '../page_journey_start.dart';
 
+// 我查過之後 覺得換頁的動畫統一做在navagation.dart會比較恰當 固已進行調整
+
 class HomeActionSign extends StatefulWidget {
   final Widget content;
   final bool tiltLeft;

@@ -14,53 +14,79 @@ import '../widgets/page_journey_start.dart';
 
 final routerConfig = GoRouter(
   routes: [
-    GoRoute(
-        path: '/',
-        builder: (context, state) => const Pagehome(),
-        routes: [
-          GoRoute(
-              path: 'journey',
-              builder: (context, state) => const PageJourneyStart(),
-              routes: [
-                GoRoute(
-                  path: 'add',
-                  builder: (context, state) => const PageJourneyAdd(),
-                ),
-                GoRoute(
-                    //我暫時沒找到如何避免每一層都要取id的做法
-                    path: ':journeyId',
+    GoRoute(path: '/', builder: (context, state) => const Pagehome(), routes: [
+      GoRoute(
+          path: 'journey',
+          // 使用 pageBuilder 加入從右方飛入動畫
+          pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child: const PageJourneyStart(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0); // 從右方
+                  const end = Offset.zero;
+                  final tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: Curves.ease));
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+          routes: [
+            GoRoute(
+              path: 'add',
+              builder: (context, state) => const PageJourneyAdd(),
+            ),
+            GoRoute(
+                //我暫時沒找到如何避免每一層都要取id的做法
+                path: ':journeyId',
+                builder: (context, state) {
+                  final id = state.pathParameters['journeyId']!;
+                  return PageJourneyDetail(journeyId: id);
+                },
+                routes: [
+                  GoRoute(
+                    path: 'continue',
                     builder: (context, state) {
                       final id = state.pathParameters['journeyId']!;
-                      return PageJourneyDetail(journeyId: id);
+                      return PageJourneyContinue(journeyId: id);
                     },
-                    routes: [
-                      GoRoute(
-                        path: 'continue',
-                        builder: (context, state) {
-                          final id = state.pathParameters['journeyId']!;
-                          return PageJourneyContinue(journeyId: id);
-                        },
-                      ),
-                    ]),
-              ]),
-          GoRoute(
-            path: 'character',
-            builder: (context, state) => const PageCharacter(),
-          ),
-          // 點星星的話router應該會做在這一層 可以沿用journey的page
-          // '/star' -> '/:journeyId' -> '/continue'
-          //                          -> '/detail'
-          GoRoute(
-            path: 'setting',
-            builder: (context, state) => const PageSetting(),
-          ),
-          // achievement evaluation list 會建立在 FrameGrowthRecord 這個frame上
-          GoRoute(
-            path: 'growth_record',
-            builder: (context, state) =>
-                const FrameGrowthRecord(selectedTab: FrameGrowthRecordTab.achievement),
-          ),
-        ]),
+                  ),
+                ]),
+          ]),
+      GoRoute(
+        path: 'character',
+        // 使用 pageBuilder 加入從左方飛入動畫
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: const PageCharacter(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(-1.0, 0.0); // 從左方
+            const end = Offset.zero;
+            final tween = Tween(begin: begin, end: end)
+                .chain(CurveTween(curve: Curves.ease));
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ),
+      ),
+      // 點星星的話router應該會做在這一層 可以沿用journey的page
+      // '/star' -> '/:journeyId' -> '/continue'
+      //                          -> '/detail'
+      GoRoute(
+        path: 'setting',
+        builder: (context, state) => const PageSetting(),
+      ),
+      // achievement evaluation list 會建立在 FrameGrowthRecord 這個frame上
+      GoRoute(
+        path: 'growth_record',
+        builder: (context, state) => const FrameGrowthRecord(
+            selectedTab: FrameGrowthRecordTab.achievement),
+      ),
+    ]),
   ],
   initialLocation: '/',
   debugLogDiagnostics: true, // 幫助debug的東西

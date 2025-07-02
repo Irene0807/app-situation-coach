@@ -3,13 +3,20 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
+import '../data/dummy_data.dart';
+import '../models/journey.dart';
 
 class PageJourneyStart extends StatelessWidget {
   const PageJourneyStart({super.key});
 
+  //之後做database後應該可以直接做 isCompleted = false 的查詢 本function即可刪除
+  List<Journey> getCompletedJourneys(List<Journey> journeys) {
+    return journeys.where((journey) => !journey.isCompleted).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final weight = MediaQuery.of(context).size.width;
+    List<Journey> journeys = getCompletedJourneys(dummyJourneys);
 
     return Scaffold(
         body: Stack(children: [
