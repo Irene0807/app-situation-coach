@@ -4,7 +4,17 @@ import '../widgets/page_achievement.dart';
 import '../widgets/page_evaluation.dart';
 import '../widgets/page_list.dart';
 
-enum FrameInformTab {
+/*
+取名走向 growth_record progress_report learning_journey ???
+個人感覺:
+  progress_report 出現report這個字有點太過正式? 而且achievement在裡面顯得比較怪?
+  learning_journey 比較沒有一目瞭然的感覺 不夠明確指到旅行的相關紀錄之類?
+  growth_record 老實說也覺得這個不夠好 看有沒又更精確又同時有創意的?
+*/
+
+//另外 由於以下使用page做頁面切換 route的切換會有bug 我暫時找不到解法 所以route統一成growth_record
+
+enum FrameGrowthRecordTab {
   //由最左頁至最右頁
   achievement,
   evaluation,
@@ -12,16 +22,16 @@ enum FrameInformTab {
 }
 
 // 狀態會動 所以用StatefulWidget
-class FrameAchievement extends StatefulWidget {
-  const FrameAchievement({super.key, required this.selectedTab});
+class FrameGrowthRecord extends StatefulWidget {
+  const FrameGrowthRecord({super.key, required this.selectedTab});
 
-  final FrameInformTab selectedTab;
+  final FrameGrowthRecordTab selectedTab;
 
   @override
-  State<FrameAchievement> createState() => _FrameAchievementState();
+  State<FrameGrowthRecord> createState() => _FrameGrowthRecordState();
 }
 
-class _FrameAchievementState extends State<FrameAchievement>
+class _FrameGrowthRecordState extends State<FrameGrowthRecord>
     with SingleTickerProviderStateMixin {
   late PageController _pageController;
   late TabController _tabController;
@@ -67,26 +77,13 @@ class _FrameAchievementState extends State<FrameAchievement>
     super.dispose();
   }
 
-  String getTitle() {
-    switch (_currentIndex) {
-      case 0:
-        return 'Achievement';
-      case 1:
-        return 'Evaluation';
-      case 2:
-        return 'List';
-      default:
-        return '';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 249, 253),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 118, 173, 240),
-        title: Text(getTitle(), style: const TextStyle(color: Colors.white)),
+        title: Text("Growth Record", style: const TextStyle(color: Colors.white)),
         bottom: TabBar(
           controller: _tabController,
           onTap: _onTabTapped,

@@ -173,14 +173,14 @@ class Pagehome extends StatelessWidget {
                                     );
                                   },
                                   child: TwinklingWidget(
-                                      enableSwing: false,
-                                      glowWidth: size + 10,
-                                      glowHeight: size + 10,
-                                      child: Image.asset(
-                                        'assets/images/home_star_$imageIdx.png',
-                                        width: size,
-                                        height: size,
-                                      ),
+                                    enableSwing: false,
+                                    glowWidth: size + 10,
+                                    glowHeight: size + 10,
+                                    child: Image.asset(
+                                      'assets/images/home_star_$imageIdx.png',
+                                      width: size,
+                                      height: size,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -199,16 +199,18 @@ class Pagehome extends StatelessWidget {
           Positioned(
             bottom: MediaQuery.of(context).size.height * 0.10,
             left: MediaQuery.of(context).size.width * 0.10,
-            child: HomeActionSign(
-              tiltLeft: true,
-              content: Transform.translate(
-                offset: const Offset(0, -6),
-                child: Image.asset(
-                  'assets/images/home_character_button_0.png',
-                  width: 40,
+            child: GestureDetector(
+              onTap: () => context.go('/character'),
+              child: HomeActionSign(
+                tiltLeft: true,
+                content: Transform.translate(
+                  offset: const Offset(0, -6),
+                  child: Image.asset(
+                    'assets/images/home_character_button_0.png',
+                    width: 40,
+                  ),
                 ),
               ),
-              onTap: () => context.go('/character'),
             ),
           ),
 
@@ -216,18 +218,20 @@ class Pagehome extends StatelessWidget {
           Positioned(
             bottom: MediaQuery.of(context).size.height * 0.10,
             right: MediaQuery.of(context).size.width * 0.10,
-            child: HomeActionSign(
-              content: const SizedBox(
-                height: 48,
-                child: Text(
-                  'START',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown),
+            child: GestureDetector(
+              onTap: () => context.go('/journey'),
+              child: HomeActionSign(
+                content: const SizedBox(
+                  height: 48,
+                  child: Text(
+                    'START',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown),
+                  ),
                 ),
               ),
-              onTap: () => context.go('/journey')
             ),
           ),
 
@@ -257,11 +261,11 @@ class Pagehome extends StatelessWidget {
               children: [
                 // 成就按鈕
                 FloatingActionButton(
-                  heroTag: 'achievement',
-                  onPressed: () => context.go('/f-achievement'),
+                  heroTag: 'growth record',
+                  onPressed: () => context.go('/growth_record'),
                   backgroundColor: Colors.white,
                   elevation: 4,
-                  child: Icon(Icons.emoji_events,
+                  child: Icon(Icons.account_box,
                       color: const Color.fromARGB(255, 82, 189, 255), size: 26),
                 ),
                 const SizedBox(height: 16),

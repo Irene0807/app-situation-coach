@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../widgets/frame_achievement.dart';
+import '../widgets/frame_growth_record.dart';
 import '../widgets/page_home.dart';
 import '../widgets/page_journey_add.dart';
 import '../widgets/page_journey_continue.dart';
@@ -19,23 +19,23 @@ final routerConfig = GoRouter(
         builder: (context, state) => const Pagehome(),
         routes: [
           GoRoute(
-              path: '/journey',
+              path: 'journey',
               builder: (context, state) => const PageJourneyStart(),
               routes: [
                 GoRoute(
-                  path: '/add',
+                  path: 'add',
                   builder: (context, state) => const PageJourneyAdd(),
                 ),
                 GoRoute(
                     //我暫時沒找到如何避免每一層都要取id的做法
-                    path: '/:journeyId',
+                    path: ':journeyId',
                     builder: (context, state) {
                       final id = state.pathParameters['journeyId']!;
                       return PageJourneyDetail(journeyId: id);
                     },
                     routes: [
                       GoRoute(
-                        path: '/continue',
+                        path: 'continue',
                         builder: (context, state) {
                           final id = state.pathParameters['journeyId']!;
                           return PageJourneyContinue(journeyId: id);
@@ -44,31 +44,21 @@ final routerConfig = GoRouter(
                     ]),
               ]),
           GoRoute(
-            path: '/character',
+            path: 'character',
             builder: (context, state) => const PageCharacter(),
           ),
           // 點星星的話router應該會做在這一層 可以沿用journey的page
           // '/star' -> '/:journeyId' -> '/continue'
           //                          -> '/detail'
           GoRoute(
-            path: '/setting',
+            path: 'setting',
             builder: (context, state) => const PageSetting(),
           ),
-          // info-achievement info-evaluation info-list 會建立在 InformationFrame 這個frame上
+          // achievement evaluation list 會建立在 FrameGrowthRecord 這個frame上
           GoRoute(
-            path: '/f-achievement',
+            path: 'growth_record',
             builder: (context, state) =>
-                const FrameAchievement(selectedTab: FrameInformTab.achievement),
-          ),
-          GoRoute(
-            path: '/f-evaluation',
-            builder: (context, state) =>
-                const FrameAchievement(selectedTab: FrameInformTab.evaluation),
-          ),
-          GoRoute(
-            path: '/f-list',
-            builder: (context, state) =>
-                const FrameAchievement(selectedTab: FrameInformTab.list),
+                const FrameGrowthRecord(selectedTab: FrameGrowthRecordTab.achievement),
           ),
         ]),
   ],

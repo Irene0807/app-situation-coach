@@ -160,8 +160,9 @@ class PageJourneyStart extends StatelessWidget {
 
             // add journey button
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: Container(
+                width: 330,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [Color(0xFFC0C0C0), Color(0xFF808080)], // 銀白到灰金屬漸層
@@ -196,7 +197,7 @@ class PageJourneyStart extends StatelessWidget {
                   ),
                   onPressed: () => context.go('/journey/add'),
                   child: Text(
-                    'Add New Journey',
+                    'Create New Journey',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -207,6 +208,64 @@ class PageJourneyStart extends StatelessWidget {
                           blurRadius: 6,
                           offset: Offset(1, 1),
                           color: Colors.black26,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // go back button
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+              child: Container(
+                width: 330,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF1B2B50), Color(0xFF233A6C)], // 深藍漸層
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(28),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8,
+                      offset: Offset(2, 4),
+                    ),
+                  ],
+                  border: Border.all(
+                    color: const Color(0xFF233A6C), // 外框深藍
+                    width: 2,
+                  ),
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent, // 透明，顯示Container漸層
+                    shadowColor: Colors.transparent, // 不要ElevatedButton自己的陰影
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide.none,
+                    ),
+                    elevation: 0,
+                    foregroundColor: const Color(0xFFDDE2F0), // 銀灰白字
+                  ),
+                  onPressed: () => context.go('/'),
+                  child: Text(
+                    'Go Back',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFFDDE2F0), // 銀灰白字
+                      letterSpacing: 0.5,
+                      shadows: [
+                        const Shadow(
+                          blurRadius: 6,
+                          offset: Offset(1, 1),
+                          color: Colors.black38,
                         ),
                       ],
                     ),
