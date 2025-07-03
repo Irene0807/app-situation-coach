@@ -11,9 +11,9 @@ class PageSetting extends StatelessWidget {
     final textController = TextEditingController(text: setting.userName);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF5F8),
+      backgroundColor: const Color(0xFFE6F4FC),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF6C0A24),
+        backgroundColor: const Color(0xFF5970AF),
         title: const Text('Settings', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
@@ -52,8 +52,14 @@ class PageSetting extends StatelessWidget {
                   maxLength: 20,
                   enabled: setting.isEditing,
                   textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(
-                    labelText: 'Your Name',
+                  style: TextStyle(
+                    color: setting.isEditing ? Colors.grey : Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'User Name',
+                    labelStyle: TextStyle(
+                      color: setting.isEditing ? Colors.grey : Colors.black,
+                    ),
                     counterText: '',
                     border: OutlineInputBorder(),
                   ),
@@ -79,8 +85,14 @@ class PageSetting extends StatelessWidget {
 
           // Nationality
           ListTile(
-            leading: const Icon(Icons.language),
-            title: const Text('Nationality'),
+            leading: Icon(
+              Icons.language,
+              color: setting.isEditing ? Colors.grey : Colors.black,
+            ),
+            title: Text(
+              'Nationality',
+              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+            ),
             trailing: DropdownButton<String>(
               value: setting.nationality,
               onChanged: setting.isEditing ? (val) => setting.nationality = val! : null,
@@ -94,24 +106,42 @@ class PageSetting extends StatelessWidget {
           SwitchListTile(
             value: setting.darkMode,
             onChanged: setting.isEditing ? (val) => setting.darkMode = val : null,
-            title: const Text('Dark Mode'),
-            secondary: const Icon(Icons.dark_mode),
+            title: Text(
+              'Dark Mode',
+              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+            ),
+            secondary: Icon(
+              Icons.dark_mode,
+              color: setting.isEditing ? Colors.grey : Colors.black,
+            ),
           ),
 
           // Voice
           SwitchListTile(
             value: setting.isVoiceEnabled,
             onChanged: setting.isEditing ? (val) => setting.isVoiceEnabled = val : null,
-            title: const Text('Enable Voice'),
-            secondary: const Icon(Icons.record_voice_over),
+            title: Text(
+              'Enable Voice',
+              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+            ),
+            secondary: Icon(
+              Icons.record_voice_over,
+              color: setting.isEditing ? Colors.grey : Colors.black,
+            ),
           ),
 
           // Notification
           SwitchListTile(
             value: setting.isNotificationOn,
             onChanged: setting.isEditing ? (val) => setting.isNotificationOn = val : null,
-            title: const Text('Enable Notifications'),
-            secondary: const Icon(Icons.notifications_active),
+            title: Text(
+              'Enable Notifications',
+              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+            ),
+            secondary: Icon(
+              Icons.notifications_active,
+              color: setting.isEditing ? Colors.grey : Colors.black,
+            ),
           ),
         ],
       ),
