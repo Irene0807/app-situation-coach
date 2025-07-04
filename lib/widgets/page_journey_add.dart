@@ -23,11 +23,11 @@ class PageJourneyAdd extends StatelessWidget {
 
           // text field for journey description
           Positioned(
-            left: 32,
-            right: 32,
+            left: 16,
+            right: 16,
             top: 80,
             child: TextField(
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 18),
               decoration: InputDecoration(
                 hintText: 'describe your journey here',
                 hintStyle: TextStyle(color: Colors.white70),
@@ -49,7 +49,7 @@ class PageJourneyAdd extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               ),
               cursorColor: Colors.white,
-              maxLines: 30,
+              maxLines: 20,
             ),
           ),
 
@@ -57,6 +57,46 @@ class PageJourneyAdd extends StatelessWidget {
           LetterAnimation(
             isKeyboard: isKeyboardVisible,
             child: WidgetLetter(),
+          ),
+
+          //start button
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 80),
+              child: ElevatedButton(
+                onPressed: () => (), // 待處理功能
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4B296B), // 深紫色
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                    side: const BorderSide(
+                      color: Color(0xFFE2C799), // 金色邊框
+                      width: 2,
+                    ),
+                  ),
+                  elevation: 4,
+                ),
+                child: Text(
+                  'Let\'s Go!',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFFE2C799), // 金色文字
+                    letterSpacing: 0.8,
+                    shadows: const [
+                      Shadow(
+                        blurRadius: 6,
+                        offset: Offset(1, 1),
+                        color: Colors.black45,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
 
           //go back button

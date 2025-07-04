@@ -88,7 +88,7 @@ class _LetterAnimationState extends State<LetterAnimation>
 
   @override
   Widget build(BuildContext context) {
-    final down = widget.isKeyboard ? -150 : -350;
+    final down = widget.isKeyboard ? -135 : -350;
     final centerTop = _getCenterTop(context);
     final bottomTop = _getBottomTop(context, down);
 
