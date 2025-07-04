@@ -59,20 +59,22 @@ class PageAchievement extends StatelessWidget {
                 final isDone = a['isDone'] as bool;
                 return Container(
                   decoration: BoxDecoration(
-                    color: isDone ? Colors.white : Colors.grey[200],
+                    color: const Color(0xFFF9FAFB),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: isDone ? Colors.green : Colors.grey,
+                      color: isDone ? const Color(0xFF5970AF) : const Color(0xFFCBD5E1),
                       width: 2,
                     ),
-                    boxShadow: [
-                      if (isDone)
-                        const BoxShadow(
-                          color: Colors.greenAccent,
-                          blurRadius: 6,
-                          spreadRadius: 2,
-                        ),
-                    ],
+                    boxShadow: isDone
+                        ? [
+                            BoxShadow(
+                              color: const Color(0xFF5970AF).withOpacity(0.3),
+                              blurRadius: 12,
+                              spreadRadius: 2,
+                              offset: const Offset(0, 4),
+                            )
+                          ]
+                        : [],
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -81,14 +83,15 @@ class PageAchievement extends StatelessWidget {
                       Icon(
                         a['icon'] as IconData,
                         size: 40,
-                        color: isDone ? Colors.green : Colors.grey,
+                        color: isDone ? const Color(0xFF5970AF) : Colors.grey,
                       ),
                       const SizedBox(height: 12),
                       Text(
                         a['title'] as String,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: isDone ? Colors.black : Colors.grey,
+                          fontSize: 14,
+                          color: isDone ? const Color(0xFF334155) : Colors.grey,
                         ),
                         textAlign: TextAlign.center,
                       ),

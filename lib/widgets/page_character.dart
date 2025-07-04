@@ -1,19 +1,334 @@
+import 'package:app_situational_coach/widgets/painters/character_trump.dart';
 import 'package:flutter/material.dart';
+import 'package:app_situational_coach/models/character.dart';
+import 'package:app_situational_coach/data/dummy_data.dart';
+import 'animations/twinkling_widget.dart';
+import 'dart:math';
 
-class PageCharacter extends StatelessWidget {
+// 這段code有兩個class 我不確定拆完檔案要怎麼歸類 先放一起 之後可以拆
+// character的圖片只有簡單做了一個很陽春的川普（放在painters/character_trump.dart）
+
+class PageCharacter extends StatefulWidget {
   const PageCharacter({super.key});
+
+  @override
+  State<PageCharacter> createState() => _PageCharacterState();
+}
+
+class _PageCharacterState extends State<PageCharacter> {
+  int currentIndex = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    for (var char in characters) {
+      precacheImage(AssetImage(char.imagePath), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Character')),
-      body: Column(
+      body: Stack(
+        children: [
+          // 1. Background
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/home_background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 80),
+                
+                // 2. Title
+                const Text(
+                  '選擇你的旅伴',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [Shadow(color: Colors.black45, blurRadius: 4)],
+                  ),
+                ),
+                const SizedBox(height: 40),
+
+                // 3. Character Card
+                Expanded(
+                  child: PageView.builder(
+                    itemCount: characters.length,
+                    controller: PageController(viewportFraction: 0.8),
+                    onPageChanged: (index) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      final character = characters[index];
+                      final isCurrent = index == currentIndex;
+                      return CharacterCard(character: character, highlight: isCurrent);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    // Icon(Icons.swipe, color: Colors.white70, size: 20),
+                    // SizedBox(width: 8),
+                    // Text(
+                    //   '滑動查看其他角色',
+                    //   style: TextStyle(
+                    //     color: Colors.white70,
+                    //     fontSize: 14,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ),
+                    Icon(Icons.touch_app, color: Colors.white70, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      '點擊卡片查看背面',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
+          ),
+
+          // 4. Back Button
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30, top: 30),
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.arrow_back, color: Colors.black87, size: 20),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// -------------------------------------------------------
+
+class CharacterCard extends StatefulWidget {
+  final Character character;
+  final bool highlight;
+
+  const CharacterCard({super.key, required this.character, required this.highlight});
+
+  @override
+  State<CharacterCard> createState() => _CharacterCardState();
+}
+
+class _CharacterCardState extends State<CharacterCard> with SingleTickerProviderStateMixin {
+  bool isFlipped = false;
+
+  @override
+  void didUpdateWidget(covariant CharacterCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.highlight && !widget.highlight && isFlipped) {
+      setState(() => isFlipped = false); // 非選定 & 在反面 -> 自動翻回正面
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final cardWidth = screenWidth * 0.8;
+    final cardHeight = cardWidth * 1.7;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: AnimatedScale(
+        scale: widget.highlight ? 1.0 : 0.9,
+        duration: const Duration(milliseconds: 300),
+        child: GestureDetector(
+          onTap: () {
+            setState(() => isFlipped = !isFlipped);
+          },
+          child: TwinklingWidget(
+            enableGlow: widget.highlight,
+            enableSwing: false,
+            glowWidth: cardWidth * 0.8,
+            glowHeight: cardHeight * 0.8,
+            glowMaxOpacity: 0.01,
+            glowBlurRadius: 50,
+            child: Opacity(
+              opacity: widget.highlight ? 1.0 : 0.5,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                transitionBuilder: (child, animation) {
+                  final rotate = Tween(begin: pi, end: 0.0).animate(animation);
+                  return AnimatedBuilder(
+                    animation: rotate,
+                    child: child,
+                    builder: (context, child) {
+                      final isUnder = (ValueKey(isFlipped) != child!.key);
+                      final tilt = (isUnder ? pi : 0.0) + rotate.value;
+                      return Transform(
+                        transform: Matrix4.rotationY(tilt),
+                        alignment: Alignment.center,
+                        child: child,
+                      );
+                    },
+                  );
+                },
+                child: isFlipped
+                    ? _buildBack(cardHeight)
+                    : _buildFront(cardHeight),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFront(double cardHeight) {
+    final character = widget.character;
+    return Container(
+      key: const ValueKey(false),
+      width: double.infinity,
+      height: cardHeight,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 245, 245, 245),
+        borderRadius: BorderRadius.circular(24),
+        border: widget.highlight
+            ? Border.all(color: const Color.fromARGB(255, 89, 112, 175), width: 3)
+            : null,
+        boxShadow: widget.highlight
+            ? [
+                BoxShadow(
+                  color: Colors.blueAccent.withOpacity(0.4),
+                  blurRadius: 20,
+                  spreadRadius: 4,
+                )
+              ]
+            : [],
+      ),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Center(child: Text('PageCharacter')),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: const Center(child: Text('看要做到多3D? 可能一樣做一個frame 然後可以用滑的看6個角色 每個角色的頁面可以放 性別 年齡 2.5D照片 之類的')),
+          const SizedBox(height: 12),
+          character.imagePath.contains('trump')
+              ? TrumpCharacter(isSpeaking: widget.highlight)
+              : Image.asset(
+                  character.imagePath,
+                  height: cardHeight * 0.35,
+                  gaplessPlayback: true,
+                  filterQuality: FilterQuality.low,
+                ),
+          const SizedBox(height: 12),
+          Text(character.name,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text('${character.gender} / ${character.age} 歲',
+              style: const TextStyle(color: Colors.black54)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBack(double cardHeight) {
+    final character = widget.character;
+    return Container(
+      key: const ValueKey(true),
+      width: double.infinity,
+      height: cardHeight,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFDFDFD),
+        borderRadius: BorderRadius.circular(24),
+        border: widget.highlight
+            ? Border.all(color: const Color.fromARGB(255, 89, 112, 175), width: 3)
+            : null,
+        boxShadow: widget.highlight
+            ? [
+                BoxShadow(
+                  color: Colors.blueAccent.withOpacity(0.4),
+                  blurRadius: 20,
+                  spreadRadius: 4,
+                )
+              ]
+            : [],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+
+          // 1. Character Name
+          Center(
+            child: Text(
+              character.name,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: const Color.fromARGB(221, 21, 64, 128),
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+
+          // 2. 背景介紹
+          const Text('背景介紹：',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 6),
+          Text(character.background,
+              style: const TextStyle(fontSize: 15, height: 1.4)),
+          const SizedBox(height: 20),
+
+          // 3. 個性特質
+          const Text('個性特質：',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 6),
+          Text(character.personality,
+              style: const TextStyle(fontSize: 15, height: 1.4)),
+          const SizedBox(height: 20),
+
+          // 4. 語氣風格
+          const Text('語氣風格：',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 6),
+          Text(character.tone,
+              style: const TextStyle(fontSize: 15, height: 1.4)),
+
+          // 5. Slogan
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 45.0, left: 12, right: 12),
+                child: Text(
+                  character.slogan,
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: cardHeight * 0.035,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(221, 21, 64, 128),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           ),
         ],
       ),
