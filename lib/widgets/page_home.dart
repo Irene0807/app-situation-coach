@@ -8,6 +8,7 @@ import 'animations/twinkling_widget.dart';
 import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
+import '../widgets/widget_star_showDialog.dart';
 
 class Pagehome extends StatelessWidget {
   const Pagehome({super.key});
@@ -58,7 +59,6 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-
           // 3. ground
           Positioned(
             bottom: -3,
@@ -106,12 +106,15 @@ class Pagehome extends StatelessWidget {
 
                             // 星星大小
                             final starSizes = [84.0, 96.0, 108.0];
-                            final size = starSizes[random.nextInt(starSizes.length)];
+                            final size =
+                                starSizes[random.nextInt(starSizes.length)];
 
                             // 星星位置
-                            double baseTop =
-                                100 + (index % 3) * 60 + random.nextDouble() * 20;
-                            final baseLeft = index * 140 + random.nextDouble() * 5;
+                            double baseTop = 100 +
+                                (index % 3) * 60 +
+                                random.nextDouble() * 20;
+                            final baseLeft =
+                                index * 140 + random.nextDouble() * 5;
 
                             // 視差因子
                             final parallaxX = 1 - (baseTop / 400);
@@ -136,41 +139,24 @@ class Pagehome extends StatelessWidget {
                                         onTap: () {
                                           showDialog(
                                             context: context,
-                                            builder: (_) => AlertDialog(
-                                              title: Text(
-                                                  '暫時隨便寫的而已 待改 \n 旅程：${journey.name}'),
-                                              content: Text(
-                                                  '角色：${journey.character}\n狀態：${journey.isCompleted ? "已完成" : "尚未完成"}'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(context),
-                                                  child: const Text('關閉'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    context
-                                                        .go('/journey/${journey.id}');
-                                                  },
-                                                  child: const Text('進入旅程'),
-                                                ),
-                                              ],
+                                            builder: (_) =>
+                                                WidgetStarShowDialog(
+                                              journey: journey,
                                             ),
                                           );
                                         },
                                         child: TwinklingWidget(
-                                            enableSwing: true,
-                                              enableGlow: true,
-                                              verticalOffset: 5.0,
-                                              glowSpreadRadius: 2.0,
-                                              glowWidth: size-15,
-                                              glowHeight: size-15,
-                                            child: Image.asset(
-                                              'assets/images/home_star_$imageIdx.png',
-                                              width: size,
-                                              height: size,
-                                            ),
+                                          enableSwing: true,
+                                          enableGlow: true,
+                                          verticalOffset: 5.0,
+                                          glowSpreadRadius: 2.0,
+                                          glowWidth: size - 15,
+                                          glowHeight: size - 15,
+                                          child: Image.asset(
+                                            'assets/images/home_star_$imageIdx.png',
+                                            width: size,
+                                            height: size,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -233,7 +219,6 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-
           // 8. 其他文字
           // 我也還沒做 但先註解掉暫時避免出現在畫面上而已
           // Positioned.fill(
@@ -268,7 +253,8 @@ class Pagehome extends StatelessWidget {
                       onPressed: () => context.go('/growth_record'),
                       backgroundColor: Colors.white,
                       elevation: 4,
-                      child: Icon(Icons.emoji_events, color: Color(0xFF52BDFF), size: 26),
+                      child: Icon(Icons.emoji_events,
+                          color: Color(0xFF52BDFF), size: 26),
                     ),
                     const SizedBox(height: 16),
                     // setting 按鈕
@@ -277,7 +263,8 @@ class Pagehome extends StatelessWidget {
                       onPressed: () => context.go('/setting'),
                       backgroundColor: Colors.white,
                       elevation: 4,
-                      child: Icon(Icons.settings, color: Colors.indigo, size: 26),
+                      child:
+                          Icon(Icons.settings, color: Colors.indigo, size: 26),
                     ),
                   ],
                 ),

@@ -10,14 +10,14 @@ import '../widgets/page_character.dart';
 import '../widgets/page_setting.dart';
 import '../widgets/page_journey_start.dart';
 
-//測試router可以用chrome而不是用android模擬器來debug 這樣可以看到當下的path 顯示在網址
+// 也不知道算不算bug 從home點星球進入旅行後 離開會跳到journey_start 
+// 有需要再調整 我個人認為沒毛病 都可? (調起來很快 有需要直接說
 
 final routerConfig = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const Pagehome(), routes: [
       GoRoute(
           path: 'journey',
-          // 使用 pageBuilder 加入從右方飛入動畫
           pageBuilder: (context, state) => CustomTransitionPage(
                 key: state.pageKey,
                 child: const PageJourneyStart(),
@@ -39,25 +39,15 @@ final routerConfig = GoRouter(
               builder: (context, state) => const PageJourneyAdd(),
             ),
             GoRoute(
-                //我暫時沒找到如何避免每一層都要取id的做法
-                path: ':journeyId',
-                builder: (context, state) {
-                  final id = state.pathParameters['journeyId']!;
-                  return PageJourneyDetail(journeyId: id);
-                },
-                routes: [
-                  GoRoute(
-                    path: 'continue',
-                    builder: (context, state) {
-                      final id = state.pathParameters['journeyId']!;
-                      return PageJourneyContinue(journeyId: id);
-                    },
-                  ),
-                ]),
+              path: 'continue:journeyId',
+              builder: (context, state) {
+                final id = state.pathParameters['journeyId']!;
+                return PageJourneyContinue(journeyId: id);
+              },
+            ),
           ]),
       GoRoute(
         path: 'character',
-        // 使用 pageBuilder 加入從左方飛入動畫
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const PageCharacter(),
@@ -73,14 +63,17 @@ final routerConfig = GoRouter(
           },
         ),
       ),
-      // 點星星的話router應該會做在這一層 可以沿用journey的page
-      // '/star' -> '/:journeyId' -> '/continue'
-      //                          -> '/detail'
+      GoRoute(
+        path: 'detail:journeyId',
+        builder: (context, state) {
+          final id = state.pathParameters['journeyId']!;
+          return PageJourneyDetail(journeyId: id);
+        },
+      ),
       GoRoute(
         path: 'setting',
         builder: (context, state) => const PageSetting(),
       ),
-      // achievement evaluation list 會建立在 FrameGrowthRecord 這個frame上
       GoRoute(
         path: 'growth_record',
         builder: (context, state) => const FrameGrowthRecord(

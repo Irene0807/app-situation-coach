@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../state/journey_list_notifier.dart';
+import 'package:provider/provider.dart';
 import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
 import '../data/dummy_data.dart';
 import '../models/journey.dart';
+import '../widgets/widget_star_showDialog.dart';
 
 class PageJourneyStart extends StatelessWidget {
   const PageJourneyStart({super.key});
@@ -16,7 +19,8 @@ class PageJourneyStart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Journey> journeys = getCompletedJourneys(dummyJourneys);
+    final journeys =
+        getCompletedJourneys(context.watch<JourneyListNotifier>().journeys);
 
     return Scaffold(
         body: Stack(children: [
@@ -129,30 +133,43 @@ class PageJourneyStart extends StatelessWidget {
                                     child: SizedBox(
                                       width: 100,
                                       height: 100,
-                                      child: index < 3
-                                          ? GestureDetector(
-                                              onTap: () => context
-                                                  .go('/journey/:journeyId'),
-                                              child: TwinklingWidget(
-                                                  duration: Duration(
-                                                      seconds: 8 + index),
-                                                  enableSwing: true,
-                                                  enableGlow: true,
-                                                  glowWidth: 75,
-                                                  glowHeight: 75,
-                                                  child: Image.asset(
-                                                    'assets/images/home_star_3.png',
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                            )
-                                          : GestureDetector(
-                                              onTap: () =>
-                                                  context.go('/journey/add'),
+                                      child: Builder(builder: (context) {
+                                        if (index < journeys.length) {
+                                          final journey = journeys[index];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (_) =>
+                                                    WidgetStarShowDialog(
+                                                  journey: journey,
+                                                ),
+                                              );
+                                            },
+                                            child: TwinklingWidget(
+                                              duration:
+                                                  Duration(seconds: 8 + index),
+                                              enableSwing: true,
+                                              enableGlow: true,
+                                              glowWidth: 75,
+                                              glowHeight: 75,
                                               child: Image.asset(
-                                                'assets/images/add_planet.png',
+                                                'assets/images/home_star_${index + 1}.png',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
+                                          );
+                                        } else {
+                                          return GestureDetector(
+                                            onTap: () =>
+                                                context.go('/journey/add'),
+                                            child: Image.asset(
+                                              'assets/images/add_planet.png',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          );
+                                        }
+                                      }),
                                     ),
                                   )),
                             ),
