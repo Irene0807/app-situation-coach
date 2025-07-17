@@ -138,26 +138,26 @@ Learning Goal: $goal
         .addJourney(journey);
 
     // debug用 顯示生成的journey schedule
-    // setState(() {
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) {
-    //         return AlertDialog(
-    //           content: Text(schedule),
-    //           actions: [
-    //             TextButton(
-    //               onPressed: () {
-    //                 context.pop();
-    //                 context.pop();
-    //               },
-    //               child: const Text('OK'),
-    //             ),
-    //           ],
-    //         );
-    //       });
-    // });
+    setState(() {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: SingleChildScrollView(child: Text(schedule)),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    context.pop();
+                    context.pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          });
+    });
 
-    context.pop(); // 返回上一頁
+    // context.pop(); // 返回上一頁
   }
 
   @override

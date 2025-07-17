@@ -14,12 +14,12 @@ The journey schedule should follow this format:
 <<day_1/scene_1/title>> <<[Scene 1 Title]>>
 <<day_1/scene_1/location>> <<[Location]>>
 <<day_1/scene_1/theme>> <<[The learning theme of the scene]>>
-<<day_1/scene_1/dialogue>> <<[The dialogue topics for the scene]>>
+<<day_1/scene_1/topic>> <<[The dialogue topics for the scene]>>
 
 <<day_1/scene_2/title>> <<[Scene 2 Title]>>
 <<day_1/scene_2/location>> <<[Location]>>
 <<day_1/scene_2/theme>> <<[The learning theme of the scene]>>
-<<day_1/scene_2/dialogue>> <<[The dialogue topics for the scene]>>
+<<day_1/scene_2/topic>> <<[The dialogue topics for the scene]>>
 
 <<day_2/title>> <<[Day 2 Title]>>
 

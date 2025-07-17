@@ -19,3 +19,14 @@ class Journey {
     this.isCompleted = false,
   });
 }
+
+/*
+way to use schedule map:
+{
+  "day_1/title":            "[Day 1 Title]",
+  "day_1/scene_1/title":    "[Scene 1 Title]"
+  "day_1/scene_1/location": "[Location]"
+  "day_1/scene_1/theme":    "[The learning theme of the scene]"
+  "day_1/scene_1/topic":    "[The dialogue topics for the scene]"
+}
+*/

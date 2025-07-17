@@ -4,7 +4,8 @@
 String getJourneyPlanGeneratorPrompt(String userInput) {
   return '''
 Help me generate a journey plan based on the user's input.
-if the user input is null or empty, create any journey plan you like.
+If the user input is null or empty, create any journey plan you like.
+We aim to enhance the user's English skills through this journey.
 
 user's input:
 $userInput

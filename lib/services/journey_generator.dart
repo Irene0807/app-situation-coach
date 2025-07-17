@@ -4,6 +4,7 @@ import 'gemini_api.dart';
 import '../services/prompt/journey_plan_generator.dart';
 import '../services/prompt/journey_schedule_generator.dart';
 import '../services/prompt/dialogue_script_generator.dart';
+import '../models/journey.dart';
 
 /*
 以下簡單說明旅行的生成過程:
@@ -78,9 +79,9 @@ class JourneyGenerator {
     return journeySchedule;
   }
 
-  Future<String> generateDialogueScript(String plan, String schedule) async {
-    // 在進入場景前 根據plan和schedule生成script
-    final prompt = getDialogueScriptGeneratorPrompt(plan, schedule);
+  Future<String> generateDialogueScript(Journey journey) async {
+    // 在進入場景前 根據journey生成某scene的script
+    final prompt = getDialogueScriptGeneratorPrompt(journey);
     final dialogueScript = askGemini(prompt);
     return dialogueScript;
   }
@@ -141,7 +142,7 @@ journey schedule example:
 
 dialogue script example:
 "
-
+  
 "
 
 */
