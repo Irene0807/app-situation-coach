@@ -1,16 +1,17 @@
+import 'package:app_situational_coach/widgets/frame_journey_add.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/frame_growth_record.dart';
 import '../widgets/page_home.dart';
-import '../widgets/page_journey_add.dart';
+import '../widgets/page_journey_add_prompt.dart';
 import '../widgets/page_journey_continue.dart';
 import '../widgets/page_journey_detail.dart';
 import '../widgets/page_character.dart';
 import '../widgets/page_setting.dart';
 import '../widgets/page_journey_start.dart';
 
-// 也不知道算不算bug 從home點星球進入旅行後 離開會跳到journey_start 
+// 也不知道算不算bug 從home點星球進入旅行後 離開會跳到journey_start
 // 有需要再調整 我個人認為沒毛病 都可? (調起來很快 有需要直接說
 
 final routerConfig = GoRouter(
@@ -36,7 +37,8 @@ final routerConfig = GoRouter(
           routes: [
             GoRoute(
               path: 'add',
-              builder: (context, state) => const PageJourneyAdd(),
+              builder: (context, state) =>
+                  const FrameJourneyAdd(selectedTab: FrameJourneyAddTab.prompt),
             ),
             GoRoute(
               path: 'continue:journeyId',

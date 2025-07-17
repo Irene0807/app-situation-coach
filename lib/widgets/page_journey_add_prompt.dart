@@ -3,23 +3,31 @@ import 'package:go_router/go_router.dart';
 import '../widgets/widget_letter.dart';
 import '../widgets/animations/letter_animation.dart';
 
-class PageJourneyAdd extends StatelessWidget {
-  const PageJourneyAdd({super.key});
+// lets go 的 button如果連續點擊會有bug 之後再說吧
+
+class PageJourneyAddPrompt extends StatelessWidget {
+  PageJourneyAddPrompt({super.key, required this.onLetsGo});
+
+  final void Function(String) onLetsGo;
+
+  // controller放在這 否則放在build裡重建widget時已經輸入的內容會消失
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
 
     return Scaffold(
+      backgroundColor: Colors.transparent, // 讓 Scaffold 透明
       body: Stack(
         children: [
           // background
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/add_background.png',
-              fit: BoxFit.cover,
-            ),
-          ),
+          // Positioned.fill(
+          //   child: Image.asset(
+          //     'assets/images/add_background.png',
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
 
           // text field for journey description
           Positioned(
@@ -27,6 +35,7 @@ class PageJourneyAdd extends StatelessWidget {
             right: 16,
             top: 80,
             child: TextField(
+              controller: controller,
               style: TextStyle(color: Colors.white, fontSize: 18),
               decoration: InputDecoration(
                 hintText: 'describe your journey here',
@@ -59,13 +68,16 @@ class PageJourneyAdd extends StatelessWidget {
             child: WidgetLetter(),
           ),
 
-          //start button
+          //let's go button
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 80),
               child: ElevatedButton(
-                onPressed: () => (), // 待處理功能
+                onPressed: () {
+                  onLetsGo(controller.text); // 傳入 TextField 內容
+                  // 點下這個button後需要進入loading狀態 之後再處理
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4B296B), // 深紫色
                   padding:

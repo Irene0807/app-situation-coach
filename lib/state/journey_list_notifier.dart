@@ -17,7 +17,11 @@ class JourneyListNotifier extends ChangeNotifier {
       _journeys[index] = Journey(
         id: _journeys[index].id,
         name: _journeys[index].name,
+        day: _journeys[index].day,
         character: _journeys[index].character,
+        description: _journeys[index].description,
+        learningGoal: _journeys[index].learningGoal,
+        schedule: _journeys[index].schedule,
         isCompleted: true,
       );
       notifyListeners();
