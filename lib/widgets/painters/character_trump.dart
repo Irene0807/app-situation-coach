@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:rive/rive.dart';
 
 class TrumpCharacter extends StatefulWidget {
   final bool isSpeaking;
@@ -10,63 +10,54 @@ class TrumpCharacter extends StatefulWidget {
 }
 
 class _TrumpCharacterState extends State<TrumpCharacter> {
-  bool mouthOpen = false;
-  Timer? _timer;
+  Artboard? _artboard;
+  StateMachineController? _controller;
+  SMITrigger? _lipsyncTrigger;
+  SMIInput<bool>? _emotionToggle;
 
   @override
   void initState() {
     super.initState();
-    // 嘴巴動畫定時器
-    _timer = Timer.periodic(const Duration(milliseconds: 400), (_) {
-      if (widget.isSpeaking) {
-        setState(() => mouthOpen = !mouthOpen);
-      } else {
-        if (mouthOpen) setState(() => mouthOpen = false);
-      }
-    });
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
+  void _onRiveInit(Artboard artboard) {
+    final controller = StateMachineController.fromArtboard(
+      artboard,
+      'State Machine 1', // 如果你的 State Machine 名稱不同請修改這行
+    );
+    if (controller != null) {
+      artboard.addController(controller);
+      setState(() {
+        _artboard = artboard;
+        _controller = controller;
+        _lipsyncTrigger = controller.findSMI('demo lipsync') as SMITrigger?;
+        _emotionToggle = controller.findInput<bool>('toEmotion2');
+      });
+
+      // 初始化表情為 emotion 1
+      _emotionToggle?.value = false;
+    }
   }
 
   @override
   void didUpdateWidget(covariant TrumpCharacter oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (!widget.isSpeaking && mouthOpen) {
-      setState(() => mouthOpen = false);
+    if (widget.isSpeaking && _lipsyncTrigger != null) {
+      _lipsyncTrigger?.fire();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset('assets/images/trump.png', height: 160),
-        Positioned(
-          bottom: 6,
-          child: Transform.scale(
-            scaleY: mouthOpen ? 1.5 : 1.0,
-            child: ClipRect(
-              clipper: MouthClipper(),
-              child: Image.asset('assets/images/trump.png', height: 160),
-            ),
-          ),
-        )
-      ],
+    return SizedBox(
+      height: 180,
+      child: _artboard == null
+          ? RiveAnimation.asset(
+              'assets/character_man.riv',
+              fit: BoxFit.contain,
+              onInit: _onRiveInit,
+            )
+          : Rive(artboard: _artboard!, fit: BoxFit.contain),
     );
   }
-}
-
-class MouthClipper extends CustomClipper<Rect> {
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(size.width * 0.43, size.height * 0.60, size.width * 0.15, size.height * 0.07);
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }
