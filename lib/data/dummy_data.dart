@@ -5,11 +5,38 @@ List<Journey> dummyJourneys = [
   Journey(
       id: '1',
       name: 'Seoul Shopping',
-      day: 1,
+      day: 3,
       character: 'Trump',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
-      schedule: {},
+      schedule: {
+        // Day 1
+        'day_1/scene_1/title': 'Grocery Shopping',
+        'day_1/scene_1/theme': 'Basic Transactions',
+        'day_1/scene_1/topic': 'Buying fruits at a market',
+
+        'day_1/scene_2/title': 'Asking for Directions',
+        'day_1/scene_2/theme': 'Navigation',
+        'day_1/scene_2/topic': 'Finding the nearest subway station',
+
+        // Day 2
+        'day_2/scene_1/title': 'Ordering at a Café',
+        'day_2/scene_1/theme': 'Food & Drinks',
+        'day_2/scene_1/topic': 'Ordering coffee and breakfast',
+
+        'day_2/scene_2/title': 'Shopping for Clothes',
+        'day_2/scene_2/theme': 'Fashion & Sizes',
+        'day_2/scene_2/topic': 'Asking for different sizes and colors',
+
+        // Day 3
+        'day_3/scene_1/title': 'Hotel Check-In',
+        'day_3/scene_1/theme': 'Travel Accommodation',
+        'day_3/scene_1/topic': 'Checking in and asking about amenities',
+
+        'day_3/scene_2/title': 'Calling a Taxi',
+        'day_3/scene_2/theme': 'Transportation',
+        'day_3/scene_2/topic': 'Describing your destination and payment method',
+      },
       isCompleted: false),
   Journey(
       id: '2',

@@ -1,7 +1,7 @@
-
+// // [JOURNEY GENERATOR] - JOURNEY SCHEDULE PROMPT
 //prompt 之後都要大改。。。現在先隨便弄
 
-String getJourneyScheduleGeneratorPrompt(String plan) {
+String getJourneySchedulePrompt(String plan) {
   return '''
 Help me generate a detailed journey schedule based on the journey plan:
 

@@ -11,10 +11,6 @@ import '../widgets/page_character.dart';
 import '../widgets/page_setting.dart';
 import '../widgets/page_journey_start.dart';
 
-// 也不知道算不算bug 從home點星球進入旅行後 離開會跳到journey_start
-// 有需要再調整 我個人認為沒毛病 都可? (調起來很快 有需要直接說
-// I: 問題不大 要說就說他想退出的時候 跑到journey_start 促進他進下一段旅程
-
 final routerConfig = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const Pagehome(), routes: [
