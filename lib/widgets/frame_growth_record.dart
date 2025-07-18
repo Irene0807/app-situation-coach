@@ -4,14 +4,6 @@ import '../widgets/page_achievement.dart';
 import '../widgets/page_evaluation.dart';
 import '../widgets/page_list.dart';
 
-/*
-取名走向 growth_record progress_report learning_journey ???
-個人感覺:
-  progress_report 出現report這個字有點太過正式? 而且achievement在裡面顯得比較怪?
-  learning_journey 比較沒有一目瞭然的感覺 不夠明確指到旅行的相關紀錄之類?
-  growth_record 老實說也覺得這個不夠好 看有沒又更精確又同時有創意的?
-*/
-
 enum FrameGrowthRecordTab {
   //由最左頁至最右頁
   achievement,
