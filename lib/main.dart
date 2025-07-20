@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'services/navigation.dart';
 
-import 'state/journey_state_notifier.dart';
 import 'state/character_notifier.dart';
 import 'state/conversation_notifier.dart';
 import 'state/journey_list_notifier.dart';
@@ -25,7 +24,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => JourneyStateNotifier()),
+        // 只有FrameJourneyContinue需要 故從router那邊餵過去
+        // ChangeNotifierProvider(create: (_) => JourneyStateNotifier()),
         ChangeNotifierProvider(create: (_) => CharacterNotifier()),
         ChangeNotifierProvider(create: (_) => ConversationNotifier()),
         ChangeNotifierProvider(create: (_) => JourneyListNotifier()..addAll(dummyJourneys)),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_situational_coach/models/day.dart';
 import 'package:http/http.dart' as http;
 import 'gemini_api.dart';
 import '../services/prompt/journey_plan_generator.dart';
@@ -65,18 +66,23 @@ class JourneyGenerator {
     }
   }
 
-  Future<String> generateJourneyPlan(String userInput) async {
+  Future<Map<String, String>> generateJourneyPlan(String userInput) async {
     // 把使用者的原prompt轉乘plan
-    final prompt = getJourneyPlanGeneratorPrompt(userInput);
-    final journeyPlan = askGemini(prompt);
-    return journeyPlan;
+    PromptJourneyPlan p = PromptJourneyPlan();
+    final prompt = p.getJourneyPlanGeneratorPrompt(userInput);
+    final planText = await askGemini(prompt);
+    final plan = p.getSplitPlan(planText);
+    return plan;
   }
 
-  Future<String> generateJourneySchedule(String plan) async {
+  Future<List<Day>> generateJourneySchedule(String plan) async {
     // 透過經使用者修改過後的plan生成schedule
-    final prompt = getJourneyScheduleGeneratorPrompt(plan);
-    final journeySchedule = askGemini(prompt);
-    return journeySchedule;
+    PromptJourneySchedule p = PromptJourneySchedule();
+    final prompt = p.getJourneyScheduleGeneratorPrompt(plan);
+    final scheduleText = await askGemini(prompt);
+    // print(scheduleText);
+    final schedule = p.getOrderedSchedule(scheduleText);
+    return schedule;
   }
 
   Future<String> generateDialogueScript(Journey journey) async {

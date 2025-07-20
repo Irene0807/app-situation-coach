@@ -15,7 +15,7 @@ class WidgetStarShowDialog extends StatelessWidget {
     return AlertDialog(
       title: Text('(待調整) ${journey.name}'),
       content: Text(
-          'Character: ${journey.character}\nCondition: ${journey.isCompleted ? "Completed" : "Uncompleted"}'),
+          'Character: ${journey.character}\nCondition: ${journey.status.isCompleted() ? "Completed" : "Uncompleted"}'),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -24,11 +24,11 @@ class WidgetStarShowDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
-            journey.isCompleted
+            journey.status.isCompleted()
                 ? context.go('/detail:${journey.id}')
                 : context.go('/journey/continue:${journey.id}');
           },
-          child: journey.isCompleted
+          child: journey.status.isCompleted()
               ? const Text('Detail')
               : const Text('Continue'),
         ),
@@ -36,3 +36,28 @@ class WidgetStarShowDialog extends StatelessWidget {
     );
   }
 }
+
+/* 
+測試schedule時用的code
+
+    content: SingleChildScrollView(
+      child: Text((() {
+        String s = '';
+        for (int i = 0; i < journey.schedule.length; i++) {
+          s += journey.schedule[i].title;
+          s += '\n\n';
+          for (int j = 0; j < journey.schedule[i].scenes.length; j++) {
+            s += journey.schedule[i].scenes[j].title;
+            s += '\n\n';
+            s += journey.schedule[i].scenes[j].location;
+            s += '\n\n';
+            s += journey.schedule[i].scenes[j].learningTheme;
+            s += '\n\n';
+            s += journey.schedule[i].scenes[j].dialogueTopic;
+            s += '\n\n';
+          }
+        }
+        return s;
+      })()),
+    )
+*/

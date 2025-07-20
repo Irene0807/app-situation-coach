@@ -14,16 +14,7 @@ class JourneyListNotifier extends ChangeNotifier {
   void markAsCompleted(String journeyId) {
     final index = _journeys.indexWhere((j) => j.id == journeyId);
     if (index != -1) {
-      _journeys[index] = Journey(
-        id: _journeys[index].id,
-        name: _journeys[index].name,
-        day: _journeys[index].day,
-        character: _journeys[index].character,
-        description: _journeys[index].description,
-        learningGoal: _journeys[index].learningGoal,
-        schedule: _journeys[index].schedule,
-        isCompleted: true,
-      );
+      _journeys[index].status.makeCompleted();
       notifyListeners();
     }
   }

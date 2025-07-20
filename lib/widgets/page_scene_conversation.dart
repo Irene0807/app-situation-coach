@@ -3,13 +3,13 @@ import '../widgets/agents/agent_controller.dart';
 import 'package:provider/provider.dart';
 import '../state/conversation_notifier.dart';
 
-class PageJourneyContinue extends StatefulWidget {
+class PageSceneConversation extends StatefulWidget {
   final String journeyId;
   final String topic;
   final String place;
   final int day;
 
-  const PageJourneyContinue({
+  const PageSceneConversation({
     super.key,
     required this.journeyId,
     this.topic = 'garbage dump',
@@ -18,10 +18,10 @@ class PageJourneyContinue extends StatefulWidget {
   });
 
   @override
-  State<PageJourneyContinue> createState() => _PageJourneyContinueState();
+  State<PageSceneConversation> createState() => _PageSceneConversationState();
 }
 
-class _PageJourneyContinueState extends State<PageJourneyContinue> {
+class _PageSceneConversationState extends State<PageSceneConversation> {
   final TextEditingController _controller = TextEditingController();
   final AgentController _agentController = AgentController();
 

@@ -94,19 +94,19 @@ class PageList extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: journey.isCompleted ? Colors.green[50] : Colors.orange[50],
+                    color: journey.status.isCompleted() ? Colors.green[50] : Colors.orange[50],
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: journey.isCompleted ? Colors.green : Colors.orange,
+                      color: journey.status.isCompleted() ? Colors.green : Colors.orange,
                       width: 1.5,
                     ),
                   ),
                   child: Row(
                     children: [
                       Icon(
-                        journey.isCompleted ? Icons.emoji_events : Icons.directions_walk,
+                        journey.status.isCompleted() ? Icons.emoji_events : Icons.directions_walk,
                         size: 32,
-                        color: journey.isCompleted ? Colors.green : Colors.orange,
+                        color: journey.status.isCompleted() ? Colors.green : Colors.orange,
                       ),
                       const SizedBox(width: 16),
                       Expanded(
@@ -131,7 +131,7 @@ class PageList extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        journey.isCompleted ? '✅' : '⏳',
+                        journey.status.isCompleted() ? '✅' : '⏳',
                         style: const TextStyle(fontSize: 20),
                       )
                     ],

@@ -1,5 +1,6 @@
 import '../models/journey.dart';
 import '../models/character.dart';
+import '../models/status.dart';
 
 List<Journey> dummyJourneys = [
   Journey(
@@ -9,8 +10,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '2',
       name: 'Job Interview',
@@ -18,8 +19,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '模擬一次英語工作面試，提升口語表達能力。',
       learningGoal: '學習如何在面試中自信地表達自己。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '3',
       name: 'Taipei Night Market',
@@ -27,8 +28,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在台北夜市體驗當地小吃和文化。',
       learningGoal: '學習如何在日常生活中使用英語進行交流',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '4',
       name: 'Tokyo Vacation',
@@ -36,8 +37,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在東京的假期，探索城市和文化。',
       learningGoal: '學習如何在旅遊中使用英語進行溝通。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '5',
       name: 'Hong Kong Business Trip',
@@ -45,8 +46,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在香港的商務旅行，與當地商人交流。',
       learningGoal: '學習如何在商務場合使用英語。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '6',
       name: 'Shanghai Conference',
@@ -54,8 +55,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '參加上海的國際會議，與各國代表交流。',
       learningGoal: '學習如何在正式場合使用英語。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '7',
       name: 'Singapore Expo',
@@ -63,8 +64,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在新加坡的博覽會上展示產品，與客戶交流。',
       learningGoal: '學習如何在展覽中使用英語進行推銷和交流。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   // Journey(
   //     id: '8',
   //     name: 'Bangkok Tour',

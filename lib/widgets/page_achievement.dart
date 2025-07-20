@@ -11,7 +11,7 @@ class PageAchievement extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final completedJourneys =
-        dummyJourneys.where((j) => j.isCompleted).length;
+        dummyJourneys.where((j) => j.status.isCompleted()).length;
 
     final achievements = [
       {

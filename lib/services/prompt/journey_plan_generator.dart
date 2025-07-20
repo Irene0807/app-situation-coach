@@ -1,8 +1,8 @@
-
 //prompt 之後都要大改。。。現在先隨便弄
 
-String getJourneyPlanGeneratorPrompt(String userInput) {
-  return '''
+class PromptJourneyPlan {
+  String getJourneyPlanGeneratorPrompt(String userInput) {
+    return '''
 Help me generate a journey plan based on the user's input.
 If the user input is null or empty, create any journey plan you like.
 We aim to enhance the user's English skills through this journey.
@@ -31,7 +31,29 @@ Tips:
 - <<name>>, <<day>>, <<character>>, <<description>>, and <<goal>> shouldn't be changed.
 - [] should be replaced with the actual content.
 ''';
-}
+  }
+
+  Map<String, String> getSplitPlan(String plan) {
+    // List of keys to extract
+    final List<String> keys = [
+      'name',
+      'day',
+      'character',
+      'description',
+      'goal'
+    ];
+    Map<String, String> splitPlan = {
+      for (var key in keys) key: extractValue(key, plan)
+    };
+    return splitPlan;
+  }
+
+  // Function to extract value for a key from the plan string
+  String extractValue(String key, String text) {
+    final regex = RegExp(r'<<' + key + r'>>\s*([\s\S]*?)(?=(<<|$))');
+    final match = regex.firstMatch(text);
+    return match != null ? match.group(1)?.trim() ?? '' : '';
+  }
 
 /*
 
@@ -58,3 +80,4 @@ journey plan example:
 "
 
 */
+}
