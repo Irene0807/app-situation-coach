@@ -1,16 +1,57 @@
+import 'package:app_situational_coach/models/day.dart';
+import 'package:app_situational_coach/models/scene.dart';
+
 import '../models/journey.dart';
 import '../models/character.dart';
+import '../models/status.dart';
 
 List<Journey> dummyJourneys = [
   Journey(
       id: '1',
       name: 'Seoul Shopping',
-      day: 1,
+      day: 3,
       character: 'Trump',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [
+        Day(title: 'Day 1: Shopping & Asking', scenes: [
+          Scene(
+              title: 'Grocery Shopping',
+              location: 'Market',
+              learningTheme: 'Basic Transactions',
+              dialogueTopic: 'Buying fruits at a market'),
+          Scene(
+              title: 'Asking for Directions',
+              location: 'On the road',
+              learningTheme: 'Navigation',
+              dialogueTopic: 'Finding the nearest subway station'),
+        ]),
+        Day(title: 'Day 2: Ording & Cloth shopping', scenes: [
+          Scene(
+              title: 'Ordering at a Café',
+              location: 'Breakfast shop',
+              learningTheme: 'Food & Drinks',
+              dialogueTopic: 'Ordering coffee and breakfast'),
+          Scene(
+              title: 'Shopping for Clothes',
+              location: 'Clothing store',
+              learningTheme: 'Fashion & Sizes',
+              dialogueTopic: 'Asking for different sizes and colors'),
+        ]),
+        Day(title: 'Day 3: Hotel & Texi', scenes: [
+          Scene(
+              title: 'Hotel Check-In',
+              location: 'in the Hotel',
+              learningTheme: 'Travel Accommodation',
+              dialogueTopic: 'Checking in and asking about amenities'),
+          Scene(
+              title: 'Calling a Taxi',
+              location: 'Taxi',
+              learningTheme: 'Transportation',
+              dialogueTopic: 'Describing your destination and payment method'),
+        ])
+      ],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '2',
       name: 'Job Interview',
@@ -18,8 +59,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '模擬一次英語工作面試，提升口語表達能力。',
       learningGoal: '學習如何在面試中自信地表達自己。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '3',
       name: 'Taipei Night Market',
@@ -27,8 +68,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在台北夜市體驗當地小吃和文化。',
       learningGoal: '學習如何在日常生活中使用英語進行交流',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '4',
       name: 'Tokyo Vacation',
@@ -36,8 +77,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在東京的假期，探索城市和文化。',
       learningGoal: '學習如何在旅遊中使用英語進行溝通。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '5',
       name: 'Hong Kong Business Trip',
@@ -45,8 +86,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在香港的商務旅行，與當地商人交流。',
       learningGoal: '學習如何在商務場合使用英語。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '6',
       name: 'Shanghai Conference',
@@ -54,8 +95,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '參加上海的國際會議，與各國代表交流。',
       learningGoal: '學習如何在正式場合使用英語。',
-      schedule: {},
-      isCompleted: true),
+      schedule: [],
+      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '7',
       name: 'Singapore Expo',
@@ -63,8 +104,8 @@ List<Journey> dummyJourneys = [
       character: 'Trump',
       description: '在新加坡的博覽會上展示產品，與客戶交流。',
       learningGoal: '學習如何在展覽中使用英語進行推銷和交流。',
-      schedule: {},
-      isCompleted: false),
+      schedule: [],
+      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   // Journey(
   //     id: '8',
   //     name: 'Bangkok Tour',

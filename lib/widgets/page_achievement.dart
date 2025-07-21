@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import '../models/journey.dart';
 import '../data/dummy_data.dart';
 
 class PageAchievement extends StatelessWidget {
@@ -11,7 +8,7 @@ class PageAchievement extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final completedJourneys =
-        dummyJourneys.where((j) => j.isCompleted).length;
+        dummyJourneys.where((j) => j.status.isCompleted()).length;
 
     final achievements = [
       {

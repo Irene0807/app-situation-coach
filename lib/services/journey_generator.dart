@@ -1,10 +1,10 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'gemini_api.dart';
-import '../services/prompt/journey_plan_generator.dart';
-import '../services/prompt/journey_schedule_generator.dart';
-import '../services/prompt/dialogue_script_generator.dart';
-import '../models/journey.dart';
+// [JOURNEY GENERATOR]
+// generator -> prompt & gemini
+
+import 'package:app_situational_coach/models/day.dart';
+import '../services/gemini_instance.dart';
+import 'prompts/journey_plan_prompt.dart';
+import 'prompts/journey_schedule_prompt.dart';
 
 /*
 以下簡單說明旅行的生成過程:
@@ -23,67 +23,22 @@ import '../models/journey.dart';
 // 目前設計: 旅行開始前只會生成大概的schedule 在進入每個場景前再生成該場景的腳本對話
 
 class JourneyGenerator {
-  // 提問 Gemini API
-  Future<String> askGemini(String prompt) async {
-    const String endpoint =
-        'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
-
-    final uri = Uri.parse('$endpoint?key=$API_KEY');
-    final headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-
-    // The request body according to the API spec
-    final body = jsonEncode({
-      "contents": [
-        {
-          "parts": [
-            {"text": prompt}
-          ]
-        }
-      ]
-    });
-
-    try {
-      final http.Response response = await http.post(
-        uri,
-        headers: headers,
-        body: body,
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        final candidates = jsonResponse['candidates'] as List?;
-        final content = candidates?[0]?['content']?['parts']?[0]?['text'] ?? '';
-        return content;
-      } else {
-        throw Exception('Failed: ${response.statusCode} - ${response.body}');
-      }
-    } catch (e) {
-      // Handle errors as needed in your app
-      rethrow;
-    }
-  }
-
-  Future<String> generateJourneyPlan(String userInput) async {
+  Future<Map<String, String>> generateJourneyPlan(String userInput) async {
     // 把使用者的原prompt轉乘plan
-    final prompt = getJourneyPlanGeneratorPrompt(userInput);
-    final journeyPlan = askGemini(prompt);
-    return journeyPlan;
+    PromptJourneyPlan p = PromptJourneyPlan();
+    final prompt = p.getJourneyPlanPrompt(userInput);
+    final planText = await geminiA.sendPrompt(prompt);
+    final plan = p.getSplitPlan(planText);
+    return plan;
   }
 
-  Future<String> generateJourneySchedule(String plan) async {
+  Future<List<Day>> generateJourneySchedule(String plan) async {
     // 透過經使用者修改過後的plan生成schedule
-    final prompt = getJourneyScheduleGeneratorPrompt(plan);
-    final journeySchedule = askGemini(prompt);
-    return journeySchedule;
-  }
-
-  Future<String> generateDialogueScript(Journey journey) async {
-    // 在進入場景前 根據journey生成某scene的script
-    final prompt = getDialogueScriptGeneratorPrompt(journey);
-    final dialogueScript = askGemini(prompt);
-    return dialogueScript;
+    PromptJourneySchedule p = PromptJourneySchedule();
+    final prompt = p.getJourneySchedulePrompt(plan);
+    final scheduleText = await geminiA.sendPrompt(prompt);
+    final schedule = p.getOrderedSchedule(scheduleText);
+    return schedule;
   }
 }
 

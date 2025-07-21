@@ -5,7 +5,6 @@ import '../state/journey_list_notifier.dart';
 import 'package:provider/provider.dart';
 import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
-import '../data/dummy_data.dart';
 import '../models/journey.dart';
 import '../widgets/widget_star_showDialog.dart';
 
@@ -14,7 +13,7 @@ class PageJourneyStart extends StatelessWidget {
 
   //之後做database後應該可以直接做 isCompleted = false 的查詢 本function即可刪除
   List<Journey> getCompletedJourneys(List<Journey> journeys) {
-    return journeys.where((journey) => !journey.isCompleted).toList();
+    return journeys.where((journey) => !journey.status.isCompleted()).toList();
   }
 
   @override

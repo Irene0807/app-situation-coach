@@ -1,15 +1,19 @@
+import 'package:app_situational_coach/state/journey_list_notifier.dart';
+import 'package:app_situational_coach/state/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_journey_add.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/frame_growth_record.dart';
+import 'package:provider/provider.dart';
 import '../widgets/page_home.dart';
-import '../widgets/page_journey_add_prompt.dart';
-import '../widgets/page_journey_continue.dart';
 import '../widgets/page_journey_detail.dart';
 import '../widgets/page_character.dart';
 import '../widgets/page_setting.dart';
 import '../widgets/page_journey_start.dart';
+import '../widgets/frame_journey_continue.dart';
+
+// 讀journeyId的小bug 約45行左右 找不到原因 只能先把":"刪除再傳journeyId
 
 final routerConfig = GoRouter(
   routes: [
@@ -40,8 +44,20 @@ final routerConfig = GoRouter(
             GoRoute(
               path: 'continue:journeyId',
               builder: (context, state) {
-                final id = state.pathParameters['journeyId']!;
-                return PageJourneyContinue(journeyId: id);
+                // 很有趣的bug 取journeyId出來時 會莫名其妙多一個":"
+                // 舉例來說 定義的是journeyId="1" 傳到page裡面卻讀到":1"
+                final id =
+                    state.pathParameters['journeyId']!.replaceFirst(":", "");
+                final journey =
+                    Provider.of<JourneyListNotifier>(context, listen: false)
+                        .getById(id);
+                if (journey == null) {
+                  throw Exception('journeyId doesn\'t match journey\n');
+                }
+                return ChangeNotifierProvider(
+                  create: (_) => JourneyStatusNotifier(status: journey.status),
+                  child: FrameJourneyContinue(journey: journey),
+                );
               },
             ),
           ]),
@@ -65,7 +81,7 @@ final routerConfig = GoRouter(
       GoRoute(
         path: 'detail:journeyId',
         builder: (context, state) {
-          final id = state.pathParameters['journeyId']!;
+          final id = state.pathParameters['journeyId']!.replaceFirst(":", "");
           return PageJourneyDetail(journeyId: id);
         },
       ),

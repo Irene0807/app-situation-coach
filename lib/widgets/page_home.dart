@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../state/journey_list_notifier.dart';
 import '../state/character_notifier.dart';
-import '../models/journey.dart';
 import 'animations/home_action_sign.dart';
 import 'animations/twinkling_widget.dart';
 import 'painters/home_ground.dart';
