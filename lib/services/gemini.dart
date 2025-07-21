@@ -1,12 +1,24 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class Gemini {
-  final String _apiKey = 'AIzaSyABkzI_k_tcCuPdBve695o8MPgnO_vANmA';
+/*
+這裡定義 class Gemini
+  - 負責與 Gemini API 溝通，單純發送提示並取得回應
+  - [gemini_api.dart] 呼叫這裡: final geminiA = Gemini(API_KEY);
+    (可以在gemini_api.dart裡面選擇要用哪個key的Gemini)
+*/
 
-  Future<String> sendPrompt(String promptText) async {
+class Gemini {
+  final String apiKey;
+
+  Gemini(this.apiKey);
+  
+
+  Future<String> sendPrompt(String promptText, {String model = 'gemini-1.5-flash'}) async {
+    print('[DEBUG] Sending request using key: ${this.apiKey}');
+    
     final url = Uri.parse(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$_apiKey',
+      'https://generativelanguage.googleapis.com/v1/models/$model:generateContent?key=$apiKey',
     );
 
     final headers = {'Content-Type': 'application/json'};

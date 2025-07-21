@@ -1,12 +1,14 @@
 import 'package:app_situational_coach/models/day.dart';
 import 'package:app_situational_coach/models/scene.dart';
 
+// // [JOURNEY GENERATOR] - JOURNEY SCHEDULE PROMPT
+
 // prompt 之後都要大改。。。現在先隨便弄
 
 // prompt有可能獲取錯誤資料 造成parse時出現bug 需要注意
 
 class PromptJourneySchedule {
-  String getJourneyScheduleGeneratorPrompt(String plan) {
+  String getJourneySchedulePrompt(String plan) {
     return '''
 Help me generate a detailed journey schedule based on the journey plan:
 

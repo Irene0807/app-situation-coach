@@ -1,11 +1,6 @@
 class Message {
-  final String speaker; // 'user' or 'ai'
+  final String role; // 'user' or 'ai'
   final String content;
-  final DateTime timestamp;
 
-  Message({
-    required this.speaker,
-    required this.content,
-    DateTime? timestamp,
-  }) : timestamp = timestamp ?? DateTime.now();
+  Message({required this.role, required this.content});
 }

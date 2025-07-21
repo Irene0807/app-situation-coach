@@ -1,3 +1,6 @@
+import 'package:app_situational_coach/models/day.dart';
+import 'package:app_situational_coach/models/scene.dart';
+
 import '../models/journey.dart';
 import '../models/character.dart';
 import '../models/status.dart';
@@ -6,11 +9,48 @@ List<Journey> dummyJourneys = [
   Journey(
       id: '1',
       name: 'Seoul Shopping',
-      day: 1,
+      day: 3,
       character: 'Trump',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
-      schedule: [],
+      schedule: [
+        Day(title: 'Day 1: Shopping & Asking', scenes: [
+          Scene(
+              title: 'Grocery Shopping',
+              location: 'Market',
+              learningTheme: 'Basic Transactions',
+              dialogueTopic: 'Buying fruits at a market'),
+          Scene(
+              title: 'Asking for Directions',
+              location: 'On the road',
+              learningTheme: 'Navigation',
+              dialogueTopic: 'Finding the nearest subway station'),
+        ]),
+        Day(title: 'Day 2: Ording & Cloth shopping', scenes: [
+          Scene(
+              title: 'Ordering at a Café',
+              location: 'Breakfast shop',
+              learningTheme: 'Food & Drinks',
+              dialogueTopic: 'Ordering coffee and breakfast'),
+          Scene(
+              title: 'Shopping for Clothes',
+              location: 'Clothing store',
+              learningTheme: 'Fashion & Sizes',
+              dialogueTopic: 'Asking for different sizes and colors'),
+        ]),
+        Day(title: 'Day 3: Hotel & Texi', scenes: [
+          Scene(
+              title: 'Hotel Check-In',
+              location: 'in the Hotel',
+              learningTheme: 'Travel Accommodation',
+              dialogueTopic: 'Checking in and asking about amenities'),
+          Scene(
+              title: 'Calling a Taxi',
+              location: 'Taxi',
+              learningTheme: 'Transportation',
+              dialogueTopic: 'Describing your destination and payment method'),
+        ])
+      ],
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '2',

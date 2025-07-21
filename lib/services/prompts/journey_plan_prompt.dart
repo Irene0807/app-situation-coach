@@ -1,7 +1,8 @@
+// [JOURNEY GENERATOR] - JOURNEY PLAN PROMPT
 //prompt 之後都要大改。。。現在先隨便弄
 
 class PromptJourneyPlan {
-  String getJourneyPlanGeneratorPrompt(String userInput) {
+  String getJourneyPlanPrompt(String userInput) {
     return '''
 Help me generate a journey plan based on the user's input.
 If the user input is null or empty, create any journey plan you like.
