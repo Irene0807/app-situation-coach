@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/widget_loading_mark.dart';
+
+// 跑 loading 時會顯示這個通用的載入畫面
+
+// 之後要認真設計這個 loading mark widget
 
 /*
 使用方式:
@@ -27,5 +30,16 @@ Future<T> runWithLoading<T>(
   } finally {
     // 關閉 loading 畫面
     Navigator.of(context, rootNavigator: true).pop();
+  }
+}
+
+class WidgetLoadingMark extends StatelessWidget {
+  const WidgetLoadingMark({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

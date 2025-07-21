@@ -6,7 +6,7 @@ import '../widgets/page_journey_add_correct.dart';
 import '../services/journey_generator.dart';
 import '../models/journey.dart';
 import '../state/journey_list_notifier.dart';
-import '../services/run_with_loading.dart';
+import 'func_run_with_loading.dart';
 import '../models/day.dart';
 import '../models/status.dart';
 
