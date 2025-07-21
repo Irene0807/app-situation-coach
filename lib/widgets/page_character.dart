@@ -5,9 +5,6 @@ import 'package:app_situational_coach/data/dummy_data.dart';
 import 'animations/twinkling_widget.dart';
 import 'dart:math';
 
-// 這段code有兩個class 我不確定拆完檔案要怎麼歸類 先放一起 之後可以拆
-// character的圖片只有簡單做了一個很陽春的川普（放在painters/character_trump.dart）
-
 class PageCharacter extends StatefulWidget {
   const PageCharacter({super.key});
 
@@ -33,10 +30,14 @@ class _PageCharacterState extends State<PageCharacter> {
         children: [
           // 1. Background
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/home_background.jpg'),
+                image: AssetImage('assets/images/add_background.png'),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), // 透明度
+                  BlendMode.multiply,
+                ),
               ),
             ),
             child: Column(
@@ -76,16 +77,6 @@ class _PageCharacterState extends State<PageCharacter> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    // Icon(Icons.swipe, color: Colors.white70, size: 20),
-                    // SizedBox(width: 8),
-                    // Text(
-                    //   '滑動查看其他角色',
-                    //   style: TextStyle(
-                    //     color: Colors.white70,
-                    //     fontSize: 14,
-                    //     fontWeight: FontWeight.w500,
-                    //   ),
-                    // ),
                     Icon(Icons.touch_app, color: Colors.white70, size: 20),
                     SizedBox(width: 8),
                     Text(
@@ -213,14 +204,14 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         color: const Color.fromARGB(255, 245, 245, 245),
         borderRadius: BorderRadius.circular(24),
         border: widget.highlight
-            ? Border.all(color: const Color.fromARGB(255, 89, 112, 175), width: 3)
+            ? Border.all(color: const Color.fromARGB(255, 162, 136, 205), width: 3)
             : null,
         boxShadow: widget.highlight
             ? [
                 BoxShadow(
-                  color: Colors.blueAccent.withOpacity(0.4),
-                  blurRadius: 20,
-                  spreadRadius: 4,
+                  color: const Color.fromARGB(255, 109, 85, 170).withOpacity(0.4),
+                  blurRadius: 10,
+                  spreadRadius: 3,
                 )
               ]
             : [],
@@ -230,13 +221,13 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         children: [
           const SizedBox(height: 12),
           character.imagePath.contains('trump')
-              ? TrumpCharacter(isSpeaking: widget.highlight)
-              : Image.asset(
-                  character.imagePath,
-                  height: cardHeight * 0.35,
-                  gaplessPlayback: true,
-                  filterQuality: FilterQuality.low,
-                ),
+            ? const TrumpCharacter()
+            : Image.asset(
+                character.imagePath,
+                height: cardHeight * 0.35,
+                gaplessPlayback: true,
+                filterQuality: FilterQuality.low,
+              ),
           const SizedBox(height: 12),
           Text(character.name,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -258,14 +249,14 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         color: const Color(0xFFFDFDFD),
         borderRadius: BorderRadius.circular(24),
         border: widget.highlight
-            ? Border.all(color: const Color.fromARGB(255, 89, 112, 175), width: 3)
+            ? Border.all(color: const Color.fromARGB(255, 162, 136, 205), width: 3)
             : null,
         boxShadow: widget.highlight
             ? [
                 BoxShadow(
-                  color: Colors.blueAccent.withOpacity(0.4),
-                  blurRadius: 20,
-                  spreadRadius: 4,
+                  color: const Color.fromARGB(255, 234, 226, 254).withOpacity(0.4),
+                  blurRadius: 10,
+                  spreadRadius: 3,
                 )
               ]
             : [],

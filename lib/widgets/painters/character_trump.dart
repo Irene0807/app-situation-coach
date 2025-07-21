@@ -1,63 +1,57 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 
 class TrumpCharacter extends StatefulWidget {
-  final bool isSpeaking;
-  const TrumpCharacter({super.key, required this.isSpeaking});
+  const TrumpCharacter({super.key});
 
   @override
   State<TrumpCharacter> createState() => _TrumpCharacterState();
 }
 
 class _TrumpCharacterState extends State<TrumpCharacter> {
-  Artboard? _artboard;
-  StateMachineController? _controller;
-  SMITrigger? _lipsyncTrigger;
-  SMIInput<bool>? _emotionToggle;
+  final List<String> _imagePaths = [
+    'assets/images/trump_1.png',
+    'assets/images/trump_2.png',
+    'assets/images/trump_1.png',
+    'assets/images/trump_2.png',
+    'assets/images/trump_3.png',
+    'assets/images/trump_4.png',
+    'assets/images/trump_3.png',
+    'assets/images/trump_4.png',
+    'assets/images/trump_5.png',
+    'assets/images/trump_5.png',
+    'assets/images/trump_5.png',
+  ];
+  int _currentIndex = 0;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
+    _startImageSwitchTimer();
   }
 
-  void _onRiveInit(Artboard artboard) {
-    final controller = StateMachineController.fromArtboard(
-      artboard,
-      'State Machine 1', // 如果你的 State Machine 名稱不同請修改這行
-    );
-    if (controller != null) {
-      artboard.addController(controller);
+  void _startImageSwitchTimer() {
+    _timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
       setState(() {
-        _artboard = artboard;
-        _controller = controller;
-        _lipsyncTrigger = controller.findSMI('demo lipsync') as SMITrigger?;
-        _emotionToggle = controller.findInput<bool>('toEmotion2');
+        _currentIndex = (_currentIndex + 1) % _imagePaths.length;
       });
-
-      // 初始化表情為 emotion 1
-      _emotionToggle?.value = false;
-    }
+    });
   }
 
   @override
-  void didUpdateWidget(covariant TrumpCharacter oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isSpeaking && _lipsyncTrigger != null) {
-      _lipsyncTrigger?.fire();
-    }
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 180,
-      child: _artboard == null
-          ? RiveAnimation.asset(
-              'assets/character_man.riv',
-              fit: BoxFit.contain,
-              onInit: _onRiveInit,
-            )
-          : Rive(artboard: _artboard!, fit: BoxFit.contain),
+    return Image.asset(
+      _imagePaths[_currentIndex],
+      height: 170,
+      gaplessPlayback: true,
+      filterQuality: FilterQuality.high,
     );
   }
 }

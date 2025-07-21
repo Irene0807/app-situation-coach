@@ -43,5 +43,8 @@ flutter:
     - assets/images/add_background.png
     - assets/images/letter_paper.png
     - assets/images/letter_badge.png
-    - assets/images/trump.png
-    - assets/character_man.riv
+    - assets/images/trump_1.png
+    - assets/images/trump_2.png
+    - assets/images/trump_3.png 
+    - assets/images/trump_4.png
+    - assets/images/trump_5.png
