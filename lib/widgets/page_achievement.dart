@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import '../models/journey.dart';
 import '../data/dummy_data.dart';
 
 class PageAchievement extends StatelessWidget {

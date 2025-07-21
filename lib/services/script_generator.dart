@@ -1,7 +1,6 @@
 // [SCRIPT GENERATOR]
 // generator -> agents -> prompt & gemini
 
-import 'gemini_instance.dart';
 import 'agents/origin_script_generator.dart';
 import 'agents/user_situation_predictor.dart';
 import 'agents/robot_response_predictor.dart';
@@ -46,11 +45,10 @@ class ScriptGenerator {
     required double userBloomLevel,
     required String character,
   }) async {
-
     final schedule = journey.schedule;
-    final title = schedule["day_${day}/scene_${scene}/title"];
-    final theme = schedule["day_${day}/scene_${scene}/theme"];
-    final topic = schedule["day_${day}/scene_${scene}/topic"];
+    final title = schedule[day].scenes[scene].title;
+    final theme = schedule[day].scenes[scene].learningTheme;
+    final topic = schedule[day].scenes[scene].dialogueTopic;
 
     int retryCount = 1;
     String? feedback;
@@ -76,7 +74,7 @@ class ScriptGenerator {
         topic: topic,
         bloomLevel: userBloomLevel,
       );
-      
+
       final rawScript = await rawScriptFuture;
       final fakeUserInput = await fakeUserInputFuture;
       print('Raw Script:\n$rawScript');
@@ -123,8 +121,7 @@ class ScriptGenerator {
         // 過了就確定生成這個script
         print('[ACCEPTED] OK!');
         return rawScript;
-      }
-      else {
+      } else {
         // 如果沒通過會回圈重試
         print('[REJECTED] Re-generating script!');
         retryCount++;

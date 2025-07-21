@@ -1,5 +1,6 @@
 // [JOURNEY GENERATOR] - JOURNEY PLAN PROMPT
-//prompt 之後都要大改。。。現在先隨便弄
+
+// 本來在猶豫要不要開class 後來覺得相關的parsing function還是放一起比較好 
 
 class PromptJourneyPlan {
   String getJourneyPlanPrompt(String userInput) {
@@ -55,30 +56,4 @@ Tips:
     final match = regex.firstMatch(text);
     return match != null ? match.group(1)?.trim() ?? '' : '';
   }
-
-/*
-
-journey plan example:
-"
-  (旅行名稱)
-    日式文化探索之旅：東京與京都的七日冒險
-
-  (旅行天數)
-    7天
-
-  (旅伴)
-    川普
-
-  (旅行內容)
-    此行將造訪日本兩大代表城市──東京與京都。
-    以下是旅行中將涵蓋的主要地點與活動
-      東京：淺草雷門、晴空塔、澀谷、新宿、原宿
-      京都：伏見稻荷大社、金閣寺、祇園、傳統和服體驗
-
-  (學習目標)
-    學習基本的日常交流用語
-    理解日本文化與禮儀
-"
-
-*/
 }

@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../widgets/frame_growth_record.dart';
 import 'package:provider/provider.dart';
 import '../widgets/page_home.dart';
-import '../widgets/page_scene_conversation.dart';
 import '../widgets/page_journey_detail.dart';
 import '../widgets/page_character.dart';
 import '../widgets/page_setting.dart';

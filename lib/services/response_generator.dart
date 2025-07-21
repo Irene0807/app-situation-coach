@@ -3,7 +3,6 @@
 
 import 'prompts/response_prompt.dart';
 import 'gemini_instance.dart';
-import 'script_generator.dart';
 import '../models/message.dart';
 
 class ResponseGenerator {

@@ -1,5 +1,4 @@
 import 'package:app_situational_coach/models/question.dart';
-import 'package:flutter/cupertino.dart';
 
 // 使用者在summaryContent時 背後先generate下一個場景的script
 

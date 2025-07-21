@@ -1,14 +1,10 @@
 // [JOURNEY GENERATOR]
 // generator -> prompt & gemini
 
-import 'dart:convert';
 import 'package:app_situational_coach/models/day.dart';
-import 'package:http/http.dart' as http;
 import '../services/gemini_instance.dart';
 import 'prompts/journey_plan_prompt.dart';
 import 'prompts/journey_schedule_prompt.dart';
-import 'prompts/origin_script_prompt.dart';
-import '../models/journey.dart';
 
 /*
 以下簡單說明旅行的生成過程:

@@ -1,9 +1,7 @@
-import 'package:app_situational_coach/models/day.dart';
-import 'package:app_situational_coach/models/scene.dart';
-
 // // [JOURNEY GENERATOR] - JOURNEY SCHEDULE PROMPT
 
-// prompt 之後都要大改。。。現在先隨便弄
+import 'package:app_situational_coach/models/day.dart';
+import 'package:app_situational_coach/models/scene.dart';
 
 // prompt有可能獲取錯誤資料 造成parse時出現bug 需要注意
 
@@ -76,31 +74,3 @@ Tips:
     return schedule;
   }
 }
-
-/*
-
-journey schedule example:
-"
-  (第一天) 抵達東京：啟程與初體驗
-    (場景一) 機場入境
-      (地點) 日本成田機場
-      (主題) 機場英語
-      (對話內容) 入境問答、詢問行李轉盤位置
-
-    (場景二) 飯店Check-in
-      (地點) 淺草地區飯店
-      (主題) 住宿英語
-      (對話內容) 報到入住、確認預訂、要求備品
-
-    (場景三) 晚餐初體驗
-      (地點) 居酒屋
-      (主題) 餐廳英語
-      (對話內容) 點餐、詢問推薦、了解特色料理
-
-  (第二天)
-
-  ...
-
-"
-
-*/

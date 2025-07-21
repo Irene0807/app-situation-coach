@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../services/journey_generator.dart';
 
 //版面尚未設計完成
 
