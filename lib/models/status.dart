@@ -30,25 +30,29 @@ class JourneyStatus {
   //       scene = 0,
   //       mode = 0;
 
-  void goNextStatus(Journey j) {
-    if (day == j.schedule.length &&
+  bool goNextStatus(Journey j) {
+    if (day == 4 && scene == 4 && mode == 4) {
+      return false; // 沒有下一頁
+    } else if (day == j.schedule.length &&
         scene == j.schedule[day - 1].scenes.length &&
         mode == 3) {
-      makeCompleted();
-      // 這邊大概還有一些細節待處理
+      day = 4; // 結束頁面
+      scene = 4;
+      mode = 4;
+      return true;
     } else if (day == 0 ||
         (scene == j.schedule[day - 1].scenes.length && mode == 3)) {
       day++;
       scene = 0;
       mode = 0;
-      return;
+      return true;
     } else if (scene == 0 || mode == 3) {
       scene++;
       mode = 0;
-      return;
+      return true;
     } else {
       mode++;
-      return;
+      return true;
     }
   }
 
@@ -81,5 +85,7 @@ class JourneyStatus {
       (2, 1, 1): 旅行頁面 
       (2, 1, 2): 旅行頁面
       (2, 1, 3): 旅行頁面
+(4, 4, 4): 結束頁面
+
 (-1,-1,-1): 旅行已完成
 */

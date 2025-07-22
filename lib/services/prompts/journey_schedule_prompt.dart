@@ -19,13 +19,13 @@ The journey schedule should follow this format:
 
 <<Title of scene 1, do not put "scene 1" in the title>>
 <<The location of the scene 1>>
+<<Description of the scene 1>>
 <<The learning theme related to English of the scene 1>>
-<<The dialogue topic in the scene 1>>
 
 <<Title of scene 2, do not put "scene 2" in the title>>
 <<The location of the scene 2>>
+<<Description of the scene 2>>
 <<The learning theme related to English of the scene 2>>
-<<The dialogue topic in the scene 2>>
 
 <<Title of day 2, do not put "day 2" in the title>>
 <<Number of scene in day 2, output containing only number, example: 2, 3, 4>> 
@@ -58,10 +58,11 @@ Tips:
       List<Scene> scenes = [];
       for (int j = 0; j < sceneNum; j++) {
         Scene s = Scene(
-            title: items[i++],
-            location: items[i++],
-            learningTheme: items[i++],
-            dialogueTopic: items[i++]);
+          title: items[i++],
+          location: items[i++],
+          description: items[i++],
+          learningTheme: items[i++],
+        );
         scenes.add(s);
       }
       schedule.add(Day(title: title, scenes: scenes));

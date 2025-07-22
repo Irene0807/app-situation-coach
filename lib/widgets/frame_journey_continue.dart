@@ -2,6 +2,7 @@ import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/state/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_scene_datail.dart';
 import 'package:app_situational_coach/widgets/page_day_cover.dart';
+import 'package:app_situational_coach/widgets/page_journey_back_cover.dart';
 import 'package:app_situational_coach/widgets/page_scene_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/journey.dart';
@@ -16,6 +17,7 @@ enum FrameJourneyContinueTab {
   dayCover,
   sceneCover,
   sceneDetail,
+  jourenyBackCover,
 }
 
 class FrameJourneyContinue extends StatelessWidget {
@@ -35,6 +37,8 @@ class FrameJourneyContinue extends StatelessWidget {
       return FrameJourneyContinueTab.sceneCover;
     } else if (status.mode <= 3) {
       return FrameJourneyContinueTab.sceneDetail;
+    } else if (status.day == 4 && status.scene == 4 && status.mode == 4) {
+      return FrameJourneyContinueTab.jourenyBackCover;
     } else {
       throw Exception('status got wrong in FrameJourneyContinue\n');
     }
@@ -42,56 +46,70 @@ class FrameJourneyContinue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/add_background.png',
-            fit: BoxFit.cover,
+    return Stack(children: [
+      Builder(builder: (context) {
+        JourneyStatus status =
+            Provider.of<JourneyStatusNotifier>(context, listen: true)
+                .getStatus();
+        FrameJourneyContinueTab tab = getPageType(status);
+        switch (tab) {
+          // 這邊我只把我即刻需要的參數丟進去 看之後怎麼調整
+          case FrameJourneyContinueTab.journeyCover:
+            return PageJourneyCover(
+              journeyName: journey.name,
+              journeyDay: journey.day,
+            );
+          case FrameJourneyContinueTab.dayCover:
+            return PageDayCover(
+                journeyName: journey.name,
+                currentDay: status.day,
+                schedule: journey.schedule);
+          case FrameJourneyContinueTab.sceneCover:
+            final sceneTitle =
+                journey.schedule[status.day - 1].scenes[status.scene - 1].title;
+            final sceneLocation = journey
+                .schedule[status.day - 1].scenes[status.scene - 1].location;
+            final sceneDescription = journey
+                .schedule[status.day - 1].scenes[status.scene - 1].description;
+            return PageSceneCover(
+              sceneTitle: sceneTitle,
+              sceneLocation: sceneLocation,
+              sceneDescription: sceneDescription,
+            );
+          case FrameJourneyContinueTab.sceneDetail:
+            final scene =
+                journey.schedule[status.day - 1].scenes[status.scene - 1];
+            return FrameSceneDetail(scene: scene);
+          case FrameJourneyContinueTab.jourenyBackCover:
+            return PageJourneyBackCover();
+        }
+      }),
+      Positioned(
+        right: 32,
+        bottom: 32,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black54,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide.none,
+            ),
+            elevation: 4,
+          ),
+          onPressed: () {
+            if (!Provider.of<JourneyStatusNotifier>(context, listen: false)
+                .goNextStatus(journey)) {
+              Navigator.pop(context);
+            }
+          },
+          child: Icon(
+            Icons.navigate_next,
+            color: Colors.white,
+            size: 32,
           ),
         ),
-        Builder(builder: (context) {
-          JourneyStatus status =
-              Provider.of<JourneyStatusNotifier>(context, listen: true)
-                  .getStatus();
-          FrameJourneyContinueTab tab = getPageType(status);
-          switch (tab) {
-            // 這邊我只把我即刻需要的參數丟進去 看之後怎麼調整
-            case FrameJourneyContinueTab.journeyCover:
-              return PageJourneyCover(
-                journeyName: journey.name,
-                journeyDay: journey.day,
-              );
-            case FrameJourneyContinueTab.dayCover:
-              final dayTitles = journey.schedule
-                  .take(status.day) // 取前 status.day 個 Day
-                  .map((day) => day.title) // 只取 title
-                  .toList();
-              return PageDayCover(dayTitles: dayTitles);
-            case FrameJourneyContinueTab.sceneCover:
-              final sceneTitles = journey.schedule[status.day - 1].scenes
-                  .take(status.scene)
-                  .map((scene) => scene.title)
-                  .toList();
-              final sceneLocation = journey
-                  .schedule[status.day - 1].scenes[status.scene - 1].location;
-              return PageSceneCover(
-                  sceneTitles: sceneTitles, sceneLocation: sceneLocation);
-            case FrameJourneyContinueTab.sceneDetail:
-              final scene =
-                  journey.schedule[status.day - 1].scenes[status.scene - 1];
-              return FrameSceneDetail(scene: scene);
-          }
-        }),
-        Center(
-          child: IconButton(
-              onPressed: () {
-                Provider.of<JourneyStatusNotifier>(context, listen: false)
-                    .goNextStatus(journey);
-              },
-              icon: Icon(Icons.arrow_downward)),
-        )
-      ],
-    );
+      ),
+    ]);
   }
 }

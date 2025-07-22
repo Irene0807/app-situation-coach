@@ -46,7 +46,8 @@ class PageJourneyStart extends StatelessWidget {
                   glowHeight: 10,
                   child: Text(
                     'Start Your Journey',
-                    style: GoogleFonts.pacifico(
+                    style: TextStyle(
+                      // GoogleFonts.pacifico
                       fontSize: 36,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,

@@ -14,41 +14,53 @@ List<Journey> dummyJourneys = [
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
       schedule: [
-        Day(title: 'Day 1: Shopping & Asking', scenes: [
+        Day(title: 'Shopping & Asking', scenes: [
           Scene(
-              title: 'Grocery Shopping',
-              location: 'Market',
-              learningTheme: 'Basic Transactions',
-              dialogueTopic: 'Buying fruits at a market'),
+            title: 'Grocery Shopping',
+            location: 'Market',
+            description:
+                'Pick up a cart, find items on your list, check labels and prices, ask staff if needed, then pay at checkout. Don’t forget your bags and receipt.',
+            learningTheme: 'Basic Transactions',
+          ),
           Scene(
-              title: 'Asking for Directions',
-              location: 'On the road',
-              learningTheme: 'Navigation',
-              dialogueTopic: 'Finding the nearest subway station'),
+            title: 'Asking for Directions',
+            location: 'On the road',
+            description:
+                'Ask someone or use a map app to find the nearest subway station. Follow signs, walk in the right direction, and watch for subway symbols. When you arrive, check the entrance, buy a ticket if needed, and get ready to board the train.',
+            learningTheme: 'Navigation',
+          ),
         ]),
-        Day(title: 'Day 2: Ording & Cloth shopping', scenes: [
+        Day(title: 'Ording & Cloth shopping', scenes: [
           Scene(
-              title: 'Ordering at a Café',
-              location: 'Breakfast shop',
-              learningTheme: 'Food & Drinks',
-              dialogueTopic: 'Ordering coffee and breakfast'),
+            title: 'Ordering at a Café',
+            location: 'Breakfast shop',
+            description:
+                'Go to the counter, look at the menu, and choose your coffee and breakfast. Tell the cashier your order clearly and politely. Pay with cash or card. Wait for your food and drink, then take them when your name or number is called. Enjoy your meal!',
+            learningTheme: 'Food & Drinks',
+          ),
           Scene(
-              title: 'Shopping for Clothes',
-              location: 'Clothing store',
-              learningTheme: 'Fashion & Sizes',
-              dialogueTopic: 'Asking for different sizes and colors'),
+            title: 'Shopping for Clothes',
+            location: 'Clothing store',
+            description:
+                'Go to a clothing store and browse the racks for styles you like. When you find something, ask a staff member, “Do you have this in a different size or color?” Try it on in the fitting room if available. Choose what fits best, then pay at the counter.',
+            learningTheme: 'Fashion & Sizes',
+          ),
         ]),
-        Day(title: 'Day 3: Hotel & Texi', scenes: [
+        Day(title: 'Hotel & Texi', scenes: [
           Scene(
-              title: 'Hotel Check-In',
-              location: 'in the Hotel',
-              learningTheme: 'Travel Accommodation',
-              dialogueTopic: 'Checking in and asking about amenities'),
+            title: 'Hotel Check-In',
+            location: 'in the Hotel',
+            description:
+                'Go to the hotel front desk and say you’d like to check in. Provide your name and ID or booking confirmation. Ask politely about amenities by saying, “Do you have Wi-Fi?” or “Is breakfast included?” Get your room key, directions to your room, and enjoy your stay.',
+            learningTheme: 'Travel Accommodation',
+          ),
           Scene(
-              title: 'Calling a Taxi',
-              location: 'Taxi',
-              learningTheme: 'Transportation',
-              dialogueTopic: 'Describing your destination and payment method'),
+            title: 'Calling a Taxi',
+            location: 'Taxi',
+            description:
+                'When calling a taxi, clearly say your destination address or a well-known place nearby. For example, “Please take me to Central Park.” When the ride ends, tell the driver how you want to pay, such as “I will pay by cash” or “Do you accept credit cards?”',
+            learningTheme: 'Transportation',
+          ),
         ])
       ],
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),

@@ -79,13 +79,13 @@ class PageJourneyAddPrompt extends StatelessWidget {
                   // 點下這個button後需要進入loading狀態 之後再處理
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF4B296B), // 深紫色
+                  backgroundColor: const Color(0xFF2C2C54),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 6),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
                     side: const BorderSide(
-                      color: Color(0xFFE2C799), // 金色邊框
+                      color: Color(0xFFB5B5B5),
                       width: 2,
                     ),
                   ),
@@ -96,7 +96,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFFE2C799), // 金色文字
+                    color: const Color(0xFFEAEAEA),
                     letterSpacing: 0.8,
                     shadows: const [
                       Shadow(

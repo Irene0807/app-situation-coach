@@ -48,7 +48,7 @@ class ScriptGenerator {
     final schedule = journey.schedule;
     final title = schedule[day].scenes[scene].title;
     final theme = schedule[day].scenes[scene].learningTheme;
-    final topic = schedule[day].scenes[scene].dialogueTopic;
+    final topic = schedule[day].scenes[scene].description;
 
     int retryCount = 1;
     String? feedback;

@@ -13,8 +13,12 @@ class JourneyStatusNotifier extends ChangeNotifier {
     return status;
   }
 
-  void goNextStatus(Journey j) {
-    status.goNextStatus(j);
-    notifyListeners();
+  bool goNextStatus(Journey j) {
+    if (status.goNextStatus(j)) {
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -3,10 +3,10 @@ import 'package:app_situational_coach/models/question.dart';
 // 使用者在summaryContent時 背後先generate下一個場景的script
 
 class Scene {
-  final String title; // 給user看的 這個場景的名稱
-  final String location; // 給user看的 這個場景的地點
+  final String title; // user可看 這個場景的名稱
+  final String location; // user可看 這個場景的地點
+  final String description; // user可看 描述這個場景user須完成的事情
   final String learningTheme;
-  final String dialogueTopic;
 
   // 3 pages for each scene
   IntroContent? introContent; // 單字介紹
@@ -16,8 +16,8 @@ class Scene {
   Scene({
     required this.title,
     required this.location,
+    required this.description,
     required this.learningTheme,
-    required this.dialogueTopic,
   });
 
   void generateIntroContent() {

@@ -145,7 +145,7 @@ Learning Goal: $goal
       children: [
         Positioned.fill(
           child: Image.asset(
-            'assets/images/add_background.png',
+            'assets/images/journey_start_background.jpg',
             fit: BoxFit.cover,
           ),
         ),
