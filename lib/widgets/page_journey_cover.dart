@@ -12,16 +12,6 @@ class PageJourneyCover extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(children: [
-        Positioned.fill(
-          // 之後圖片要用生成的
-          child: ImageFiltered(
-            imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8), // 調整模糊程度
-            child: Image.asset(
-              'assets/images/seoul_shopping.jpg',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
         Center(
           child: Text(
             journeyName,
