@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class JourneyStatusNotifier extends ChangeNotifier {
   JourneyStatus status;
-  bool isLoading = true;
+  bool sceneReady = true;
 
   JourneyStatusNotifier({
     required this.status,
@@ -14,13 +14,12 @@ class JourneyStatusNotifier extends ChangeNotifier {
     return status;
   }
 
-  bool getIsLoading() {
-    return isLoading;
+  bool getSceneReady() {
+    return sceneReady;
   }
 
   bool goNextStatus(Journey j) {
     if (status.goNextStatus(j)) {
-      isLoading = true;
       notifyListeners();
       return true;
     } else {
@@ -28,8 +27,8 @@ class JourneyStatusNotifier extends ChangeNotifier {
     }
   }
 
-  void setIsLoading() {
-    isLoading = false;
+  void setSceneReady(bool setValue) {
+    sceneReady = setValue;
     notifyListeners();
   }
 }

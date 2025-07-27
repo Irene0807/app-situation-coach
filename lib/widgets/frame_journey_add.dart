@@ -110,6 +110,9 @@ Learning Goal: $goal
         throw Exception('schedule.length != day\n');
       }
 
+      // 先跑好第一個scene的Content
+      await schedule[0].scenes[0].generateAllContent();
+
       // 保護 context
       if (!mounted) return;
 

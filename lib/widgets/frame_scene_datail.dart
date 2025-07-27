@@ -44,9 +44,10 @@ class FrameSceneDetail extends StatelessWidget {
       FrameSceneDetailTab tab = getPageType(status);
       switch (tab) {
         case FrameSceneDetailTab.intro:
-          return PageSceneIntro();
+          return PageSceneIntro(introContent: scene.introContent!);
         case FrameSceneDetailTab.conversation:
-          return PageSceneConversation(journeyId: '亂給的'); //原本的PageJourneyContinue
+          return PageSceneConversation(
+              journeyId: '亂給的'); //原本的PageJourneyContinue
         case FrameSceneDetailTab.summary:
           return PageSceneSummary();
       }

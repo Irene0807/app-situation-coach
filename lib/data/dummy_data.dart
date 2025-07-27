@@ -1,4 +1,5 @@
 import 'package:app_situational_coach/models/day.dart';
+import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
 
 import '../models/journey.dart';
@@ -21,6 +22,12 @@ List<Journey> dummyJourneys = [
             description:
                 'Pick up a cart, find items on your list, check labels and prices, ask staff if needed, then pay at checkout. Don’t forget your bags and receipt.',
             learningTheme: 'Basic Transactions',
+            // 第一個scene會在創建journey的同時建立好
+            introContent: IntroContent(description: '', vocabulary: []),
+            conversationContent: ConversationContent(script: ''),
+            summaryContent: SummaryContent(summary: '', questions: [
+              Question(questionText: '', options: [], answerId: 0)
+            ]),
           ),
           Scene(
             title: 'Asking for Directions',

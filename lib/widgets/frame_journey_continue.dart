@@ -4,6 +4,7 @@ import 'package:app_situational_coach/widgets/frame_scene_datail.dart';
 import 'package:app_situational_coach/widgets/page_day_cover.dart';
 import 'package:app_situational_coach/widgets/page_journey_back_cover.dart';
 import 'package:app_situational_coach/widgets/page_scene_cover.dart';
+import 'package:app_situational_coach/widgets/widget_loading_mark.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,33 @@ class FrameJourneyContinue extends StatelessWidget {
     required this.journey,
     super.key,
   });
+
+  // 在sceneCover時確認目前scene已準備完成 並開始準備下一個scene的所有Content
+  Future<void> prepareForNextScene(
+      JourneyStatusNotifier notifier, JourneyStatus currentStatus) async {
+    // 這個function的加一減一問題需要特別小心。。。
+
+    // 確認目前scene已全部準備完成
+    // if (!journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene - 1]
+    //     .isContentsReady()) {
+    if (journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene - 1]
+            .introContent ==
+        null) {
+      notifier.setSceneReady(false);
+    }
+
+    // 生成下個場景的 Content
+    if (currentStatus.scene <
+        journey.schedule[currentStatus.day - 1].scenes.length) {
+      await journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene]
+          .generateAllContent();
+    } else {
+      await journey.schedule[currentStatus.day].scenes[0].generateAllContent();
+    }
+
+    // 發出通知 scene已完成
+    notifier.setSceneReady(true);
+  }
 
   FrameJourneyContinueTab getPageType(JourneyStatus status) {
     if (status.day == 0 && status.scene == 0 && status.mode == 0) {
@@ -90,9 +118,17 @@ class FrameJourneyContinue extends StatelessWidget {
               sceneDescription: sceneDescription,
             ));
       case FrameJourneyContinueTab.sceneDetail:
-        final scene = journey.schedule[status.day - 1].scenes[status.scene - 1];
-        return buildFunction(
-            context, false, false, true, FrameSceneDetail(scene: scene));
+        bool sceneReady =
+            Provider.of<JourneyStatusNotifier>(context, listen: true)
+                .getSceneReady();
+        if (sceneReady) {
+          final scene =
+              journey.schedule[status.day - 1].scenes[status.scene - 1];
+          return buildFunction(
+              context, false, false, true, FrameSceneDetail(scene: scene));
+        } else {
+          return WidgetLoadingMark();
+        }
       case FrameJourneyContinueTab.jourenyBackCover:
         return buildFunction(
             context, false, false, true, PageJourneyBackCover());
@@ -143,10 +179,23 @@ class FrameJourneyContinue extends StatelessWidget {
                   elevation: 4,
                 ),
                 onPressed: () {
+                  // 前往下一個page 若為最後一page則退出旅行
                   if (!Provider.of<JourneyStatusNotifier>(context,
                           listen: false)
                       .goNextStatus(journey)) {
                     Navigator.pop(context);
+                  }
+
+                  // 若為sceneCover 執行prepareForNextScene
+                  // 這邊寫的偏醜 可能之後調整一下
+                  JourneyStatusNotifier notifier =
+                      Provider.of<JourneyStatusNotifier>(context,
+                          listen: false);
+                  FrameJourneyContinueTab tab =
+                      getPageType(notifier.getStatus());
+                  if (tab == FrameJourneyContinueTab.sceneCover) {
+                    JourneyStatus status = notifier.getStatus();
+                    prepareForNextScene(notifier, status);
                   }
                 },
                 child: Icon(

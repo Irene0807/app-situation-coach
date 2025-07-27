@@ -1,4 +1,5 @@
 import 'package:app_situational_coach/models/question.dart';
+import 'package:app_situational_coach/services/vocabulary_generator.dart';
 
 // 使用者在summaryContent時 背後先generate下一個場景的script
 
@@ -8,7 +9,7 @@ class Scene {
   final String description; // user可看 描述這個場景user須完成的事情
   final String learningTheme;
 
-  // 3 pages for each scene
+  // 3 class for each scene
   IntroContent? introContent; // 單字介紹
   ConversationContent? conversationContent; // 和ai對話
   SummaryContent? summaryContent; // scene總結 + 題目考試
@@ -18,18 +19,28 @@ class Scene {
     required this.location,
     required this.description,
     required this.learningTheme,
+    // 下面三個是為了dummyData可以直接宣告第一個scene的內容
+    this.introContent,
+    this.conversationContent,
+    this.summaryContent,
   });
 
-  void generateIntroContent() {
-    // call services
+  bool isContentsReady() {
+    return (introContent != null &&
+        conversationContent != null &&
+        summaryContent != null);
   }
 
-  void generateConversationContent() {
-    // call services
-  }
+  Future<void> generateAllContent() async {
+    // IntroContent
+    VocabularyGenerator v = VocabularyGenerator();
+    introContent = await v.generateVocabulary(this);
 
-  void generateSummaryContent() {
-    // call services
+    // ConversationContent
+
+    // SummaryContent
+
+    return;
   }
 }
 
