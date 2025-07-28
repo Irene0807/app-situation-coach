@@ -1,7 +1,10 @@
+import 'package:app_situational_coach/models/scene.dart';
 import 'package:flutter/material.dart';
 
 class PageSceneSummary extends StatelessWidget {
-  const PageSceneSummary({super.key});
+  final SummaryContent summaryContent;
+
+  const PageSceneSummary({super.key, required this.summaryContent});
 
   @override
   Widget build(BuildContext context) {

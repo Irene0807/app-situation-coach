@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 //版面尚未設計完成
 
@@ -22,97 +23,110 @@ class PageJourneyAddCorrect extends StatelessWidget {
         TextEditingController(text: splitPlan['goal']);
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent, // 你已經有圖片背景
       body: Center(
-        child: Container(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 12,
-                offset: Offset(0, 6),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2), // 半透明白
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                      color: Colors.white.withOpacity(0.4), width: 1),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'New Journey',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(
+                            offset: Offset(0, 1),
+                            blurRadius: 2,
+                            color: Colors.black45,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    _buildFrostedTextField('Journey Name', nameController),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField('Day', dayController,
+                        keyboardType: TextInputType.number),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField('Character', characterController),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField(
+                        'Journey Description', descriptionController,
+                        maxLines: 4),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField(
+                        'Learning Goal', learningGoalController,
+                        maxLines: 4),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        onFinish(
+                          nameController.text,
+                          int.parse(dayController.text),
+                          characterController.text,
+                          descriptionController.text,
+                          learningGoalController.text,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF4B296B),
+                        foregroundColor: Colors.white,
+                        minimumSize: Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text('Finish'),
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('New Journey',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 24),
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  labelText: 'Journey Name',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: dayController,
-                decoration: InputDecoration(
-                  labelText: 'Day',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: characterController,
-                decoration: InputDecoration(
-                  labelText: 'Character',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: descriptionController,
-                decoration: InputDecoration(
-                  labelText: 'Journey Description',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-                maxLines: 2,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: learningGoalController,
-                decoration: InputDecoration(
-                  labelText: 'Learning Goal',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-                maxLines: 2,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  // 製作journey schedule
-                  // 把journey確實新增到資料庫
-                  onFinish(
-                      nameController.text,
-                      int.parse(dayController.text),
-                      characterController.text,
-                      descriptionController.text,
-                      learningGoalController.text);
-                  // 返回上一頁
-                  // context.pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-                child: Text('Finish'),
-              ),
-            ],
-          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFrostedTextField(
+    String label,
+    TextEditingController controller, {
+    int maxLines = 1,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      style: TextStyle(color: Colors.white),
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.white70),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.2),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white30),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white70, width: 2),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

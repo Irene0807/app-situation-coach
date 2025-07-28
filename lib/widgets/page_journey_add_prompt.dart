@@ -58,7 +58,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               ),
               cursorColor: Colors.white,
-              maxLines: 20,
+              maxLines: 22,
             ),
           ),
 

@@ -1,7 +1,9 @@
 import 'package:app_situational_coach/models/question.dart';
+import 'package:app_situational_coach/services/test_generator.dart';
 import 'package:app_situational_coach/services/vocabulary_generator.dart';
 
-// 使用者在summaryContent時 背後先generate下一個場景的script
+// message history是否要放到這裡?
+// SummaryContent的summary 需要用到history才能生成 無法套用提前生成的做法?
 
 class Scene {
   final String title; // user可看 這個場景的名稱
@@ -39,6 +41,8 @@ class Scene {
     // ConversationContent
 
     // SummaryContent
+    TestGenerator t = TestGenerator();
+    summaryContent = await t.generateTest(this);
 
     return;
   }
@@ -61,7 +65,7 @@ class ConversationContent {
 }
 
 class SummaryContent {
-  final String summary; // 角色風格的旅程總結
+  final String summary; // 旅程總結
   final List<Question> questions;
 
   SummaryContent({required this.summary, required this.questions});

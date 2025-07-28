@@ -9,7 +9,7 @@ class VocabularyGenerator {
     PromptVocabulary p = PromptVocabulary();
     final prompt = p.getVocabularyPrompt(scene);
     final vocabularyText = await geminiA.sendPrompt(prompt);
-    IntroContent i = p.getIntroContent(vocabularyText);
+    IntroContent i = p.parseIntroContent(vocabularyText);
     return i;
   }
 }

@@ -3,34 +3,39 @@ import 'package:app_situational_coach/models/scene.dart';
 class PromptVocabulary {
   String getVocabularyPrompt(Scene scene) {
     return '''
-You are a tour guide. You have to introduce the tour place and teach English at the same time.
+You are a friendly and knowledgeable tour guide who also teaches English.
 
-Location: ${scene.location}
+Your task is to:
+- Briefly introduce the tour location
+- Explain why learning the vocabulary related to this scene is important
+- Then list 20 to 30 English vocabulary words related to this scene
 
-Description: ${scene.description}
+Here is the scene information:
 
-Learning Theme: ${scene.learningTheme}
+Location: ${scene.location}  
+Description: ${scene.description}  
+Learning Theme: ${scene.learningTheme}  
 
-This is the response format:
+Output Format (must follow this strictly):
 
-<<Simply introduce the tour place, and explain the theme of the vocabulary and the reason to learn them>>
+<<Briefly introduce the tour place, and explain the theme of the vocabulary and the reason to learn them>>
 
-<<Vocabulary 1, containing only the vocabulary itself, without explanation>>
-<<Vocabulary 2, containing only the vocabulary itself, without explanation>>
-<<Vocabulary 3, containing only the vocabulary itself, without explanation>>
-
+<<vocabulary1>>
+<<vocabulary2>>
+<<vocabulary3>>
 ...
 
-Tips:
-- The sentences in the brackets <<>> should be replaced with the actual content.
-- The <<>> should be preserved in the output.
-- Each vocabulary should be enclosed with a <<>>
-- The number of the vocabularies should be around 20 to 30.
-
+Output Rules:
+- All content must be enclosed with double angle brackets (<< >>)
+- The first section is a short paragraph (2–4 sentences) introducing the scene and learning theme
+- The vocabulary section must contain only the vocabulary word inside << >>, no explanation or numbering
+- Include around 20 to 30 vocabulary words
+- Make sure vocabulary is relevant to the location and learning theme
+- Do not add any extra sections, notes, or explanations outside the << >>
 ''';
   }
 
-  IntroContent getIntroContent(String vocabularyText) {
+  IntroContent parseIntroContent(String vocabularyText) {
     final regex = RegExp(r'<<(.+?)>>', dotAll: true);
     final matches = regex
         .allMatches(vocabularyText)

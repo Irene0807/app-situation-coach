@@ -127,7 +127,7 @@ class FrameJourneyContinue extends StatelessWidget {
           return buildFunction(
               context, false, false, true, FrameSceneDetail(scene: scene));
         } else {
-          return WidgetLoadingMark();
+          return buildFunction(context, true, true, true, WidgetLoadingMark());
         }
       case FrameJourneyContinueTab.jourenyBackCover:
         return buildFunction(

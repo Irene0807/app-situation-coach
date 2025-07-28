@@ -17,18 +17,90 @@ List<Journey> dummyJourneys = [
       schedule: [
         Day(title: 'Shopping & Asking', scenes: [
           Scene(
-            title: 'Grocery Shopping',
-            location: 'Market',
-            description:
-                'Pick up a cart, find items on your list, check labels and prices, ask staff if needed, then pay at checkout. Don’t forget your bags and receipt.',
-            learningTheme: 'Basic Transactions',
-            // 第一個scene會在創建journey的同時建立好
-            introContent: IntroContent(description: '', vocabulary: []),
-            conversationContent: ConversationContent(script: ''),
-            summaryContent: SummaryContent(summary: '', questions: [
-              Question(questionText: '', options: [], answerId: 0)
-            ]),
-          ),
+              title: 'Grocery Shopping',
+              location: 'Market',
+              description:
+                  'Pick up a cart, find items on your list, check labels and prices, ask staff if needed, then pay at checkout. Don’t forget your bags and receipt.',
+              learningTheme: 'Basic Transactions',
+              // 第一個scene會在創建journey的同時建立好
+              introContent: IntroContent(
+                  description:
+                      'Welcome to the market, a lively place where people shop for daily necessities like fruits, vegetables, snacks, and more! Today, we\'re going to practice basic transactions, a crucial part of communicating while shopping. These words will help you ask questions, understand prices, read labels, and interact with staff—all useful when shopping in English-speaking environments.',
+                  vocabulary: [
+                    'cart',
+                    'aisle',
+                    'shelf',
+                    'label',
+                    'price',
+                    'discount',
+                    'receipt',
+                    'cashier',
+                    'checkout',
+                    'bag',
+                    'item',
+                    'quantity',
+                    'barcode',
+                    'total',
+                    'change',
+                    'credit card',
+                    'debit card',
+                    'cash',
+                    'refund',
+                    'exchange',
+                    'customer',
+                    'employee',
+                    'ask for help',
+                    'payment',
+                    'scan',
+                    'queue',
+                    'on sale',
+                    'out of stock',
+                    'buy one get one free',
+                    'self-checkout'
+                  ]),
+              conversationContent: ConversationContent(script: ''),
+              summaryContent: SummaryContent(
+                summary:
+                    'Your grocery shopping journey has come to an end. Now, let’s review what you’ve learned with a vocabulary quiz!',
+                questions: [
+                  Question(
+                    questionText:
+                        'What do you use to carry items while shopping?',
+                    options: ['Basket', 'Bag', 'Trolley', 'Box'],
+                    answerId: 2,
+                  ),
+                  Question(
+                    questionText:
+                        'Where do you find different product categories in a supermarket?',
+                    options: ['Counter', 'Shelf', 'Aisle', 'Register'],
+                    answerId: 2,
+                  ),
+                  Question(
+                    questionText:
+                        'What is the place where you pay for your items?',
+                    options: ['Cashier', 'Checkout', 'Stockroom', 'Warehouse'],
+                    answerId: 1,
+                  ),
+                  Question(
+                    questionText:
+                        'What is the small note you get after paying?',
+                    options: ['Bill', 'Receipt', 'Tag', 'Label'],
+                    answerId: 1,
+                  ),
+                  Question(
+                    questionText:
+                        'Which of the following means “a price reduction”?',
+                    options: ['Sale', 'Tax', 'Cost', 'Item'],
+                    answerId: 0,
+                  ),
+                  Question(
+                    questionText:
+                        'What do you usually check to know how much a product costs?',
+                    options: ['Logo', 'Barcode', 'Label', 'Manual'],
+                    answerId: 2,
+                  ),
+                ],
+              )),
           Scene(
             title: 'Asking for Directions',
             location: 'On the road',

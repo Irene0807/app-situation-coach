@@ -9,7 +9,6 @@ class PageSceneIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('PageSceneIntro')),
       body: Center(
         child: Text(introContent.description),
       ),

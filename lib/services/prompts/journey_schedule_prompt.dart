@@ -8,33 +8,43 @@ import 'package:app_situational_coach/models/scene.dart';
 class PromptJourneySchedule {
   String getJourneySchedulePrompt(String plan) {
     return '''
-Help me generate a detailed journey schedule based on the journey plan:
+You are a travel and English learning content designer.
 
-$plan
+Based on the given journey plan, generate a detailed journey schedule for the user.
+This schedule helps improve the user's English skills through practical experiences.
 
-The journey schedule should follow this format:
+The schedule must strictly follow this format for each day:
 
-<<Title of day 1, do not put "day 1" in the title>>
-<<Number of scene in day 1, output containing only number, example: 2, 3, 4>> 
+<<Title of day 1, do not include the words "day 1">>
+<<Number of scene in day 1, only output a number (e.g., 2, 3, or 4)>>
 
-<<Title of scene 1, do not put "scene 1" in the title>>
-<<The location of the scene 1>>
-<<Description of the scene 1>>
-<<The learning theme related to English of the scene 1>>
+<<Title of scene 1>>
+<<The location of scene 1>>
+<<Description of scene 1: describe the main activity and what the user does>>
+<<Learning theme: explain what kind of English skill the user will focus on in this scene>>
 
-<<Title of scene 2, do not put "scene 2" in the title>>
-<<The location of the scene 2>>
-<<Description of the scene 2>>
-<<The learning theme related to English of the scene 2>>
-
-<<Title of day 2, do not put "day 2" in the title>>
-<<Number of scene in day 2, output containing only number, example: 2, 3, 4>> 
+<<Title of scene 2>>
+<<The location of scene 2>>
+<<Description of scene 2: describe the main activity and what the user does>>
+<<Learning theme: explain what kind of English skill the user will focus on in this scene>>
 
 ...
 
-Tips:
-- The sentences in the brackets <<>> should be replaced with the actual content.
-- Each day should have 2 to 4 scenes.
+<<Title of day 2, do not include the words "day 2">>
+<<Number of scene in day 2, only output a number>>
+...
+
+Use friendly and clear language, and make sure the content is:
+- Practical and realistic (avoid fantasy or unrelated content unless the companion is magical)
+- Focused on English learning through activities (e.g., shopping, ordering food, asking directions, talking to locals)
+- Each day must include 2 to 4 scenes
+- Each scene should be distinct and meaningful, not filler
+
+Here is the journey plan:
+
+$plan
+
+The output must strictly use the << >> brackets for all content sections as shown.
 ''';
   }
 

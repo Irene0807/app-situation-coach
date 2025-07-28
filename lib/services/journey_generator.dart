@@ -28,7 +28,7 @@ class JourneyGenerator {
     PromptJourneyPlan p = PromptJourneyPlan();
     final prompt = p.getJourneyPlanPrompt(userInput);
     final planText = await geminiA.sendPrompt(prompt);
-    final plan = p.getSplitPlan(planText);
+    final plan = p.parsePlan(planText);
     return plan;
   }
 
