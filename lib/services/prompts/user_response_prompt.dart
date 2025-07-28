@@ -3,7 +3,7 @@
 String getUserResponsePrompt({
   required String robotMessage,
   required String theme,
-  required double bloomLevel,
+  required int bloomLevel,
 }) {
   return '''
 You are simulating a learner in an English learning conversation.

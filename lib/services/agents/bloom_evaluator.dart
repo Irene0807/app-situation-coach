@@ -24,7 +24,7 @@ class BloomEvaluationResult {
 class BloomEvaluator {
   final double threshold = 0.5;
 
-  Future<BloomEvaluationResult> evaluate(String userAnswer, double userBloomLevel) async {
+  Future<BloomEvaluationResult> evaluate(String userAnswer, int userBloomLevel) async {
     // Step A + C (並行)
     final futureA = _evaluateBroadLevel(userAnswer);
     final futureC = _evaluateDirectLevel(userAnswer);
@@ -44,6 +44,8 @@ class BloomEvaluator {
     } else {
       confidence = 0.4;
     }
+
+    print("Bloom Score: ${levelC}");
 
     final isImproved = levelC > userBloomLevel;
     final passed = isImproved && confidence >= threshold;
@@ -87,7 +89,7 @@ class BloomEvaluator {
 
   Future<String> _summarizeFeedback({
     required String userAnswer,
-    required double userLevel,
+    required int userLevel,
     required int predictedLevel,
     required double confidence,
   }) async {

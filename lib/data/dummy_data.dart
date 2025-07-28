@@ -70,6 +70,7 @@ List<Journey> dummyJourneys = [
           ),
         ])
       ],
+      bloomLevel: 1,
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '2',
@@ -79,6 +80,7 @@ List<Journey> dummyJourneys = [
       description: '模擬一次英語工作面試，提升口語表達能力。',
       learningGoal: '學習如何在面試中自信地表達自己。',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '3',
@@ -88,6 +90,7 @@ List<Journey> dummyJourneys = [
       description: '在台北夜市體驗當地小吃和文化。',
       learningGoal: '學習如何在日常生活中使用英語進行交流',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '4',
@@ -97,6 +100,7 @@ List<Journey> dummyJourneys = [
       description: '在東京的假期，探索城市和文化。',
       learningGoal: '學習如何在旅遊中使用英語進行溝通。',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '5',
@@ -106,6 +110,7 @@ List<Journey> dummyJourneys = [
       description: '在香港的商務旅行，與當地商人交流。',
       learningGoal: '學習如何在商務場合使用英語。',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),
   Journey(
       id: '6',
@@ -115,6 +120,7 @@ List<Journey> dummyJourneys = [
       description: '參加上海的國際會議，與各國代表交流。',
       learningGoal: '學習如何在正式場合使用英語。',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: -1, scene: -1, mode: -1)),
   Journey(
       id: '7',
@@ -124,23 +130,8 @@ List<Journey> dummyJourneys = [
       description: '在新加坡的博覽會上展示產品，與客戶交流。',
       learningGoal: '學習如何在展覽中使用英語進行推銷和交流。',
       schedule: [],
+      bloomLevel: 1,
       status: JourneyStatus(day: 0, scene: 0, mode: 0)),
-  // Journey(
-  //     id: '8',
-  //     name: 'Bangkok Tour',
-  //     day: 1,
-  //     character: 'Trump',
-  //     description: '在曼谷的旅遊，體驗當地文化和美食。',
-  //     learningGoal: '學習如何在旅遊中使用英語進行交流。',
-  //     isCompleted: true),
-  // Journey(
-  //     id: '9',
-  //     name: 'America Adventure',
-  //     day: 1,
-  //     character: 'Trump',
-  //     description: '在美國的冒險之旅，探索各地文化和風景。',
-  //     learningGoal: '學習如何在不同文化背景下使用英語。',
-  //     isCompleted: false),
 ];
 
 const int dummyDialogCount = 6;

@@ -3,7 +3,7 @@
 String getUserSituationPrompt({
   required String theme,
   required String topic,
-  required double bloomLevel,
+  required int bloomLevel,
 }) {
   return '''
 You are simulating a language learner's possible utterance in an English learning scene.

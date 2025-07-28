@@ -1,5 +1,8 @@
 import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/services/vocabulary_generator.dart';
+import 'package:app_situational_coach/services/script_generator.dart';
+import 'package:app_situational_coach/models/journey.dart';
+import 'package:app_situational_coach/models/message.dart';
 
 // 使用者在summaryContent時 背後先generate下一個場景的script
 
@@ -31,14 +34,25 @@ class Scene {
         summaryContent != null);
   }
 
-  Future<void> generateAllContent() async {
-    // IntroContent
+  Future<void> generateAllContent({
+    required Journey journey,
+    // 因為script需要journey的資訊，所以把journey也傳進來了，如果 Intro、Summary需要也可以用
+  }) async {
+    // 1. IntroContent
     VocabularyGenerator v = VocabularyGenerator();
     introContent = await v.generateVocabulary(this);
 
-    // ConversationContent
+    // 2. ConversationContent
+    ScriptGenerator s = ScriptGenerator();
 
-    // SummaryContent
+    // (增加傳入journey，因為會用到　journey 裡面的 bloomLevel / character）
+    final script = await s.generateRefinedScript(
+        journey: journey,
+        scene: this,
+    );
+    conversationContent = ConversationContent(script: script);
+
+    // 3. SummaryContent
 
     return;
   }
@@ -55,9 +69,13 @@ class IntroContent {
 }
 
 class ConversationContent {
-  final String script;
+  final String script; //教角色如何教學的script
+  final List<Message> messages; //使用者跟角色的對話紀錄
 
-  ConversationContent({required this.script});
+  ConversationContent({
+    required this.script,
+    List<Message>? messages,
+  }) : messages = messages ?? [];
 }
 
 class SummaryContent {

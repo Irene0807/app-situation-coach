@@ -15,7 +15,7 @@ $plan
 The journey schedule should follow this format:
 
 <<Title of day 1, do not put "day 1" in the title>>
-<<Number of scene in day 1, output containing only number, example: 2, 3, 4>> 
+<<SceneCount: 3>>
 
 <<Title of scene 1, do not put "scene 1" in the title>>
 <<The location of the scene 1>>
@@ -54,7 +54,8 @@ Tips:
     final itemNum = items.length;
     while (i < itemNum) {
       String title = items[i++];
-      int sceneNum = int.parse(items[i++]);
+      final countRaw = items[i++];
+      final sceneNum = int.tryParse(countRaw.replaceFirst('SceneCount:', '').trim()) ?? 2;
       List<Scene> scenes = [];
       for (int j = 0; j < sceneNum; j++) {
         Scene s = Scene(

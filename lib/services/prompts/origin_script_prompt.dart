@@ -7,7 +7,7 @@ String getOriginScriptPrompt({
   required String title,
   required String theme,
   required String topic,
-  required double bloomLevel,
+  required int bloomLevel,
   required String character,
   String? feedback,
 }) {
@@ -39,6 +39,7 @@ Your task is to write a **teaching guide** for this lesson. The guide should inc
 2. [Teaching Strategy]  
    - Explain how to guide the user based on Bloom Level $bloomLevel.  
    - Suggest how deep the questions should go, and how to balance friendliness and challenge.
+   Use the learning theme **"$theme"** and topic **"$topic"** as the foundation for the interaction design.
 
 3. [Conversation Flow]  
    - Outline a typical 3-turn interaction:  
@@ -50,6 +51,8 @@ Your task is to write a **teaching guide** for this lesson. The guide should inc
    - Emphasize short, natural English.  
    - Encourage critical thinking or creativity if user’s Bloom Level >= 2.  
    - Always keep the user engaged and supported.  
+
+The most important thing is Character Tone & Style]  
 
 Keep the script short, practical, and informative — this is for internal use to guide the AI’s behavior, not for display to the user.
 
