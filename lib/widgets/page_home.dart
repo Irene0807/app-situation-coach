@@ -8,6 +8,7 @@ import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import '../widgets/widget_star_showDialog.dart';
+import 'page_conversation_test.dart';
 
 class Pagehome extends StatelessWidget {
   const Pagehome({super.key});
@@ -270,6 +271,25 @@ class Pagehome extends StatelessWidget {
               ),
             ),
           ),
+
+          // ---UI testing--------------
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, top: 100),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const PageConversationTest()),
+                  );
+                },
+                child: const Text('對話UI TEST'),
+              ),
+            ),
+          ),
+
+          
         ],
       ),
     );

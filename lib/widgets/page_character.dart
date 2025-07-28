@@ -221,10 +221,15 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         children: [
           const SizedBox(height: 12),
           character.imagePath.contains('trump')
-            ? const TrumpCharacter()
+            ? SizedBox(
+              height: cardHeight * 0.40,
+              child: TrumpCharacter(
+                isTalking: widget.highlight,
+              ),
+            )
             : Image.asset(
                 character.imagePath,
-                height: cardHeight * 0.35,
+                height: cardHeight * 0.40,
                 gaplessPlayback: true,
                 filterQuality: FilterQuality.low,
               ),

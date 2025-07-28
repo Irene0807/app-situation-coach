@@ -81,18 +81,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
   @override
   Widget build(BuildContext context) {
 
-    // 只是找journey Name用
-    final status = Provider.of<JourneyStatusNotifier>(context).getStatus();
-    final allJourneys = Provider.of<JourneyListNotifier>(context).journeys;
-    final journey = allJourneys.firstWhere(
-      (j) => j.schedule.any((day) => day.scenes.contains(widget.scene)),
-      orElse: () => throw Exception("Journey not found for this scene"),
-    );
-
     final conversation = currentScene.conversationContent;
 
     return Scaffold(
-      appBar: AppBar(title: Text(journey.name)),
+      appBar: AppBar(title: Text(widget.scene.title)),
       body: Column(
         children: [
           const SizedBox(height: 20),
