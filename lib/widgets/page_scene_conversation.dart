@@ -1,172 +1,170 @@
 import 'package:app_situational_coach/models/status.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/journey.dart';
+import '../models/scene.dart';
 import '../models/message.dart';
+import '../state/journey_list_notifier.dart';
+import '../state/journey_status_notifier.dart';
 import '../services/script_generator.dart';
 import '../services/response_generator.dart';
 import '../data/dummy_data.dart';
 
 /*
-此頁面僅供測試 & 說明 如何使用script_generator & response_generator（UI部分全是唬爛）
-  - 測試一：生成script => script_generator
-  - 測試二：生成response => response_generator
-  
-ps. 現在這版continue因為有大動script跟response，跟之前那版的continue很不一樣
-    script跟response generator的取用參考這版會比較正確
-
 這版未涵蓋的部分：
-  - frame跟UI等state的切換(目前版本僅為測試用)
-  - 目前的journey是從dummy_data取的，未接起來真正的journey_generator (因為不想每次測試都要建一次旅程)
-    (dummyJourneys裡面需要把schedule填上才能取，我目前只填了第一個旅程 所以其他旅程還不能跑是正常的)
+  - dummyJourneys目前無法正常運作 要新建的journey才可以
 
 測試心得：
-  - script大概30秒內可以生成，response很快 算蠻流暢的！
   - 對話內容：origin_script_generator的prompt要再改（詳細內容參考origin_script_prompt.dart）
 */
 
 class PageSceneConversation extends StatefulWidget {
-  final String journeyId; // 傳進來的旅程 ID
-  const PageSceneConversation({super.key, required this.journeyId});
+  final Scene scene; // 改成傳scene
+  const PageSceneConversation({super.key, required this.scene});
 
   @override
   State<PageSceneConversation> createState() => _PageSceneConversationState();
 }
 
 class _PageSceneConversationState extends State<PageSceneConversation> {
-  Journey? journey;
-  int selectedDay = 1;
-  int selectedScene = 1;
-  String script = '';
-  final List<Message> history = [];
+  late Scene currentScene;
   ResponseGenerator? responseGenerator;
   String aiResponse = '';
   final TextEditingController _controller = TextEditingController();
+  int roundCount = 0;
 
   @override
   void initState() {
-    super.initState();
-    // 這裡暫時寫的是去 dummyJourneys 找對應旅程
-    final id = widget.journeyId.replaceFirst(':', '');
-    journey = dummyJourneys.firstWhere(
-      (j) => j.id == id,
-      orElse: () => Journey(
-          id: '',
-          name: '',
-          day: 1,
-          character: '',
-          description: '',
-          learningGoal: '',
-          schedule: [],
-          status: JourneyStatus()),
-    );
-  }
+    currentScene = widget.scene;
 
-  // 測試一：生成script => script_generator
-  Future<void> generateScript() async {
-    setState(() {
-      script = 'Generating...';
-    });
-    final result = await ScriptGenerator().generateRefinedScript(
-      journey: journey!,
-      day: selectedDay,
-      scene: selectedScene,
-      userBloomLevel: 0.5,
-      character: journey!.character,
-    );
-    setState(() {
-      script = result;
-      responseGenerator = ResponseGenerator(script: script, history: history);
+    final conv = currentScene.conversationContent;
+    if (conv != null) {
+      responseGenerator = ResponseGenerator(conversation: conv);
+    }
+
+    // 進入頁面後，等待一秒角色開始主動對話
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 1), () async {
+        await startConversation(); // 主動講第一句話
+      });
     });
   }
-
-  // 測試二：生成response => response_generator
+  
+  // 生成response => response_generator
   Future<void> handleResponse() async {
     if (responseGenerator == null) return;
+    if (roundCount >= 20) return;
+
     final input = _controller.text;
     _controller.clear();
     final response = await responseGenerator!.generateResponse(input);
     setState(() {
-      aiResponse = response;
+      roundCount++;
+      if (roundCount >= 20) {
+        aiResponse = "$response\n\nThat’s all for our chat today. See you later!";
+      } else {
+        aiResponse = response;
+      }
     });
   }
 
-  // 按下 "Start Conversation" 按鈕後 讓機器人先說出第一句話
+  // 讓角色主動講第一句話
   Future<void> startConversation() async {
     if (responseGenerator == null) return;
-    final response = await responseGenerator!.generateResponse("Hello");
+    final response = await responseGenerator!.generateResponse("Hello.");
     setState(() {
+      roundCount = 1;
       aiResponse = response;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (journey == null) {
-      return const Scaffold(
-        body: Center(child: Text('Journey not found')),
-      );
-    }
+
+    final conversation = currentScene.conversationContent;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Journey: ${journey!.name}')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 上方控制列：選 Day / Scene，並按下產生script
-              Row(
+      appBar: AppBar(title: Text(widget.scene.title)),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+
+          // AI回應區
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  DropdownButton<int>(
-                    value: selectedDay,
-                    items: [1, 2, 3]
-                        .map((d) =>
-                            DropdownMenuItem(value: d, child: Text('Day $d')))
-                        .toList(),
-                    onChanged: (v) => setState(() => selectedDay = v!),
-                  ),
-                  const SizedBox(width: 16),
-                  DropdownButton<int>(
-                    value: selectedScene,
-                    items: [1, 2, 3]
-                        .map((s) =>
-                            DropdownMenuItem(value: s, child: Text('Scene $s')))
-                        .toList(),
-                    onChanged: (v) => setState(() => selectedScene = v!),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: generateScript,
-                    child: const Text('Generate Script'),
-                  ),
+                  if (aiResponse.isNotEmpty) ...[
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text('🤖 $aiResponse'),
+                      ),
+                    ),
+                  ],
                 ],
               ),
-
-              const SizedBox(height: 16),
-              Text('Script:\n$script'), // 顯示目前script
-              const Divider(),
-
-              //下方控制列：按下後讓機器人先說出第一句話，然後開始後續對話
-              ElevatedButton(
-                onPressed: startConversation,
-                child: const Text('Start Conversation'),
-              ),
-              TextField(
-                controller: _controller,
-                decoration: const InputDecoration(labelText: 'Your Input'),
-                onSubmitted: (_) => handleResponse(),
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: handleResponse,
-                child: const Text('Send to AI'),
-              ),
-              const SizedBox(height: 16),
-              Text('AI Response:\n$aiResponse'),
-            ],
+            ),
           ),
-        ),
+
+          // 使用者輸入回答區
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.grey.shade300)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: 'Say something...',
+                      border: InputBorder.none,
+                    ),
+                    onSubmitted: (_) => handleResponse(),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: handleResponse,
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+
+      // 測試demo用：顯示當前給角色的script
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          final scriptText = currentScene.conversationContent?.script ?? 'No script available';
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Script'),
+              content: SingleChildScrollView(
+                child: Text(scriptText),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          );
+        },
+        tooltip: 'Show Script',
+        child: const Icon(Icons.text_snippet),
       ),
     );
   }

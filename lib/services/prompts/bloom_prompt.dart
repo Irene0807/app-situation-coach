@@ -49,7 +49,7 @@ Feedback: <suggestion>
 
 String getBloomSummaryPrompt({
   required String answer,
-  required double userLevel,
+  required int userLevel,
   required int predictedLevel,
   required double confidence,
 }) {

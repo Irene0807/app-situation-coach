@@ -48,9 +48,9 @@ class FrameJourneyContinue extends StatelessWidget {
     if (currentStatus.scene <
         journey.schedule[currentStatus.day - 1].scenes.length) {
       await journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene]
-          .generateAllContent();
+          .generateAllContent(journey: journey);
     } else {
-      await journey.schedule[currentStatus.day].scenes[0].generateAllContent();
+      await journey.schedule[currentStatus.day].scenes[0].generateAllContent(journey: journey);
     }
 
     // 發出通知 scene已完成

@@ -8,6 +8,7 @@ import 'agents/user_response_predictor.dart';
 import 'agents/bloom_evaluator.dart';
 import 'agents/character_evaluator.dart';
 import '../models/journey.dart';
+import '../models/scene.dart';
 
 /*
 ScriptGenerator:
@@ -40,15 +41,13 @@ class ScriptGenerator {
 
   Future<String> generateRefinedScript({
     required Journey journey,
-    required int day,
-    required int scene,
-    required double userBloomLevel,
-    required String character,
+    required Scene scene,
   }) async {
-    final schedule = journey.schedule;
-    final title = schedule[day].scenes[scene].title;
-    final theme = schedule[day].scenes[scene].learningTheme;
-    final topic = schedule[day].scenes[scene].description;
+    final title = scene.title;
+    final theme = scene.learningTheme;
+    final topic = scene.description;
+    final userBloomLevel = journey.bloomLevel;
+    final character = journey.character;
 
     int retryCount = 1;
     String? feedback;

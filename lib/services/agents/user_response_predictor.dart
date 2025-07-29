@@ -8,7 +8,7 @@ class UserResponsePredictor {
   Future<String> predictResponse({
     required String robotMessage,
     required String theme,
-    required double bloomLevel,
+    required int bloomLevel,
   }) async {
     final prompt = getUserResponsePrompt(
       robotMessage: robotMessage,

@@ -8,7 +8,7 @@ class UserSituationPredictor {
   Future<String> predictPossibleUtterance({
     required String theme,
     required String topic,
-    required double bloomLevel,
+    required int bloomLevel,
   }) async {
     final prompt = getUserSituationPrompt(
       theme: theme,

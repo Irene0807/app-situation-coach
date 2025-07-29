@@ -9,7 +9,7 @@ class OriginScriptGenerator {
     required String title,
     required String theme,
     required String topic,
-    required double bloomLevel,
+    required int bloomLevel,
     required String character,
     String? feedback,
   }) async {

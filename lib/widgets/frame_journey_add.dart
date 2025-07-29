@@ -110,11 +110,8 @@ Learning Goal: $goal
         throw Exception('schedule.length != day\n');
       }
 
-      // 先跑好第一個scene的Content
-      await schedule[0].scenes[0].generateAllContent();
-
-      // 保護 context
-      if (!mounted) return;
+      // 每個旅程初始的bloom都是1
+      int bloomLevel = 1;
 
       // 新增 journey 到資料庫
       final journey = Journey(
@@ -125,8 +122,15 @@ Learning Goal: $goal
         description: description,
         learningGoal: goal,
         schedule: schedule,
+        bloomLevel: bloomLevel,
         status: JourneyStatus(), //
       );
+
+      // 先跑好第一個scene的Content
+      await schedule[0].scenes[0].generateAllContent(journey: journey);
+
+      // 保護 context
+      if (!mounted) return;
 
       Provider.of<JourneyListNotifier>(context, listen: false)
           .addJourney(journey);

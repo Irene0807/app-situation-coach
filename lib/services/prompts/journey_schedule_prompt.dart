@@ -64,7 +64,8 @@ The output must strictly use the << >> brackets for all content sections as show
     final itemNum = items.length;
     while (i < itemNum) {
       String title = items[i++];
-      int sceneNum = int.parse(items[i++]);
+      final countRaw = items[i++];
+      final sceneNum = int.tryParse(countRaw.replaceFirst('SceneCount:', '').trim()) ?? 2;
       List<Scene> scenes = [];
       for (int j = 0; j < sceneNum; j++) {
         Scene s = Scene(
