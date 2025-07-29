@@ -12,8 +12,7 @@ import 'gemini.dart';
 */
 
 // geminiA: 生成shcedule
-final geminiA = Gemini('AIzaSyB5M_n84f36X_P5LIZ-3pgRHdTOwUrVe0Q');
-// 舊key 用起來卡卡的 可能要調整
+final geminiA = Gemini('AIzaSyC_hEJD9A6UpiovyXJ5Lgdxw7Tq9b2XsTo');
 // AIzaSyB5M_n84f36X_P5LIZ-3pgRHdTOwUrVe0Q
 
 // geminiB: 生成respond用

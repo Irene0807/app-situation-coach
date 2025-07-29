@@ -18,7 +18,7 @@ Learning Theme: ${scene.learningTheme}
 
 Output Format (must follow this strictly):
 
-<<Briefly introduce the tour place, and explain the theme of the vocabulary and the reason to learn them>>
+<<Briefly introduce the tour place, and explain the theme of the vocabulary and the reason to learn them, within 50 words>>
 
 <<vocabulary1>>
 <<vocabulary2>>

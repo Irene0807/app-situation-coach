@@ -122,16 +122,17 @@ class FrameJourneyContinue extends StatelessWidget {
             Provider.of<JourneyStatusNotifier>(context, listen: true)
                 .getSceneReady();
         if (sceneReady) {
+          bool isPass =
+              Provider.of<JourneyStatusNotifier>(context, listen: true).isPass;
           final scene =
               journey.schedule[status.day - 1].scenes[status.scene - 1];
           return buildFunction(
-              context, false, false, true, FrameSceneDetail(scene: scene));
+              context, true, true, isPass, FrameSceneDetail(scene: scene));
         } else {
           return buildFunction(context, true, true, true, WidgetLoadingMark());
         }
       case FrameJourneyContinueTab.jourenyBackCover:
-        return buildFunction(
-            context, false, false, true, PageJourneyBackCover());
+        return buildFunction(context, true, true, true, PageJourneyBackCover());
     }
   }
 
@@ -187,7 +188,6 @@ class FrameJourneyContinue extends StatelessWidget {
                   }
 
                   // 若為sceneCover 執行prepareForNextScene
-                  // 這邊寫的偏醜 可能之後調整一下
                   JourneyStatusNotifier notifier =
                       Provider.of<JourneyStatusNotifier>(context,
                           listen: false);

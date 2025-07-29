@@ -49,3 +49,5 @@ flutter:
     - assets/images/trump_4.png
     - assets/images/trump_5.png
     - assets/images/seoul_shopping.jpg # 之後刪掉
+    - assets/images/billboard.png
+    - assets/images/ai_trump.png
