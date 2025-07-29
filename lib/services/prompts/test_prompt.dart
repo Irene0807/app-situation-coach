@@ -1,6 +1,8 @@
 import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
 
+// 目前的prompt沒有使用history message 之後要調整
+
 class PromptTest {
   String getTestPrompt(Scene scene) {
     return '''
