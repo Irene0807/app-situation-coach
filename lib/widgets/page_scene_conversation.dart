@@ -1,14 +1,6 @@
-import 'package:app_situational_coach/models/status.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/journey.dart';
 import '../models/scene.dart';
-import '../models/message.dart';
-import '../state/journey_list_notifier.dart';
-import '../state/journey_status_notifier.dart';
-import '../services/script_generator.dart';
 import '../services/response_generator.dart';
-import '../data/dummy_data.dart';
 
 /*
 這版未涵蓋的部分：
@@ -19,15 +11,14 @@ import '../data/dummy_data.dart';
 */
 
 class PageSceneConversation extends StatefulWidget {
-  final Scene scene; // 改成傳scene
-  const PageSceneConversation({super.key, required this.scene});
+  final ConversationContent conversationContent; // 改成傳scene
+  const PageSceneConversation({super.key, required this.conversationContent});
 
   @override
   State<PageSceneConversation> createState() => _PageSceneConversationState();
 }
 
 class _PageSceneConversationState extends State<PageSceneConversation> {
-  late Scene currentScene;
   ResponseGenerator? responseGenerator;
   String aiResponse = '';
   final TextEditingController _controller = TextEditingController();
@@ -35,12 +26,13 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   @override
   void initState() {
-    currentScene = widget.scene;
+    // 能進入這頁 應該不用檢查是不是null
 
-    final conv = currentScene.conversationContent;
-    if (conv != null) {
-      responseGenerator = ResponseGenerator(conversation: conv);
-    }
+    // final conv = widget.conversationContent;
+
+    // if (conv != null) {
+    //   responseGenerator = ResponseGenerator(conversation: conv);
+    // }
 
     // 進入頁面後，等待一秒角色開始主動對話
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -49,7 +41,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       });
     });
   }
-  
+
   // 生成response => response_generator
   Future<void> handleResponse() async {
     if (responseGenerator == null) return;
@@ -61,7 +53,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     setState(() {
       roundCount++;
       if (roundCount >= 20) {
-        aiResponse = "$response\n\nThat’s all for our chat today. See you later!";
+        aiResponse =
+            "$response\n\nThat’s all for our chat today. See you later!";
       } else {
         aiResponse = response;
       }
@@ -80,11 +73,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   @override
   Widget build(BuildContext context) {
-
-    final conversation = currentScene.conversationContent;
-
     return Scaffold(
-      appBar: AppBar(title: Text(widget.scene.title)),
+      appBar: AppBar(title: Text('只有傳ConversationContent進來')),
       body: Column(
         children: [
           const SizedBox(height: 20),
@@ -146,13 +136,13 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       // 測試demo用：顯示當前給角色的script
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final scriptText = currentScene.conversationContent?.script ?? 'No script available';
+          // final scriptText = widget.conversationContent?.script ?? 'No script available';
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Script'),
               content: SingleChildScrollView(
-                child: Text(scriptText),
+                child: Text(widget.conversationContent.script),
               ),
               actions: [
                 TextButton(
