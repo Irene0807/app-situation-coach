@@ -1,5 +1,7 @@
+import 'package:app_situational_coach/state/journey_status_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/scene.dart';
+import 'package:provider/provider.dart';
 
 class PageSceneSummary extends StatefulWidget {
   final SummaryContent summaryContent;
@@ -13,48 +15,88 @@ class PageSceneSummary extends StatefulWidget {
 class _PageSceneSummaryState extends State<PageSceneSummary> {
   final PageController _pageController = PageController();
   late List<int?> selectedAnswers;
+  late List<bool> isSubmitted;
 
   @override
   void initState() {
     super.initState();
-    selectedAnswers =
-        List<int?>.filled(widget.summaryContent.questions.length, null);
+    final questionCount = widget.summaryContent.questions.length;
+    selectedAnswers = List<int?>.filled(questionCount, null);
+    isSubmitted = List<bool>.filled(questionCount, false);
   }
 
   void _selectAnswer(int questionIndex, int selectedOption) {
+    if (isSubmitted[questionIndex]) return; // 禁止已提交後變更答案
     setState(() {
       selectedAnswers[questionIndex] = selectedOption;
     });
   }
 
-  void _submitAnswer(int questionIndex) {
+  void _handleButtonPress(int questionIndex) {
+    final isLastQuestion =
+        questionIndex == widget.summaryContent.questions.length - 1;
+
+    if (!isSubmitted[questionIndex]) {
+      // Submit 邏輯
+      if (selectedAnswers[questionIndex] == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select an option')),
+        );
+        return;
+      }
+      setState(() {
+        isSubmitted[questionIndex] = true;
+      });
+
+      // 如果是最後一題，且剛完成提交，就觸發 setIsPass()
+      if (isLastQuestion) {
+        Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+      }
+    } else {
+      // Next 邏輯
+      if (questionIndex < widget.summaryContent.questions.length - 1) {
+        _pageController.nextPage(
+            duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+      }
+    }
+  }
+
+  Widget _buildOptionRow(int questionIndex, int optionIndex) {
+    final question = widget.summaryContent.questions[questionIndex];
     final selected = selectedAnswers[questionIndex];
-    if (selected == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('請先選擇一個選項')),
-      );
-      return;
+    final correct = question.answerId;
+    final submitted = isSubmitted[questionIndex];
+
+    final isCorrect = optionIndex == correct;
+    final isSelected = optionIndex == selected;
+
+    Icon? trailingIcon;
+    if (submitted) {
+      if (isCorrect) {
+        trailingIcon = const Icon(Icons.check, color: Colors.green);
+      } else if (isSelected && !isCorrect) {
+        trailingIcon = const Icon(Icons.close, color: Colors.red);
+      }
     }
 
-    // 如果不是最後一題，跳到下一題；是最後一題可換成顯示總結或完成畫面
-    if (questionIndex < widget.summaryContent.questions.length - 1) {
-      _pageController.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
-    } else {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text('完成'),
-          content: Text('你已完成所有題目'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('確定'),
+    return RadioListTile<int>(
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              question.options[optionIndex],
+              style: const TextStyle(color: Colors.white),
             ),
-          ],
-        ),
-      );
-    }
+          ),
+          if (trailingIcon != null) trailingIcon,
+        ],
+      ),
+      value: optionIndex,
+      groupValue: selected,
+      onChanged:
+          (submitted ? null : (val) => _selectAnswer(questionIndex, val!)),
+      activeColor: Colors.greenAccent,
+    );
   }
 
   @override
@@ -73,7 +115,6 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Summary 區塊
                 Text(
                   summary,
                   style: const TextStyle(
@@ -81,20 +122,21 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-
                 const SizedBox(height: 16),
                 const Divider(color: Colors.white54),
                 const SizedBox(height: 16),
-
-                // 題目 PageView
                 SizedBox(
-                  height: 400, // 給足夠空間顯示題目與選項
+                  height: 420,
                   child: PageView.builder(
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: questions.length,
                     itemBuilder: (context, index) {
                       final question = questions[index];
+                      final submitted = isSubmitted[index];
+                      final isLastQuestion = index == questions.length - 1;
+                      final allAnswered = isSubmitted.every((s) => s);
+
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,32 +149,30 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                                 color: Colors.white),
                           ),
                           const SizedBox(height: 12),
-
-                          // 選項列表
-                          ...List.generate(question.options.length,
-                              (optionIndex) {
-                            return RadioListTile<int>(
-                              title: Text(
-                                question.options[optionIndex],
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              value: optionIndex,
-                              groupValue: selectedAnswers[index],
-                              onChanged: (value) {
-                                if (value != null) _selectAnswer(index, value);
-                              },
-                              activeColor: Colors.greenAccent,
-                            );
-                          }),
-
+                          ...List.generate(
+                              question.options.length,
+                              (optionIndex) =>
+                                  _buildOptionRow(index, optionIndex)),
                           const SizedBox(height: 12),
-
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () => _submitAnswer(index),
-                              child: const Text('Next'),
+                          if (!(isLastQuestion && allAnswered))
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () => _handleButtonPress(index),
+                                child: Text(submitted ? 'Next' : 'Submit'),
+                              ),
+                            )
+                          else if (isLastQuestion && allAnswered)
+                            const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Text(
+                                '✅ All done! Great work',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.greenAccent,
+                                ),
+                              ),
                             ),
-                          ),
                         ],
                       );
                     },

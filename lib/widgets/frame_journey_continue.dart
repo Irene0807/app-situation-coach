@@ -159,7 +159,7 @@ class FrameJourneyContinue extends StatelessWidget {
       mask
           ? Positioned.fill(
               child: ColoredBox(
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(0.4),
               ),
             )
           : SizedBox(),
