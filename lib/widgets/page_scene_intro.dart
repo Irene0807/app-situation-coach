@@ -58,6 +58,25 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
           // 黑板 + 川普
           alignment: Alignment.center,
           children: [
+            // title
+            Transform.translate(
+                offset: Offset(0, -360),
+                child: Text(
+                  'Mini Classroom',
+                  style: TextStyle(
+                    // GoogleFonts.pacifico
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                    shadows: [
+                      Shadow(
+                          blurRadius: 6,
+                          offset: Offset(1, 1),
+                          color: Colors.black45)
+                    ],
+                  ),
+                )),
             // 黑板
             Transform.translate(
               offset: Offset(0, -32),
@@ -104,6 +123,13 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                                       ? FontWeight.normal
                                       : FontWeight.bold,
                                   color: Colors.white,
+                                  letterSpacing: 0.5,
+                                  shadows: [
+                                    Shadow(
+                                        blurRadius: 6,
+                                        offset: Offset(1, 1),
+                                        color: Colors.black45)
+                                  ],
                                 ),
                               ),
                             ),

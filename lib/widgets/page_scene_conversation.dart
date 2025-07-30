@@ -26,13 +26,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   @override
   void initState() {
-    // 能進入這頁 應該不用檢查是不是null
+    super.initState();
 
-    // final conv = widget.conversationContent;
-
-    // if (conv != null) {
-    //   responseGenerator = ResponseGenerator(conversation: conv);
-    // }
+    final conv = widget.conversationContent;
+    responseGenerator = ResponseGenerator(conversation: conv);
 
     // 進入頁面後，等待一秒角色開始主動對話
     WidgetsBinding.instance.addPostFrameCallback((_) {
