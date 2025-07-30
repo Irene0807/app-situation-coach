@@ -102,6 +102,13 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                           setState(() {
                             _currentIndex = index;
                           });
+
+                          // 若換到最後一頁 設定該頁為已完成
+                          if (_currentIndex == _pages.length - 1) {
+                            Provider.of<JourneyStatusNotifier>(context,
+                                    listen: false)
+                                .setIsPass();
+                          }
                         },
                         itemBuilder: (context, index) {
                           final isDescription = index == 0;

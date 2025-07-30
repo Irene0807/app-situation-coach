@@ -21,7 +21,7 @@ Your task:
 
 Output Format (must follow this strictly):
 
-<<Short summary to the traveler and introduce the vocabulary test>>
+<<Short summary to the traveler and introduce the vocabulary test, within 50 words>>
 
 <<Question 1 text>>
 <<Option 0>>

@@ -9,6 +9,8 @@ import '../widgets/painters/character_trump.dart';
 import '../widgets/animations/continue_dot_animation.dart';
 import 'package:app_situational_coach/state/journey_status_notifier.dart';
 
+// 小問題 frame_journey_continue那邊我已經疊一層image了 這邊又疊一層 不過demo來說沒差哈
+
 // 1. 可以輸入跟他進行對話
 // 2. 點擊川普解鎖功能 - 激怒川普:)
 
@@ -97,8 +99,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
     setState(() {
       isTalking = false;
-      displayedText = "思考中...";
-      fullBotText = "思考中...";
+      displayedText = "Thinking...";
+      fullBotText = "Thinking...";
       botTextSegments = [];
     });
 
@@ -254,7 +256,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           left: MediaQuery.of(context).size.width * 0.05,
                         ),
                         child: const Text(
-                          "思考中...",
+                          "Thinking...",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w900,
