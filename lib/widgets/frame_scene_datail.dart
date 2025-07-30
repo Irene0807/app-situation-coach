@@ -47,7 +47,7 @@ class FrameSceneDetail extends StatelessWidget {
           return PageSceneIntro(introContent: scene.introContent!);
         case FrameSceneDetailTab.conversation:
           return PageSceneConversation(
-              conversationContent: scene.conversationContent!);
+              conversationContent: scene.conversationContent!, sceneTitle: scene.title,);
         case FrameSceneDetailTab.summary:
           return PageSceneSummary(summaryContent: scene.summaryContent!);
       }

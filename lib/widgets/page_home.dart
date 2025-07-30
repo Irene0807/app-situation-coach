@@ -8,7 +8,6 @@ import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import '../widgets/widget_star_showDialog.dart';
-import 'page_conversation_test.dart';
 
 class Pagehome extends StatelessWidget {
   const Pagehome({super.key});
@@ -219,26 +218,7 @@ class Pagehome extends StatelessWidget {
             ),
           ),
 
-          // 8. 其他文字
-          // 我也還沒做 但先註解掉暫時避免出現在畫面上而已
-          // Positioned.fill(
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Center(
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(150.0),
-          //           child: Text(
-          //             '星星的route我還沒做 可以直接把journey的頁面包成彈出視窗來用',
-          //             style: const TextStyle(color: Colors.white),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-
-          // 9. achievement & setting 按鈕
+          // 8. achievement & setting 按鈕
           Align(
             alignment: Alignment.topRight,
             child: SafeArea(
@@ -271,25 +251,6 @@ class Pagehome extends StatelessWidget {
               ),
             ),
           ),
-
-          // ---UI testing--------------
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 100),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const PageConversationTest()),
-                  );
-                },
-                child: const Text('對話UI TEST'),
-              ),
-            ),
-          ),
-
-          
         ],
       ),
     );

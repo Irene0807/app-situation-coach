@@ -13,7 +13,7 @@ class WidgetStarShowDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('(待調整) ${journey.name}'),
+      title: Text('${journey.name}'),
       content: Text(
           'Character: ${journey.character}\nCondition: ${journey.status.isCompleted() ? "Completed" : "Uncompleted"}'),
       actions: [

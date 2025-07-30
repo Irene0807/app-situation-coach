@@ -37,28 +37,38 @@ List<Journey> dummyJourneys = [
                     'cashier',
                     'checkout',
                     'bag',
-                    'item',
-                    'quantity',
-                    'barcode',
-                    'total',
-                    'change',
-                    'credit card',
-                    'debit card',
-                    'cash',
-                    'refund',
-                    'exchange',
-                    'customer',
-                    'employee',
-                    'ask for help',
-                    'payment',
-                    'scan',
-                    'queue',
-                    'on sale',
-                    'out of stock',
-                    'buy one get one free',
+                    // 'item',
+                    // 'quantity',
+                    // 'barcode',
+                    // 'total',
+                    // 'change',
+                    // 'credit card',
+                    // 'debit card',
+                    // 'cash',
+                    // 'refund',
+                    // 'exchange',
+                    // 'customer',
+                    // 'employee',
+                    // 'ask for help',
+                    // 'payment',
+                    // 'scan',
+                    // 'queue',
+                    // 'on sale',
+                    // 'out of stock',
+                    // 'buy one get one free',
                     'self-checkout'
                   ]),
-              conversationContent: ConversationContent(script: ''),
+              conversationContent: ConversationContent(script: '''
+You are Trump.You act as a friendly shop assistan at a grocery store. 
+Your job is to guide the learner through a realistic shopping conversation. 
+Make sure to use simple vocabulary and encourage them to improve their thinking.
+
+Start with a warm greeting, then ask what they are looking for.
+Make sure to talk like Trump and focus on shopping at a grocery store in korea.
+At the end, help them check out and say goodbye.
+                ''',
+                messages: [],
+                ),
               summaryContent: SummaryContent(
                 summary:
                     'Your grocery shopping journey has come to an end. Now, let’s review what you’ve learned with a vocabulary quiz!',

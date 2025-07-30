@@ -12,17 +12,18 @@ class TrumpCharacter extends StatefulWidget {
 
 class _TrumpCharacterState extends State<TrumpCharacter> {
   final List<String> _imagePaths = [
-    'assets/images/trump_1.png',
-    'assets/images/trump_2.png',
-    'assets/images/trump_1.png',
-    'assets/images/trump_2.png',
-    'assets/images/trump_3.png',
-    'assets/images/trump_4.png',
-    'assets/images/trump_3.png',
-    'assets/images/trump_4.png',
-    'assets/images/trump_5.png',
-    'assets/images/trump_5.png',
-    'assets/images/trump_5.png',
+    'assets/images/trump_1.png', //0
+    'assets/images/trump_2.png', //1
+    'assets/images/trump_1.png', //2
+    'assets/images/trump_2.png', //3
+    'assets/images/trump_3.png', //4
+    'assets/images/trump_4.png', //5
+    'assets/images/trump_3.png', //6
+    'assets/images/trump_4.png', //7
+    'assets/images/trump_5.png', //8
+    'assets/images/trump_5.png', //9
+    'assets/images/trump_5.png', //10
+    'assets/images/trump_6.png', //11
   ];
   int _currentIndex = 10;
   Timer? _timer;
@@ -47,16 +48,22 @@ class _TrumpCharacterState extends State<TrumpCharacter> {
   void _updateAnimationState() {
     _timer?.cancel();
 
-    if (widget.isTalking) {
+    if (widget.isTalking) { // 動畫時
       _currentIndex = 0;
       _timer = Timer.periodic(const Duration(milliseconds: 250), (_) {
         setState(() {
-          _currentIndex = (_currentIndex + 1) % _imagePaths.length; // 動畫圖
+          _currentIndex = (_currentIndex + 1) % _imagePaths.length;
         });
       });
-    } else {
-      setState(() {
-        _currentIndex = _imagePaths.length - 1; // 靜止圖
+    } else { // 靜止時
+      final idleFrames = [8, 9, 10, 8, 9, 10, 11];
+      int idleIndex = 0;
+
+      _timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
+        setState(() {
+          _currentIndex = idleFrames[idleIndex];
+          idleIndex = (idleIndex + 1) % idleFrames.length;
+        });
       });
     }
   }

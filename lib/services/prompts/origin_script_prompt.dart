@@ -22,9 +22,6 @@ $title
 <<Learning Theme>>
 $theme
 
-<<Dialogue Topic>>
-$topic
-
 <<Student Bloom Level>>
 $bloomLevel  (from 0 to 6 in Bloom's taxonomy)
 
@@ -33,28 +30,21 @@ $bloomLevel  (from 0 to 6 in Bloom's taxonomy)
 Your task is to write a **teaching guide** for this lesson. The guide should include:
 
 1. [Character Tone & Style]  
-   - Describe how "$character" would speak and behave during the conversation.  
-   - Include personality quirks, expressions, or humor if applicable.
+   - How "$character" speaks and acts (quirks, expressions, etc). This is the most important part.
 
-2. [Teaching Strategy]  
-   - Explain how to guide the user based on Bloom Level $bloomLevel.  
-   - Suggest how deep the questions should go, and how to balance friendliness and challenge.
-   Use the learning theme **"$theme"** and topic **"$topic"** as the foundation for the interaction design.
+2. [Topic & Theme]
+  - The conversation must stay tightly focused on Scene Title: $title and Dialogue Topic: $topic.
 
-3. [Conversation Flow]  
-   - Outline a typical 3-turn interaction:  
-     [Character]: opening line  
-     [User]: possible response  
-     [Character]: follow-up question or challenge  
+3. [Teaching Strategy]  
+   -Describe how this character will guide a learner at Bloom Level $bloomLevel on the given theme and topic. Adjust question depth, tone, and guidance style accordingly.
 
-4. [Tips for AI Tutor]  
-   - Emphasize short, natural English.  
-   - Encourage critical thinking or creativity if user’s Bloom Level >= 2.  
-   - Always keep the user engaged and supported.  
+4. [Conversation Flow]  
+   - Provide a 3-turn interaction showing how the character opens, how a user might reply, and how the character responds and keeps the conversation going.  
 
-The most important thing is Character Tone & Style]  
+5. [Tips for AI Tutor]  
+   - Remind the tutor to use short and natural English, be supportive, and prompt deeper thinking (if Bloom Level >= 2). 
 
-Keep the script short, practical, and informative — this is for internal use to guide the AI’s behavior, not for display to the user.
+Keep the script concise, practical, and self-contained. This script will be used by another AI model, not for display to the user.
 
 Now generate the guide.
 ''';
