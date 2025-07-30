@@ -27,18 +27,32 @@ class JourneyGenerator {
     // 把使用者的原prompt轉乘plan
     PromptJourneyPlan p = PromptJourneyPlan();
     final prompt = p.getJourneyPlanPrompt(userInput);
-    final planText = await geminiA.sendPrompt(prompt);
-    final plan = p.parsePlan(planText);
-    return plan;
+    while (true) {
+      final planText = await geminiA.sendPrompt(prompt);
+      print(planText);
+      final plan = p.parsePlan(planText);
+      if (plan != null) {
+        return plan;
+      }
+      print('generateJourneyPlan failed => regenerate\n');
+    }
   }
 
-  Future<List<Day>> generateJourneySchedule(String plan) async {
+  Future<List<Day>> generateJourneySchedule(String name, int day,
+      String character, String description, String goal) async {
     // 透過經使用者修改過後的plan生成schedule
     PromptJourneySchedule p = PromptJourneySchedule();
-    final prompt = p.getJourneySchedulePrompt(plan);
-    final scheduleText = await geminiA.sendPrompt(prompt);
-    final schedule = p.getOrderedSchedule(scheduleText);
-    return schedule;
+    final prompt =
+        p.getJourneySchedulePrompt(name, day, character, description, goal);
+    while (true) {
+      final scheduleText = await geminiA.sendPrompt(prompt);
+      print(scheduleText);
+      final schedule = p.parseSchedule(scheduleText, day);
+      if (schedule != null) {
+        return schedule;
+      }
+      print('generateJourneySchedule failed => regenerate\n');
+    }
   }
 }
 

@@ -49,12 +49,13 @@ Output Rules:
 ''';
   }
 
-  SummaryContent parseSummaryContent(String input) {
+  SummaryContent? parseSummaryContent(String input) {
     final RegExp tagExp = RegExp(r'<<([^<>]+)>>');
     final matches = tagExp.allMatches(input).toList();
 
     if (matches.isEmpty) {
-      throw FormatException("No content found between <<>>");
+      // throw FormatException("No content found between <<>>");
+      return null;
     }
 
     // 取第一個是 summary
@@ -65,11 +66,11 @@ Output Rules:
     for (int i = 1; i + 5 < matches.length; i += 6) {
       final questionText = matches[i].group(1)!;
       final options = List.generate(4, (j) => matches[i + 1 + j].group(1)!);
-      final answerIdStr = matches[i + 5].group(1)!;
-      final answerId = int.tryParse(answerIdStr);
+      final answerId = int.tryParse(matches[i + 5].group(1)!);
       if (answerId == null || answerId < 0 || answerId > 3) {
-        throw FormatException(
-            "Invalid answer id at question ${questions.length + 1}");
+        // throw FormatException(
+        //     "Invalid answer id at question ${questions.length + 1}");
+        return null;
       }
 
       questions.add(Question(

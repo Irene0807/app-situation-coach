@@ -15,13 +15,9 @@ Replace all text inside << >> with relevant content, but preserve the angle brac
 Journey Format:
 
 <<Journey Name>>
-
 <<Number of Days, contains only numbers>>
-
 <<Companion, only one person, choose from: Trump, TOEFL Interviewer, American kid, England kid, Harry Potter>>
-
 <<Simple description of the journey: include only key locations and activities, avoid detailed explanations or daily schedules>>
-
 <<Learning goals: describe how the journey helps improve English, such as vocabulary focus, speaking practice, listening to different accents, cultural understanding, etc.>>
 
 User Input:
@@ -32,13 +28,14 @@ Make the tone friendly and imaginative, but keep the structure strictly in the f
 ''';
   }
 
-  Map<String, String> parsePlan(String input) {
+  Map<String, String>? parsePlan(String input) {
     final RegExp tagExp = RegExp(r'<<([^<>]+)>>');
     final matches = tagExp.allMatches(input).toList();
 
     if (matches.length != 5) {
-      throw FormatException(
-          "Expected exactly 5 <<>> sections, but found ${matches.length}.");
+      // throw FormatException(
+      //     "Expected exactly 5 <<>> sections, but found ${matches.length}.");
+      return null;
     }
 
     final keys = ['name', 'day', 'character', 'description', 'goal'];

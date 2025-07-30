@@ -68,47 +68,13 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
     _tabController.index = FrameJourneyAddTab.correct.index;
   }
 
-  // 將欄位組合成原始格式的 plan 字串
-  String combinePlanFields(
-      String name, int day, String character, String description, String goal) {
-    return '''
-Journey name: $name
-Number of days: $day
-Companion: $character
-Journey description: $description
-Learning Goal: $goal
-''';
-  }
-
-  // // Helper function to parse schedule string into a map
-  // Map<String, String> parseScheduleToMap(String schedule) {
-  //   final Map<String, String> map = {};
-  //   // 修改正則表達式以符合 <<key>> <<value>> 格式，允許 value 跨行
-  //   final regex = RegExp(r'<<(.+?)>>\s*<<([\s\S]*?)>>', dotAll: true);
-  //   for (final match in regex.allMatches(schedule)) {
-  //     final key = match.group(1)?.trim() ?? '';
-  //     final value = match.group(2)?.trim() ?? '';
-  //     if (key.isNotEmpty) {
-  //       map[key] = value;
-  //     }
-  //   }
-  //   return map;
-  // }
-
   Future<void> submitJourney(String name, int day, String character,
       String description, String goal) async {
     // 包在loading裡面
     await runWithLoading(context, () async {
       //使用 plan 生成 schedule
-      String newPlan =
-          combinePlanFields(name, day, character, description, goal);
-      List<Day> schedule =
-          await _journeyGenerator.generateJourneySchedule(newPlan);
-
-      // debug
-      if (schedule.length != day) {
-        throw Exception('schedule.length != day\n');
-      }
+      List<Day> schedule = await _journeyGenerator.generateJourneySchedule(
+          name, day, character, description, goal);
 
       // 每個旅程初始的bloom都是1
       int bloomLevel = 1;

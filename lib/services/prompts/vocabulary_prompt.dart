@@ -29,18 +29,21 @@ Output Rules:
 - All content must be enclosed with double angle brackets (<< >>)
 - The first section is a short paragraph (2–4 sentences) introducing the scene and learning theme
 - The vocabulary section must contain only the vocabulary word inside << >>, no explanation or numbering
-- Include around 20 to 30 vocabulary words
+- Include around 10 to 20 vocabulary words
 - Make sure vocabulary is relevant to the location and learning theme
 - Do not add any extra sections, notes, or explanations outside the << >>
 ''';
   }
 
-  IntroContent parseIntroContent(String vocabularyText) {
-    final regex = RegExp(r'<<(.+?)>>', dotAll: true);
+  IntroContent? parseIntroContent(String vocabularyText) {
+    final regex = RegExp(r'<<(.+?)>>');
     final matches = regex
         .allMatches(vocabularyText)
         .map((m) => m.group(1)!.trim())
         .toList();
+
+    // 檢查是否符合格式需求
+    if (matches.length < 11) return null;
 
     return IntroContent(
         description: matches.first, vocabulary: matches.sublist(1));

@@ -1,6 +1,5 @@
 import 'package:app_situational_coach/models/day.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 class PageDayCover extends StatelessWidget {
   final String journeyName;
@@ -60,21 +59,44 @@ class PageDayCover extends StatelessWidget {
                       const SizedBox(height: 8),
                       for (var scene in schedule[i].scenes)
                         Padding(
-                          padding: const EdgeInsets.only(left: 16.0, bottom: 4),
-                          child: Text(
-                            '- ${i < currentDay ? scene.title : '? ? ?'}',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                    blurRadius: 2,
-                                    offset: Offset(1, 1),
-                                    color: Colors.black26)
+                            padding:
+                                const EdgeInsets.only(left: 16.0, bottom: 4),
+                            child: Row(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start, // 讓多行對齊頂部
+                              children: [
+                                const Text(
+                                  '-',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    shadows: [
+                                      Shadow(
+                                          blurRadius: 2,
+                                          offset: Offset(1, 1),
+                                          color: Colors.black26),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    i < currentDay ? scene.title : '? ? ?',
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      height: 1.5, // 調整行距可讓對齊更自然
+                                      shadows: [
+                                        Shadow(
+                                            blurRadius: 2,
+                                            offset: Offset(1, 1),
+                                            color: Colors.black26),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
-                            ),
-                          ),
-                        ),
+                            )),
                       const SizedBox(height: 24),
                     ],
                   ]),

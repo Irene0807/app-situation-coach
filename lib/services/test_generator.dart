@@ -10,8 +10,13 @@ class TestGenerator {
   Future<SummaryContent> generateTest(Scene scene) async {
     PromptTest p = PromptTest();
     final prompt = p.getTestPrompt(scene);
-    final testText = await geminiA.sendPrompt(prompt);
-    SummaryContent s = p.parseSummaryContent(testText);
-    return s;
+    while (true) {
+      final testText = await geminiA.sendPrompt(prompt);
+      final test = p.parseSummaryContent(testText);
+      if (test != null) {
+        return test;
+      }
+      print('generateTest failed => regenerate\n');
+    }
   }
 }

@@ -8,8 +8,13 @@ class VocabularyGenerator {
   Future<IntroContent> generateVocabulary(Scene scene) async {
     PromptVocabulary p = PromptVocabulary();
     final prompt = p.getVocabularyPrompt(scene);
-    final vocabularyText = await geminiA.sendPrompt(prompt);
-    IntroContent i = p.parseIntroContent(vocabularyText);
-    return i;
+    while (true) {
+      final vocabularyText = await geminiA.sendPrompt(prompt);
+      final vocabulary = p.parseIntroContent(vocabularyText);
+      if (vocabulary != null) {
+        return vocabulary;
+      }
+      print('generateVocabulary failed => regenerate\n');
+    }
   }
 }

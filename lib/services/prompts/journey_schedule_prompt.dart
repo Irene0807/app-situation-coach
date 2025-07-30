@@ -6,7 +6,8 @@ import 'package:app_situational_coach/models/scene.dart';
 // prompt有可能獲取錯誤資料 造成parse時出現bug 需要注意
 
 class PromptJourneySchedule {
-  String getJourneySchedulePrompt(String plan) {
+  String getJourneySchedulePrompt(
+      String name, int day, String character, String description, String goal) {
     return '''
 You are a travel and English learning content designer.
 
@@ -42,7 +43,11 @@ Use friendly and clear language, and make sure the content is:
 
 Here is the journey plan:
 
-$plan
+Journey name:        $name
+Number of days:      $day
+Journey companion:   $character
+Journey description: $description
+Learning goals:      $goal
 
 The output must strictly use the << >> brackets for all content sections as shown.
 ''';
@@ -56,7 +61,7 @@ The output must strictly use the << >> brackets for all content sections as show
         .toList();
   }
 
-  List<Day> getOrderedSchedule(String scheduleText) {
+  List<Day>? parseSchedule(String scheduleText, int day) {
     final List<String> items = extractItems(scheduleText);
     List<Day> schedule = [];
 
@@ -64,8 +69,10 @@ The output must strictly use the << >> brackets for all content sections as show
     final itemNum = items.length;
     while (i < itemNum) {
       String title = items[i++];
-      final countRaw = items[i++];
-      final sceneNum = int.tryParse(countRaw.replaceFirst('SceneCount:', '').trim()) ?? 2;
+      final sceneNum = int.tryParse(items[i++]);
+      if (sceneNum == null) {
+        return null;
+      }
       List<Scene> scenes = [];
       for (int j = 0; j < sceneNum; j++) {
         Scene s = Scene(
@@ -79,8 +86,9 @@ The output must strictly use the << >> brackets for all content sections as show
       schedule.add(Day(title: title, scenes: scenes));
     }
 
-    if (i != itemNum) {
-      throw Exception('getOrderedSchedule error\n');
+    if (i != itemNum || schedule.length != day) {
+      // throw Exception('getOrderedSchedule error\n');
+      return null;
     }
 
     return schedule;
