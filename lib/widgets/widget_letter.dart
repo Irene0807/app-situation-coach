@@ -1,31 +1,23 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WidgetLetter extends StatelessWidget {
   const WidgetLetter({super.key});
 
-  final String letterContent = '''
-Dear Traveler,
+//   final String letterContent = '''
+// Dear Traveler,
 
-    Imagine your ideal journey.
-    Where would you go?
-    How long would you stay?
-    What would you experience?
-    What’s the purpose of your adventure?
+//     Imagine your ideal journey.
+//     Where would you go?
+//     How long would you stay?
+//     What would you experience?
+//     What’s the purpose of your adventure?
 
-    Describe it freely.
+//     Describe it freely.
 
-
-
-
-
-
-
-
-
-
-                                              Your Best
-''';
+//                                               Your Best
+// ''';
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +42,7 @@ Dear Traveler,
             Align(
               alignment: Alignment(0, 0),
               child: Text(
-                letterContent,
+                AppLocalizations.of(context)!.letter_content,
                 style: GoogleFonts.mysteryQuest(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

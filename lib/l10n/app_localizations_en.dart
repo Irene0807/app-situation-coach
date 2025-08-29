@@ -1,0 +1,91 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AppLocalizationsEn extends AppLocalizations {
+  AppLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get start => 'START';
+
+  @override
+  String get start_your_journey => 'Start Your Journey';
+
+  @override
+  String get create_new_journey => 'Create New Journey';
+
+  @override
+  String get go_back => 'Go Back';
+
+  @override
+  String get describe_your_journey_here => 'describe your journey here';
+
+  @override
+  String get lets_go => 'Let\'s Go';
+
+  @override
+  String get letter_content =>
+      'Dear Traveler,\n\n    Imagine your ideal journey.\n    Where would you go?\n    How long would you stay?\n    What would you experience?\n    What’s the purpose of your adventure?\n\n    Describe it freely.\n\n\n\n\n\n\n\n                                              Your Best';
+
+  @override
+  String get im_thinking_bigly => 'I\'m thinking, bigly...';
+
+  @override
+  String get hold_on_this_is_gonna_be_great =>
+      'Hold on, this is gonna be great.';
+
+  @override
+  String get processing_believe_me => 'Processing... Believe me.';
+
+  @override
+  String get tremendous_results_incoming => 'Tremendous results incoming!';
+
+  @override
+  String get just_a_moment_very_important_stuff =>
+      'Just a moment. Very important stuff.';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get new_journey => 'New Journey';
+
+  @override
+  String get journey_name => 'Journey Name';
+
+  @override
+  String get day => 'Day';
+
+  @override
+  String get character => 'Character';
+
+  @override
+  String get journey_description => 'Journey Description';
+
+  @override
+  String get learning_goal => 'Learning Goal';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get condition => 'Condition';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get uncompleted => 'Uncompleted';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get detail => 'Detail';
+
+  @override
+  String get continue_ => 'Continue';
+}

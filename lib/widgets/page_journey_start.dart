@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +46,7 @@ class PageJourneyStart extends StatelessWidget {
                   glowWidth: 330,
                   glowHeight: 10,
                   child: Text(
-                    'Start Your Journey',
+                    AppLocalizations.of(context)!.start_your_journey,
                     style: TextStyle(
                       // GoogleFonts.pacifico
                       fontSize: 36,
@@ -221,7 +222,7 @@ class PageJourneyStart extends StatelessWidget {
                   ),
                   onPressed: () => context.go('/journey/add'),
                   child: Text(
-                    'Create New Journey',
+                    AppLocalizations.of(context)!.create_new_journey,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -279,7 +280,7 @@ class PageJourneyStart extends StatelessWidget {
                   ),
                   onPressed: () => context.go('/'),
                   child: Text(
-                    'Go Back',
+                    AppLocalizations.of(context)!.go_back,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,

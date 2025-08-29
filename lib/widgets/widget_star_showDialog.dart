@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,13 +14,13 @@ class WidgetStarShowDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('${journey.name}'),
+      title: Text(journey.name),
       content: Text(
-          'Character: ${journey.character}\nCondition: ${journey.status.isCompleted() ? "Completed" : "Uncompleted"}'),
+          '${AppLocalizations.of(context)!.character}: ${journey.character}\n${AppLocalizations.of(context)!.condition}: ${journey.status.isCompleted() ? AppLocalizations.of(context)!.completed : AppLocalizations.of(context)!.uncompleted}'),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         TextButton(
           onPressed: () {
@@ -29,8 +30,8 @@ class WidgetStarShowDialog extends StatelessWidget {
                 : context.go('/journey/continue:${journey.id}');
           },
           child: journey.status.isCompleted()
-              ? const Text('Detail')
-              : const Text('Continue'),
+              ? Text(AppLocalizations.of(context)!.detail)
+              : Text(AppLocalizations.of(context)!.continue_),
         ),
       ],
     );

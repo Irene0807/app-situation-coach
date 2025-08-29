@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../widgets/widget_letter.dart';
@@ -38,7 +39,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
               controller: controller,
               style: TextStyle(color: Colors.white, fontSize: 18),
               decoration: InputDecoration(
-                hintText: 'describe your journey here',
+                hintText: AppLocalizations.of(context)!.describe_your_journey_here,
                 hintStyle: TextStyle(color: Colors.white70),
                 filled: true,
                 fillColor: Colors.transparent,
@@ -92,7 +93,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
                   elevation: 4,
                 ),
                 child: Text(
-                  'Let\'s Go!',
+                  AppLocalizations.of(context)!.lets_go,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,

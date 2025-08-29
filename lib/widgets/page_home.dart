@@ -8,6 +8,7 @@ import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 import '../widgets/widget_star_showDialog.dart';
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 
 class Pagehome extends StatelessWidget {
   const Pagehome({super.key});
@@ -202,10 +203,10 @@ class Pagehome extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => context.go('/journey'),
                 child: HomeActionSign(
-                  content: const SizedBox(
+                  content: SizedBox(
                     height: 48,
                     child: Text(
-                      'START',
+                      AppLocalizations.of(context)!.start,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

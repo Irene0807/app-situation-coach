@@ -1,0 +1,106 @@
+{
+    "start": "開始",
+    "@start": {
+        "description": "page_home.dart"
+    },
+    "start_your_journey": "開始你的旅程",
+    "@start_your_journey": {
+        "description": "page_journey_start.dart"
+    },
+    "create_new_journey": "建立新旅程",
+    "@create_new_journey": {
+        "description": "page_journey_start.dart"
+    },
+    "go_back": "返回",
+    "@go_back": {
+        "description": "page_journey_start.dart"
+    },
+    "describe_your_journey_here": "在這裡描述你的旅程",
+    "@describe_your_journey_here": {
+        "description": "page_journey_add_prompt.dart"
+    },
+    "lets_go": "出發吧",
+    "@lets_go": {
+        "description": "page_journey_add_prompt.dart"
+    },
+    "letter_content": "親愛的旅行者：\n\n    想像一下你的理想旅程。\n    你會去哪裡？\n    會停留多久？\n    會體驗什麼？\n    這趟冒險的目的又是什麼？\n\n    請自由地描述吧。\n\n\n\n\n\n\n\n                                              最誠摯的祝福",
+    "@letter_content": {
+        "description": "widget_letter.dart"
+    },
+    "im_thinking_bigly": "我正在認真思考...",
+    "@im_thinking_bigly": {
+        "description": "widget_loading_mark.dart"
+    },
+    "hold_on_this_is_gonna_be_great": "等等，這一定會很棒",
+    "@hold_on_this_is_gonna_be_great": {
+        "description": "widget_loading_mark.dart"
+    },
+    "processing_believe_me": "處理中... 相信我",
+    "@processing_believe_me": {
+        "description": "widget_loading_mark.dart"
+    },
+    "tremendous_results_incoming": "精彩的結果馬上就來",
+    "@tremendous_results_incoming": {
+        "description": "widget_loading_mark.dart"
+    },
+    "just_a_moment_very_important_stuff": "稍等一下，這很重要",
+    "@just_a_moment_very_important_stuff": {
+        "description": "widget_loading_mark.dart"
+    },
+    "loading": "載入中...",
+    "@loading": {
+        "description": "widget_loading_mark.dart"
+    },
+    "new_journey": "新的旅程",
+    "@new_journey":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "journey_name": "旅程名稱",
+    "@journey_name":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "day": "天數",
+    "@day":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "character": "角色",
+    "@character":{
+        "description": "page_journey_add_correct.dart + widget_star_showDialog.dart"
+    },
+    "journey_description": "旅程描述",
+    "@journey_description":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "learning_goal": "學習目標",
+    "@learning_goal":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "finish": "完成",
+    "@finish":{
+        "description": "page_journey_add_correct.dart"
+    },
+    "condition": "狀態",
+    "@condition":{
+      "description": "widget_star_showDialog.dart"
+    },
+    "completed": "已完成",
+    "@completed":{
+        "description": "widget_star_showDialog.dart"
+    },
+    "uncompleted": "尚未完成",
+    "@uncompleted":{
+        "description": "widget_star_showDialog.dart"
+    },
+    "cancel": "取消",
+    "@cancel":{
+        "description": "widget_star_showDialog.dart"
+    },
+    "detail": "詳情",
+    "@detail":{
+        "description": "widget_star_showDialog.dart"
+    },
+    "continue_": "繼續",
+    "@continue_":{
+        "description": "widget_star_showDialog.dart"
+    }
+}

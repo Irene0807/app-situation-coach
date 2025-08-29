@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -43,7 +44,7 @@ class PageJourneyAddCorrect extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'New Journey',
+                      AppLocalizations.of(context)!.new_journey,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -58,19 +59,26 @@ class PageJourneyAddCorrect extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    _buildFrostedTextField('Journey Name', nameController),
-                    const SizedBox(height: 16),
-                    _buildFrostedTextField('Day', dayController,
-                        keyboardType: TextInputType.number),
-                    const SizedBox(height: 16),
-                    _buildFrostedTextField('Character', characterController),
+                    _buildFrostedTextField(
+                        AppLocalizations.of(context)!.journey_name,
+                        nameController),
                     const SizedBox(height: 16),
                     _buildFrostedTextField(
-                        'Journey Description', descriptionController,
+                        AppLocalizations.of(context)!.day, dayController,
+                        keyboardType: TextInputType.number),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField(
+                        AppLocalizations.of(context)!.character,
+                        characterController),
+                    const SizedBox(height: 16),
+                    _buildFrostedTextField(
+                        AppLocalizations.of(context)!.journey_description,
+                        descriptionController,
                         maxLines: 4),
                     const SizedBox(height: 16),
                     _buildFrostedTextField(
-                        'Learning Goal', learningGoalController,
+                        AppLocalizations.of(context)!.learning_goal,
+                        learningGoalController,
                         maxLines: 4),
                     const SizedBox(height: 24),
                     ElevatedButton(
@@ -91,7 +99,7 @@ class PageJourneyAddCorrect extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: Text('Finish'),
+                      child: Text(AppLocalizations.of(context)!.finish),
                     ),
                   ],
                 ),
