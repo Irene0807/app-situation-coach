@@ -1,5 +1,6 @@
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/status.dart';
+import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/state/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/page_scene_conversation.dart';
 import 'package:app_situational_coach/widgets/page_scene_intro.dart';
@@ -18,9 +19,11 @@ enum FrameSceneDetailTab {
 
 class FrameSceneDetail extends StatelessWidget {
   final Scene scene;
+  final Journey journey;
 
   const FrameSceneDetail({
     required this.scene,
+    required this.journey,
     super.key,
   });
 
@@ -47,7 +50,7 @@ class FrameSceneDetail extends StatelessWidget {
           return PageSceneIntro(introContent: scene.introContent!);
         case FrameSceneDetailTab.conversation:
           return PageSceneConversation(
-              conversationContent: scene.conversationContent!, sceneTitle: scene.title,);
+              conversationContent: scene.conversationContent!, sceneTitle: scene.title, journey: journey);
         case FrameSceneDetailTab.summary:
           return PageSceneSummary(summaryContent: scene.summaryContent!);
       }

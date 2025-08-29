@@ -43,12 +43,54 @@ flutter:
     - assets/images/add_background.png
     - assets/images/letter_paper.png
     - assets/images/letter_badge.png
-    - assets/images/trump_1.png
-    - assets/images/trump_2.png
-    - assets/images/trump_3.png 
-    - assets/images/trump_4.png
-    - assets/images/trump_5.png
-    - assets/images/trump_6.png
     - assets/images/seoul_shopping.jpg # 之後刪掉
     - assets/images/billboard.png
     - assets/images/ai_trump.png
+
+    - assets/images/trump/11.png
+    - assets/images/trump/21.png
+    - assets/images/trump/31.png
+    - assets/images/trump/41.png
+    - assets/images/trump/12.png
+    - assets/images/trump/22.png
+    - assets/images/trump/32.png
+    - assets/images/trump/42.png
+
+    - assets/images/toefl_interviewer/11.png
+    - assets/images/toefl_interviewer/12.png
+    - assets/images/toefl_interviewer/21.png
+    - assets/images/toefl_interviewer/22.png
+    - assets/images/toefl_interviewer/31.png
+    - assets/images/toefl_interviewer/32.png
+    - assets/images/toefl_interviewer/41.png
+    - assets/images/toefl_interviewer/42.png
+
+    - assets/images/american_kid/11.png
+    - assets/images/american_kid/12.png
+    - assets/images/american_kid/21.png
+    - assets/images/american_kid/22.png
+    - assets/images/american_kid/31.png
+    - assets/images/american_kid/32.png
+    - assets/images/american_kid/41.png
+    - assets/images/american_kid/42.png
+
+    - assets/images/england_kid/11.png
+    - assets/images/england_kid/12.png
+    - assets/images/england_kid/21.png
+    - assets/images/england_kid/22.png
+    - assets/images/england_kid/31.png
+    - assets/images/england_kid/32.png
+    - assets/images/england_kid/41.png
+    - assets/images/england_kid/42.png
+
+
+    - assets/images/harry_potter/11.png
+    - assets/images/harry_potter/12.png
+    - assets/images/harry_potter/21.png
+    - assets/images/harry_potter/22.png
+    - assets/images/harry_potter/31.png
+    - assets/images/harry_potter/32.png
+    - assets/images/harry_potter/41.png
+    - assets/images/harry_potter/42.png
+
+

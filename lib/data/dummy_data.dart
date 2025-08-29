@@ -11,7 +11,7 @@ List<Journey> dummyJourneys = [
       id: '1',
       name: 'Seoul Shopping',
       day: 3,
-      character: 'Trump',
+      character: 'England Kid',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
       schedule: [
@@ -56,7 +56,7 @@ List<Journey> dummyJourneys = [
                     // 'on sale',
                     // 'out of stock',
                     // 'buy one get one free',
-                    'self-checkout'
+                    // 'self-checkout'
                   ]),
               conversationContent: ConversationContent(script: '''
 You are Trump.You act as a friendly shop assistan at a grocery store. 
@@ -242,7 +242,7 @@ final List<Character> characters = [
   Character(
     name: 'TOEFL Interviewer',
     gender: '女生',
-    age: 16,
+    age: 27,
     imagePath: 'assets/images/home_person.png',
     background: '模擬托福口試考官，負責情境對話的考察。',
     personality: '理性、專業、略帶距離感',
@@ -252,7 +252,7 @@ final List<Character> characters = [
   Character(
     name: 'American Kid',
     gender: '男生',
-    age: 18,
+    age: 10,
     imagePath: 'assets/images/home_person.png',
     background: '來自加州的陽光少年，喜歡滑板與流行文化。',
     personality: '開朗、隨性、喜歡聊天',
@@ -262,12 +262,12 @@ final List<Character> characters = [
   Character(
     name: 'England Kid',
     gender: '女生',
-    age: 17,
+    age: 15,
     imagePath: 'assets/images/home_person.png',
-    background: '倫敦長大的少女，語氣優雅，熱愛文學。',
-    personality: '溫柔、有禮貌、聰明',
-    tone: '英式優雅、標準英音、有邏輯性',
-    slogan: '"Hello, would you like some tea?"',
+    background: '倫敦名門出身的少女，喜歡閱讀與藝術。',
+    personality: '高傲可愛、嘴硬心軟、講究品味、重視禮儀',
+    tone: '英式傲嬌、用詞講究但不刻薄、語氣俏皮',
+    slogan: '"Follow me, I know all the best places!"',
   ),
   Character(
     name: 'Harry Potter',

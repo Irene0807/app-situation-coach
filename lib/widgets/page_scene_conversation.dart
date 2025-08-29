@@ -4,21 +4,23 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 import 'dart:ui';
 import '../models/scene.dart';
+import '../models/journey.dart';
 import '../services/response_generator.dart';
-import '../widgets/painters/character_trump.dart';
+import '../widgets/animations/character_animation.dart';
 import '../widgets/animations/continue_dot_animation.dart';
 import 'package:app_situational_coach/state/journey_status_notifier.dart';
 
 // 小問題 frame_journey_continue那邊我已經疊一層image了 這邊又疊一層 不過demo來說沒差哈
 
 // 1. 可以輸入跟他進行對話
-// 2. 點擊川普解鎖功能 - 激怒川普:)
+// 2. 點擊角色 解鎖互動
 
 // 對話內容：origin_script_generator的prompt要再改（詳細內容參考origin_script_prompt.dart）
 class PageSceneConversation extends StatefulWidget {
   final ConversationContent conversationContent;
   final String sceneTitle;
-  const PageSceneConversation({super.key, required this.conversationContent, required this.sceneTitle,});
+  final Journey journey;
+  const PageSceneConversation({super.key, required this.conversationContent, required this.sceneTitle,required this.journey,});
 
   @override
   State<PageSceneConversation> createState() => _PageSceneConversationState();
@@ -55,24 +57,36 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _precacheImages(); // 先load好圖片
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   _precacheImages(); // 先load好圖片
+  // }
 
-  void _precacheImages() {
-    for (var path in [
-      'assets/images/trump_1.png',
-      'assets/images/trump_2.png',
-      'assets/images/trump_3.png',
-      'assets/images/trump_4.png',
-      'assets/images/trump_5.png',
-      'assets/images/trump_6.png',
-    ]) {
-      precacheImage(AssetImage(path), context);
-    }
-  }
+  // void _precacheImages() {
+  //   for (var path in [
+  //     'assets/images/trump/11.png',
+  //     'assets/images/trump/21.png',
+  //     'assets/images/trump/31.png',
+  //     'assets/images/trump/41.png',
+  //     'assets/images/trump/51.png',
+  //     'assets/images/trump/61.png',
+  //     'assets/images/trump/12.png',
+  //     'assets/images/trump/22.png',
+  //     'assets/images/trump/32.png',
+  //     'assets/images/trump/42.png',
+  //     'assets/images/trump/52.png',
+  //     'assets/images/trump/62.png',
+  //     'assets/images/trump/13.png',
+  //     'assets/images/trump/23.png',
+  //     'assets/images/trump/33.png',
+  //     'assets/images/trump/43.png',
+  //     'assets/images/trump/53.png',
+  //     'assets/images/trump/63.png',
+  //   ]) {
+  //     precacheImage(AssetImage(path), context);
+  //   }
+  // }
 
   // 讓角色主動講第一句話
   Future<void> startConversation() async {
@@ -96,6 +110,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     
     if (input.isEmpty) return;
     _controller.clear();
+    FocusScope.of(context).unfocus(); 
 
     setState(() {
       isTalking = false;
@@ -129,9 +144,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         .toList();
 
     currentSegmentIndex = 0;
-
-    // print('[DEBUG] ${botTextSegments.length} : $botTextSegments');
-
     _startNextSegment();
   }
 
@@ -245,6 +257,26 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Stack(
             children: [
               const SizedBox(height: 80),
+              
+              // 角色
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * 0.2,
+                  ),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.83,
+                    child: CharacterWidget(
+                      characterName: widget.journey.character,
+                      currentSegment: (currentSegmentIndex < botTextSegments.length)
+                          ? botTextSegments[currentSegmentIndex]
+                          : null,
+                      changeHand: roundCount == 0, // 第一次進場揮手
+                    ),
+                  ),
+                ),
+              ),
 
               // 對話框
               Align(
@@ -303,22 +335,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-              ),
-
-              
-
-              // 川普角色
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height * 0.2,
-                  ),
-                  child: FractionallySizedBox(
-                    widthFactor: 0.83,
-                    child: TrumpCharacter(isTalking: isTalking),
-                  ),
-                ),
               ),
 
               // 輸入區
