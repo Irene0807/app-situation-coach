@@ -86,4 +86,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get continue_ => '繼續';
+
+  @override
+  String get years_old => '歲';
+
+  @override
+  String get your_travel_companion => '你的旅伴';
+
+  @override
+  String get tap_the_card_to_view_the_back => '點擊卡片查看背面';
+
+  @override
+  String get background => '背景介紹';
+
+  @override
+  String get personality_traits => '個性特質';
+
+  @override
+  String get tone_and_style => '語氣風格';
 }

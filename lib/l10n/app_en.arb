@@ -28,79 +28,103 @@
         "description": "widget_letter.dart"
     },
     "im_thinking_bigly": "I'm thinking, bigly...",
-    "@im_thinking_bigly":{
+    "@im_thinking_bigly": {
         "description": "widget_loading_mark.dart"
     },
     "hold_on_this_is_gonna_be_great": "Hold on, this is gonna be great.",
-    "@hold_on_this_is_gonna_be_great":{
+    "@hold_on_this_is_gonna_be_great": {
         "description": "widget_loading_mark.dart"
     },
     "processing_believe_me": "Processing... Believe me.",
-    "@processing_believe_me":{
+    "@processing_believe_me": {
         "description": "widget_loading_mark.dart"
     },
     "tremendous_results_incoming": "Tremendous results incoming!",
-    "@tremendous_results_incoming":{
+    "@tremendous_results_incoming": {
         "description": "widget_loading_mark.dart"
     },
     "just_a_moment_very_important_stuff": "Just a moment. Very important stuff.",
-    "@just_a_moment_very_important_stuff":{
+    "@just_a_moment_very_important_stuff": {
         "description": "widget_loading_mark.dart"
     },
     "loading": "Loading...",
-    "@loading":{
+    "@loading": {
         "description": "widget_loading_mark.dart"
     },
     "new_journey": "New Journey",
-    "@new_journey":{
+    "@new_journey": {
         "description": "page_journey_add_correct.dart"
     },
     "journey_name": "Journey Name",
-    "@journey_name":{
+    "@journey_name": {
         "description": "page_journey_add_correct.dart"
     },
     "day": "Day",
-    "@day":{
+    "@day": {
         "description": "page_journey_add_correct.dart"
     },
     "character": "Character",
-    "@character":{
+    "@character": {
         "description": "page_journey_add_correct.dart + widget_star_showDialog.dart"
     },
     "journey_description": "Journey Description",
-    "@journey_description":{
+    "@journey_description": {
         "description": "page_journey_add_correct.dart"
     },
     "learning_goal": "Learning Goal",
-    "@learning_goal":{
+    "@learning_goal": {
         "description": "page_journey_add_correct.dart"
     },
     "finish": "Finish",
-    "@finish":{
+    "@finish": {
         "description": "page_journey_add_correct.dart"
     },
     "condition": "Condition",
-    "@condition":{
-      "description": "widget_star_showDialog.dart"
+    "@condition": {
+        "description": "widget_star_showDialog.dart"
     },
     "completed": "Completed",
-    "@completed":{
+    "@completed": {
         "description": "widget_star_showDialog.dart"
     },
     "uncompleted": "Uncompleted",
-    "@uncompleted":{
+    "@uncompleted": {
         "description": "widget_star_showDialog.dart"
     },
     "cancel": "Cancel",
-    "@cancel":{
+    "@cancel": {
         "description": "widget_star_showDialog.dart"
     },
     "detail": "Detail",
-    "@detail":{
+    "@detail": {
         "description": "widget_star_showDialog.dart"
     },
     "continue_": "Continue",
-    "@continue_":{
+    "@continue_": {
         "description": "widget_star_showDialog.dart"
+    },
+    "years_old": "years old",
+    "@years_old": {
+        "description": "page_character.dart"
+    },
+    "your_travel_companion": "Your Travel Companion",
+    "@your_travel_companion": {
+        "description": "page_character.dart"
+    },
+    "tap_the_card_to_view_the_back": "Tap the card to view the back",
+    "@tap_the_card_to_view_the_back": {
+        "description": "page_character.dart"
+    },
+    "background": "Background",
+    "@background": {
+        "description": "page_character.dart"
+    },
+    "personality_traits": "Personality Traits",
+    "@personality_traits": {
+        "description": "page_character.dart"
+    },
+    "tone_and_style": "Tone and Style",
+    "@tone_and_style": {
+        "description": "page_character.dart"
     }
 }

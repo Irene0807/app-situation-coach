@@ -253,6 +253,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get continue_;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'years old'**
+  String get years_old;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'Your Travel Companion'**
+  String get your_travel_companion;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the card to view the back'**
+  String get tap_the_card_to_view_the_back;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get background;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'Personality Traits'**
+  String get personality_traits;
+
+  /// page_character.dart
+  ///
+  /// In en, this message translates to:
+  /// **'Tone and Style'**
+  String get tone_and_style;
 }
 
 class _AppLocalizationsDelegate

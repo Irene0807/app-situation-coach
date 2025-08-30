@@ -88,4 +88,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continue_ => 'Continue';
+
+  @override
+  String get years_old => 'years old';
+
+  @override
+  String get your_travel_companion => 'Your Travel Companion';
+
+  @override
+  String get tap_the_card_to_view_the_back => 'Tap the card to view the back';
+
+  @override
+  String get background => 'Background';
+
+  @override
+  String get personality_traits => 'Personality Traits';
+
+  @override
+  String get tone_and_style => 'Tone and Style';
 }

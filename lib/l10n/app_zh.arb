@@ -52,55 +52,79 @@
         "description": "widget_loading_mark.dart"
     },
     "new_journey": "新的旅程",
-    "@new_journey":{
+    "@new_journey": {
         "description": "page_journey_add_correct.dart"
     },
     "journey_name": "旅程名稱",
-    "@journey_name":{
+    "@journey_name": {
         "description": "page_journey_add_correct.dart"
     },
     "day": "天數",
-    "@day":{
+    "@day": {
         "description": "page_journey_add_correct.dart"
     },
     "character": "角色",
-    "@character":{
+    "@character": {
         "description": "page_journey_add_correct.dart + widget_star_showDialog.dart"
     },
     "journey_description": "旅程描述",
-    "@journey_description":{
+    "@journey_description": {
         "description": "page_journey_add_correct.dart"
     },
     "learning_goal": "學習目標",
-    "@learning_goal":{
+    "@learning_goal": {
         "description": "page_journey_add_correct.dart"
     },
     "finish": "完成",
-    "@finish":{
+    "@finish": {
         "description": "page_journey_add_correct.dart"
     },
     "condition": "狀態",
-    "@condition":{
-      "description": "widget_star_showDialog.dart"
+    "@condition": {
+        "description": "widget_star_showDialog.dart"
     },
     "completed": "已完成",
-    "@completed":{
+    "@completed": {
         "description": "widget_star_showDialog.dart"
     },
     "uncompleted": "尚未完成",
-    "@uncompleted":{
+    "@uncompleted": {
         "description": "widget_star_showDialog.dart"
     },
     "cancel": "取消",
-    "@cancel":{
+    "@cancel": {
         "description": "widget_star_showDialog.dart"
     },
     "detail": "詳情",
-    "@detail":{
+    "@detail": {
         "description": "widget_star_showDialog.dart"
     },
     "continue_": "繼續",
-    "@continue_":{
+    "@continue_": {
         "description": "widget_star_showDialog.dart"
+    },
+    "years_old": "歲",
+    "@years_old": {
+        "description": "page_character.dart"
+    },
+    "your_travel_companion": "你的旅伴",
+    "@your_travel_companion": {
+        "description": "page_character.dart"
+    },
+    "tap_the_card_to_view_the_back": "點擊卡片查看背面",
+    "@tap_the_card_to_view_the_back": {
+        "description": "page_character.dart"
+    },
+    "background": "背景介紹",
+    "@background": {
+        "description": "page_character.dart"
+    },
+    "personality_traits": "個性特質",
+    "@personality_traits": {
+        "description": "page_character.dart"
+    },
+    "tone_and_style": "語氣風格",
+    "@tone_and_style": {
+        "description": "page_character.dart"
     }
 }

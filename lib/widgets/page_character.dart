@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:app_situational_coach/widgets/painters/character_trump.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/character.dart';
@@ -43,10 +44,10 @@ class _PageCharacterState extends State<PageCharacter> {
             child: Column(
               children: [
                 const SizedBox(height: 80),
-                
+
                 // 2. Title
-                const Text(
-                  '選擇你的旅伴',
+                Text(
+                  AppLocalizations.of(context)!.your_travel_companion,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -69,18 +70,20 @@ class _PageCharacterState extends State<PageCharacter> {
                     itemBuilder: (context, index) {
                       final character = characters[index];
                       final isCurrent = index == currentIndex;
-                      return CharacterCard(character: character, highlight: isCurrent);
+                      return CharacterCard(
+                          character: character, highlight: isCurrent);
                     },
                   ),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(Icons.touch_app, color: Colors.white70, size: 20),
                     SizedBox(width: 8),
                     Text(
-                      '點擊卡片查看背面',
+                      AppLocalizations.of(context)!
+                          .tap_the_card_to_view_the_back,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 14,
@@ -106,7 +109,8 @@ class _PageCharacterState extends State<PageCharacter> {
                     color: Colors.white.withOpacity(0.9),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.arrow_back, color: Colors.black87, size: 20),
+                  child: const Icon(Icons.arrow_back,
+                      color: Colors.black87, size: 20),
                 ),
               ),
             ),
@@ -123,13 +127,15 @@ class CharacterCard extends StatefulWidget {
   final Character character;
   final bool highlight;
 
-  const CharacterCard({super.key, required this.character, required this.highlight});
+  const CharacterCard(
+      {super.key, required this.character, required this.highlight});
 
   @override
   State<CharacterCard> createState() => _CharacterCardState();
 }
 
-class _CharacterCardState extends State<CharacterCard> with SingleTickerProviderStateMixin {
+class _CharacterCardState extends State<CharacterCard>
+    with SingleTickerProviderStateMixin {
   bool isFlipped = false;
 
   @override
@@ -204,12 +210,14 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         color: const Color.fromARGB(255, 245, 245, 245),
         borderRadius: BorderRadius.circular(24),
         border: widget.highlight
-            ? Border.all(color: const Color.fromARGB(255, 162, 136, 205), width: 3)
+            ? Border.all(
+                color: const Color.fromARGB(255, 162, 136, 205), width: 3)
             : null,
         boxShadow: widget.highlight
             ? [
                 BoxShadow(
-                  color: const Color.fromARGB(255, 109, 85, 170).withOpacity(0.4),
+                  color:
+                      const Color.fromARGB(255, 109, 85, 170).withOpacity(0.4),
                   blurRadius: 10,
                   spreadRadius: 3,
                 )
@@ -221,22 +229,24 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         children: [
           const SizedBox(height: 12),
           character.imagePath.contains('trump')
-            ? SizedBox(
-              height: cardHeight * 0.40,
-              child: TrumpCharacter(
-                isTalking: widget.highlight,
-              ),
-            )
-            : Image.asset(
-                character.imagePath,
-                height: cardHeight * 0.40,
-                gaplessPlayback: true,
-                filterQuality: FilterQuality.low,
-              ),
+              ? SizedBox(
+                  height: cardHeight * 0.40,
+                  child: TrumpCharacter(
+                    isTalking: widget.highlight,
+                  ),
+                )
+              : Image.asset(
+                  character.imagePath,
+                  height: cardHeight * 0.40,
+                  gaplessPlayback: true,
+                  filterQuality: FilterQuality.low,
+                ),
           const SizedBox(height: 12),
-          Text(character.name,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text('${character.gender} / ${character.age} 歲',
+          Text(character.name.of(context),
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+              '${character.gender.of(context)} / ${character.age} ${AppLocalizations.of(context)!.years_old}',
               style: const TextStyle(color: Colors.black54)),
         ],
       ),
@@ -254,12 +264,14 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
         color: const Color(0xFFFDFDFD),
         borderRadius: BorderRadius.circular(24),
         border: widget.highlight
-            ? Border.all(color: const Color.fromARGB(255, 162, 136, 205), width: 3)
+            ? Border.all(
+                color: const Color.fromARGB(255, 162, 136, 205), width: 3)
             : null,
         boxShadow: widget.highlight
             ? [
                 BoxShadow(
-                  color: const Color.fromARGB(255, 234, 226, 254).withOpacity(0.4),
+                  color:
+                      const Color.fromARGB(255, 234, 226, 254).withOpacity(0.4),
                   blurRadius: 10,
                   spreadRadius: 3,
                 )
@@ -274,37 +286,37 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
           // 1. Character Name
           Center(
             child: Text(
-              character.name,
+              character.name.of(context),
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(221, 21, 64, 128),
+                color: Color.fromARGB(221, 21, 64, 128),
               ),
             ),
           ),
           const SizedBox(height: 32),
 
           // 2. 背景介紹
-          const Text('背景介紹：',
+          Text('${AppLocalizations.of(context)!.background}：',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 6),
-          Text(character.background,
+          Text(character.background.of(context),
               style: const TextStyle(fontSize: 15, height: 1.4)),
           const SizedBox(height: 20),
 
           // 3. 個性特質
-          const Text('個性特質：',
+          Text('${AppLocalizations.of(context)!.personality_traits}：',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 6),
-          Text(character.personality,
+          Text(character.personality.of(context),
               style: const TextStyle(fontSize: 15, height: 1.4)),
           const SizedBox(height: 20),
 
           // 4. 語氣風格
-          const Text('語氣風格：',
+          Text('${AppLocalizations.of(context)!.tone_and_style}：',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 6),
-          Text(character.tone,
+          Text(character.tone.of(context),
               style: const TextStyle(fontSize: 15, height: 1.4)),
 
           // 5. Slogan
@@ -312,9 +324,10 @@ class _CharacterCardState extends State<CharacterCard> with SingleTickerProvider
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 45.0, left: 12, right: 12),
+                padding:
+                    const EdgeInsets.only(bottom: 45.0, left: 12, right: 12),
                 child: Text(
-                  character.slogan,
+                  character.slogan.of(context),
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontSize: cardHeight * 0.035,

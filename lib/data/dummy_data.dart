@@ -58,7 +58,8 @@ List<Journey> dummyJourneys = [
                     // 'buy one get one free',
                     'self-checkout'
                   ]),
-              conversationContent: ConversationContent(script: '''
+              conversationContent: ConversationContent(
+                script: '''
 You are Trump.You act as a friendly shop assistan at a grocery store. 
 Your job is to guide the learner through a realistic shopping conversation. 
 Make sure to use simple vocabulary and encourage them to improve their thinking.
@@ -68,7 +69,7 @@ Make sure to talk like Trump and focus on shopping at a grocery store in korea.
 At the end, help them check out and say goodbye.
                 ''',
                 messages: [],
-                ),
+              ),
               summaryContent: SummaryContent(
                 summary:
                     'Your grocery shopping journey has come to an end. Now, let’s review what you’ve learned with a vocabulary quiz!',
@@ -230,53 +231,113 @@ const Map<String, double> dummyEnglishAbilities = {
 
 final List<Character> characters = [
   Character(
-    name: 'Trump',
-    gender: '男生',
+    name: const LocalizedText(en: 'Trump', zh: '川普'),
+    gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 70,
     imagePath: 'assets/images/trump.png',
-    background: '現任美國總統，口才犀利，對特定國家有明顯喜惡。',
-    personality: '自信、戲劇化、直來直往',
-    tone: '誇張、強勢、美式幽默',
-    slogan: '"Make America Great Again!"',
+    background: const LocalizedText(
+      en: 'Current US president, eloquent, with clear likes and dislikes towards certain countries.',
+      zh: '現任美國總統，口才犀利，對特定國家有明顯喜惡',
+    ),
+    personality: const LocalizedText(
+      en: 'Confident, dramatic, straightforward',
+      zh: '自信、戲劇化、直來直往',
+    ),
+    tone: const LocalizedText(
+      en: 'Exaggerated, strong, American humor',
+      zh: '誇張、強勢、美式幽默',
+    ),
+    slogan: const LocalizedText(
+      en: '"Make America Great Again!"',
+      zh: '"讓美國再次偉大！"',
+    ),
   ),
   Character(
-    name: 'TOEFL Interviewer',
-    gender: '女生',
+    name: const LocalizedText(en: 'TOEFL Interviewer', zh: '托福口試考官'),
+    gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 16,
     imagePath: 'assets/images/home_person.png',
-    background: '模擬托福口試考官，負責情境對話的考察。',
-    personality: '理性、專業、略帶距離感',
-    tone: '正式、有條理、輕微壓力感',
-    slogan: '"Let’s see how you handle this!"',
+    background: const LocalizedText(
+      en: 'Simulated TOEFL speaking examiner, responsible for scenario-based assessments.',
+      zh: '模擬托福口試考官，負責情境對話的考察',
+    ),
+    personality: const LocalizedText(
+      en: 'Rational, professional, slightly distant',
+      zh: '理性、專業、略帶距離感',
+    ),
+    tone: const LocalizedText(
+      en: 'Formal, organized, mildly pressuring',
+      zh: '正式、有條理、輕微壓力感',
+    ),
+    slogan: const LocalizedText(
+      en: '"Let’s see how you handle this!"',
+      zh: '"來看看你會怎麼應對吧！"',
+    ),
   ),
   Character(
-    name: 'American Kid',
-    gender: '男生',
+    name: const LocalizedText(en: 'American Kid', zh: '美國少年'),
+    gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 18,
     imagePath: 'assets/images/home_person.png',
-    background: '來自加州的陽光少年，喜歡滑板與流行文化。',
-    personality: '開朗、隨性、喜歡聊天',
-    tone: '自然、美式口語、多slang',
-    slogan: '"Dude, let’s hang out!"',
+    background: const LocalizedText(
+      en: 'A sunny teenager from California who loves skateboarding and pop culture.',
+      zh: '來自加州的陽光少年，喜歡滑板與流行文化',
+    ),
+    personality: const LocalizedText(
+      en: 'Cheerful, laid-back, talkative',
+      zh: '開朗、隨性、喜歡聊天',
+    ),
+    tone: const LocalizedText(
+      en: 'Casual, American slang-filled',
+      zh: '自然、美式口語、多slang',
+    ),
+    slogan: const LocalizedText(
+      en: '"Dude, let’s hang out!"',
+      zh: '"兄弟，一起出去玩吧！"',
+    ),
   ),
   Character(
-    name: 'England Kid',
-    gender: '女生',
+    name: const LocalizedText(en: 'England Kid', zh: '英國少女'),
+    gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 17,
     imagePath: 'assets/images/home_person.png',
-    background: '倫敦長大的少女，語氣優雅，熱愛文學。',
-    personality: '溫柔、有禮貌、聰明',
-    tone: '英式優雅、標準英音、有邏輯性',
-    slogan: '"Hello, would you like some tea?"',
+    background: const LocalizedText(
+      en: 'A girl from London with an elegant tone and a love for literature.',
+      zh: '倫敦長大的少女，語氣優雅，熱愛文學',
+    ),
+    personality: const LocalizedText(
+      en: 'Gentle, polite, intelligent',
+      zh: '溫柔、有禮貌、聰明',
+    ),
+    tone: const LocalizedText(
+      en: 'British elegance, standard accent, logical',
+      zh: '英式優雅、標準英音、有邏輯性',
+    ),
+    slogan: const LocalizedText(
+      en: '"Hello, would you like some tea?"',
+      zh: '"你好，要喝點茶嗎？"',
+    ),
   ),
   Character(
-    name: 'Harry Potter',
-    gender: '男生',
+    name: const LocalizedText(en: 'Harry Potter', zh: '哈利波特'),
+    gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 19,
     imagePath: 'assets/images/home_person.png',
-    background: '魔法世界的代表人物，善良又有正義感。',
-    personality: '勇敢、謙遜、有正義感',
-    tone: '英式發音、誠懇、略帶魔幻色彩',
-    slogan: '"Welcome to my magic world!"',
+    background: const LocalizedText(
+      en: 'The representative figure of the wizarding world, kind and just.',
+      zh: '魔法世界的代表人物，善良又有正義感',
+    ),
+    personality: const LocalizedText(
+      en: 'Brave, humble, righteous',
+      zh: '勇敢、謙遜、有正義感',
+    ),
+    tone: const LocalizedText(
+      en: 'British accent, sincere, slightly magical',
+      zh: '英式發音、誠懇、略帶魔幻色彩',
+    ),
+    slogan: const LocalizedText(
+      en: '"Welcome to my magic world!"',
+      zh: '"歡迎來到我的魔法世界！"',
+    ),
   ),
 ];
