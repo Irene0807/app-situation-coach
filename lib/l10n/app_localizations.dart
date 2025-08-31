@@ -140,42 +140,6 @@ abstract class AppLocalizations {
   /// **'Dear Traveler,\n\n    Imagine your ideal journey.\n    Where would you go?\n    How long would you stay?\n    What would you experience?\n    What’s the purpose of your adventure?\n\n    Describe it freely.\n\n\n\n\n\n\n\n                                              Your Best'**
   String get letter_content;
 
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'I\'m thinking, bigly...'**
-  String get im_thinking_bigly;
-
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'Hold on, this is gonna be great.'**
-  String get hold_on_this_is_gonna_be_great;
-
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'Processing... Believe me.'**
-  String get processing_believe_me;
-
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'Tremendous results incoming!'**
-  String get tremendous_results_incoming;
-
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'Just a moment. Very important stuff.'**
-  String get just_a_moment_very_important_stuff;
-
-  /// widget_loading_mark.dart
-  ///
-  /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
-
   /// page_journey_add_correct.dart
   ///
   /// In en, this message translates to:

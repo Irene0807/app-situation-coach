@@ -31,26 +31,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Dear Traveler,\n\n    Imagine your ideal journey.\n    Where would you go?\n    How long would you stay?\n    What would you experience?\n    What’s the purpose of your adventure?\n\n    Describe it freely.\n\n\n\n\n\n\n\n                                              Your Best';
 
   @override
-  String get im_thinking_bigly => 'I\'m thinking, bigly...';
-
-  @override
-  String get hold_on_this_is_gonna_be_great =>
-      'Hold on, this is gonna be great.';
-
-  @override
-  String get processing_believe_me => 'Processing... Believe me.';
-
-  @override
-  String get tremendous_results_incoming => 'Tremendous results incoming!';
-
-  @override
-  String get just_a_moment_very_important_stuff =>
-      'Just a moment. Very important stuff.';
-
-  @override
-  String get loading => 'Loading...';
-
-  @override
   String get new_journey => 'New Journey';
 
   @override

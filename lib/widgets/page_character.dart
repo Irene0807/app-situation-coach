@@ -321,7 +321,7 @@ class _CharacterCardState extends State<CharacterCard>
                 padding:
                     const EdgeInsets.only(bottom: 45.0, left: 12, right: 12),
                 child: Text(
-                  character.slogan.of(context),
+                  character.slogan,
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontSize: cardHeight * 0.035,

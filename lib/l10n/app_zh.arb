@@ -27,30 +27,6 @@
     "@letter_content": {
         "description": "widget_letter.dart"
     },
-    "im_thinking_bigly": "我正在認真思考...",
-    "@im_thinking_bigly": {
-        "description": "widget_loading_mark.dart"
-    },
-    "hold_on_this_is_gonna_be_great": "等等，這一定會很棒",
-    "@hold_on_this_is_gonna_be_great": {
-        "description": "widget_loading_mark.dart"
-    },
-    "processing_believe_me": "處理中... 相信我",
-    "@processing_believe_me": {
-        "description": "widget_loading_mark.dart"
-    },
-    "tremendous_results_incoming": "精彩的結果馬上就來",
-    "@tremendous_results_incoming": {
-        "description": "widget_loading_mark.dart"
-    },
-    "just_a_moment_very_important_stuff": "稍等一下，這很重要",
-    "@just_a_moment_very_important_stuff": {
-        "description": "widget_loading_mark.dart"
-    },
-    "loading": "載入中...",
-    "@loading": {
-        "description": "widget_loading_mark.dart"
-    },
     "new_journey": "新的旅程",
     "@new_journey": {
         "description": "page_journey_add_correct.dart"

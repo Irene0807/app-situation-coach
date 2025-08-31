@@ -27,30 +27,6 @@
     "@letter_content": {
         "description": "widget_letter.dart"
     },
-    "im_thinking_bigly": "I'm thinking, bigly...",
-    "@im_thinking_bigly": {
-        "description": "widget_loading_mark.dart"
-    },
-    "hold_on_this_is_gonna_be_great": "Hold on, this is gonna be great.",
-    "@hold_on_this_is_gonna_be_great": {
-        "description": "widget_loading_mark.dart"
-    },
-    "processing_believe_me": "Processing... Believe me.",
-    "@processing_believe_me": {
-        "description": "widget_loading_mark.dart"
-    },
-    "tremendous_results_incoming": "Tremendous results incoming!",
-    "@tremendous_results_incoming": {
-        "description": "widget_loading_mark.dart"
-    },
-    "just_a_moment_very_important_stuff": "Just a moment. Very important stuff.",
-    "@just_a_moment_very_important_stuff": {
-        "description": "widget_loading_mark.dart"
-    },
-    "loading": "Loading...",
-    "@loading": {
-        "description": "widget_loading_mark.dart"
-    },
     "new_journey": "New Journey",
     "@new_journey": {
         "description": "page_journey_add_correct.dart"

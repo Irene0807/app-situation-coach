@@ -31,24 +31,6 @@ class AppLocalizationsZh extends AppLocalizations {
       '親愛的旅行者：\n\n    想像一下你的理想旅程。\n    你會去哪裡？\n    會停留多久？\n    會體驗什麼？\n    這趟冒險的目的又是什麼？\n\n    請自由地描述吧。\n\n\n\n\n\n\n\n                                              最誠摯的祝福';
 
   @override
-  String get im_thinking_bigly => '我正在認真思考...';
-
-  @override
-  String get hold_on_this_is_gonna_be_great => '等等，這一定會很棒';
-
-  @override
-  String get processing_believe_me => '處理中... 相信我';
-
-  @override
-  String get tremendous_results_incoming => '精彩的結果馬上就來';
-
-  @override
-  String get just_a_moment_very_important_stuff => '稍等一下，這很重要';
-
-  @override
-  String get loading => '載入中...';
-
-  @override
   String get new_journey => '新的旅程';
 
   @override

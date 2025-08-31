@@ -247,10 +247,7 @@ final List<Character> characters = [
       en: 'Exaggerated, strong, American humor',
       zh: '誇張、強勢、美式幽默',
     ),
-    slogan: const LocalizedText(
-      en: '"Make America Great Again!"',
-      zh: '"讓美國再次偉大！"',
-    ),
+    slogan: '"Make America Great Again!"',
   ),
   Character(
     name: const LocalizedText(en: 'TOEFL Interviewer', zh: '托福口試考官'),
@@ -269,10 +266,7 @@ final List<Character> characters = [
       en: 'Formal, organized, mildly pressuring',
       zh: '正式、有條理、輕微壓力感',
     ),
-    slogan: const LocalizedText(
-      en: '"Let’s see how you handle this!"',
-      zh: '"來看看你會怎麼應對吧！"',
-    ),
+    slogan: '"Let’s see how you handle this!"',
   ),
   Character(
     name: const LocalizedText(en: 'American Kid', zh: '美國少年'),
@@ -291,10 +285,7 @@ final List<Character> characters = [
       en: 'Casual, American slang-filled',
       zh: '自然、美式口語、多slang',
     ),
-    slogan: const LocalizedText(
-      en: '"Dude, let’s hang out!"',
-      zh: '"兄弟，一起出去玩吧！"',
-    ),
+    slogan: '"Dude, let’s hang out!"',
   ),
   Character(
     name: const LocalizedText(en: 'England Kid', zh: '英國少女'),
@@ -313,10 +304,7 @@ final List<Character> characters = [
       en: 'British-style tsundere, sophisticated wording without being mean, playful tone.',
       zh: '英式傲嬌、用詞講究但不刻薄、語氣俏皮',
     ),
-    slogan: const LocalizedText(
-      en: '"跟著我吧，我知道所有最棒的地方！"',
-      zh: '"Follow me, I know all the best places!"',
-    ),
+    slogan: '"Follow me, I know all the best places!"',
   ),
   Character(
     name: const LocalizedText(en: 'Harry Potter', zh: '哈利波特'),
@@ -335,9 +323,6 @@ final List<Character> characters = [
       en: 'British accent, sincere, slightly magical',
       zh: '英式發音、誠懇、略帶魔幻色彩',
     ),
-    slogan: const LocalizedText(
-      en: '"Welcome to my magic world!"',
-      zh: '"歡迎來到我的魔法世界！"',
-    ),
+    slogan: '"Welcome to my magic world!"',
   ),
 ];

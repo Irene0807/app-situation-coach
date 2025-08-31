@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // 額外開一個class定義中英文版本 需要知道原因再問我
@@ -29,7 +28,7 @@ class Character {
   final LocalizedText background;
   final LocalizedText personality;
   final LocalizedText tone;
-  final LocalizedText slogan;
+  final String slogan;
 
   Character({
     required this.name,
