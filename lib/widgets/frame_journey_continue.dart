@@ -127,7 +127,7 @@ class FrameJourneyContinue extends StatelessWidget {
           final scene =
               journey.schedule[status.day - 1].scenes[status.scene - 1];
           return buildFunction(
-              context, true, true, isPass, FrameSceneDetail(scene: scene));
+              context, true, true, isPass, FrameSceneDetail(scene: scene, journey: journey,));
         } else {
           return buildFunction(context, true, true, true, WidgetLoadingMark());
         }

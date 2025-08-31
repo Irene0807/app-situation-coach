@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:app_situational_coach/l10n/app_localizations.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:app_situational_coach/widgets/painters/character_trump.dart';
+import 'package:app_situational_coach/widgets/animations/character_animation.dart';
 
 class WidgetLoadingMark extends StatefulWidget {
   const WidgetLoadingMark({super.key});
@@ -11,21 +11,82 @@ class WidgetLoadingMark extends StatefulWidget {
 }
 
 class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
-  String? currentPhrase;
-  List<String>? phrases;
-
   late Timer _textTimer;
+  final Random _random = Random();
+
+  int _characterIndex = 0;   // 目前角色
+  bool _showSlogan = true;   // 1: sloganSentece / 0: waitSentece
+
+  // slogan
+  final Map<String, String> sloganSentece = {
+    "Trump": "“Make America Great Again!”",
+    "TOEFL Interviewer": "“Let’s see how you handle this!”",
+    "American Kid": "“Dude, let’s hang out!”",
+    "England Kid": "“Hello, would you like some tea?”",
+    "Harry Potter": "“Welcome to my magic world!”",
+  };
+
+  // 等待詞
+  final Map<String, List<String>> waitSentece = {
+    "Trump": [
+      "Nobody loads better than me, nobody!",
+      "We’re making tremendous progress, believe me.",
+      "Loading... the best loading, everyone says so.",
+      "Hold on, this will be the greatest result ever.",
+      "Just a sec, I'm building a wall of ideas!",
+    ],
+    "TOEFL Interviewer": [
+      "Preparing your journey... almost done.",
+      "Grammar is important! give me a moment.",
+      "One sec, Designing journey...",
+    ],
+    "American Kid": [
+      "Yo, can’t wait for this trip!",
+      "Yo dude, can’t wait to hit the road!",
+      "Almost ready, we’re gonna have so much fun!",
+      "Wait up, I’m packing my skateboard already!",
+    ],
+    "England Kid": [
+      "Almost ready. Shall I pour you some tea?",
+      "One moment, preparing a cup of tea...",
+      "My favourite subject is literature, what about you?",
+      "One moment... I’m humming my favourite song.",
+      "Oh! I just thought of a lovely place we could visit.",
+      "One more tick, then we’ll start our little adventure.",
+    ],
+    "Harry Potter": [
+      "Accio... results! Oops, not yet.",
+      "Wait, the spell takes a few seconds.",
+      "Hogwarts owls are delivering... hold on!",
+      "Almost done, by Dumbledore’s beard!",
+      "The Sorting Hat is making up its mind.",
+      "Patience. your journey starts at Platform 9¾.",
+    ],
+  };
+
+  final List<String> characterOrder = [
+    "Trump",
+    "TOEFL Interviewer",
+    "American Kid",
+    "England Kid",
+    "Harry Potter",
+  ];
 
   @override
   void initState() {
     super.initState();
-    _updateTextLoop();
+    _startPhraseLoop();
   }
 
-  void _updateTextLoop() {
-    _textTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+  void _startPhraseLoop() {
+    _textTimer = Timer.periodic(const Duration(seconds: 4), (_) {
       setState(() {
-        currentPhrase = (phrases!..shuffle()).first;
+        if (_showSlogan) {
+          _showSlogan = false;
+        } else {
+          _showSlogan = true;
+          _characterIndex = (_characterIndex + 1) % characterOrder.length;
+        }
       });
     });
   }
@@ -38,55 +99,52 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
 
   @override
   Widget build(BuildContext context) {
-    currentPhrase ??= AppLocalizations.of(context)!.loading;
-    phrases ??= [
-      AppLocalizations.of(context)!.im_thinking_bigly,
-      AppLocalizations.of(context)!.hold_on_this_is_gonna_be_great,
-      AppLocalizations.of(context)!.processing_believe_me,
-      AppLocalizations.of(context)!.tremendous_results_incoming,
-      AppLocalizations.of(context)!.just_a_moment_very_important_stuff
-    ];
+    final characterName = characterOrder[_characterIndex];
+
+    String textToShow;
+    if (_showSlogan) {
+      textToShow = sloganSentece[characterName] ?? "Loading...";
+    } else {
+      final phrases = waitSentece[characterName] ?? ["Loading..."];
+      textToShow = phrases[_random.nextInt(phrases.length)];
+    }
 
     return Stack(
       children: [
-        // 背景模糊可選
+        // 背景
         Positioned.fill(
           child: Container(
             color: const Color.fromARGB(255, 218, 248, 252).withOpacity(0.85),
           ),
         ),
 
-        // 川普角色 + 對話框
+        // 角色 + 對話框
         Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              // 對話框
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal:
-                      MediaQuery.of(context).size.width * 0.1, // 左右各占 10%
-                  vertical:
-                      MediaQuery.of(context).size.height * 0.02, // 上下各占 2%
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                  vertical: MediaQuery.of(context).size.height * 0.02,
                 ),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 196, 251, 255),
-                    border: Border.all(
-                        color: const Color.fromARGB(201, 64, 255, 242)),
+                    border: Border.all(color: const Color.fromARGB(201, 64, 255, 242)),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color:
-                            const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
+                        color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.3),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
                     ],
                   ),
                   child: Text(
-                    currentPhrase!,
+                    textToShow,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -98,9 +156,14 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
                 ),
               ),
               const SizedBox(height: 20),
+
+              // 角色動畫
               SizedBox(
-                width: 100,
-                child: TrumpCharacter(isTalking: true),
+                width: 120,
+                child: CharacterWidget(
+                  characterName: characterName,
+                  currentSegment: textToShow, // 嘴巴跟著動
+                ),
               ),
             ],
           ),

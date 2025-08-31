@@ -1,9 +1,9 @@
 import 'package:app_situational_coach/l10n/app_localizations.dart';
-import 'package:app_situational_coach/widgets/painters/character_trump.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/character.dart';
 import 'package:app_situational_coach/data/dummy_data.dart';
 import 'animations/twinkling_widget.dart';
+import 'animations/character_animation.dart';
 import 'dart:math';
 
 class PageCharacter extends StatefulWidget {
@@ -228,19 +228,13 @@ class _CharacterCardState extends State<CharacterCard>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 12),
-          character.imagePath.contains('trump')
-              ? SizedBox(
-                  height: cardHeight * 0.40,
-                  child: TrumpCharacter(
-                    isTalking: widget.highlight,
-                  ),
-                )
-              : Image.asset(
-                  character.imagePath,
-                  height: cardHeight * 0.40,
-                  gaplessPlayback: true,
-                  filterQuality: FilterQuality.low,
-                ),
+          SizedBox(
+            height: cardHeight * 0.40,
+            child: CharacterWidget(
+              characterName: character.name.of(context),
+              changeHand: widget.highlight,
+            ),
+          ),
           const SizedBox(height: 12),
           Text(character.name.of(context),
               style:

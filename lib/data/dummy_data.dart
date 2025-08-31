@@ -11,7 +11,7 @@ List<Journey> dummyJourneys = [
       id: '1',
       name: 'Seoul Shopping',
       day: 3,
-      character: 'Trump',
+      character: 'England Kid',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
       schedule: [
@@ -56,7 +56,7 @@ List<Journey> dummyJourneys = [
                     // 'on sale',
                     // 'out of stock',
                     // 'buy one get one free',
-                    'self-checkout'
+                    // 'self-checkout'
                   ]),
               conversationContent: ConversationContent(
                 script: '''
@@ -255,7 +255,7 @@ final List<Character> characters = [
   Character(
     name: const LocalizedText(en: 'TOEFL Interviewer', zh: '托福口試考官'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
-    age: 16,
+    age: 27,
     imagePath: 'assets/images/home_person.png',
     background: const LocalizedText(
       en: 'Simulated TOEFL speaking examiner, responsible for scenario-based assessments.',
@@ -277,7 +277,7 @@ final List<Character> characters = [
   Character(
     name: const LocalizedText(en: 'American Kid', zh: '美國少年'),
     gender: const LocalizedText(en: 'Male', zh: '男生'),
-    age: 18,
+    age: 10,
     imagePath: 'assets/images/home_person.png',
     background: const LocalizedText(
       en: 'A sunny teenager from California who loves skateboarding and pop culture.',
@@ -299,23 +299,23 @@ final List<Character> characters = [
   Character(
     name: const LocalizedText(en: 'England Kid', zh: '英國少女'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
-    age: 17,
+    age: 15,
     imagePath: 'assets/images/home_person.png',
     background: const LocalizedText(
-      en: 'A girl from London with an elegant tone and a love for literature.',
-      zh: '倫敦長大的少女，語氣優雅，熱愛文學',
+      en: 'A young lady from a prestigious family in London who loves reading and art.',
+      zh: '倫敦名門出身的少女，喜歡閱讀與藝術',
     ),
     personality: const LocalizedText(
-      en: 'Gentle, polite, intelligent',
-      zh: '溫柔、有禮貌、聰明',
+      en: 'Proud yet adorable, tough on the outside but soft-hearted, has refined taste, and values etiquette.',
+      zh: '高傲可愛、嘴硬心軟、講究品味、重視禮儀',
     ),
     tone: const LocalizedText(
-      en: 'British elegance, standard accent, logical',
-      zh: '英式優雅、標準英音、有邏輯性',
+      en: 'British-style tsundere, sophisticated wording without being mean, playful tone.',
+      zh: '英式傲嬌、用詞講究但不刻薄、語氣俏皮',
     ),
     slogan: const LocalizedText(
-      en: '"Hello, would you like some tea?"',
-      zh: '"你好，要喝點茶嗎？"',
+      en: '"跟著我吧，我知道所有最棒的地方！"',
+      zh: '"Follow me, I know all the best places!"',
     ),
   ),
   Character(
