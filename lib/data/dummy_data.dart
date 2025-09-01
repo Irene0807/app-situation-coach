@@ -234,7 +234,7 @@ final List<Character> characters = [
     name: const LocalizedText(en: 'Trump', zh: '川普'),
     gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 70,
-    imagePath: 'assets/images/trump.png',
+    imagePath: 'assets/images/trump/31.png',
     background: const LocalizedText(
       en: 'Current US president, eloquent, with clear likes and dislikes towards certain countries.',
       zh: '現任美國總統，口才犀利，對特定國家有明顯喜惡',
@@ -253,7 +253,7 @@ final List<Character> characters = [
     name: const LocalizedText(en: 'TOEFL Interviewer', zh: '托福口試考官'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 27,
-    imagePath: 'assets/images/home_person.png',
+    imagePath: 'assets/images/toefl_interviewer/31.png',
     background: const LocalizedText(
       en: 'Simulated TOEFL speaking examiner, responsible for scenario-based assessments.',
       zh: '模擬托福口試考官，負責情境對話的考察',
@@ -272,7 +272,7 @@ final List<Character> characters = [
     name: const LocalizedText(en: 'American Kid', zh: '美國少年'),
     gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 10,
-    imagePath: 'assets/images/home_person.png',
+    imagePath: 'assets/images/american_kid/31.png',
     background: const LocalizedText(
       en: 'A sunny teenager from California who loves skateboarding and pop culture.',
       zh: '來自加州的陽光少年，喜歡滑板與流行文化',
@@ -291,7 +291,7 @@ final List<Character> characters = [
     name: const LocalizedText(en: 'England Kid', zh: '英國少女'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 15,
-    imagePath: 'assets/images/home_person.png',
+    imagePath: 'assets/images/england_kid/31.png',
     background: const LocalizedText(
       en: 'A young lady from a prestigious family in London who loves reading and art.',
       zh: '倫敦名門出身的少女，喜歡閱讀與藝術',
@@ -310,7 +310,7 @@ final List<Character> characters = [
     name: const LocalizedText(en: 'Harry Potter', zh: '哈利波特'),
     gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 19,
-    imagePath: 'assets/images/home_person.png',
+    imagePath: 'assets/images/harry_potter/31.png',
     background: const LocalizedText(
       en: 'The representative figure of the wizarding world, kind and just.',
       zh: '魔法世界的代表人物，善良又有正義感',

@@ -57,37 +57,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     });
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   _precacheImages(); // 先load好圖片
-  // }
-
-  // void _precacheImages() {
-  //   for (var path in [
-  //     'assets/images/trump/11.png',
-  //     'assets/images/trump/21.png',
-  //     'assets/images/trump/31.png',
-  //     'assets/images/trump/41.png',
-  //     'assets/images/trump/51.png',
-  //     'assets/images/trump/61.png',
-  //     'assets/images/trump/12.png',
-  //     'assets/images/trump/22.png',
-  //     'assets/images/trump/32.png',
-  //     'assets/images/trump/42.png',
-  //     'assets/images/trump/52.png',
-  //     'assets/images/trump/62.png',
-  //     'assets/images/trump/13.png',
-  //     'assets/images/trump/23.png',
-  //     'assets/images/trump/33.png',
-  //     'assets/images/trump/43.png',
-  //     'assets/images/trump/53.png',
-  //     'assets/images/trump/63.png',
-  //   ]) {
-  //     precacheImage(AssetImage(path), context);
-  //   }
-  // }
-
   // 讓角色主動講第一句話
   Future<void> startConversation() async {
     setState(() {

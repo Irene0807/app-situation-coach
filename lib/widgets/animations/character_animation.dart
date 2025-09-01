@@ -137,7 +137,19 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
   /// 把角色名稱轉換成資料夾安全格式
   String _normalizeCharacterName(String name) {
-    return name.toLowerCase().replaceAll(" ", "_");
+    final map = {
+      ['Trump', '川普']: 'trump',
+      ['England Kid', '英國少女']: 'england_kid',
+      ['Harry Potter', '哈利波特']: 'harry_potter',
+      ['American Kid', '美國少年']: 'american_kid',
+      ['TOEFL Interviewer', '托福口試考官']: 'toefl_interviewer',
+    };
+
+    for (final entry in map.entries) {
+      if (entry.key.contains(name)) return entry.value;
+    }
+
+    return name.toLowerCase().replaceAll(' ', '_');
   }
 
   /// 狀態轉圖片碼
