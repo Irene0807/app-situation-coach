@@ -7,8 +7,8 @@ import 'agents/robot_response_predictor.dart';
 import 'agents/user_response_predictor.dart';
 import 'agents/bloom_evaluator.dart';
 import 'agents/character_evaluator.dart';
-import '../models/journey.dart';
-import '../models/scene.dart';
+import '../../models/journey.dart';
+import '../../models/scene.dart';
 
 /*
 ScriptGenerator:

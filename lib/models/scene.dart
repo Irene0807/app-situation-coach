@@ -1,7 +1,7 @@
 import 'package:app_situational_coach/models/question.dart';
-import 'package:app_situational_coach/services/test_generator.dart';
-import 'package:app_situational_coach/services/vocabulary_generator.dart';
-import 'package:app_situational_coach/services/script_generator.dart';
+import 'package:app_situational_coach/services/gemini/test_generator.dart';
+import 'package:app_situational_coach/services/gemini/vocabulary_generator.dart';
+import 'package:app_situational_coach/services/gemini/script_generator.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/models/message.dart';
 

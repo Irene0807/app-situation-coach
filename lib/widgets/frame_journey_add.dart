@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../widgets/page_journey_add_prompt.dart';
 import '../widgets/page_journey_add_correct.dart';
-import '../services/journey_generator.dart';
+import '../services/gemini/journey_generator.dart';
 import '../models/journey.dart';
 import '../state/journey_list_notifier.dart';
 import 'func_run_with_loading.dart';

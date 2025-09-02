@@ -180,7 +180,7 @@ class Pagehome extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 32, bottom: 64),
               child: GestureDetector(
-                onTap: () => context.go('/character'),
+                onTap: () => context.go('/home/character'),
                 child: HomeActionSign(
                   tiltLeft: true,
                   content: Transform.translate(
@@ -201,7 +201,7 @@ class Pagehome extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 32, bottom: 64),
               child: GestureDetector(
-                onTap: () => context.go('/journey'),
+                onTap: () => context.go('/home/journey'),
                 child: HomeActionSign(
                   content: SizedBox(
                     height: 48,
@@ -231,7 +231,7 @@ class Pagehome extends StatelessWidget {
                     // achievement 按鈕
                     FloatingActionButton(
                       heroTag: 'growth record',
-                      onPressed: () => context.go('/growth_record'),
+                      onPressed: () => context.go('/home/growth_record'),
                       backgroundColor: Colors.white,
                       elevation: 4,
                       child: Icon(Icons.emoji_events,
@@ -241,7 +241,7 @@ class Pagehome extends StatelessWidget {
                     // setting 按鈕
                     FloatingActionButton(
                       heroTag: 'setting',
-                      onPressed: () => context.go('/setting'),
+                      onPressed: () => context.go('/home/setting'),
                       backgroundColor: Colors.white,
                       elevation: 4,
                       child:

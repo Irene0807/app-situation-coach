@@ -2,7 +2,7 @@
 // generator -> prompt & gemini
 
 import 'package:app_situational_coach/models/day.dart';
-import '../services/gemini_instance.dart';
+import 'gemini_instance.dart';
 import 'prompts/journey_plan_prompt.dart';
 import 'prompts/journey_schedule_prompt.dart';
 

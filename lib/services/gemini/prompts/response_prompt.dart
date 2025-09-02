@@ -1,4 +1,4 @@
-import '../../models/message.dart';
+import '../../../models/message.dart';
 
 String buildResponsePrompt({
   required String script,

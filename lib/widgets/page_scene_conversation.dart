@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:ui';
 import '../models/scene.dart';
 import '../models/journey.dart';
-import '../services/response_generator.dart';
+import '../services/gemini/response_generator.dart';
 import '../widgets/animations/character_animation.dart';
 import '../widgets/animations/continue_dot_animation.dart';
 import 'package:app_situational_coach/state/journey_status_notifier.dart';
