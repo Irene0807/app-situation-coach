@@ -1,5 +1,6 @@
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 enum LoginType {
@@ -65,11 +66,20 @@ class SettingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void logout() {
+  Future<void> logout(BuildContext context) async {
+    // 實際logout
+    final repo = Provider.of<UserRepository>(context, listen: false);
+    await repo.logout();
+
     _userName = '';
     _avatarPath = '';
     _loginType = LoginType.guest;
     notifyListeners();
+
+    // 換頁
+    if (context.mounted) {
+      context.go('/auth');
+    }
   }
 
   bool _isEditing = false;

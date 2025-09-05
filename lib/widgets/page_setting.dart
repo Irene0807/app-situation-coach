@@ -80,11 +80,7 @@ class PageSetting extends StatelessWidget {
             title: Text('Login Type: ${setting.loginType.name}'),
             subtitle: const Text('Account linked with your profile'),
             trailing: TextButton(
-              onPressed: () => () {
-                setting.logout();
-                // 登出
-                context.go('/auth');
-              },
+              onPressed: () => setting.logout(context),
               child: const Text('Log Out', style: TextStyle(color: Colors.red)),
             ),
           ),
