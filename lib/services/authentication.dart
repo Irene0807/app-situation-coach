@@ -40,6 +40,10 @@ class AuthenticationService {
   }
 
   String? getCurrentUserId() {
-    return firebaseAuth.currentUser?.uid;
+    User? user = firebaseAuth.currentUser;
+    if (user == null) return null;
+
+    user.reload();
+    return firebaseAuth.currentUser?.uid; // return new result
   }
 }

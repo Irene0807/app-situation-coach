@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/widget_loading_mark.dart';
+import 'widget_loading_mark.dart';
 
 // 跑 loading 時會顯示這個通用的載入畫面
 

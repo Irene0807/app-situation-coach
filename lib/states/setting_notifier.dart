@@ -1,4 +1,6 @@
+import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum LoginType {
   google,
@@ -7,7 +9,6 @@ enum LoginType {
 }
 
 class SettingNotifier extends ChangeNotifier {
-
   String _userName = '';
   String get userName => _userName;
   set userName(String value) {

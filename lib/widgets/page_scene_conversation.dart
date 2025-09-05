@@ -6,9 +6,9 @@ import 'dart:ui';
 import '../models/scene.dart';
 import '../models/journey.dart';
 import '../services/gemini/response_generator.dart';
-import '../widgets/animations/character_animation.dart';
-import '../widgets/animations/continue_dot_animation.dart';
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import 'animations/character_animation.dart';
+import 'animations/continue_dot_animation.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
 
 // 小問題 frame_journey_continue那邊我已經疊一層image了 這邊又疊一層 不過demo來說沒差哈
 

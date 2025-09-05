@@ -1,6 +1,8 @@
+import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:app_situational_coach/services/authentication.dart';
-import 'package:app_situational_coach/state/journey_list_notifier.dart';
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/journey_list_notifier.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/setting_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_journey_add.dart';
 import 'package:app_situational_coach/widgets/page_authentication.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ import '../widgets/frame_journey_continue.dart';
 final routerConfig = GoRouter(
   routes: [
     GoRoute(
-      path: '/authentication',
+      path: '/auth',
       builder: (context, state) => const PageAuthentication(),
     ),
     GoRoute(
@@ -99,7 +101,12 @@ final routerConfig = GoRouter(
           ),
           GoRoute(
             path: 'setting',
-            builder: (context, state) => const PageSetting(),
+            builder: (context, state) {
+              return ChangeNotifierProvider(
+                create: (_) => SettingNotifier(),
+                child: PageSetting(),
+              );
+            },
           ),
           GoRoute(
             path: 'growth_record',
@@ -112,16 +119,15 @@ final routerConfig = GoRouter(
   debugLogDiagnostics: true, // 幫助debug的東西
   redirect: (context, state) {
     final currentPath = state.uri.path;
-    final isLoggedIn =
-        Provider.of<AuthenticationService>(context, listen: false)
-                .getCurrentUserId() !=
-            null;
-    if (isLoggedIn && currentPath == '/authentication') {
+    final isLoggedIn = Provider.of<UserRepository>(context, listen: false)
+            .getCurrentUserId() !=
+        null;
+    if (isLoggedIn && currentPath == '/auth') {
       return '/home';
     }
-    if (!isLoggedIn && currentPath != '/authentication') {
+    if (!isLoggedIn && currentPath != '/auth') {
       // Redirect to auth page if the user is not logged in
-      return '/authentication';
+      return '/auth';
     }
     if (currentPath == '/') {
       return '/home';

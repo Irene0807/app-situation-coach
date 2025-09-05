@@ -1,4 +1,4 @@
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:google_fonts/google_fonts.dart';

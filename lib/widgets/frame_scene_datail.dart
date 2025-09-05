@@ -1,7 +1,7 @@
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/models/journey.dart';
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/page_scene_conversation.dart';
 import 'package:app_situational_coach/widgets/page_scene_intro.dart';
 import 'package:app_situational_coach/widgets/page_scene_summary.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../state/journey_list_notifier.dart';
-import '../state/character_notifier.dart';
+import '../states/journey_list_notifier.dart';
+import '../states/character_notifier.dart';
 import 'animations/home_action_sign.dart';
 import 'animations/twinkling_widget.dart';
 import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
-import '../widgets/widget_star_showDialog.dart';
+import 'widget_star_showDialog.dart';
 import 'package:app_situational_coach/l10n/app_localizations.dart';
 
 class Pagehome extends StatelessWidget {
@@ -16,7 +16,7 @@ class Pagehome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final journeys = context.watch<JourneyListNotifier>().journeys;
-    final character = context.watch<CharacterNotifier>().selectedCharacter;
+    // final character = context.watch<CharacterNotifier>().selectedCharacter;
     final scrollController = ScrollController();
 
     return Scaffold(

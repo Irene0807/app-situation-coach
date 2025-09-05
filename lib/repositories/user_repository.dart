@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../services/authentication.dart';
 import '../services/database.dart';
 import '../models/user.dart';
@@ -36,7 +38,9 @@ class UserRepository {
   }
 
   Future<void> logout() async {
-    await authService.signOut();
+    if (getCurrentUserId() != null) {
+      await authService.signOut();
+    }
   }
 
   Future<User?> getCurrentAppUser() async {
@@ -45,5 +49,9 @@ class UserRepository {
     final doc = await dbService.getUserDoc(uid: uid);
     if (doc == null) return null;
     return User.fromMap(uid, doc);
+  }
+
+  String? getCurrentUserId() {
+    return authService.getCurrentUserId();
   }
 }

@@ -1,13 +1,16 @@
+import 'package:app_situational_coach/repositories/user_repository.dart';
+import 'package:app_situational_coach/widgets/func_run_with_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../state/setting_notifier.dart';
+import '../states/setting_notifier.dart';
 
 class PageSetting extends StatelessWidget {
   const PageSetting({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final setting = context.watch<SettingNotifier>();
+    final setting = Provider.of<SettingNotifier>(context, listen: true);
     final textController = TextEditingController(text: setting.userName);
 
     return Scaffold(
@@ -17,7 +20,8 @@ class PageSetting extends StatelessWidget {
         title: const Text('Settings', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
-            icon: Icon(setting.isEditing ? Icons.check : Icons.edit, color: Colors.white),
+            icon: Icon(setting.isEditing ? Icons.check : Icons.edit,
+                color: Colors.white),
             onPressed: () {
               if (setting.isEditing) {
                 setting.userName = textController.text;
@@ -76,7 +80,11 @@ class PageSetting extends StatelessWidget {
             title: Text('Login Type: ${setting.loginType.name}'),
             subtitle: const Text('Account linked with your profile'),
             trailing: TextButton(
-              onPressed: () => setting.logout(),
+              onPressed: () => () {
+                setting.logout();
+                // 登出
+                context.go('/auth');
+              },
               child: const Text('Log Out', style: TextStyle(color: Colors.red)),
             ),
           ),
@@ -91,11 +99,14 @@ class PageSetting extends StatelessWidget {
             ),
             title: Text(
               'Nationality',
-              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+              style: TextStyle(
+                  color: setting.isEditing ? Colors.grey : Colors.black),
             ),
             trailing: DropdownButton<String>(
               value: setting.nationality,
-              onChanged: setting.isEditing ? (val) => setting.nationality = val! : null,
+              onChanged: setting.isEditing
+                  ? (val) => setting.nationality = val!
+                  : null,
               items: ['Taiwan', 'Korea', 'Japan'].map((nation) {
                 return DropdownMenuItem(value: nation, child: Text(nation));
               }).toList(),
@@ -105,10 +116,12 @@ class PageSetting extends StatelessWidget {
           // Dark Mode
           SwitchListTile(
             value: setting.darkMode,
-            onChanged: setting.isEditing ? (val) => setting.darkMode = val : null,
+            onChanged:
+                setting.isEditing ? (val) => setting.darkMode = val : null,
             title: Text(
               'Dark Mode',
-              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+              style: TextStyle(
+                  color: setting.isEditing ? Colors.grey : Colors.black),
             ),
             secondary: Icon(
               Icons.dark_mode,
@@ -119,10 +132,13 @@ class PageSetting extends StatelessWidget {
           // Voice
           SwitchListTile(
             value: setting.isVoiceEnabled,
-            onChanged: setting.isEditing ? (val) => setting.isVoiceEnabled = val : null,
+            onChanged: setting.isEditing
+                ? (val) => setting.isVoiceEnabled = val
+                : null,
             title: Text(
               'Enable Voice',
-              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+              style: TextStyle(
+                  color: setting.isEditing ? Colors.grey : Colors.black),
             ),
             secondary: Icon(
               Icons.record_voice_over,
@@ -133,10 +149,13 @@ class PageSetting extends StatelessWidget {
           // Notification
           SwitchListTile(
             value: setting.isNotificationOn,
-            onChanged: setting.isEditing ? (val) => setting.isNotificationOn = val : null,
+            onChanged: setting.isEditing
+                ? (val) => setting.isNotificationOn = val
+                : null,
             title: Text(
               'Enable Notifications',
-              style: TextStyle(color: setting.isEditing ? Colors.grey : Colors.black),
+              style: TextStyle(
+                  color: setting.isEditing ? Colors.grey : Colors.black),
             ),
             secondary: Icon(
               Icons.notifications_active,

@@ -1,12 +1,12 @@
+import 'package:app_situational_coach/services/authentication.dart';
+import 'package:app_situational_coach/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../repositories/user_repository.dart';
-import '../models/user.dart';
 
 class PageAuthentication extends StatefulWidget {
-  final void Function(User user)? onAuthenticated;
-
-  const PageAuthentication({super.key, this.onAuthenticated});
+  const PageAuthentication({super.key});
 
   @override
   State<PageAuthentication> createState() => _PageAuthenticationState();
@@ -14,7 +14,7 @@ class PageAuthentication extends StatefulWidget {
 
 class _PageAuthenticationState extends State<PageAuthentication> {
   final _formKey = GlobalKey<FormState>();
-  bool _isLogin = true;
+  bool _loginSwitch = true;
   bool _loading = false;
 
   final _nameCtrl = TextEditingController();
@@ -34,37 +34,32 @@ class _PageAuthenticationState extends State<PageAuthentication> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
-    // 代處理
-    final repo = UserRepository(
-      authService: Provider.of(context, listen: false),
-      dbService: Provider.of(context, listen: false),
-    );
+
+    final repo = Provider.of<UserRepository>(context, listen: false);
 
     try {
-      if (_isLogin) {
+      if (_loginSwitch) {
         await repo.loginWithEmail(
-            email: _emailCtrl.text.trim(), password: _passwordCtrl.text);
+            email: '${_emailCtrl.text}@gmail.com'.trim(),
+            password: _passwordCtrl.text);
       } else {
         final age = int.tryParse(_ageCtrl.text.trim()) ?? 0;
         await repo.registerWithEmail(
-          email: _emailCtrl.text.trim(),
+          email: '${_emailCtrl.text}@gmail.com'.trim(),
           password: _passwordCtrl.text,
           name: _nameCtrl.text.trim(),
           age: age,
         );
       }
 
-      final appUser = await repo.getCurrentAppUser();
-      final message = _isLogin ? '登入成功' : '註冊成功';
-      if (widget.onAuthenticated != null && appUser != null) {
-        widget.onAuthenticated!(appUser);
+      final appUser = repo.getCurrentUserId();
+      if (appUser != null) {
+        if (mounted) context.go('/home');
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(message)));
+        return;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('發生錯誤：$e')));
+      print('發生錯誤：$e');
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -74,16 +69,16 @@ class _PageAuthenticationState extends State<PageAuthentication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isLogin ? '登入' : '註冊'),
+        title: Text(_loginSwitch ? '登入' : '註冊'),
         actions: [
           TextButton(
             onPressed: () {
               setState(() {
-                _isLogin = !_isLogin;
+                _loginSwitch = !_loginSwitch;
               });
             },
-            child: Text(_isLogin ? '切換到註冊' : '切換到登入',
-                style: TextStyle(color: Colors.white)),
+            child: Text(_loginSwitch ? '切換到註冊' : '切換到登入',
+                style: TextStyle(color: Colors.black)),
           ),
         ],
       ),
@@ -93,14 +88,14 @@ class _PageAuthenticationState extends State<PageAuthentication> {
           key: _formKey,
           child: Column(
             children: [
-              if (!_isLogin)
+              if (!_loginSwitch)
                 TextFormField(
                   controller: _nameCtrl,
                   decoration: InputDecoration(labelText: '姓名'),
                   validator: (v) =>
                       (v == null || v.trim().isEmpty) ? '請輸入姓名' : null,
                 ),
-              if (!_isLogin)
+              if (!_loginSwitch)
                 TextFormField(
                   controller: _ageCtrl,
                   decoration: InputDecoration(labelText: '年齡'),
@@ -114,12 +109,13 @@ class _PageAuthenticationState extends State<PageAuthentication> {
                 ),
               TextFormField(
                 controller: _emailCtrl,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(labelText: '帳號'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return '請輸入 email';
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v.trim()))
-                    return 'email 格式錯誤';
+                  if (v == null || v.trim().isEmpty) return '請輸入帳號';
+                  if (v.length < 6) return '帳號至少 6 個字元';
+                  final reg = RegExp(r'^[a-zA-Z0-9]+$');
+                  if (!reg.hasMatch(v)) return '帳號只能包含英文與數字';
                   return null;
                 },
               ),
@@ -129,7 +125,7 @@ class _PageAuthenticationState extends State<PageAuthentication> {
                 obscureText: true,
                 validator: (v) {
                   if (v == null || v.isEmpty) return '請輸入密碼';
-                  if (v.length < 6) return '密碼至少 6 個字元';
+                  if (v.length < 8) return '密碼至少 8 個字元';
                   return null;
                 },
               ),
@@ -138,7 +134,7 @@ class _PageAuthenticationState extends State<PageAuthentication> {
                   ? CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: _submit,
-                      child: Text(_isLogin ? '登入' : '註冊'),
+                      child: Text(_loginSwitch ? '登入' : '註冊'),
                     ),
             ],
           ),

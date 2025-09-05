@@ -2,12 +2,12 @@ import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../state/journey_list_notifier.dart';
+import '../states/journey_list_notifier.dart';
 import 'package:provider/provider.dart';
 import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
 import '../models/journey.dart';
-import '../widgets/widget_star_showDialog.dart';
+import 'widget_star_showDialog.dart';
 
 class PageJourneyStart extends StatelessWidget {
   const PageJourneyStart({super.key});

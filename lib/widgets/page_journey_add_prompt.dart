@@ -1,8 +1,8 @@
 import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../widgets/widget_letter.dart';
-import '../widgets/animations/letter_animation.dart';
+import 'widget_letter.dart';
+import 'animations/letter_animation.dart';
 
 // lets go 的 button如果連續點擊會有bug 之後再說吧
 

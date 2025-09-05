@@ -1,5 +1,5 @@
 import 'package:app_situational_coach/models/status.dart';
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_scene_datail.dart';
 import 'package:app_situational_coach/widgets/page_day_cover.dart';
 import 'package:app_situational_coach/widgets/page_journey_back_cover.dart';
