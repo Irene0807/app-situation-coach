@@ -1,38 +1,92 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// 每個models包含 set update get 三個功能
+
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final String usersCollectionName;
 
-  DatabaseService({
-    this.usersCollectionName = 'users',
-  });
-
-  CollectionReference<Map<String, dynamic>> get _users => _firestore
-      .collection(usersCollectionName)
-      .withConverter<Map<String, dynamic>>(
-        fromFirestore: (snap, _) => snap.data() ?? <String, dynamic>{},
-        toFirestore: (data, _) => data,
-      );
-
-  Future<void> createUserDoc({
-    required String uid,
-    required Map<String, dynamic> data,
-  }) async {
-    await _firestore.collection(usersCollectionName).doc(uid).set(data);
+  /// --------------------------------------------
+  /// 泛用：取得任意層 collection reference
+  /// pathSegments 例: ['users','user123','journeys','journeyA','scenes']
+  /// --------------------------------------------
+  CollectionReference getCollection(List<String> pathSegments) {
+    CollectionReference? col;
+    for (int i = 0; i < pathSegments.length; i++) {
+      if (i % 2 == 0) {
+        // 偶數 index = collection
+        col = (col ?? _firestore.collection(pathSegments[i]));
+      } else {
+        // 奇數 index = document，下一層 collection
+        col = col!.doc(pathSegments[i]).collection(pathSegments[i + 1]);
+        i++; // skip next because already used
+      }
+    }
+    return col!;
   }
 
-  Future<Map<String, dynamic>?> getUserDoc({
-    required String uid,
-  }) async {
-    final doc = await _firestore.collection(usersCollectionName).doc(uid).get();
-    return doc.exists ? doc.data() : null;
+  /// --------------------------------------------
+  /// 取得任意 document
+  /// --------------------------------------------
+  Future<Map<String, dynamic>?> getDocument(List<String> pathSegments) async {
+    final docRef = _firestore.doc(pathSegments.join('/'));
+    final snapshot = await docRef.get();
+    return snapshot.exists ? snapshot.data() : null;
   }
 
-  Future<void> updateUserDoc({
-    required String uid,
-    required Map<String, dynamic> data,
-  }) async {
-    await _firestore.collection(usersCollectionName).doc(uid).update(data);
+  /// --------------------------------------------
+  /// 設定任意 document (merge 可選)
+  /// --------------------------------------------
+  Future<void> setDocument(List<String> pathSegments, Map<String, dynamic> data,
+      {bool merge = true}) async {
+    final docRef = _firestore.doc(pathSegments.join('/'));
+    await docRef.set(data, SetOptions(merge: merge));
   }
+
+  /// --------------------------------------------
+  /// 取得 collection 下所有 document
+  /// --------------------------------------------
+  Future<List<Map<String, dynamic>>> getCollectionDocs(
+      List<String> pathSegments) async {
+    final colRef = getCollection(pathSegments);
+    final snapshot = await colRef.get();
+    return snapshot.docs
+        .map((doc) => doc.data() as Map<String, dynamic>)
+        .toList();
+  }
+
+  /// --------------------------------------------
+  /// 設定 collection 下所有 document (merge 可選)
+  /// --------------------------------------------
+  Future<void> setAllDocsInCollection(
+      List<String> pathSegments, List<Map<String, dynamic>> docsData,
+      {bool merge = true}) async {
+    final colRef = getCollection(pathSegments);
+
+    for (var docData in docsData) {
+      // 假設每個 document 有唯一 id 欄位 'id'
+      final docId = docData['id'] ?? _firestore.collection('dummy').doc().id;
+      await colRef.doc(docId).set(docData, SetOptions(merge: merge));
+    }
+  }
+
+  // Future<void> setUserDoc({
+  //   required String userId,
+  //   required Map<String, dynamic> data,
+  // }) async {
+  //   await _firestore.collection('users').doc(userId).set(data);
+  // }
+
+  // Future<void> updateUserDoc({
+  //   required String userId,
+  //   required Map<String, dynamic> data,
+  // }) async {
+  //   await _firestore.collection('users').doc(userId).update(data);
+  // }
+
+  // Future<Map<String, dynamic>?> getUserDoc({
+  //   required String userId,
+  // }) async {
+  //   final doc = await _firestore.collection('users').doc(userId).get();
+  //   return doc.exists ? doc.data() : null;
+  // }
 }

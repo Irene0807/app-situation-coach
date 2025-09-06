@@ -1,30 +1,40 @@
+import 'package:app_situational_coach/models/account_data.dart';
+import 'package:app_situational_coach/models/journey.dart';
+
+// 待辦 app被關閉時isLogin要設為false 登入時要檢查isLogin
+
 class User {
-  final String uid;
-  final String name;
-  final int age;
-  final String email;
+  // signIn時的資料
+  final String account; // 去除"gmail.com"的帳號
+
+  // 標記資料
+  bool isLogin; // 是否已登入 避免多裝置同時登入
+  bool isAccountCreated; // 是否填完create_account的資料
+
+  // create_account時的資料
+  AccountData? accountData;
+
+  // setting的資料
+  String nationality;
+  bool darkMode;
+  bool isNotificationOn;
+
+  // journey資料
+  List<Journey> journeys;
 
   User({
-    required this.uid,
-    required this.name,
-    required this.age,
-    required this.email,
+    // signIn時的資料
+    required this.account,
+    // 標記資料
+    this.isLogin = true,
+    this.isAccountCreated = false,
+    // create_account時的資料
+    this.accountData,
+    // setting的資料
+    this.nationality = 'Taiwan',
+    this.darkMode = false,
+    this.isNotificationOn = true,
+    // journey資料
+    this.journeys = const [],
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'age': age,
-      'email': email,
-    };
-  }
-
-  factory User.fromMap(String uid, Map<String, dynamic> map) {
-    return User(
-      uid: uid,
-      name: map['name'] as String? ?? '',
-      age: (map['age'] is int) ? map['age'] as int : int.tryParse('${map['age']}') ?? 0,
-      email: map['email'] as String? ?? '',
-    );
-  }
 }

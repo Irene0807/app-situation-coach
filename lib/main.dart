@@ -1,6 +1,7 @@
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:app_situational_coach/services/authentication.dart';
 import 'package:app_situational_coach/services/database.dart';
+import 'package:app_situational_coach/states/user_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,6 @@ import 'services/navigation.dart';
 import 'states/character_notifier.dart';
 import 'states/conversation_notifier.dart';
 import 'states/journey_list_notifier.dart';
-import 'states/setting_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
@@ -37,9 +37,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // // Initialize services
+  // Initialize services
   AuthenticationService authService = AuthenticationService();
   DatabaseService dbService = DatabaseService();
+
+  // Initialize repositories
+  UserRepository userRepository =
+      UserRepository(authService: authService, dbService: dbService);
 
   runApp(
     MultiProvider(
@@ -50,9 +54,8 @@ void main() async {
         ChangeNotifierProvider(
             create: (_) => JourneyListNotifier()..addAll(dummyJourneys)),
 
-        Provider<UserRepository>(
-          create: (_) =>
-              UserRepository(authService: authService, dbService: dbService),
+        ChangeNotifierProvider<UserNotifier>(
+          create: (_) => UserNotifier(userRepository),
         ),
       ],
       child: const App(),

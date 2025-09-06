@@ -1,17 +1,41 @@
-import 'package:app_situational_coach/repositories/user_repository.dart';
-import 'package:app_situational_coach/widgets/func_run_with_loading.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../states/setting_notifier.dart';
+import '../states/user_notifier.dart';
+import 'package:go_router/go_router.dart';
 
-class PageSetting extends StatelessWidget {
+// Avatar 大頭貼要改（懶得讓使用者改 但可以預設好玩一點的圖片讓他選）
+class PageSetting extends StatefulWidget {
   const PageSetting({super.key});
 
   @override
+  State<PageSetting> createState() => _PageSettingState();
+}
+
+class _PageSettingState extends State<PageSetting> {
+  bool isEditing = false;
+  late TextEditingController textController;
+
+  // 要換成db資料
+  String nationality = 'Taiwan';
+  bool darkMode = false;
+  bool isNotificationOn = true;
+
+  @override
+  void initState() {
+    super.initState();
+    final userNotifier = context.read<UserNotifier>();
+    textController = TextEditingController(text: '待db匯入');
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final setting = Provider.of<SettingNotifier>(context, listen: true);
-    final textController = TextEditingController(text: setting.userName);
+    final user = context.watch<UserNotifier>();
 
     return Scaffold(
       backgroundColor: const Color(0xFFE6F4FC),
@@ -20,13 +44,15 @@ class PageSetting extends StatelessWidget {
         title: const Text('Settings', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
-            icon: Icon(setting.isEditing ? Icons.check : Icons.edit,
-                color: Colors.white),
+            icon:
+                Icon(isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: () {
-              if (setting.isEditing) {
-                setting.userName = textController.text;
+              if (isEditing) {
+                // user.setUser(id: user.userId, name: textController.text);
               }
-              setting.isEditing = !setting.isEditing;
+              setState(() {
+                isEditing = !isEditing;
+              });
             },
           )
         ],
@@ -36,37 +62,37 @@ class PageSetting extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
 
-          // Avatar & Name
+          // User 個資
           Row(
             children: [
-              GestureDetector(
-                onTap: setting.isEditing ? () {} : null,
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: setting.avatarPath.isNotEmpty
-                      ? AssetImage(setting.avatarPath)
-                      : const AssetImage('assets/images/default_avatar.png'),
-                ),
+              const CircleAvatar(
+                radius: 40,
+                backgroundImage:
+                    AssetImage('assets/images/home_person.png'), // 預設大頭貼
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
                   controller: textController,
-                  onChanged: (val) => setting.userName = val,
                   maxLength: 20,
-                  enabled: setting.isEditing,
+                  enabled: isEditing,
                   textInputAction: TextInputAction.done,
                   style: TextStyle(
-                    color: setting.isEditing ? Colors.grey : Colors.black,
+                    color: isEditing ? Colors.grey : Colors.black,
                   ),
                   decoration: InputDecoration(
                     labelText: 'User Name',
                     labelStyle: TextStyle(
-                      color: setting.isEditing ? Colors.grey : Colors.black,
+                      color: isEditing ? Colors.grey : Colors.black,
                     ),
                     counterText: '',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                   ),
+                  onSubmitted: (val) {
+                    if (isEditing) {
+                      // user.setUser(id: user.userId, name: val);
+                    }
+                  },
                 ),
               ),
             ],
@@ -74,13 +100,16 @@ class PageSetting extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Login Info
           ListTile(
             leading: const Icon(Icons.account_circle),
-            title: Text('Login Type: ${setting.loginType.name}'),
+            title: Text(
+                '待db匯入'), // 'User ID: ${user.userId.isNotEmpty ? user.userId : "Not logged in"}'
             subtitle: const Text('Account linked with your profile'),
             trailing: TextButton(
-              onPressed: () => setting.logout(context),
+              onPressed: () {
+                user.logout();
+                context.go('/auth');
+              },
               child: const Text('Log Out', style: TextStyle(color: Colors.red)),
             ),
           ),
@@ -89,20 +118,14 @@ class PageSetting extends StatelessWidget {
 
           // Nationality
           ListTile(
-            leading: Icon(
-              Icons.language,
-              color: setting.isEditing ? Colors.grey : Colors.black,
-            ),
-            title: Text(
-              'Nationality',
-              style: TextStyle(
-                  color: setting.isEditing ? Colors.grey : Colors.black),
-            ),
+            leading: Icon(Icons.language,
+                color: isEditing ? Colors.grey : Colors.black),
+            title: Text('Nationality',
+                style:
+                    TextStyle(color: isEditing ? Colors.grey : Colors.black)),
             trailing: DropdownButton<String>(
-              value: setting.nationality,
-              onChanged: setting.isEditing
-                  ? (val) => setting.nationality = val!
-                  : null,
+              value: nationality,
+              onChanged: isEditing ? (val) => nationality = val! : null,
               items: ['Taiwan', 'Korea', 'Japan'].map((nation) {
                 return DropdownMenuItem(value: nation, child: Text(nation));
               }).toList(),
@@ -111,52 +134,24 @@ class PageSetting extends StatelessWidget {
 
           // Dark Mode
           SwitchListTile(
-            value: setting.darkMode,
-            onChanged:
-                setting.isEditing ? (val) => setting.darkMode = val : null,
-            title: Text(
-              'Dark Mode',
-              style: TextStyle(
-                  color: setting.isEditing ? Colors.grey : Colors.black),
-            ),
-            secondary: Icon(
-              Icons.dark_mode,
-              color: setting.isEditing ? Colors.grey : Colors.black,
-            ),
+            value: darkMode,
+            onChanged: isEditing ? (val) => darkMode = val : null,
+            title: Text('Dark Mode',
+                style:
+                    TextStyle(color: isEditing ? Colors.grey : Colors.black)),
+            secondary: Icon(Icons.dark_mode,
+                color: isEditing ? Colors.grey : Colors.black),
           ),
 
-          // Voice
+          // Notifications
           SwitchListTile(
-            value: setting.isVoiceEnabled,
-            onChanged: setting.isEditing
-                ? (val) => setting.isVoiceEnabled = val
-                : null,
-            title: Text(
-              'Enable Voice',
-              style: TextStyle(
-                  color: setting.isEditing ? Colors.grey : Colors.black),
-            ),
-            secondary: Icon(
-              Icons.record_voice_over,
-              color: setting.isEditing ? Colors.grey : Colors.black,
-            ),
-          ),
-
-          // Notification
-          SwitchListTile(
-            value: setting.isNotificationOn,
-            onChanged: setting.isEditing
-                ? (val) => setting.isNotificationOn = val
-                : null,
-            title: Text(
-              'Enable Notifications',
-              style: TextStyle(
-                  color: setting.isEditing ? Colors.grey : Colors.black),
-            ),
-            secondary: Icon(
-              Icons.notifications_active,
-              color: setting.isEditing ? Colors.grey : Colors.black,
-            ),
+            value: isNotificationOn,
+            onChanged: isEditing ? (val) => isNotificationOn = val : null,
+            title: Text('Enable Notifications',
+                style:
+                    TextStyle(color: isEditing ? Colors.grey : Colors.black)),
+            secondary: Icon(Icons.notifications_active,
+                color: isEditing ? Colors.grey : Colors.black),
           ),
         ],
       ),

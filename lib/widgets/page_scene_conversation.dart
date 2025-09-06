@@ -20,7 +20,12 @@ class PageSceneConversation extends StatefulWidget {
   final ConversationContent conversationContent;
   final String sceneTitle;
   final Journey journey;
-  const PageSceneConversation({super.key, required this.conversationContent, required this.sceneTitle,required this.journey,});
+  const PageSceneConversation({
+    super.key,
+    required this.conversationContent,
+    required this.sceneTitle,
+    required this.journey,
+  });
 
   @override
   State<PageSceneConversation> createState() => _PageSceneConversationState();
@@ -42,51 +47,22 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
   int currentSegmentIndex = 0;
 
   bool get showGlow =>
-    !isTalking &&
-    botTextSegments.isNotEmpty &&
-    currentSegmentIndex >= botTextSegments.length &&
-    roundCount < 7;
+      !isTalking &&
+      botTextSegments.isNotEmpty &&
+      currentSegmentIndex >= botTextSegments.length &&
+      roundCount < 7;
 
   @override
   void initState() {
     super.initState();
 
-    responseGenerator = ResponseGenerator(conversation: widget.conversationContent);
+    responseGenerator =
+        ResponseGenerator(conversation: widget.conversationContent);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 500), () => startConversation());  // 角色開始主動對話
+      Future.delayed(const Duration(milliseconds: 500),
+          () => startConversation()); // 角色開始主動對話
     });
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   _precacheImages(); // 先load好圖片
-  // }
-
-  // void _precacheImages() {
-  //   for (var path in [
-  //     'assets/images/trump/11.png',
-  //     'assets/images/trump/21.png',
-  //     'assets/images/trump/31.png',
-  //     'assets/images/trump/41.png',
-  //     'assets/images/trump/51.png',
-  //     'assets/images/trump/61.png',
-  //     'assets/images/trump/12.png',
-  //     'assets/images/trump/22.png',
-  //     'assets/images/trump/32.png',
-  //     'assets/images/trump/42.png',
-  //     'assets/images/trump/52.png',
-  //     'assets/images/trump/62.png',
-  //     'assets/images/trump/13.png',
-  //     'assets/images/trump/23.png',
-  //     'assets/images/trump/33.png',
-  //     'assets/images/trump/43.png',
-  //     'assets/images/trump/53.png',
-  //     'assets/images/trump/63.png',
-  //   ]) {
-  //     precacheImage(AssetImage(path), context);
-  //   }
-  // }
 
   // 讓角色主動講第一句話
   Future<void> startConversation() async {
@@ -107,10 +83,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     if (isTalking || roundCount >= 7 || responseGenerator == null) return;
 
     final input = _controller.text.trim();
-    
+
     if (input.isEmpty) return;
     _controller.clear();
-    FocusScope.of(context).unfocus(); 
+    FocusScope.of(context).unfocus();
 
     setState(() {
       isTalking = false;
@@ -147,7 +123,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     _startNextSegment();
   }
 
-  void _startNextSegment() { // 下一段
+  void _startNextSegment() {
+    // 下一段
     if (currentSegmentIndex >= botTextSegments.length) return;
 
     final currentText = botTextSegments[currentSegmentIndex];
@@ -164,7 +141,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         });
       });
     } else {
-      
       setState(() {
         fullBotText = currentText;
         displayedText = '';
@@ -180,14 +156,17 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         } else {
           timer.cancel();
           setState(() {
-          isTalking = false;
+            isTalking = false;
 
-          // 如果是最後一段最後一回合，觸發isPass
-          if (currentSegmentIndex >= botTextSegments.length - 1 && roundCount >= 7 && mounted) {
-            print("[DEBUG] Trigger setIsPass()");
-            Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
-          }
-        });
+            // 如果是最後一段最後一回合，觸發isPass
+            if (currentSegmentIndex >= botTextSegments.length - 1 &&
+                roundCount >= 7 &&
+                mounted) {
+              print("[DEBUG] Trigger setIsPass()");
+              Provider.of<JourneyStatusNotifier>(context, listen: false)
+                  .setIsPass();
+            }
+          });
         }
       });
     }
@@ -204,7 +183,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      
+
       body: Stack(
         children: [
           // 1. 背景模糊層
@@ -223,7 +202,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
-                    color: const Color.fromARGB(255, 255, 254, 215).withOpacity(0.15),
+                    color: const Color.fromARGB(255, 255, 254, 215)
+                        .withOpacity(0.15),
                   ),
                 ),
               ],
@@ -234,7 +214,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top),
+              padding:
+                  EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top),
               child: Text(
                 widget.sceneTitle,
                 style: TextStyle(
@@ -245,7 +226,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                     Shadow(
                       offset: Offset(0, 1),
                       blurRadius: 3,
-                      color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
+                      color:
+                          const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                     )
                   ],
                 ),
@@ -257,7 +239,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Stack(
             children: [
               const SizedBox(height: 80),
-              
+
               // 角色
               Align(
                 alignment: Alignment.bottomCenter,
@@ -269,9 +251,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                     widthFactor: 0.83,
                     child: CharacterWidget(
                       characterName: widget.journey.character,
-                      currentSegment: (currentSegmentIndex < botTextSegments.length)
-                          ? botTextSegments[currentSegmentIndex]
-                          : null,
+                      currentSegment:
+                          (currentSegmentIndex < botTextSegments.length)
+                              ? botTextSegments[currentSegmentIndex]
+                              : null,
                       changeHand: roundCount == 0, // 第一次進場揮手
                     ),
                   ),
@@ -281,7 +264,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               // 對話框
               Align(
                 alignment: const Alignment(0.0, -0.47),
-                  child: (isThinking || (isTalking && displayedText.isEmpty))
+                child: (isThinking || (isTalking && displayedText.isEmpty))
                     ? Padding(
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.08,
@@ -308,7 +291,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           maxWidth: MediaQuery.of(context).size.width * 0.82,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 252, 250, 228).withOpacity(0.95),
+                          color: const Color.fromARGB(255, 252, 250, 228)
+                              .withOpacity(0.95),
                           borderRadius: BorderRadius.circular(
                             MediaQuery.of(context).size.width * 0.04,
                           ),
@@ -318,7 +302,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color.fromARGB(255, 233, 203, 30).withOpacity(0.2),
+                              color: const Color.fromARGB(255, 233, 203, 30)
+                                  .withOpacity(0.2),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             )
@@ -338,7 +323,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               ),
 
               // 輸入區
-              
+
               AnimatedPadding(
                 duration: const Duration(milliseconds: 300),
                 padding: EdgeInsets.fromLTRB(
@@ -358,7 +343,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               ),
 
               // 點我繼續
-              if (!isTalking && currentSegmentIndex < botTextSegments.length - 1)
+              if (!isTalking &&
+                  currentSegmentIndex < botTextSegments.length - 1)
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
@@ -368,7 +354,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                       _startNextSegment();
                     },
                     child: Container(
-                      width: 50,  // 可點擊區域寬度
+                      width: 50, // 可點擊區域寬度
                       height: 50, // 可點擊區域高度
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(
@@ -394,7 +380,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         alignment: Alignment.bottomLeft,
         child: Padding(
           padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.03,   // 左
+            left: MediaQuery.of(context).size.width * 0.03, // 左
             bottom: MediaQuery.of(context).size.height * 0.005, // 下
           ),
           child: Opacity(
@@ -422,7 +408,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                   );
                 },
                 tooltip: 'Show Script',
-                child: const Icon(Icons.text_snippet, color: Colors.black87, size: 20),
+                child: const Icon(Icons.text_snippet,
+                    color: Colors.black87, size: 20),
               ),
             ),
           ),
@@ -431,7 +418,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     );
   }
 
-  
   Widget userInputBox() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
@@ -494,6 +480,4 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       ),
     );
   }
-
 }
-

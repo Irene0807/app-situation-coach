@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../services/authentication.dart';
 import '../services/database.dart';
-import '../models/user.dart';
 
 class UserRepository {
   final AuthenticationService authService;
@@ -14,41 +13,40 @@ class UserRepository {
   });
 
   Future<void> registerWithEmail({
-    required String email,
+    required String account,
     required String password,
-    required String name,
-    required int age,
   }) async {
     final uid = await authService.signUpWithEmailPassword(
-        email: email, password: password);
+        email: '$account@gmail.com', password: password);
     final data = {
-      'name': name,
-      'age': age,
-      'email': email,
+      'account': account,
+      'isLogin': true,
+      'isAccountCreated': false,
     };
-    await dbService.createUserDoc(uid: uid, data: data);
+    await dbService.setDocument(['users', uid], data);
   }
 
   Future<void> loginWithEmail({
-    required String email,
+    required String account,
     required String password,
   }) async {
-    await authService.signInWithEmailPassword(email: email, password: password);
-    // optional: you can fetch user doc here if needed
+    await authService.signInWithEmailPassword(
+        email: '$account@gmail.com', password: password);
+    await dbService.setDocument(
+      ['users', getCurrentUserId()!],
+      {'isLogin': true},
+    );
   }
 
   Future<void> logout() async {
+    // 取消login狀態
+    await dbService.setDocument(
+      ['users', getCurrentUserId()!],
+      {'isLogin': false},
+    );
     if (getCurrentUserId() != null) {
       await authService.signOut();
     }
-  }
-
-  Future<User?> getCurrentAppUser() async {
-    final uid = authService.getCurrentUserId();
-    if (uid == null) return null;
-    final doc = await dbService.getUserDoc(uid: uid);
-    if (doc == null) return null;
-    return User.fromMap(uid, doc);
   }
 
   String? getCurrentUserId() {

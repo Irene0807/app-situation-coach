@@ -137,19 +137,31 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
   /// 把角色名稱轉換成資料夾安全格式
   String _normalizeCharacterName(String name) {
-    return name.toLowerCase().replaceAll(" ", "_");
+    final map = {
+      ['Trump', '川普']: 'trump',
+      ['England Kid', '英國少女']: 'england_kid',
+      ['Harry Potter', '哈利波特']: 'harry_potter',
+      ['American Kid', '美國少年']: 'american_kid',
+      ['TOEFL Interviewer', '托福口試考官']: 'toefl_interviewer',
+    };
+
+    for (final entry in map.entries) {
+      if (entry.key.contains(name)) return entry.value;
+    }
+
+    return name.toLowerCase().replaceAll(' ', '_');
   }
 
   /// 狀態轉圖片碼
   String _getStateCode(bool eye, bool mouth, bool hand) {
     if (eye && mouth && !hand) return '11';
-    if (eye && mouth && hand)  return '12';
+    if (eye && mouth && hand) return '12';
     if (!eye && mouth && !hand) return '21';
-    if (!eye && mouth && hand)  return '22';
+    if (!eye && mouth && hand) return '22';
     if (eye && !mouth && !hand) return '31';
-    if (eye && !mouth && hand)  return '32';
+    if (eye && !mouth && hand) return '32';
     if (!eye && !mouth && !hand) return '41';
-    if (!eye && !mouth && hand)  return '42';
+    if (!eye && !mouth && hand) return '42';
     return '31';
   }
 
@@ -161,7 +173,11 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
     return GestureDetector(
       onTap: _startHandWave,
-      child: Image.asset(path, fit: BoxFit.contain, gaplessPlayback: true,),
+      child: Image.asset(
+        path,
+        fit: BoxFit.contain,
+        gaplessPlayback: true,
+      ),
     );
   }
 }

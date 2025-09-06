@@ -1,10 +1,9 @@
-import 'package:app_situational_coach/repositories/user_repository.dart';
-import 'package:app_situational_coach/services/authentication.dart';
 import 'package:app_situational_coach/states/journey_list_notifier.dart';
 import 'package:app_situational_coach/states/journey_status_notifier.dart';
-import 'package:app_situational_coach/states/setting_notifier.dart';
+import 'package:app_situational_coach/states/user_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_journey_add.dart';
 import 'package:app_situational_coach/widgets/page_authentication.dart';
+import 'package:app_situational_coach/widgets/page_create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,9 +21,14 @@ import '../widgets/frame_journey_continue.dart';
 final routerConfig = GoRouter(
   routes: [
     GoRoute(
-      path: '/auth',
-      builder: (context, state) => const PageAuthentication(),
-    ),
+        path: '/auth',
+        builder: (context, state) => const PageAuthentication(),
+        routes: [
+          GoRoute(
+            path: '/create_account',
+            builder: (context, state) => const PageCreateAccount(),
+          ),
+        ]),
     GoRoute(
         path: '/home',
         builder: (context, state) => const Pagehome(),
@@ -102,10 +106,7 @@ final routerConfig = GoRouter(
           GoRoute(
             path: 'setting',
             builder: (context, state) {
-              return ChangeNotifierProvider(
-                create: (_) => SettingNotifier(),
-                child: PageSetting(),
-              );
+              return PageSetting();
             },
           ),
           GoRoute(
@@ -119,9 +120,9 @@ final routerConfig = GoRouter(
   debugLogDiagnostics: true, // 幫助debug的東西
   redirect: (context, state) {
     final currentPath = state.uri.path;
-    final isLoggedIn = Provider.of<UserRepository>(context, listen: false)
-            .getCurrentUserId() !=
-        null;
+    final isLoggedIn =
+        Provider.of<UserNotifier>(context, listen: false).getCurrentUserId() !=
+            null;
     if (isLoggedIn && currentPath == '/auth') {
       return '/home';
     }
