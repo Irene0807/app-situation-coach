@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/models/account_data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'animations/character_animation.dart';
 
 // exam score的輸入方式要改 最好是表格 哪個項目有分數就填 沒分數就留白
 // pretest的部分沒有推上database
+// 看step1要不要加name這項 database我先開了
 
 // 文字還沒照新的方法寫
 
@@ -20,13 +22,17 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   final PageController _controller = PageController();
   int _currentIndex = 0;
 
-  String _age = '';
-  String _level = 'Beginner';
-  String _exam = 'None';
-  String _studyTime = '0–30 min';
-  String _studyPlace = 'School';
-  String _usedApp = 'No';
-  String _appFeedback = '';
+  AccountData accountData = AccountData(
+    name: '待輸入',
+    age: -1,
+    englishLevel: EnglishLevel.beginner,
+    examScore: ExamScore(toeic: 12, toefl: 12, ielts: 12, gept: 12),
+    dailyStudyTime: DailyStudyTime.lessThan30Min,
+    studyPlace: StudyPlace.school,
+    englishAppExperience: false,
+    appFeedback: '',
+  );
+
   bool _agreeRules = false;
 
   void _nextPage() {
@@ -39,7 +45,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     } else {
       // 最後一頁 => UserNotifier 改成已註冊，開始主畫面
       final user = Provider.of<UserNotifier>(context, listen: false);
-      // user.completeProfile();
+      user.submitAccountData(accountData);
       context.go('/');
     }
   }
@@ -282,26 +288,42 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       child: Column(
         children: [
           TextField(
+            keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Age'),
-            onChanged: (val) => _age = val,
+            onChanged: (val) => accountData.age = int.tryParse(val) ?? 0,
           ),
           DropdownButtonFormField(
-            value: _level,
+            value: accountData.englishLevel,
             decoration: const InputDecoration(labelText: "English Level"),
-            items: const [
-              DropdownMenuItem(value: 'Beginner', child: Text("Beginner")),
-              DropdownMenuItem(
-                  value: 'Intermediate', child: Text("Intermediate")),
-              DropdownMenuItem(value: 'Advanced', child: Text("Advanced")),
-            ],
-            onChanged: (val) => _level = val!,
+            items: EnglishLevel.values.map((level) {
+              return DropdownMenuItem(
+                value: level,
+                child: Text(() {
+                  // 無名 function 直接回傳顯示字串
+                  switch (level) {
+                    case EnglishLevel.beginner:
+                      return "Beginner";
+                    case EnglishLevel.intermediate:
+                      return "Intermediate";
+                    case EnglishLevel.advanced:
+                      return "Advanced";
+                  }
+                }()),
+              );
+            }).toList(),
+            onChanged: (val) {
+              if (val != null) {
+                accountData.englishLevel = val;
+              }
+            },
           ),
           Row(
             children: [
               Expanded(
                 flex: 2,
+                // 這邊的輸入方式要改 這邊先亂寫
                 child: DropdownButtonFormField(
-                  value: _exam,
+                  value: 'None', // accountData.examScore.toeic
                   decoration: const InputDecoration(labelText: "Exam"),
                   items: const [
                     DropdownMenuItem(value: 'TOEIC', child: Text("TOEIC")),
@@ -310,7 +332,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                     DropdownMenuItem(value: 'GEPT', child: Text("GEPT")),
                     DropdownMenuItem(value: 'None', child: Text("None")),
                   ],
-                  onChanged: (val) => setState(() => _exam = val!),
+                  onChanged: (val) => setState(() => (
+                        // 要改
+                      )),
                 ),
               ),
               const SizedBox(width: 12),
@@ -338,41 +362,76 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       child: Column(
         children: [
           DropdownButtonFormField(
-            value: _studyTime,
+            value: accountData.dailyStudyTime,
             decoration: const InputDecoration(labelText: "Daily Study Time"),
-            items: const [
-              DropdownMenuItem(value: '0–30 min', child: Text("0–30 min")),
-              DropdownMenuItem(value: '30–60 min', child: Text("30–60 min")),
-              DropdownMenuItem(value: '1–3 hours', child: Text("1–3 hours")),
-              DropdownMenuItem(value: '3+ hours', child: Text("3+ hours")),
-            ],
-            onChanged: (val) => _studyTime = val!,
+            items: DailyStudyTime.values.map((time) {
+              return DropdownMenuItem(
+                value: time,
+                child: Text(() {
+                  // 無名函式回傳顯示文字
+                  switch (time) {
+                    case DailyStudyTime.lessThan30Min:
+                      return "0–30 min";
+                    case DailyStudyTime.between30MinAnd1Hour:
+                      return "30–60 min";
+                    case DailyStudyTime.between1HourAnd3Hours:
+                      return "1–3 hours";
+                    case DailyStudyTime.moreThan3Hours:
+                      return "3+ hours";
+                  }
+                }()),
+              );
+            }).toList(),
+            onChanged: (val) {
+              if (val != null) {
+                accountData.dailyStudyTime = val; // 更新 enum 值
+              }
+            },
           ),
           DropdownButtonFormField(
-            value: _studyPlace,
+            value: accountData.studyPlace,
             decoration: const InputDecoration(labelText: "Study Place"),
-            items: const [
-              DropdownMenuItem(value: 'School', child: Text("School")),
-              DropdownMenuItem(
-                  value: 'Coffee shop', child: Text("Coffee shop")),
-              DropdownMenuItem(value: 'Home', child: Text("Home")),
-              DropdownMenuItem(value: 'Online', child: Text("Online")),
-            ],
-            onChanged: (val) => _studyPlace = val!,
+            items: StudyPlace.values.map((place) {
+              return DropdownMenuItem(
+                value: place,
+                child: Text(() {
+                  // 無名函式：根據 enum 決定顯示字串
+                  switch (place) {
+                    case StudyPlace.school:
+                      return "School";
+                    case StudyPlace.coffeeShop:
+                      return "Coffee shop";
+                    case StudyPlace.home:
+                      return "Home";
+                    case StudyPlace.online:
+                      return "Online";
+                  }
+                }()),
+              );
+            }).toList(),
+            onChanged: (val) {
+              if (val != null) {
+                accountData.studyPlace = val; // 更新 enum
+              }
+            },
           ),
           DropdownButtonFormField(
-            value: _usedApp,
+            value: accountData.englishAppExperience,
             decoration: const InputDecoration(labelText: "Used English Apps?"),
             items: const [
-              DropdownMenuItem(value: 'Yes', child: Text("Yes")),
-              DropdownMenuItem(value: 'No', child: Text("No")),
+              DropdownMenuItem(value: true, child: Text("Yes")),
+              DropdownMenuItem(value: false, child: Text("No")),
             ],
-            onChanged: (val) => _usedApp = val!,
+            onChanged: (val) {
+              if (val != null) {
+                accountData.englishAppExperience = val;
+              }
+            },
           ),
           TextField(
             decoration:
                 const InputDecoration(labelText: 'Feedback about English Apps'),
-            onChanged: (val) => _appFeedback = val,
+            onChanged: (val) => accountData.appFeedback = val,
           ),
         ],
       ),

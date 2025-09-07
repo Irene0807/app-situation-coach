@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// 每個models包含 set update get 三個功能
+// 這邊的每個function都要把debug功能做好 之後弄
 
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

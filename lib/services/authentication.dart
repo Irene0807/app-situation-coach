@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+// 這邊的每個function都要把debug功能做好 之後弄
+
 class AuthenticationService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 

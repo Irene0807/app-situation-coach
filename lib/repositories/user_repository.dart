@@ -1,7 +1,10 @@
+import 'package:app_situational_coach/models/account_data.dart';
 import 'package:flutter/material.dart';
 
 import '../services/authentication.dart';
 import '../services/database.dart';
+
+// 利用database authentication製作function
 
 class UserRepository {
   final AuthenticationService authService;
@@ -39,14 +42,39 @@ class UserRepository {
   }
 
   Future<void> logout() async {
-    // 取消login狀態
-    await dbService.setDocument(
-      ['users', getCurrentUserId()!],
-      {'isLogin': false},
-    );
     if (getCurrentUserId() != null) {
+      // 取消login狀態
+      await dbService.setDocument(
+        ['users', getCurrentUserId()!],
+        {'isLogin': false},
+      );
+
       await authService.signOut();
     }
+  }
+
+  Future<void> setAccountData({required AccountData accountData}) async {
+    await dbService.setDocument([
+      'users',
+      getCurrentUserId()!
+    ], {
+      'isAccountCreated': true,
+      'accountData': {
+        'name': accountData.name,
+        'age': accountData.age,
+        'englishLevel': accountData.englishLevel.name,
+        'examScore': {
+          'toeic': accountData.examScore.toeic,
+          'toefl': accountData.examScore.toefl,
+          'ielts': accountData.examScore.ielts,
+          'gept': accountData.examScore.gept,
+        },
+        'dailyStudyTime': accountData.dailyStudyTime.name,
+        'studyPlace': accountData.studyPlace.name,
+        'englishAppExperience': accountData.englishAppExperience,
+        'appFeedback': accountData.appFeedback,
+      }
+    });
   }
 
   String? getCurrentUserId() {

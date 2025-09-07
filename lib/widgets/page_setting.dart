@@ -33,10 +33,15 @@ class _PageSettingState extends State<PageSetting> {
     super.dispose();
   }
 
+  // 這個寫法可能不太好 起碼之後要加上logout時的loading狀態什麼的...
+  void logout() async {
+    final user = Provider.of<UserNotifier>(context, listen: false);
+    await user.logout();
+    if (mounted) context.go('/auth');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserNotifier>();
-
     return Scaffold(
       backgroundColor: const Color(0xFFE6F4FC),
       appBar: AppBar(
@@ -106,10 +111,7 @@ class _PageSettingState extends State<PageSetting> {
                 '待db匯入'), // 'User ID: ${user.userId.isNotEmpty ? user.userId : "Not logged in"}'
             subtitle: const Text('Account linked with your profile'),
             trailing: TextButton(
-              onPressed: () {
-                user.logout();
-                context.go('/auth');
-              },
+              onPressed: () => logout(),
               child: const Text('Log Out', style: TextStyle(color: Colors.red)),
             ),
           ),
