@@ -17,6 +17,7 @@ List<Journey> dummyJourneys = [
       schedule: [
         Day(title: 'Shopping & Asking', scenes: [
           Scene(
+              id: '01-01',
               title: 'Grocery Shopping',
               location: 'Market',
               description:
@@ -113,6 +114,7 @@ At the end, help them check out and say goodbye.
                 ],
               )),
           Scene(
+            id: '01-02',
             title: 'Asking for Directions',
             location: 'On the road',
             description:
@@ -122,6 +124,7 @@ At the end, help them check out and say goodbye.
         ]),
         Day(title: 'Ording & Cloth shopping', scenes: [
           Scene(
+            id: '02-01',
             title: 'Ordering at a Café',
             location: 'Breakfast shop',
             description:
@@ -129,6 +132,7 @@ At the end, help them check out and say goodbye.
             learningTheme: 'Food & Drinks',
           ),
           Scene(
+            id: '02-02',
             title: 'Shopping for Clothes',
             location: 'Clothing store',
             description:
@@ -138,6 +142,7 @@ At the end, help them check out and say goodbye.
         ]),
         Day(title: 'Hotel & Texi', scenes: [
           Scene(
+            id: '03-01',
             title: 'Hotel Check-In',
             location: 'in the Hotel',
             description:
@@ -145,6 +150,7 @@ At the end, help them check out and say goodbye.
             learningTheme: 'Travel Accommodation',
           ),
           Scene(
+            id: '03-02',
             title: 'Calling a Taxi',
             location: 'Taxi',
             description:

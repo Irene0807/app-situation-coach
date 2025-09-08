@@ -68,25 +68,4 @@ class DatabaseService {
       await colRef.doc(docId).set(docData, SetOptions(merge: merge));
     }
   }
-
-  // Future<void> setUserDoc({
-  //   required String userId,
-  //   required Map<String, dynamic> data,
-  // }) async {
-  //   await _firestore.collection('users').doc(userId).set(data);
-  // }
-
-  // Future<void> updateUserDoc({
-  //   required String userId,
-  //   required Map<String, dynamic> data,
-  // }) async {
-  //   await _firestore.collection('users').doc(userId).update(data);
-  // }
-
-  // Future<Map<String, dynamic>?> getUserDoc({
-  //   required String userId,
-  // }) async {
-  //   final doc = await _firestore.collection('users').doc(userId).get();
-  //   return doc.exists ? doc.data() : null;
-  // }
 }

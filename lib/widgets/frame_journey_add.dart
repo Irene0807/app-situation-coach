@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/states/user_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -89,15 +90,24 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
         learningGoal: goal,
         schedule: schedule,
         bloomLevel: bloomLevel,
-        status: JourneyStatus(), //
+        status: JourneyStatus(),
       );
+
+      // 上傳db
+      if (!mounted) return;
+      await Provider.of<UserNotifier>(context, listen: false)
+          .uploadJourney(journey);
 
       // 先跑好第一個scene的Content
       await schedule[0].scenes[0].generateAllContent(journey: journey);
 
-      // 保護 context
+      // 上傳db
       if (!mounted) return;
+      await Provider.of<UserNotifier>(context, listen: false)
+          .initializeSceneContent(
+              journey.id, schedule[0].scenes[0].id, schedule[0].scenes[0]);
 
+      if (!mounted) return;
       Provider.of<JourneyListNotifier>(context, listen: false)
           .addJourney(journey);
 

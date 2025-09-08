@@ -9,6 +9,7 @@ import 'package:app_situational_coach/models/message.dart';
 // SummaryContent的summary 需要用到history才能生成 無法套用提前生成的做法?
 
 class Scene {
+  final String id;
   final String title; // user可看 這個場景的名稱
   final String location; // user可看 這個場景的地點
   final String description; // user可看 描述這個場景user須完成的事情
@@ -20,6 +21,7 @@ class Scene {
   SummaryContent? summaryContent; // scene總結 + 題目考試
 
   Scene({
+    required this.id,
     required this.title,
     required this.location,
     required this.description,

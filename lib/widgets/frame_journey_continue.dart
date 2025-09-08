@@ -1,5 +1,6 @@
 import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/states/journey_status_notifier.dart';
+import 'package:app_situational_coach/states/user_notifier.dart';
 import 'package:app_situational_coach/widgets/frame_scene_datail.dart';
 import 'package:app_situational_coach/widgets/page_day_cover.dart';
 import 'package:app_situational_coach/widgets/page_journey_back_cover.dart';
@@ -31,8 +32,8 @@ class FrameJourneyContinue extends StatelessWidget {
   });
 
   // 在sceneCover時確認目前scene已準備完成 並開始準備下一個scene的所有Content
-  Future<void> prepareForNextScene(
-      JourneyStatusNotifier notifier, JourneyStatus currentStatus) async {
+  Future<void> prepareForNextScene(JourneyStatusNotifier journeyStatusNotifier,
+      UserNotifier userNotifier, JourneyStatus currentStatus) async {
     // 這個function的加一減一問題需要特別小心。。。
 
     // 確認目前scene已全部準備完成
@@ -41,20 +42,36 @@ class FrameJourneyContinue extends StatelessWidget {
     if (journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene - 1]
             .introContent ==
         null) {
-      notifier.setSceneReady(false);
+      journeyStatusNotifier.setSceneReady(false);
     }
 
     // 生成下個場景的 Content
     if (currentStatus.scene <
         journey.schedule[currentStatus.day - 1].scenes.length) {
+      // 生成 content
       await journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene]
           .generateAllContent(journey: journey);
+
+      // 上傳db
+      await userNotifier.initializeSceneContent(
+          journey.id,
+          journey
+              .schedule[currentStatus.day - 1].scenes[currentStatus.scene].id,
+          journey.schedule[currentStatus.day - 1].scenes[currentStatus.scene]);
     } else {
-      await journey.schedule[currentStatus.day].scenes[0].generateAllContent(journey: journey);
+      // 生成 content
+      await journey.schedule[currentStatus.day].scenes[0]
+          .generateAllContent(journey: journey);
+
+      // 上傳db
+      await userNotifier.initializeSceneContent(
+          journey.id,
+          journey.schedule[currentStatus.day].scenes[0].id,
+          journey.schedule[currentStatus.day].scenes[0]);
     }
 
     // 發出通知 scene已完成
-    notifier.setSceneReady(true);
+    journeyStatusNotifier.setSceneReady(true);
   }
 
   FrameJourneyContinueTab getPageType(JourneyStatus status) {
@@ -127,7 +144,14 @@ class FrameJourneyContinue extends StatelessWidget {
           final scene =
               journey.schedule[status.day - 1].scenes[status.scene - 1];
           return buildFunction(
-              context, true, true, isPass, FrameSceneDetail(scene: scene, journey: journey,));
+              context,
+              true,
+              true,
+              isPass,
+              FrameSceneDetail(
+                scene: scene,
+                journey: journey,
+              ));
         } else {
           return buildFunction(context, true, true, true, WidgetLoadingMark());
         }
@@ -188,14 +212,17 @@ class FrameJourneyContinue extends StatelessWidget {
                   }
 
                   // 若為sceneCover 執行prepareForNextScene
-                  JourneyStatusNotifier notifier =
+                  JourneyStatusNotifier journeyStatusNotifier =
                       Provider.of<JourneyStatusNotifier>(context,
                           listen: false);
+                  UserNotifier userNotifier =
+                      Provider.of<UserNotifier>(context, listen: false);
                   FrameJourneyContinueTab tab =
-                      getPageType(notifier.getStatus());
+                      getPageType(journeyStatusNotifier.getStatus());
                   if (tab == FrameJourneyContinueTab.sceneCover) {
-                    JourneyStatus status = notifier.getStatus();
-                    prepareForNextScene(notifier, status);
+                    JourneyStatus status = journeyStatusNotifier.getStatus();
+                    prepareForNextScene(
+                        journeyStatusNotifier, userNotifier, status);
                   }
                 },
                 child: Icon(

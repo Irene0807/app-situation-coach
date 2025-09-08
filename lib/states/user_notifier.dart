@@ -1,4 +1,6 @@
 import 'package:app_situational_coach/models/account_data.dart';
+import 'package:app_situational_coach/models/journey.dart';
+import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/user.dart';
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,16 @@ class UserNotifier extends ChangeNotifier {
 
   Future<void> submitAccountData(AccountData accountData) async {
     await userRepository.setAccountData(accountData: accountData);
+  }
+
+  Future<void> uploadJourney(Journey journey) async {
+    await userRepository.setJourneyData(journey: journey);
+  }
+
+  Future<void> initializeSceneContent(
+      String journeyId, String sceneId, Scene scene) async {
+    await userRepository.setSceneContent(
+        journeyId: journeyId, sceneId: sceneId, scene: scene);
   }
 
   String? getCurrentUserId() {
