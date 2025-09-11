@@ -1,10 +1,23 @@
 import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
+import 'dart:math';
 
-// 目前的prompt沒有使用history message 之後要調整
+// 丟intro進來了
 
 class PromptTest {
-  String getTestPrompt(Scene scene) {
+  String getTestPrompt(
+    Scene scene, {
+    List<String> introVocabulary = const [],
+  }) {
+    // 抽 5 個單字
+    final random = Random();
+    final vocabSample = introVocabulary.toList();
+    vocabSample.shuffle(random);
+    final selected = vocabSample.take(5).toList();
+
+    final vocabHint = selected.isNotEmpty
+        ? "Focus ONLY on these vocabulary words when making questions: ${selected.join(', ')}."
+        : "No vocabulary words were provided, use the learning theme.";
     return '''
 You are an English learning assistant.
 The journey has just ended. Now your job is to help the user review their vocabulary through a short quiz.
@@ -14,6 +27,8 @@ Here is the journey information:
 Location: ${scene.location}  
 Description: ${scene.description}  
 Learning Theme: ${scene.learningTheme}  
+
+$vocabHint
 
 Your task:
 - Write a short friendly summary (2–3 sentences) to the traveler, reminding them what they experienced and telling them about the quiz.

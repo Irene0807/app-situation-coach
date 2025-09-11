@@ -4,12 +4,18 @@ import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/services/gemini/prompts/test_prompt.dart';
 import 'gemini_instance.dart';
 
-// 目前的prompt沒有使用history message 之後要調整
+// 把intro丟進來了
 
 class TestGenerator {
-  Future<SummaryContent> generateTest(Scene scene) async {
+  Future<SummaryContent> generateTest(
+    Scene scene, {
+    List<String> introVocabulary = const [],
+  }) async {
     PromptTest p = PromptTest();
-    final prompt = p.getTestPrompt(scene);
+    final prompt = p.getTestPrompt(
+      scene,
+      introVocabulary: introVocabulary,
+    );
     while (true) {
       final testText = await geminiA.sendPrompt(prompt);
       final test = p.parseSummaryContent(testText);

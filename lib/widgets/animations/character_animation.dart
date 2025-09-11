@@ -6,12 +6,14 @@ class CharacterWidget extends StatefulWidget {
   final String characterName;
   final String? currentSegment;
   final bool changeHand;
+  final bool loopHandWave;
 
   const CharacterWidget({
     super.key,
     required this.characterName,
     this.currentSegment,
     this.changeHand = false,
+    this.loopHandWave = false,
   });
 
   @override
@@ -99,17 +101,29 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
   // 2 揮手
   void _startHandWave() {
-    int waveCount = 0;
     _handTimer?.cancel();
 
-    _handTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      setState(() => isHandWave = !isHandWave);
-      waveCount++;
-      if (waveCount >= 4) {
-        timer.cancel();
-        setState(() => isHandWave = false);
-      }
-    });
+    if (widget.loopHandWave) {
+      // 無限揮手模式
+      _handTimer = Timer.periodic(const Duration(milliseconds: 300), (timer) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+        setState(() => isHandWave = !isHandWave);
+      });
+    } else {
+      // 正常只揮 4 次
+      int waveCount = 0;
+      _handTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
+        setState(() => isHandWave = !isHandWave);
+        waveCount++;
+        if (waveCount >= 4) {
+          timer.cancel();
+          setState(() => isHandWave = false);
+        }
+      });
+    }
   }
 
   // 3 眨眼
@@ -155,13 +169,13 @@ class _CharacterWidgetState extends State<CharacterWidget> {
   /// 狀態轉圖片碼
   String _getStateCode(bool eye, bool mouth, bool hand) {
     if (eye && mouth && !hand) return '11';
-    if (eye && mouth && hand) return '12';
+    if (eye && mouth && hand)  return '12';
     if (!eye && mouth && !hand) return '21';
-    if (!eye && mouth && hand) return '22';
+    if (!eye && mouth && hand)  return '22';
     if (eye && !mouth && !hand) return '31';
-    if (eye && !mouth && hand) return '32';
+    if (eye && !mouth && hand)  return '32';
     if (!eye && !mouth && !hand) return '41';
-    if (!eye && !mouth && hand) return '42';
+    if (!eye && !mouth && hand)  return '42';
     return '31';
   }
 
@@ -173,11 +187,7 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
     return GestureDetector(
       onTap: _startHandWave,
-      child: Image.asset(
-        path,
-        fit: BoxFit.contain,
-        gaplessPlayback: true,
-      ),
+      child: Image.asset(path, fit: BoxFit.contain, gaplessPlayback: true,),
     );
   }
 }
