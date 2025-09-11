@@ -16,7 +16,12 @@ class UserNotifier extends ChangeNotifier {
 
   Future<void> login(String account, String password) async {
     await userRepository.loginWithEmail(
-        account: account.trim(), password: password);
+      account: account.trim(),
+      password: password,
+    );
+
+    user = User(account: account.trim());
+    notifyListeners();
   }
 
   Future<void> signUp(String account, String password) async {
@@ -24,6 +29,9 @@ class UserNotifier extends ChangeNotifier {
       account: account.trim(),
       password: password,
     );
+
+    user = User(account: account.trim());
+    notifyListeners();
   }
 
   Future<void> logout() async {

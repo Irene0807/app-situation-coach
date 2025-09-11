@@ -5,7 +5,7 @@ import 'package:app_situational_coach/models/day.dart';
 import 'gemini_instance.dart';
 import 'prompts/journey_plan_prompt.dart';
 import 'prompts/journey_schedule_prompt.dart';
-
+import 'gemini.dart';
 /*
 以下簡單說明旅行的生成過程:
   1. 使用者會先輸入一組簡單的prompt
@@ -53,6 +53,22 @@ class JourneyGenerator {
       }
       print('generateJourneySchedule failed => regenerate\n');
     }
+  }
+
+  // 評估怪誕度
+  Future<double> evaluateWeirdness({
+    required String role,
+    required String place,
+    required String topic,
+  }) async {
+    const baseline = "A realistic situation of a Taiwanese student learning English";
+
+    final baseEmb = await geminiB.getEmbedding(baseline);
+    final caseEmb = await geminiB.getEmbedding(
+        "A Taiwanese student is talking with $role in $place about $topic.");
+
+    final sim = cosineSim(baseEmb, caseEmb);
+    return 1 - sim;
   }
 }
 

@@ -79,7 +79,7 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
   }
 
   void _startPhraseLoop() {
-    _textTimer = Timer.periodic(const Duration(seconds: 4), (_) {
+    _textTimer = Timer.periodic(const Duration(seconds: 6), (_) {
       setState(() {
         if (_showSlogan) {
           _showSlogan = false;
@@ -115,6 +115,22 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
         Positioned.fill(
           child: Container(
             color: const Color.fromARGB(255, 218, 248, 252).withOpacity(0.85),
+          ),
+        ),
+
+        Positioned(
+          top: 120,
+          left: 0,
+          right: 0,
+          child: Text(
+            "系統運作中，請勿關閉畫面",
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF005A78),
+              decoration: TextDecoration.none,
+            ),
           ),
         ),
 

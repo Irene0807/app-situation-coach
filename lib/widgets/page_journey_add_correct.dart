@@ -4,27 +4,61 @@ import 'dart:ui';
 
 //版面尚未設計完成
 
-class PageJourneyAddCorrect extends StatelessWidget {
+class PageJourneyAddCorrect extends StatefulWidget {
   final Map<String, String> splitPlan;
-  final void Function(String, int, String, String, String) onFinish;
-  const PageJourneyAddCorrect(
-      {super.key, required this.splitPlan, required this.onFinish});
+  final void Function(
+    String name,
+    int day,
+    String character,
+    String description,
+    String goal,
+    String group,
+  ) onFinish;
+
+  const PageJourneyAddCorrect({
+    super.key,
+    required this.splitPlan,
+    required this.onFinish,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController nameController =
-        TextEditingController(text: splitPlan['name']);
-    final TextEditingController dayController =
-        TextEditingController(text: splitPlan['day']);
-    final TextEditingController characterController =
-        TextEditingController(text: splitPlan['character']);
-    final TextEditingController descriptionController =
-        TextEditingController(text: splitPlan['description']);
-    final TextEditingController learningGoalController =
-        TextEditingController(text: splitPlan['goal']);
+  State<PageJourneyAddCorrect> createState() => _PageJourneyAddCorrectState();
+}
 
+class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
+  late TextEditingController nameController;
+  late TextEditingController dayController;
+  late TextEditingController characterController;
+  late TextEditingController descriptionController;
+  late TextEditingController learningGoalController;
+
+  int selectedGroup = 0; // 0 = A, 1 = B
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.splitPlan['name']);
+    dayController = TextEditingController(text: widget.splitPlan['day']);
+    characterController = TextEditingController(text: widget.splitPlan['character']);
+    descriptionController = TextEditingController(text: widget.splitPlan['description']);
+    learningGoalController = TextEditingController(text: widget.splitPlan['goal']);
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    dayController.dispose();
+    characterController.dispose();
+    descriptionController.dispose();
+    learningGoalController.dispose();
+    super.dispose();
+  }
+
+  @override
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // 你已經有圖片背景
+      backgroundColor: Colors.transparent,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -35,17 +69,16 @@ class PageJourneyAddCorrect extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2), // 半透明白
+                  color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                      color: Colors.white.withOpacity(0.4), width: 1),
+                  border: Border.all(color: Colors.white.withOpacity(0.4), width: 1),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       AppLocalizations.of(context)!.new_journey,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -59,42 +92,57 @@ class PageJourneyAddCorrect extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    _buildFrostedTextField(
-                        AppLocalizations.of(context)!.journey_name,
-                        nameController),
+                    _buildFrostedTextField(AppLocalizations.of(context)!.journey_name, nameController),
                     const SizedBox(height: 16),
-                    _buildFrostedTextField(
-                        AppLocalizations.of(context)!.day, dayController,
+                    _buildFrostedTextField(AppLocalizations.of(context)!.day, dayController,
                         keyboardType: TextInputType.number),
                     const SizedBox(height: 16),
-                    _buildFrostedTextField(
-                        AppLocalizations.of(context)!.character,
-                        characterController),
+                    _buildFrostedTextField(AppLocalizations.of(context)!.character, characterController),
                     const SizedBox(height: 16),
-                    _buildFrostedTextField(
-                        AppLocalizations.of(context)!.journey_description,
-                        descriptionController,
+                    _buildFrostedTextField(AppLocalizations.of(context)!.journey_description, descriptionController,
                         maxLines: 4),
                     const SizedBox(height: 16),
-                    _buildFrostedTextField(
-                        AppLocalizations.of(context)!.learning_goal,
-                        learningGoalController,
+                    _buildFrostedTextField(AppLocalizations.of(context)!.learning_goal, learningGoalController,
                         maxLines: 4),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
+
+                    // A/B Group 選擇
+                    ToggleButtons(
+                      isSelected: [selectedGroup == 0, selectedGroup == 1],
+                      onPressed: (index) {
+                        setState(() => selectedGroup = index);
+                      },
+                      borderRadius: BorderRadius.circular(12),
+                      selectedColor: Colors.white, // 選中時字體白色
+                      color: Colors.white70,        // 沒選中時字體淡白色
+                      fillColor: const Color.fromARGB(255, 160, 147, 184), // 選中時背景紫色
+                      constraints: const BoxConstraints(
+                        minHeight: 36,
+                        minWidth: 120,
+                      ),
+                      children: const [
+                        Text("Group A"),
+                        Text("Group B"),
+                      ],
+                    ),
+
+
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        onFinish(
+                        widget.onFinish(
                           nameController.text,
-                          int.parse(dayController.text),
+                          int.tryParse(dayController.text) ?? 1,
                           characterController.text,
                           descriptionController.text,
                           learningGoalController.text,
+                          selectedGroup == 0 ? "A" : "B",
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF4B296B),
+                        backgroundColor: const Color(0xFF4B296B),
                         foregroundColor: Colors.white,
-                        minimumSize: Size(double.infinity, 48),
+                        minimumSize: const Size(double.infinity, 48),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -110,6 +158,7 @@ class PageJourneyAddCorrect extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _buildFrostedTextField(
     String label,

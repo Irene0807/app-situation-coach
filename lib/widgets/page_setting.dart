@@ -73,7 +73,7 @@ class _PageSettingState extends State<PageSetting> {
               const CircleAvatar(
                 radius: 40,
                 backgroundImage:
-                    AssetImage('assets/images/home_person.png'), // 預設大頭貼
+                    AssetImage('assets/images/journey_start_background.jpg'),
               ),
               const SizedBox(width: 16),
               Expanded(

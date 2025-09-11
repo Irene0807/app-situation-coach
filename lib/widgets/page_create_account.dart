@@ -6,8 +6,9 @@ import '../states/user_notifier.dart';
 import 'animations/character_animation.dart';
 
 // exam score的輸入方式要改 最好是表格 哪個項目有分數就填 沒分數就留白
-// pretest的部分沒有推上database
+
 // 看step1要不要加name這項 database我先開了
+// 我現在是預設他們登入時的帳號名 = account = userID = google表單會填的東西 需要的話再改
 
 // 文字還沒照新的方法寫
 
@@ -26,7 +27,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     name: '待輸入',
     age: -1,
     englishLevel: EnglishLevel.beginner,
-    examScore: ExamScore(toeic: 12, toefl: 12, ielts: 12, gept: 12),
+    examScore: ExamScore(),
     dailyStudyTime: DailyStudyTime.lessThan30Min,
     studyPlace: StudyPlace.school,
     englishAppExperience: false,
@@ -36,7 +37,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   bool _agreeRules = false;
 
   void _nextPage() {
-    if (_currentIndex < 8) {
+    if (_currentIndex < 5) {
       // 繼續下一頁
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -53,6 +54,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       // 標題
       appBar: AppBar(
         backgroundColor: const Color(0xFF5970AF),
@@ -85,9 +87,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                   children: [
                     _buildInfo1(),
                     _buildInfo2(),
-                    _buildPretest1(),
-                    _buildPretest2(),
-                    _buildPretest3(),
                     _buildTutorial1(),
                     _buildTutorial2(),
                     _buildTutorial3(),
@@ -119,9 +118,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                 ),
               const Spacer(),
               _buildButton(
-                text: _currentIndex < 8 ? "Next" : "Start",
+                text: _currentIndex < 5 ? "Next" : "Start",
                 onPressed:
-                    (_currentIndex == 7 && !_agreeRules) ? null : _nextPage,
+                    (_currentIndex == 4 && !_agreeRules) ? null : _nextPage,
               ),
             ],
           ),
@@ -169,7 +168,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
         children: [
           LayoutBuilder(
             builder: (context, constraints) {
-              final progress = (_currentIndex + 1) / 8;
+              final progress = (_currentIndex + 1) / 5;
               final barWidth = constraints.maxWidth;
 
               return Stack(
@@ -205,9 +204,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
             },
           ),
           const SizedBox(height: 8),
-          if (_currentIndex < 8)
+          if (_currentIndex < 5)
             Text(
-              "Step ${_currentIndex + 1} of 8",
+              "Step ${_currentIndex + 1} of 5",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -260,19 +259,22 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                   )
                 ],
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 100),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  child,
-                ],
+                    const SizedBox(height: 20),
+                    child,
+                  ],
+                ),
               ),
             ),
           ),
@@ -286,79 +288,114 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     return _buildPage(
       title: "Step 1: Personal Info",
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'Age'),
             onChanged: (val) => accountData.age = int.tryParse(val) ?? 0,
           ),
-          DropdownButtonFormField(
-            value: accountData.englishLevel,
-            decoration: const InputDecoration(labelText: "English Level"),
-            items: EnglishLevel.values.map((level) {
-              return DropdownMenuItem(
-                value: level,
-                child: Text(() {
-                  // 無名 function 直接回傳顯示字串
-                  switch (level) {
-                    case EnglishLevel.beginner:
-                      return "Beginner";
-                    case EnglishLevel.intermediate:
-                      return "Intermediate";
-                    case EnglishLevel.advanced:
-                      return "Advanced";
-                  }
-                }()),
-              );
-            }).toList(),
-            onChanged: (val) {
-              if (val != null) {
-                accountData.englishLevel = val;
-              }
-            },
+          const SizedBox(height: 16),
+
+          const Text(
+            "English Level (leave blank if not applicable):",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Row(
+          const SizedBox(height: 8),
+
+          Table(
+            border: TableBorder.all(color: Colors.grey.shade400),
+            columnWidths: const {
+              0: FlexColumnWidth(4),
+              1: FlexColumnWidth(3),
+            },
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
-              Expanded(
-                flex: 2,
-                // 這邊的輸入方式要改 這邊先亂寫
-                child: DropdownButtonFormField(
-                  value: 'None', // accountData.examScore.toeic
-                  decoration: const InputDecoration(labelText: "Exam"),
-                  items: const [
-                    DropdownMenuItem(value: 'TOEIC', child: Text("TOEIC")),
-                    DropdownMenuItem(value: 'TOEFL', child: Text("TOEFL")),
-                    DropdownMenuItem(value: 'IELTS', child: Text("IELTS")),
-                    DropdownMenuItem(value: 'GEPT', child: Text("GEPT")),
-                    DropdownMenuItem(value: 'None', child: Text("None")),
-                  ],
-                  onChanged: (val) => setState(() => (
-                        // 要改
-                      )),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  decoration: const InputDecoration(labelText: "Score"),
-                  keyboardType: TextInputType.number,
-                  onChanged: (val) {
-                    // 這裡可以用一個變數 _examScore 儲存
-                  },
-                ),
+              _buildExamRow("TOEIC (0–990)", accountData.examScore.toeic, (val) {
+                accountData.examScore.toeic =
+                    val.isEmpty ? -1 : int.tryParse(val) ?? -1;
+              }),
+              _buildExamRow("TOEFL iBT (0–120)", accountData.examScore.toefl, (val) {
+                accountData.examScore.toefl =
+                    val.isEmpty ? -1 : int.tryParse(val) ?? -1;
+              }),
+              _buildExamRow("IELTS (0–9)", accountData.examScore.ielts, (val) {
+                accountData.examScore.ielts =
+                    val.isEmpty ? -1 : int.tryParse(val) ?? -1;
+              }),
+
+              // GEPT 改成 Dropdown
+              TableRow(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("GEPT", style: TextStyle(fontSize: 16)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: DropdownButtonFormField<int>(
+                      value: accountData.examScore.gept,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                      items: const [
+                        DropdownMenuItem(value: -1, child: Text("None")), // 無
+                        DropdownMenuItem(value: 1, child: Text("初級")),
+                        DropdownMenuItem(value: 2, child: Text("中級")),
+                        DropdownMenuItem(value: 3, child: Text("高級")),
+                      ],
+                      onChanged: (val) {
+                        setState(() {
+                          accountData.examScore.gept = val ?? -1;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
+
         ],
       ),
     );
   }
 
-  // step 1 - 英語Study Habits
+  TableRow _buildExamRow(
+    String examName,
+    int currentValue,
+    Function(String) onChanged,
+  ) {
+    return TableRow(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(examName, style: const TextStyle(fontSize: 16)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: TextField(
+            controller: TextEditingController(
+              text: currentValue == -1 ? '' : currentValue.toString(),
+            ),
+            decoration: const InputDecoration(
+              hintText: "Score",
+              border: InputBorder.none,
+            ),
+            keyboardType: TextInputType.number,
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
+
+
+  // step 2 - 英語Study Habits
   Widget _buildInfo2() {
     return _buildPage(
-      title: "Step 1: Study Habits",
+      title: "Step 2: Study Habits",
       child: Column(
         children: [
           DropdownButtonFormField(
@@ -438,116 +475,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     );
   }
 
-  // step 2 - 前測 Q1（範例）
-  Widget _buildPretest1() {
-    return _buildConversationPage(
-      botText: "Q1: What do you usually do on weekends?",
-      exampleAnswer:
-          "A1 (Example): I usually play basketball with my friends. We had a lot of fun and I really enjoy it.",
-      showInput: false,
-    );
-  }
-
-  // step 2 - 前測 Q2
-  Widget _buildPretest2() {
-    return _buildConversationPage(
-      botText: "Q2: We are in a coffee shop. How would you order your meal?",
-      showInput: true,
-    );
-  }
-
-  // step 2-3 - 前測 Q3
-  Widget _buildPretest3() {
-    return _buildConversationPage(
-      botText: "Q3: Tell me about your favorite subject at school.",
-      showInput: true,
-    );
-  }
-
-  Widget _buildConversationPage({
-    required String botText,
-    String? exampleAnswer,
-    bool showInput = false,
-  }) {
-    return Stack(
-      children: [
-        // 星空背景 + 浮動方塊
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/journey_start_background.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-
-        // 對話框
-        Align(
-          alignment: const Alignment(0.0, -0.47),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            margin: const EdgeInsets.only(bottom: 20),
-            constraints: const BoxConstraints(maxWidth: 320),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 252, 250, 228).withOpacity(0.95),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: const Color.fromARGB(255, 255, 242, 128),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color:
-                      const Color.fromARGB(255, 233, 203, 30).withOpacity(0.2),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                )
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(botText,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w600)),
-                if (exampleAnswer != null) ...[
-                  const SizedBox(height: 12),
-                  Text(exampleAnswer,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black54)),
-                ],
-              ],
-            ),
-          ),
-        ),
-
-        // 使用者輸入
-        if (showInput)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Write your answer here...",
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.9),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
   // step 3 - tutorial：角色
   Widget _buildTutorial1() {
     final characters = [
@@ -566,7 +493,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "Choose ONE character in a journey.\n And ",
+                  text: "You can choose ONE character\nin your journey.\nAnd ",
                   style: TextStyle(fontSize: 16),
                 ),
                 TextSpan(
@@ -641,19 +568,19 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     );
   }
 
-  // step 3 - tutorial：主題
+  // step 4 - tutorial：主題
   Widget _buildTutorial2() {
     final roles = ["Teacher", "Trump", "Harry Potter"];
     final places = ["English classroom", "White House", "American landfill"];
     final topics = ["English", "TOEFL", "Tariffs"];
 
     return _buildPage(
-      title: "Step 3: Tutorial",
+      title: "Step 4: Tutorial",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "You can create different learning situations\nby combining:",
+            "You can create different\nlearning situations in your journey.\nHere are some examples:",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16),
           ),
@@ -686,78 +613,100 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     );
   }
 
-// 小分類
+  // 小分類
   Widget _buildCategory(String title, List<String> options) {
-    return Expanded(
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 8),
-          ...options.map((opt) => Container(
-                margin: const EdgeInsets.symmetric(vertical: 4),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                child: Text(opt, textAlign: TextAlign.center),
-              )),
-        ],
-      ),
-    );
-  }
+  const double cardWidth = 80;
+  const double cardHeight = 50;
 
-  // step 3 - tutorial：提醒事項
+  return Expanded(
+    child: Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        GridView.count(
+          crossAxisCount: 1,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: cardWidth / cardHeight,
+          mainAxisSpacing: 10,  // 上下間距
+          crossAxisSpacing: 10,  // 左右間距
+          children: options.map((opt) {
+            return Container(
+              width: cardWidth,
+              height: cardHeight,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Text(
+                opt,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 14),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+  // step 5 - tutorial：提醒事項
   Widget _buildTutorial3() {
     return _buildPage(
-      title: "Step 3: Tutorial",
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Reminder:",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            "• Only speak in English.\n"
-            "• Try to speak in \"full\" sentences.\n"
-            "• Don’t worry about mistakes.",
-            style: TextStyle(
-              fontSize: 16,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 20),
-          CheckboxListTile(
-            value: _agreeRules,
-            onChanged: (val) => setState(() => _agreeRules = val ?? false),
-            activeColor: const Color(0xFF5970AF),
-            title: const Text(
-              "I understand the rules",
+      title: "Step 5: Tutorial",
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "\nReminder:",
               style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            const Text(
+              "• Only speak in English.\n"
+              "• Try to speak in \"full\" sentences.\n"
+              "• Don’t worry about mistakes.",
+              style: TextStyle(
+                fontSize: 16,
+                height: 1.5,
+              ),
+            ),
+            const SizedBox(height: 20),
+            CheckboxListTile(
+              value: _agreeRules,
+              onChanged: (val) => setState(() => _agreeRules = val ?? false),
+              activeColor: const Color(0xFF5970AF),
+              title: const Text(
+                "I understand the rules",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // step 3 - tutorial：開始旅程
+
+  // step final - tutorial：開始旅程
   Widget _buildTutorial4() {
     return _buildPage(
       title: "All Set!",

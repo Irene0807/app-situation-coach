@@ -33,11 +33,18 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
   late int _currentIndex;
   Map<String, String> _splitPlan = {};
   final JourneyGenerator _journeyGenerator = JourneyGenerator(); // 新增
+  String selectedGroup = "A";
 
   // 移除原本的 pages，改用 getter 以便傳遞 callback
   List<Widget> get pages => [
         PageJourneyAddPrompt(onLetsGo: goToCorrectPage),
-        PageJourneyAddCorrect(splitPlan: _splitPlan, onFinish: submitJourney),
+        PageJourneyAddCorrect(
+          splitPlan: _splitPlan, 
+          onFinish: (name, day, character, description, goal, group) {
+            setState(() => selectedGroup = group);
+            submitJourney(name, day, character, description, goal);
+          },
+        ),
       ];
 
   @override
@@ -69,50 +76,88 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
     _tabController.index = FrameJourneyAddTab.correct.index;
   }
 
-  Future<void> submitJourney(String name, int day, String character,
-      String description, String goal) async {
-    // 包在loading裡面
-    await runWithLoading(context, () async {
-      //使用 plan 生成 schedule
-      List<Day> schedule = await _journeyGenerator.generateJourneySchedule(
-          name, day, character, description, goal);
+  Future<void> submitJourney(String name, int day, String character, String description, String goal) async {
+      if (selectedGroup == "A") {
+        print("[DEBUG] Group A: evaluating weirdness...");
+        final weirdness = await _journeyGenerator.evaluateWeirdness(
+          role: character,
+          place: description,
+          topic: goal,
+        );
+        print("[DEBUG] Weirdness: $weirdness");
+        if (weirdness > 0.3) {
+          print("[DEBUG] Weirdness too high (>0.3), block!!!");
+          if (!mounted) return;
+            await showDialog(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  backgroundColor: Colors.white,
+                  title: const Text(
+                    "Too Weird!",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  content: const Text(
+                    "Your journey idea is too weird.\n\nPlease do not use weird character such as Trump.",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(ctx).pop(),
+                      child: const Text("OK"),
+                    ),
+                  ],
+                );
+              },
+            );
+          return;
+        } 
+      }
+      print("[DEBUG] Ok! Generate schedule...");
 
-      // 每個旅程初始的bloom都是1
-      int bloomLevel = 1;
+      // 包在loading裡面
+      await runWithLoading(context, () async {
+        //使用 plan 生成 schedule
+        List<Day> schedule = await _journeyGenerator.generateJourneySchedule(
+            name, day, character, description, goal);
 
-      // 新增 journey 到資料庫
-      final journey = Journey(
-        id: DateTime.now().millisecondsSinceEpoch.toString(), // 產生id的方式?!
-        name: name,
-        day: day,
-        character: character,
-        description: description,
-        learningGoal: goal,
-        schedule: schedule,
-        bloomLevel: bloomLevel,
-        status: JourneyStatus(),
-      );
+        // 每個旅程初始的bloom都是1
+        int bloomLevel = 1;
 
-      // 上傳db
-      if (!mounted) return;
-      await Provider.of<UserNotifier>(context, listen: false)
-          .uploadJourney(journey);
+        // 新增 journey 到資料庫
+        final journey = Journey(
+          id: DateTime.now().millisecondsSinceEpoch.toString(), // 產生id的方式?!
+          name: name,
+          day: day,
+          character: character,
+          description: description,
+          learningGoal: goal,
+          schedule: schedule,
+          bloomLevel: bloomLevel,
+          status: JourneyStatus(),
+        );
 
-      // 先跑好第一個scene的Content
-      await schedule[0].scenes[0].generateAllContent(journey: journey);
+        // 上傳db
+        if (!mounted) return;
+        await Provider.of<UserNotifier>(context, listen: false)
+            .uploadJourney(journey);
 
-      // 上傳db
-      if (!mounted) return;
-      await Provider.of<UserNotifier>(context, listen: false)
-          .initializeSceneContent(
-              journey.id, schedule[0].scenes[0].id, schedule[0].scenes[0]);
+        // 先跑好第一個scene的Content
+        await schedule[0].scenes[0].generateAllContent(journey: journey);
 
-      if (!mounted) return;
-      Provider.of<JourneyListNotifier>(context, listen: false)
-          .addJourney(journey);
+        // 上傳db
+        if (!mounted) return;
+        await Provider.of<UserNotifier>(context, listen: false)
+            .initializeSceneContent(
+                journey.id, schedule[0].scenes[0].id, schedule[0].scenes[0]);
 
-      context.pop(); // 返回上一頁
-    });
+        if (!mounted) return;
+        Provider.of<JourneyListNotifier>(context, listen: false)
+            .addJourney(journey);
+
+        context.pop(); // 返回上一頁
+      }
+    );
   }
 
   @override
