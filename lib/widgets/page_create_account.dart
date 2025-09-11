@@ -24,7 +24,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   int _currentIndex = 0;
 
   AccountData accountData = AccountData(
-    name: '待輸入',
     age: -1,
     englishLevel: EnglishLevel.beginner,
     examScore: ExamScore(),
@@ -296,13 +295,11 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
             onChanged: (val) => accountData.age = int.tryParse(val) ?? 0,
           ),
           const SizedBox(height: 16),
-
           const Text(
             "English Level (leave blank if not applicable):",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-
           Table(
             border: TableBorder.all(color: Colors.grey.shade400),
             columnWidths: const {
@@ -311,11 +308,13 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
             },
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
-              _buildExamRow("TOEIC (0–990)", accountData.examScore.toeic, (val) {
+              _buildExamRow("TOEIC (0–990)", accountData.examScore.toeic,
+                  (val) {
                 accountData.examScore.toeic =
                     val.isEmpty ? -1 : int.tryParse(val) ?? -1;
               }),
-              _buildExamRow("TOEFL iBT (0–120)", accountData.examScore.toefl, (val) {
+              _buildExamRow("TOEFL iBT (0–120)", accountData.examScore.toefl,
+                  (val) {
                 accountData.examScore.toefl =
                     val.isEmpty ? -1 : int.tryParse(val) ?? -1;
               }),
@@ -355,7 +354,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
               ),
             ],
           ),
-
         ],
       ),
     );
@@ -389,8 +387,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       ],
     );
   }
-
-
 
   // step 2 - 英語Study Habits
   Widget _buildInfo2() {
@@ -615,50 +611,49 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
 
   // 小分類
   Widget _buildCategory(String title, List<String> options) {
-  const double cardWidth = 80;
-  const double cardHeight = 50;
+    const double cardWidth = 80;
+    const double cardHeight = 50;
 
-  return Expanded(
-    child: Column(
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-
-        GridView.count(
-          crossAxisCount: 1,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          childAspectRatio: cardWidth / cardHeight,
-          mainAxisSpacing: 10,  // 上下間距
-          crossAxisSpacing: 10,  // 左右間距
-          children: options.map((opt) {
-            return Container(
-              width: cardWidth,
-              height: cardHeight,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: Text(
-                opt,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 14),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    ),
-  );
-}
+          const SizedBox(height: 8),
+          GridView.count(
+            crossAxisCount: 1,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            childAspectRatio: cardWidth / cardHeight,
+            mainAxisSpacing: 10, // 上下間距
+            crossAxisSpacing: 10, // 左右間距
+            children: options.map((opt) {
+              return Container(
+                width: cardWidth,
+                height: cardHeight,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Text(
+                  opt,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 14),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
 
   // step 5 - tutorial：提醒事項
   Widget _buildTutorial3() {
@@ -704,7 +699,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       ),
     );
   }
-
 
   // step final - tutorial：開始旅程
   Widget _buildTutorial4() {

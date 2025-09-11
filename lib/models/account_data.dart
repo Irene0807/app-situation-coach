@@ -1,5 +1,4 @@
 class AccountData {
-  String name;
   int age;
   EnglishLevel englishLevel;
   ExamScore examScore;
@@ -9,7 +8,6 @@ class AccountData {
   String appFeedback;
 
   AccountData({
-    required this.name,
     required this.age,
     required this.englishLevel,
     required this.examScore,

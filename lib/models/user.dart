@@ -3,7 +3,7 @@ import 'package:app_situational_coach/models/journey.dart';
 
 // 待辦 app被關閉時isLogin要設為false 登入時要檢查isLogin
 
-class User {
+class UserData {
   // signIn時的資料
   final String account; // 去除"gmail.com"的帳號
 
@@ -22,7 +22,7 @@ class User {
   // journey資料
   List<Journey> journeys;
 
-  User({
+  UserData({
     // signIn時的資料
     required this.account,
     // 標記資料

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class UserNotifier extends ChangeNotifier {
   final UserRepository userRepository;
 
-  User? user;
+  UserData? user;
 
   UserNotifier(this.userRepository);
 
@@ -20,7 +20,7 @@ class UserNotifier extends ChangeNotifier {
       password: password,
     );
 
-    user = User(account: account.trim());
+    user = UserData(account: account.trim());
     notifyListeners();
   }
 
@@ -30,7 +30,7 @@ class UserNotifier extends ChangeNotifier {
       password: password,
     );
 
-    user = User(account: account.trim());
+    user = UserData(account: account.trim());
     notifyListeners();
   }
 
@@ -48,7 +48,7 @@ class UserNotifier extends ChangeNotifier {
 
   Future<void> initializeSceneContent(
       String journeyId, String sceneId, Scene scene) async {
-    await userRepository.setSceneContent(
+    await userRepository.setPreSceneContent(
         journeyId: journeyId, sceneId: sceneId, scene: scene);
   }
 
