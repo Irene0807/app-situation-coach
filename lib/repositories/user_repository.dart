@@ -124,12 +124,12 @@ class UserRepository {
       'description': journey.description,
       'learningGoal': journey.learningGoal,
       'bloomLevel': journey.bloomLevel,
-      'group': journey.group,
       'status': {
         'day': journey.status.day,
         'scene': journey.status.scene,
         'mode': journey.status.mode,
-      }
+      },
+      'group': journey.group,
     });
 
     // 上傳 schedule
@@ -285,7 +285,8 @@ class UserRepository {
             day: journey['status']['day'] as int,
             scene: journey['status']['scene'] as int,
             mode: journey['status']['mode'] as int,
-          ));
+          ),
+          group: journey['group'] as String);
     }).toList();
 
     return journeys;
