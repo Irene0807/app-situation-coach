@@ -38,10 +38,10 @@ class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.splitPlan['name']);
-    dayController = TextEditingController(text: widget.splitPlan['day']);
+    dayController = TextEditingController(text: "3");
     characterController = TextEditingController(text: widget.splitPlan['character']);
     descriptionController = TextEditingController(text: widget.splitPlan['description']);
-    learningGoalController = TextEditingController(text: widget.splitPlan['goal']);
+    learningGoalController = TextEditingController(text: "Food");
   }
 
   @override
@@ -92,30 +92,114 @@ class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
                       ),
                     ),
                     const SizedBox(height: 24),
+                    // 1. 旅程名稱
                     _buildFrostedTextField(AppLocalizations.of(context)!.journey_name, nameController),
+                    const SizedBox(height: 6),
+                    // 2. 天數（固定）
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.day,
+                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                        const SizedBox(height: 1),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.white30),
+                          ),
+                          child: const Text(
+                            "3",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    // 3. 角色（選擇）
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.character,
+                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                        const SizedBox(height: 1),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.white30),
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            value: characterController.text.isNotEmpty ? characterController.text : null,
+                            dropdownColor: const Color.fromARGB(255, 160, 147, 184),
+                            style: const TextStyle(color: Colors.white, fontSize: 16),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            items: const [
+                              DropdownMenuItem(value: "Trump", child: Text("Trump")),
+                              DropdownMenuItem(value: "Harry Potter", child: Text("Harry Potter")),
+                              DropdownMenuItem(value: "American Boy", child: Text("American Boy")),
+                              DropdownMenuItem(value: "English Girl", child: Text("English Girl")),
+                              DropdownMenuItem(value: "Teacher", child: Text("Teacher")),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                characterController.text = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 16),
-                    _buildFrostedTextField(AppLocalizations.of(context)!.day, dayController,
-                        keyboardType: TextInputType.number),
-                    const SizedBox(height: 16),
-                    _buildFrostedTextField(AppLocalizations.of(context)!.character, characterController),
-                    const SizedBox(height: 16),
+                    // 4. 場景
                     _buildFrostedTextField(AppLocalizations.of(context)!.journey_description, descriptionController,
                         maxLines: 4),
-                    const SizedBox(height: 16),
-                    _buildFrostedTextField(AppLocalizations.of(context)!.learning_goal, learningGoalController,
-                        maxLines: 4),
+                    const SizedBox(height: 6),
+                    // 5. 主題（固定）
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.learning_goal,
+                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                        const SizedBox(height: 1),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.white30),
+                          ),
+                          child: Text(
+                            learningGoalController.text, // 固定 "Food"
+                            style: const TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 16),
 
-                    // A/B Group 選擇
+                    // 6. A/B Group 選擇
                     ToggleButtons(
                       isSelected: [selectedGroup == 0, selectedGroup == 1],
                       onPressed: (index) {
                         setState(() => selectedGroup = index);
                       },
                       borderRadius: BorderRadius.circular(12),
-                      selectedColor: Colors.white, // 選中時字體白色
-                      color: Colors.white70,        // 沒選中時字體淡白色
-                      fillColor: const Color.fromARGB(255, 160, 147, 184), // 選中時背景紫色
+                      selectedColor: Colors.white,
+                      color: Colors.white70,
+                      fillColor: const Color.fromARGB(255, 160, 147, 184),
                       constraints: const BoxConstraints(
                         minHeight: 36,
                         minWidth: 120,

@@ -42,7 +42,7 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
           splitPlan: _splitPlan, 
           onFinish: (name, day, character, description, goal, group) {
             setState(() => selectedGroup = group);
-            submitJourney(name, day, character, description, goal);
+            submitJourney(name, day, character, description, goal, group);
           },
         ),
       ];
@@ -76,11 +76,12 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
     _tabController.index = FrameJourneyAddTab.correct.index;
   }
 
-  Future<void> submitJourney(String name, int day, String character, String description, String goal) async {
+  Future<void> submitJourney(String name, int day, String character, String description, String goal, String group) async {
+      // 對 A 組做限制
       if (selectedGroup == "A") {
         print("[DEBUG] Group A: evaluating weirdness...");
         final weirdness = await _journeyGenerator.evaluateWeirdness(
-          role: character,
+          role: character == "Trump" ? "American president" : character,
           place: description,
           topic: goal,
         );
@@ -135,6 +136,7 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
           schedule: schedule,
           bloomLevel: bloomLevel,
           status: JourneyStatus(),
+          group: group,
         );
 
         // 上傳db

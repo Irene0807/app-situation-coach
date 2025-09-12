@@ -11,7 +11,7 @@ List<Journey> dummyJourneys = [
       id: '1',
       name: 'Seoul Shopping',
       day: 3,
-      character: 'England Kid',
+      character: 'Trump',
       description: '在首爾的購物之旅，體驗當地文化和美食。',
       learningGoal: '學習如何在購物時使用英語交流。',
       schedule: [
@@ -160,7 +160,8 @@ At the end, help them check out and say goodbye.
         ])
       ],
       bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
+      status: JourneyStatus(day: 0, scene: 0, mode: 0),
+      group: 'A'),
   Journey(
       id: '2',
       name: 'Job Interview',
@@ -170,7 +171,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在面試中自信地表達自己。',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
+      status: JourneyStatus(day: -1, scene: -1, mode: -1),
+      group: 'A'),
   Journey(
       id: '3',
       name: 'Taipei Night Market',
@@ -180,7 +182,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在日常生活中使用英語進行交流',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
+      status: JourneyStatus(day: 0, scene: 0, mode: 0),
+      group: 'A'),
   Journey(
       id: '4',
       name: 'Tokyo Vacation',
@@ -190,7 +193,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在旅遊中使用英語進行溝通。',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
+      status: JourneyStatus(day: -1, scene: -1, mode: -1),
+      group: 'A'),
   Journey(
       id: '5',
       name: 'Hong Kong Business Trip',
@@ -200,7 +204,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在商務場合使用英語。',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
+      status: JourneyStatus(day: 0, scene: 0, mode: 0),
+      group: 'A'),
   Journey(
       id: '6',
       name: 'Shanghai Conference',
@@ -210,7 +215,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在正式場合使用英語。',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1)),
+      status: JourneyStatus(day: -1, scene: -1, mode: -1),
+      group: 'A'),
   Journey(
       id: '7',
       name: 'Singapore Expo',
@@ -220,7 +226,8 @@ At the end, help them check out and say goodbye.
       learningGoal: '學習如何在展覽中使用英語進行推銷和交流。',
       schedule: [],
       bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0)),
+      status: JourneyStatus(day: 0, scene: 0, mode: 0), 
+      group: 'A'),
 ];
 
 const int dummyDialogCount = 6;
@@ -256,13 +263,13 @@ final List<Character> characters = [
     slogan: '"Make America Great Again!"',
   ),
   Character(
-    name: const LocalizedText(en: 'TOEFL Interviewer', zh: '托福口試考官'),
+    name: const LocalizedText(en: 'Teacher', zh: '老師'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 27,
-    imagePath: 'assets/images/toefl_interviewer/31.png',
+    imagePath: 'assets/images/teacher/31.png',
     background: const LocalizedText(
       en: 'Simulated TOEFL speaking examiner, responsible for scenario-based assessments.',
-      zh: '模擬托福口試考官，負責情境對話的考察',
+      zh: '模擬托福補習班老師，負責情境對話的考察',
     ),
     personality: const LocalizedText(
       en: 'Rational, professional, slightly distant',
@@ -275,10 +282,10 @@ final List<Character> characters = [
     slogan: '"Let’s see how you handle this!"',
   ),
   Character(
-    name: const LocalizedText(en: 'American Kid', zh: '美國少年'),
+    name: const LocalizedText(en: 'American Boy', zh: '美國少年'),
     gender: const LocalizedText(en: 'Male', zh: '男生'),
     age: 10,
-    imagePath: 'assets/images/american_kid/31.png',
+    imagePath: 'assets/images/american_boy/31.png',
     background: const LocalizedText(
       en: 'A sunny teenager from California who loves skateboarding and pop culture.',
       zh: '來自加州的陽光少年，喜歡滑板與流行文化',
@@ -294,10 +301,10 @@ final List<Character> characters = [
     slogan: '"Dude, let’s hang out!"',
   ),
   Character(
-    name: const LocalizedText(en: 'England Kid', zh: '英國少女'),
+    name: const LocalizedText(en: 'English Girl', zh: '英國少女'),
     gender: const LocalizedText(en: 'Female', zh: '女生'),
     age: 15,
-    imagePath: 'assets/images/england_kid/31.png',
+    imagePath: 'assets/images/english_girl/31.png',
     background: const LocalizedText(
       en: 'A young lady from a prestigious family in London who loves reading and art.',
       zh: '倫敦名門出身的少女，喜歡閱讀與藝術',

@@ -476,9 +476,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
     final characters = [
       "Trump",
       "Harry Potter",
-      "England Kid",
-      "American Kid",
-      "TOEFL Interviewer",
+      "English Girl",
+      "American Boy",
+      "Teahcer",
     ];
 
     return _buildPage(
@@ -568,7 +568,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   Widget _buildTutorial2() {
     final roles = ["Teacher", "Trump", "Harry Potter"];
     final places = ["English classroom", "White House", "American landfill"];
-    final topics = ["English", "TOEFL", "Tariffs"];
+    final topics = ["Food", "Food", "Food"];
 
     return _buildPage(
       title: "Step 4: Tutorial",

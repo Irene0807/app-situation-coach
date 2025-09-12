@@ -66,32 +66,32 @@ flutter:
     - assets/images/trump/32.png
     - assets/images/trump/42.png
 
-    - assets/images/toefl_interviewer/11.png
-    - assets/images/toefl_interviewer/12.png
-    - assets/images/toefl_interviewer/21.png
-    - assets/images/toefl_interviewer/22.png
-    - assets/images/toefl_interviewer/31.png
-    - assets/images/toefl_interviewer/32.png
-    - assets/images/toefl_interviewer/41.png
-    - assets/images/toefl_interviewer/42.png
+    - assets/images/teacher/11.png
+    - assets/images/teacher/12.png
+    - assets/images/teacher/21.png
+    - assets/images/teacher/22.png
+    - assets/images/teacher/31.png
+    - assets/images/teacher/32.png
+    - assets/images/teacher/41.png
+    - assets/images/teacher/42.png
 
-    - assets/images/american_kid/11.png
-    - assets/images/american_kid/12.png
-    - assets/images/american_kid/21.png
-    - assets/images/american_kid/22.png
-    - assets/images/american_kid/31.png
-    - assets/images/american_kid/32.png
-    - assets/images/american_kid/41.png
-    - assets/images/american_kid/42.png
+    - assets/images/american_boy/11.png
+    - assets/images/american_boy/12.png
+    - assets/images/american_boy/21.png
+    - assets/images/american_boy/22.png
+    - assets/images/american_boy/31.png
+    - assets/images/american_boy/32.png
+    - assets/images/american_boy/41.png
+    - assets/images/american_boy/42.png
 
-    - assets/images/england_kid/11.png
-    - assets/images/england_kid/12.png
-    - assets/images/england_kid/21.png
-    - assets/images/england_kid/22.png
-    - assets/images/england_kid/31.png
-    - assets/images/england_kid/32.png
-    - assets/images/england_kid/41.png
-    - assets/images/england_kid/42.png
+    - assets/images/english_girl/11.png
+    - assets/images/english_girl/12.png
+    - assets/images/english_girl/21.png
+    - assets/images/english_girl/22.png
+    - assets/images/english_girl/31.png
+    - assets/images/english_girl/32.png
+    - assets/images/english_girl/41.png
+    - assets/images/english_girl/42.png
 
 
     - assets/images/harry_potter/11.png
