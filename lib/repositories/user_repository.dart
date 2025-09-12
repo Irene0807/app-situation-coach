@@ -1,15 +1,15 @@
 import 'package:app_situational_coach/models/account_data.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/models/message.dart';
+import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:app_situational_coach/models/day.dart';
 import '../services/authentication.dart';
 import '../services/database.dart';
 
-// 利用database authentication製作function
+// getSchedule 可優化 代處理
 
 class UserRepository {
   final AuthenticationService authService;
@@ -272,21 +272,108 @@ class UserRepository {
 
     List<Journey> journeys = journeysData.map((journey) {
       return Journey(
-          id: journey['id'],
-          name: journey['name'],
-          day: journey['day'],
-          character: journey['character'],
-          description: journey['description'],
-          learningGoal: journey['learningGoal'],
+          id: journey['id'] as String,
+          name: journey['name'] as String,
+          day: journey['day'] as int,
+          character: journey['character'] as String,
+          description: journey['description'] as String,
+          learningGoal: journey['learningGoal'] as String,
           schedule: [], // 這邊卡個bug 進到旅行後才會抓scehedule下來
-          bloomLevel: journey['bloomLevel'],
+          bloomLevel: journey['bloomLevel'] as int,
           status: JourneyStatus(
-            day: journey['status']['day'],
-            scene: journey['status']['scene'],
-            mode: journey['status']['mode'],
+            day: journey['status']['day'] as int,
+            scene: journey['status']['scene'] as int,
+            mode: journey['status']['mode'] as int,
           ));
     }).toList();
 
     return journeys;
+  }
+
+  // 這個function比較複雜 可能會有bug 待確認
+  // 這邊其實可以優化 使用者已經完成的scene可以不用抓 這個優化先保留
+  Future<List<Day>> getSchedule({
+    required String journeyId,
+    required int day,
+  }) async {
+    // 1. 先初始化固定長度的 List<Day>
+    List<Day> schedule = List.generate(day, (i) {
+      return Day(
+        title: '卡個bug',
+        scenes: [],
+      );
+    });
+
+    // 2. 抓取所有 scenes
+    List<Map<String, dynamic>> scheduleData = await dbService.getCollectionDocs(
+      ['users', getCurrentUserId()!, 'journeys', journeyId, 'scenes'],
+    );
+
+    // 3. 依照 scene.id (e.g. "01-02") 分配到正確的 Day
+    for (var sceneData in scheduleData) {
+      final sceneId = sceneData['id'] as String;
+      final parts = sceneId.split('-');
+      final dayIndex = int.parse(parts[0]) - 1; // 注意 list index 從 0 開始
+
+      final scene = Scene(
+        id: sceneId,
+        title: sceneData['title'],
+        location: sceneData['location'],
+        description: sceneData['description'],
+        learningTheme: sceneData['learningTheme'],
+        introContent: sceneData['introContent'] != null
+            ? IntroContent(
+                description: sceneData['introContent']['description'],
+                vocabulary:
+                    (sceneData['introContent']['vocabulary'] as List<dynamic>)
+                        .map((e) => e as String)
+                        .toList())
+            : null,
+        conversationContent: sceneData['conversationContent'] != null
+            ? ConversationContent(
+                script: sceneData['conversationContent']['script'],
+                messages: sceneData['conversationContent']['messages'] != null
+                    ? (sceneData['conversationContent']['messages']
+                            as List<dynamic>)
+                        .map((m) => Message(
+                              role: m['role'] as String,
+                              content: m['content'] as String,
+                            ))
+                        .toList()
+                    : null)
+            : null,
+        summaryContent: sceneData['summaryContent'] != null
+            ? SummaryContent(
+                summary: sceneData['summaryContent']['summary'],
+                questions: (sceneData['summaryContent']['questions']
+                        as List<dynamic>)
+                    .map((q) => Question(
+                          questionText: q['questionText'] as String,
+                          options:
+                              List<String>.from(q['options'] as List<dynamic>),
+                          answerId: q['answerId'] as int,
+                        ))
+                    .toList(),
+              )
+            : null,
+      );
+
+      // 把 scene 丟進對應的 Day
+      schedule[dayIndex].scenes.add(scene);
+
+      // 更新dayTitle
+      schedule[dayIndex].title = sceneData['dayTitle'];
+    }
+
+    // 4. 對每個 Day 的 scenes 排序
+    for (var d in schedule) {
+      d.scenes.sort((a, b) {
+        final aIndex = int.parse(a.id.split('-')[1]);
+        final bIndex = int.parse(b.id.split('-')[1]);
+        return aIndex.compareTo(bIndex);
+      });
+    }
+
+    return schedule;
   }
 }
