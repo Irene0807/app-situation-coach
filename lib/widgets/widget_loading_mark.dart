@@ -20,9 +20,9 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
   // slogan
   final Map<String, String> sloganSentece = {
     "Trump": "“Make America Great Again!”",
-    "TOEFL Interviewer": "“Let’s see how you handle this!”",
-    "American Kid": "“Dude, let’s hang out!”",
-    "England Kid": "“Hello, would you like some tea?”",
+    "Teacher": "“Let’s see how you handle this!”",
+    "American Boy": "“Dude, let’s hang out!”",
+    "English Girl": "“Hello, would you like some tea?”",
     "Harry Potter": "“Welcome to my magic world!”",
   };
 
@@ -35,18 +35,18 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
       "Hold on, this will be the greatest result ever.",
       "Just a sec, I'm building a wall of ideas!",
     ],
-    "TOEFL Interviewer": [
+    "Teacher": [
       "Preparing your journey... almost done.",
       "Grammar is important! give me a moment.",
       "One sec, Designing journey...",
     ],
-    "American Kid": [
+    "American Boy": [
       "Yo, can’t wait for this trip!",
       "Yo dude, can’t wait to hit the road!",
       "Almost ready, we’re gonna have so much fun!",
       "Wait up, I’m packing my skateboard already!",
     ],
-    "England Kid": [
+    "English Girl": [
       "Almost ready. Shall I pour you some tea?",
       "One moment, preparing a cup of tea...",
       "My favourite subject is literature, what about you?",
@@ -66,9 +66,9 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
 
   final List<String> characterOrder = [
     "Trump",
-    "TOEFL Interviewer",
-    "American Kid",
-    "England Kid",
+    "Teacher",
+    "American Boy",
+    "English Girl",
     "Harry Potter",
   ];
 

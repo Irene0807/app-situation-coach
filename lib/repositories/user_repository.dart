@@ -93,6 +93,7 @@ class UserRepository {
       'description': journey.description,
       'learningGoal': journey.learningGoal,
       'bloomLevel': journey.bloomLevel,
+      'group': journey.group,
       'status': {
         'day': journey.status.day,
         'scene': journey.status.scene,

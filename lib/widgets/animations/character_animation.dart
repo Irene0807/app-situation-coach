@@ -153,10 +153,10 @@ class _CharacterWidgetState extends State<CharacterWidget> {
   String _normalizeCharacterName(String name) {
     final map = {
       ['Trump', '川普']: 'trump',
-      ['England Kid', '英國少女']: 'england_kid',
+      ['English Girl', '英國少女']: 'english_girl',
       ['Harry Potter', '哈利波特']: 'harry_potter',
-      ['American Kid', '美國少年']: 'american_kid',
-      ['TOEFL Interviewer', '托福口試考官']: 'toefl_interviewer',
+      ['American Boy', '美國少年']: 'american_boy',
+      ['Teacher', '老師']: 'teacher',
     };
 
     for (final entry in map.entries) {

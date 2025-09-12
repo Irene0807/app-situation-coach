@@ -11,6 +11,7 @@ class Journey {
   final List<Day> schedule;
   int bloomLevel; // 使用者在這個旅行中的bloom等級 預設每個旅程的bloom不同
   JourneyStatus status;
+  final String group;
 
   // 沒用dummy data的話可以用這個
   // Journey({
@@ -34,5 +35,6 @@ class Journey {
     required this.schedule,
     required this.bloomLevel,
     required this.status,
+    required this.group,
   });
 }
