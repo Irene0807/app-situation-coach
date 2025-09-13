@@ -24,6 +24,8 @@ User Input:
 
 $userInput
 
+Note: Journey name should be brief and simple
+Note: DO NOT mention the Companion in Description!
 Make the tone friendly and imaginative, but keep the structure strictly in the format above.
 ''';
   }

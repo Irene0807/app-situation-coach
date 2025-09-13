@@ -13,14 +13,19 @@ import 'dart:math';
 
 class GeminiAuto {
   final List<String> apiKeys;
-  int _index = 0;
+  final Random _random = Random();
 
   GeminiAuto(this.apiKeys);
 
+  // 隨機取一個起始 index
+  int _pickRandomIndex() => _random.nextInt(apiKeys.length);
+
   // 正常對話版 gemini
   Future<String> sendPrompt(String prompt, {String model = 'gemini-2.5-flash'}) async {
+    int start = _pickRandomIndex();
+    
     for (int i = 0; i < apiKeys.length; i++) {
-      final key = apiKeys[_index];
+      final key = apiKeys[(start + i) % apiKeys.length];
       try {
         print('[DEBUG] sendPrompt using key: $key');
 
@@ -48,8 +53,7 @@ class GeminiAuto {
           throw Exception('Error: ${response.statusCode}');
         }
       } catch (e) {
-        print('[WARN] sendPrompt key $_index failed: $e');
-        _index = (_index + 1) % apiKeys.length;
+        print('[WARN] sendPrompt key failed: $e');
         await Future.delayed(const Duration(milliseconds: 200));
       }
     }
@@ -58,8 +62,10 @@ class GeminiAuto {
 
   // Embedding 版 gemini
   Future<List<double>> getEmbedding(String text, {String model = 'models/text-embedding-004'}) async {
+    int start = _pickRandomIndex();
+    
     for (int i = 0; i < apiKeys.length; i++) {
-      final key = apiKeys[_index];
+      final key = apiKeys[(start + i) % apiKeys.length];
       try {
         print('[DEBUG] getEmbedding using key: $key');
 
@@ -81,8 +87,7 @@ class GeminiAuto {
           throw Exception('Error: ${response.statusCode}');
         }
       } catch (e) {
-        print('[WARN] getEmbedding key $_index failed: $e');
-        _index = (_index + 1) % apiKeys.length;
+        print('[WARN] getEmbedding key failed: $e');
         await Future.delayed(const Duration(milliseconds: 200));
       }
     }

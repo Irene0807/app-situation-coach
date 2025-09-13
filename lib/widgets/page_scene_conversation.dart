@@ -376,45 +376,45 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       ),
 
       // script 浮動按鈕
-      floatingActionButton: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.03, // 左
-            bottom: MediaQuery.of(context).size.height * 0.005, // 下
-          ),
-          child: Opacity(
-            opacity: 0.55,
-            child: SizedBox(
-              width: 44,
-              height: 44,
-              child: FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 249, 244, 218),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Script'),
-                      content: SingleChildScrollView(
-                        child: Text(widget.conversationContent.script),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                tooltip: 'Show Script',
-                child: const Icon(Icons.text_snippet,
-                    color: Colors.black87, size: 20),
-              ),
-            ),
-          ),
-        ),
-      ),
+      // floatingActionButton: Align(
+      //   alignment: Alignment.bottomLeft,
+      //   child: Padding(
+      //     padding: EdgeInsets.only(
+      //       left: MediaQuery.of(context).size.width * 0.03, // 左
+      //       bottom: MediaQuery.of(context).size.height * 0.005, // 下
+      //     ),
+      //     child: Opacity(
+      //       opacity: 0.55,
+      //       child: SizedBox(
+      //         width: 44,
+      //         height: 44,
+      //         child: FloatingActionButton(
+      //           backgroundColor: const Color.fromARGB(255, 249, 244, 218),
+      //           onPressed: () {
+      //             showDialog(
+      //               context: context,
+      //               builder: (context) => AlertDialog(
+      //                 title: const Text('Script'),
+      //                 content: SingleChildScrollView(
+      //                   child: Text(widget.conversationContent.script),
+      //                 ),
+      //                 actions: [
+      //                   TextButton(
+      //                     onPressed: () => Navigator.of(context).pop(),
+      //                     child: const Text('Close'),
+      //                   ),
+      //                 ],
+      //               ),
+      //             );
+      //           },
+      //           tooltip: 'Show Script',
+      //           child: const Icon(Icons.text_snippet,
+      //               color: Colors.black87, size: 20),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 

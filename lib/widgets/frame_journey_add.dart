@@ -87,7 +87,7 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
         topic: goal,
       );
       print("[DEBUG] Weirdness: $weirdness");
-      if (weirdness > 0.3) {
+      if (weirdness > 0.5 || weirdness == 0.5) {
         print("[DEBUG] Weirdness too high (>0.3), block!!!");
         if (!mounted) return;
         await showDialog(
@@ -100,7 +100,10 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               content: const Text(
-                "Your journey idea is too weird.\n\nPlease do not use weird character such as Trump.",
+                "Your journey idea is too weird.\n\n請勿：\n"
+                "- 選擇 Trump、Harry Potter\n"
+                "- 使用「奇怪的場景」\n"
+                "謝謝配合！",
                 style: TextStyle(fontSize: 16),
               ),
               actions: [

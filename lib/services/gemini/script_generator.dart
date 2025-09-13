@@ -37,7 +37,7 @@ class ScriptGenerator {
   final CharacterEvaluator _characterEvaluator = CharacterEvaluator();
 
   final double bloomThreshold = 0.5;
-  final double characterThreshold = 0.5;
+  final double characterThreshold = 0.3;
 
   Future<String> generateRefinedScript({
     required Journey journey,

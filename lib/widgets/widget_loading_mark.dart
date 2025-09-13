@@ -79,7 +79,7 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
   }
 
   void _startPhraseLoop() {
-    _textTimer = Timer.periodic(const Duration(seconds: 6), (_) {
+    _textTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       setState(() {
         if (_showSlogan) {
           _showSlogan = false;

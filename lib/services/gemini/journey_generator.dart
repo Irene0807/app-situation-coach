@@ -61,7 +61,7 @@ class JourneyGenerator {
     required String place,
     required String topic,
   }) async {
-    const baseline = "A realistic situation of a Taiwanese student learning English";
+    const baseline = "A realistic situation of a student learning English";
 
     final baseEmb = await geminiB.getEmbedding(baseline);
     final caseEmb = await geminiB.getEmbedding(

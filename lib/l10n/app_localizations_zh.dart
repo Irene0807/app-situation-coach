@@ -21,7 +21,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get go_back => '返回';
 
   @override
-  String get describe_your_journey_here => '在這裡描述你的旅程';
+  String get describe_your_journey_here => '在這裡描述你的旅程\n（ex: 對話角色, 對話地點）';
 
   @override
   String get lets_go => '出發吧';
@@ -37,7 +37,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get journey_name => '旅程名稱';
 
   @override
-  String get day => '天數';
+  String get day => '天數（固定）';
 
   @override
   String get character => '角色';
@@ -46,7 +46,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get journey_description => '旅程描述';
 
   @override
-  String get learning_goal => '學習目標';
+  String get learning_goal => '學習目標（固定）';
 
   @override
   String get finish => '完成';

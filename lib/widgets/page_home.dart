@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'dart:math';
 import 'widget_star_showDialog.dart';
 import 'package:app_situational_coach/l10n/app_localizations.dart';
+import 'page_journey_back_cover.dart';
 
 class Pagehome extends StatelessWidget {
   const Pagehome({super.key});

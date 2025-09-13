@@ -37,9 +37,9 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
 
       // 若換到最後一頁 設定該頁為已完成
-      if (_currentIndex == _pages.length - 2) {
-        Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
-      }
+      // if (_currentIndex == _pages.length - 2) {
+      //   Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+      // }
     }
   }
 
@@ -110,6 +110,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                           if (_currentIndex == _pages.length - 1) {
                             Provider.of<JourneyStatusNotifier>(context, listen: false)
                                 .setIsPass();
+                            _nextPage();
                           }
                         },
                         itemBuilder: (context, index) {
@@ -123,26 +124,28 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                               alignment: isDescription
                                   ? Alignment.topLeft
                                   : Alignment.center,
-                              child: Text(
-                                _pages[index],
-                                textAlign: isDescription
-                                    ? TextAlign.left
-                                    : TextAlign.center,
-                                style: GoogleFonts.caveat(
-                                  fontSize: isDescription
-                                      ? screenWidth * 0.07
-                                      : screenWidth * 0.13,
-                                  fontWeight: isDescription
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  shadows: [
-                                    Shadow(
-                                        blurRadius: 6,
-                                        offset: Offset(1, 1),
-                                        color: Colors.black45)
-                                  ],
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  _pages[index],
+                                  textAlign: isDescription
+                                      ? TextAlign.left
+                                      : TextAlign.center,
+                                  style: GoogleFonts.caveat(
+                                    fontSize: isDescription
+                                        ? screenWidth * 0.07
+                                        : screenWidth * 0.12,
+                                    fontWeight: isDescription
+                                        ? FontWeight.normal
+                                        : FontWeight.bold,
+                                    color: Colors.white,
+                                    letterSpacing: 0.5,
+                                    shadows: [
+                                      Shadow(
+                                          blurRadius: 6,
+                                          offset: Offset(1, 1),
+                                          color: Colors.black45)
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

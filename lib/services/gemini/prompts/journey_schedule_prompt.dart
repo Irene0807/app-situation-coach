@@ -38,7 +38,7 @@ The schedule must strictly follow this format for each day:
 Use friendly and clear language, and make sure the content is:
 - Practical and realistic (avoid fantasy or unrelated content unless the companion is magical)
 - Focused on English learning through activities (e.g., shopping, ordering food, asking directions, talking to locals)
-- Each day must include 2 to 4 scenes
+- Each day must include 2 to 3 scenes
 - Each scene should be distinct and meaningful, not filler
 
 Here is the journey plan:
