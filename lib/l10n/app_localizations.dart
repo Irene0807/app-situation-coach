@@ -155,8 +155,8 @@ abstract class AppLocalizations {
   /// page_journey_add_correct.dart
   ///
   /// In en, this message translates to:
-  /// **'Day'**
-  String get day;
+  /// **'Day (Fixed)'**
+  String get day_fixed;
 
   /// page_journey_add_correct.dart + widget_star_showDialog.dart
   ///
@@ -173,8 +173,8 @@ abstract class AppLocalizations {
   /// page_journey_add_correct.dart
   ///
   /// In en, this message translates to:
-  /// **'Learning Goal'**
-  String get learning_goal;
+  /// **'Learning Goal (Fixed)'**
+  String get learning_goal_fixed;
 
   /// page_journey_add_correct.dart
   ///

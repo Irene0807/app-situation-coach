@@ -1,15 +1,14 @@
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:app_situational_coach/services/authentication.dart';
 import 'package:app_situational_coach/services/database.dart';
+import 'package:app_situational_coach/states/journey_list_notifier.dart';
 import 'package:app_situational_coach/states/user_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'services/navigation.dart';
-import 'states/character_notifier.dart';
-import 'states/conversation_notifier.dart';
-import 'states/journey_list_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
@@ -27,9 +26,8 @@ final theme = ThemeData(
 );
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
   // Defer the first frame until `FlutterNativeSplash.remove()` is called
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Make sure you have your Firebase options configured
@@ -45,20 +43,40 @@ void main() async {
   UserRepository userRepository =
       UserRepository(authService: authService, dbService: dbService);
 
+  // Initialize states
+  UserNotifier userNotifier = UserNotifier(userRepository);
+
+  // determine initial path
+  String path = '/auth';
+  final currentUserId = userNotifier.getCurrentUserId();
+  if (currentUserId != null) {
+    try {
+      await userNotifier.loadUserData();
+      if (userNotifier.user != null && userNotifier.user!.isAccountCreated) {
+        path = '/home';
+      } else {
+        path = '/create_account';
+      }
+    } catch (e) {
+      path = '/auth'; // 讀取失敗回到登入
+    }
+  }
+  GoRouter router = getRouterConfig(path);
+
   runApp(
     MultiProvider(
       providers: [
         // ChangeNotifierProvider(create: (_) => CharacterNotifier()),
         // ChangeNotifierProvider(create: (_) => ConversationNotifier()),
         // ChangeNotifierProvider(create: (_) => SettingNotifier()),
-        ChangeNotifierProvider(
-            create: (_) => JourneyListNotifier()..addAll(dummyJourneys)),
 
         ChangeNotifierProvider<UserNotifier>(
-          create: (_) => UserNotifier(userRepository),
+          create: (_) => userNotifier,
         ),
+        ChangeNotifierProvider<JourneyListNotifier>(
+            create: (_) => JourneyListNotifier(userRepository)),
       ],
-      child: const App(),
+      child: App(router: router),
     ),
   );
 
@@ -67,13 +85,15 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final GoRouter router;
+
+  const App({required this.router, super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       theme: theme,
-      routerConfig: routerConfig,
+      routerConfig: router,
       restorationScopeId: 'app',
       // UI語言 系統語言中文->中文 系統語言其他->英文
       localizationsDelegates: AppLocalizations.localizationsDelegates,

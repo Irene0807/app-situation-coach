@@ -1,6 +1,4 @@
 import 'package:app_situational_coach/models/account_data.dart';
-import 'package:app_situational_coach/models/journey.dart';
-import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/user.dart';
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class UserNotifier extends ChangeNotifier {
   final UserRepository userRepository;
-
   UserData? user;
 
   UserNotifier(this.userRepository);
@@ -20,8 +17,7 @@ class UserNotifier extends ChangeNotifier {
       password: password,
     );
 
-    user = UserData(account: account.trim());
-    notifyListeners();
+    await loadUserData();
   }
 
   Future<void> signUp(String account, String password) async {
@@ -30,29 +26,46 @@ class UserNotifier extends ChangeNotifier {
       password: password,
     );
 
-    user = UserData(account: account.trim());
-    notifyListeners();
+    await loadUserData();
   }
 
   Future<void> logout() async {
     await userRepository.logout();
-  }
 
-  Future<void> submitAccountData(AccountData accountData) async {
-    await userRepository.setAccountData(accountData: accountData);
-  }
-
-  Future<void> uploadJourney(Journey journey) async {
-    await userRepository.setJourneyData(journey: journey);
-  }
-
-  Future<void> initializeSceneContent(
-      String journeyId, String sceneId, Scene scene) async {
-    await userRepository.setPreSceneContent(
-        journeyId: journeyId, sceneId: sceneId, scene: scene);
+    user = null;
+    notifyListeners();
   }
 
   String? getCurrentUserId() {
     return userRepository.getCurrentUserId();
+  }
+
+  Future<void> submitAccountData(AccountData accountData) async {
+    await userRepository.setAccountData(accountData: accountData);
+
+    // isAccountCreated在本地其實沒用 就不更新本地資料了
+
+    // user!.isAccountCreated = true;
+    // notifyListeners();
+  }
+
+  Future<void> updateSetting(
+      String nationality, bool darkMode, bool isNotificationOn) async {
+    await userRepository.updateSetting(
+        nationality: nationality,
+        darkMode: darkMode,
+        isNotificationOn: isNotificationOn);
+
+    if (user != null) {
+      user!.nationality = nationality;
+      user!.darkMode = darkMode;
+      user!.isNotificationOn = isNotificationOn;
+    }
+    notifyListeners();
+  }
+
+  Future<void> loadUserData() async {
+    user = await userRepository.getUserData();
+    notifyListeners();
   }
 }

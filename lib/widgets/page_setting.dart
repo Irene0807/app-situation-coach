@@ -1,3 +1,4 @@
+import 'package:app_situational_coach/states/journey_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../states/user_notifier.dart';
@@ -15,16 +16,22 @@ class _PageSettingState extends State<PageSetting> {
   bool isEditing = false;
   late TextEditingController textController;
 
-  // 要換成db資料
-  String nationality = 'Taiwan';
-  bool darkMode = false;
-  bool isNotificationOn = true;
+  late String account;
+  late String nationality;
+  late bool darkMode;
+  late bool isNotificationOn;
 
   @override
   void initState() {
     super.initState();
     final userNotifier = context.read<UserNotifier>();
-    textController = TextEditingController(text: '待db匯入');
+    if (userNotifier.user != null) {
+      account = userNotifier.user!.account;
+      nationality = userNotifier.user!.nationality;
+      darkMode = userNotifier.user!.darkMode;
+      isNotificationOn = userNotifier.user!.isNotificationOn;
+    }
+    textController = TextEditingController(text: account);
   }
 
   @override
@@ -35,8 +42,8 @@ class _PageSettingState extends State<PageSetting> {
 
   // 這個寫法可能不太好 起碼之後要加上logout時的loading狀態什麼的...
   void logout() async {
-    final user = Provider.of<UserNotifier>(context, listen: false);
-    await user.logout();
+    Provider.of<JourneyListNotifier>(context, listen: false).reset();
+    await Provider.of<UserNotifier>(context, listen: false).logout();
     if (mounted) context.go('/auth');
   }
 
@@ -53,7 +60,8 @@ class _PageSettingState extends State<PageSetting> {
                 Icon(isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: () {
               if (isEditing) {
-                // user.setUser(id: user.userId, name: textController.text);
+                Provider.of<UserNotifier>(context, listen: false)
+                    .updateSetting(nationality, darkMode, isNotificationOn);
               }
               setState(() {
                 isEditing = !isEditing;
@@ -80,24 +88,27 @@ class _PageSettingState extends State<PageSetting> {
                 child: TextField(
                   controller: textController,
                   maxLength: 20,
-                  enabled: isEditing,
+                  // enabled: isEditing,
+                  enabled: false,
                   textInputAction: TextInputAction.done,
                   style: TextStyle(
-                    color: isEditing ? Colors.grey : Colors.black,
+                    // color: isEditing ? Colors.grey : Colors.black,
+                    color: Colors.black,
                   ),
                   decoration: InputDecoration(
                     labelText: 'User Name',
                     labelStyle: TextStyle(
-                      color: isEditing ? Colors.grey : Colors.black,
+                      // color: isEditing ? Colors.grey : Colors.black,
+                      color: Colors.black,
                     ),
                     counterText: '',
                     border: const OutlineInputBorder(),
                   ),
-                  onSubmitted: (val) {
-                    if (isEditing) {
-                      // user.setUser(id: user.userId, name: val);
-                    }
-                  },
+                  // onSubmitted: (val) {
+                  //   if (isEditing) {
+                  //     // user.setUser(id: user.userId, name: val);
+                  //   }
+                  // },
                 ),
               ),
             ],
@@ -107,8 +118,7 @@ class _PageSettingState extends State<PageSetting> {
 
           ListTile(
             leading: const Icon(Icons.account_circle),
-            title: Text(
-                '待db匯入'), // 'User ID: ${user.userId.isNotEmpty ? user.userId : "Not logged in"}'
+            title: Text(account),
             subtitle: const Text('Account linked with your profile'),
             trailing: TextButton(
               onPressed: () => logout(),

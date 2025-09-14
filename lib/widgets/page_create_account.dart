@@ -46,7 +46,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       // 最後一頁 => UserNotifier 改成已註冊，開始主畫面
       final user = Provider.of<UserNotifier>(context, listen: false);
       user.submitAccountData(accountData);
-      context.go('/');
+      context.go('/home');
     }
   }
 
@@ -478,7 +478,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
       "Harry Potter",
       "English Girl",
       "American Boy",
-      "Teahcer",
+      "Teacher",
     ];
 
     return _buildPage(

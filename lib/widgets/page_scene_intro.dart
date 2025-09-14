@@ -10,7 +10,8 @@ class PageSceneIntro extends StatefulWidget {
   final IntroContent introContent;
   final Journey journey;
 
-  const PageSceneIntro({required this.introContent, required this.journey, super.key});
+  const PageSceneIntro(
+      {required this.introContent, required this.journey, super.key});
 
   @override
   State<PageSceneIntro> createState() => _PageSceneIntroState();
@@ -37,9 +38,9 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
 
       // 若換到最後一頁 設定該頁為已完成
-      // if (_currentIndex == _pages.length - 2) {
-      //   Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
-      // }
+      if (_currentIndex == _pages.length - 2) {
+        Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+      }
     }
   }
 
@@ -87,7 +88,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
               child: SizedBox(
                 width: screenWidth * 0.95,
                 height: screenHeight * 0.7,
-                child:Stack(
+                child: Stack(
                   // 黑板內的細節操作
                   children: [
                     Align(
@@ -108,9 +109,9 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                             _currentIndex = index;
                           });
                           if (_currentIndex == _pages.length - 1) {
-                            Provider.of<JourneyStatusNotifier>(context, listen: false)
+                            Provider.of<JourneyStatusNotifier>(context,
+                                    listen: false)
                                 .setIsPass();
-                            _nextPage();
                           }
                         },
                         itemBuilder: (context, index) {
@@ -124,28 +125,26 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                               alignment: isDescription
                                   ? Alignment.topLeft
                                   : Alignment.center,
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  _pages[index],
-                                  textAlign: isDescription
-                                      ? TextAlign.left
-                                      : TextAlign.center,
-                                  style: GoogleFonts.caveat(
-                                    fontSize: isDescription
-                                        ? screenWidth * 0.07
-                                        : screenWidth * 0.12,
-                                    fontWeight: isDescription
-                                        ? FontWeight.normal
-                                        : FontWeight.bold,
-                                    color: Colors.white,
-                                    letterSpacing: 0.5,
-                                    shadows: [
-                                      Shadow(
-                                          blurRadius: 6,
-                                          offset: Offset(1, 1),
-                                          color: Colors.black45)
-                                    ],
-                                  ),
+                              child: Text(
+                                _pages[index],
+                                textAlign: isDescription
+                                    ? TextAlign.left
+                                    : TextAlign.center,
+                                style: GoogleFonts.caveat(
+                                  fontSize: isDescription
+                                      ? screenWidth * 0.07
+                                      : screenWidth * 0.13,
+                                  fontWeight: isDescription
+                                      ? FontWeight.normal
+                                      : FontWeight.bold,
+                                  color: Colors.white,
+                                  letterSpacing: 0.5,
+                                  shadows: [
+                                    Shadow(
+                                        blurRadius: 6,
+                                        offset: Offset(1, 1),
+                                        color: Colors.black45)
+                                  ],
                                 ),
                               ),
                             ),
@@ -193,7 +192,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                                     ),
                                   ],
                                 ),
-                              ) 
+                              )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -205,7 +204,6 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                       ),
                   ],
                 ),
-
               ),
             ),
             Align(
@@ -230,7 +228,16 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
 
   Widget _buildChoiceButton(String label, Color color) {
     return ElevatedButton(
-      onPressed: _nextPage,
+      onPressed: () {
+        _nextPage();
+        if (label == "O") {
+          Provider.of<JourneyStatusNotifier>(context, listen: false)
+              .appendResponses(true);
+        } else {
+          Provider.of<JourneyStatusNotifier>(context, listen: false)
+              .appendResponses(false);
+        }
+      },
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         foregroundColor: Colors.white,
@@ -243,7 +250,4 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
       ),
     );
   }
-
 }
-
-

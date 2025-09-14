@@ -35,8 +35,8 @@
     "@journey_name": {
         "description": "page_journey_add_correct.dart"
     },
-    "day": "Day",
-    "@day": {
+    "day_fixed": "Day (Fixed)",
+    "@day_fixed": {
         "description": "page_journey_add_correct.dart"
     },
     "character": "Character",
@@ -47,8 +47,8 @@
     "@journey_description": {
         "description": "page_journey_add_correct.dart"
     },
-    "learning_goal": "Learning Goal",
-    "@learning_goal": {
+    "learning_goal_fixed": "Learning Goal (Fixed)",
+    "@learning_goal_fixed": {
         "description": "page_journey_add_correct.dart"
     },
     "finish": "Finish",

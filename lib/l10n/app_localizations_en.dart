@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get go_back => 'Go Back';
 
   @override
-  String get describe_your_journey_here => 'describe your journey her\n (e.g., characters,locations)';
+  String get describe_your_journey_here => 'describe your journey here';
 
   @override
   String get lets_go => 'Let\'s Go';
@@ -37,7 +37,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journey_name => 'Journey Name';
 
   @override
-  String get day => 'Day (Fixed)';
+  String get day_fixed => 'Day (Fixed)';
 
   @override
   String get character => 'Character';
@@ -46,7 +46,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journey_description => 'Journey Description';
 
   @override
-  String get learning_goal => 'Learning Goal (Fixed)';
+  String get learning_goal_fixed => 'Learning Goal (Fixed)';
 
   @override
   String get finish => 'Finish';

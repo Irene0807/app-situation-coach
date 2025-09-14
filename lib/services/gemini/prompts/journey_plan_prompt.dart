@@ -16,7 +16,7 @@ Journey Format:
 
 <<Journey Name>>
 <<Number of Days, contains only numbers>>
-<<Companion, only one person, choose from: Trump, Teacher, American boy, English girl, Harry Potter>>
+<<Companion, only one person, choose from: "Trump", "Teacher", "American Boy", "English Girl", "Harry Potter">>
 <<Simple description of the journey: include only key locations and activities, avoid detailed explanations or daily schedules>>
 <<Learning goals: describe how the journey helps improve English, such as vocabulary focus, speaking practice, listening to different accents, cultural understanding, etc.>>
 

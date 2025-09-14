@@ -100,7 +100,7 @@ class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.day,
+                          AppLocalizations.of(context)!.day_fixed,
                           style: const TextStyle(color: Colors.white70, fontSize: 12),
                         ),
                         const SizedBox(height: 1),
@@ -169,7 +169,7 @@ class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.learning_goal,
+                          AppLocalizations.of(context)!.learning_goal_fixed,
                           style: const TextStyle(color: Colors.white70, fontSize: 12),
                         ),
                         const SizedBox(height: 1),

@@ -8,7 +8,7 @@ class Journey {
   final String character;
   final String description; // 使用者希望的旅行地點、內容
   final String learningGoal; // 使用者希望的學習內容
-  final List<Day> schedule;
+  List<Day> schedule;
   int bloomLevel; // 使用者在這個旅行中的bloom等級 預設每個旅程的bloom不同
   JourneyStatus status;
   final String group;

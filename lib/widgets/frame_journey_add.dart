@@ -146,23 +146,19 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
 
       // 上傳db
       if (!mounted) return;
-      await Provider.of<UserNotifier>(context, listen: false)
-          .uploadJourney(journey);
+      await Provider.of<JourneyListNotifier>(context, listen: false)
+          .addJourney(journey);
 
       // 先跑好第一個scene的Content
       await schedule[0].scenes[0].generateAllContent(journey: journey);
 
       // 上傳db
       if (!mounted) return;
-      await Provider.of<UserNotifier>(context, listen: false)
-          .initializeSceneContent(
+      await Provider.of<JourneyListNotifier>(context, listen: false)
+          .uploadPreSceneContent(
               journey.id, schedule[0].scenes[0].id, schedule[0].scenes[0]);
 
-      if (!mounted) return;
-      Provider.of<JourneyListNotifier>(context, listen: false)
-          .addJourney(journey);
-
-      context.pop(); // 返回上一頁
+      if (mounted) context.pop(); // 返回上一頁
     });
   }
 

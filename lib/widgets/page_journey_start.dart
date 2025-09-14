@@ -20,7 +20,7 @@ class PageJourneyStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final journeys =
-        getCompletedJourneys(context.watch<JourneyListNotifier>().journeys);
+        getCompletedJourneys(context.watch<JourneyListNotifier>().journeys!);
 
     return Scaffold(
         body: Stack(children: [

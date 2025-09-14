@@ -30,6 +30,9 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
     setState(() {
       selectedAnswers[questionIndex] = selectedOption;
     });
+    // 儲存答案
+    Provider.of<JourneyStatusNotifier>(context, listen: false)
+        .appendAnswerIds(selectedOption);
   }
 
   void _handleButtonPress(int questionIndex) {

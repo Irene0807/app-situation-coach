@@ -32,7 +32,6 @@ class UserRepository {
         email: '$account@gmail.com', password: password);
     final data = {
       'account': account,
-      'isLogin': true,
       'isAccountCreated': false,
       'nationality': 'Taiwan',
       'darkMode': false,
@@ -47,19 +46,10 @@ class UserRepository {
   }) async {
     await authService.signInWithEmailPassword(
         email: '$account@gmail.com', password: password);
-    await dbService.setDocument(
-      ['users', getCurrentUserId()!],
-      {'isLogin': true},
-    );
   }
 
   Future<void> logout() async {
     if (getCurrentUserId() != null) {
-      await dbService.setDocument(
-        ['users', getCurrentUserId()!],
-        {'isLogin': false}, // 取消login狀態
-      );
-
       await authService.signOut();
     }
   }
@@ -151,6 +141,24 @@ class UserRepository {
             'learningTheme': scene.learningTheme,
           }
     ]);
+  }
+
+  Future<void> updateJourneyStatus({
+    required String journeyId,
+    required JourneyStatus status,
+  }) async {
+    await dbService.setDocument([
+      'users',
+      getCurrentUserId()!,
+      'journeys',
+      journeyId
+    ], {
+      'status': {
+        'day': status.day,
+        'scene': status.scene,
+        'mode': status.mode,
+      },
+    });
   }
 
   Future<void> setPreSceneContent({
@@ -256,8 +264,8 @@ class UserRepository {
     ]);
 
     UserData user = UserData(
-        account: userData!['account'],
-        isLogin: userData['isLogin'],
+        account: (userData!['account'] as String)
+            .replaceFirst("@gmail.com", ""), //@gmail.com 去掉
         isAccountCreated: userData['isAccountCreated'],
         // accountData: userData['accountData'], // 反正之後用不到
         nationality: userData['nationality'],

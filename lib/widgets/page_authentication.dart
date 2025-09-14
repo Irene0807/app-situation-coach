@@ -44,7 +44,7 @@ class _PageAuthenticationState extends State<PageAuthentication>
       } else {
         // Sign up
         await userNotifier.signUp(_account, _password);
-        if (mounted) context.go('/auth/create_account');
+        if (mounted) context.go('/create_account');
       }
     } catch (e) {
       debugPrint("Auth error: $e");

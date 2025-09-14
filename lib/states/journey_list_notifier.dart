@@ -1,34 +1,48 @@
+import 'package:app_situational_coach/models/scene.dart';
+import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import '../models/journey.dart';
 
 class JourneyListNotifier extends ChangeNotifier {
-  final List<Journey> _journeys = [];
+  final UserRepository userRepository;
+  List<Journey>? journeys;
+  bool loading = true;
 
-  List<Journey> get journeys => List.unmodifiable(_journeys);
+  JourneyListNotifier(this.userRepository) {
+    loadJourneys();
+  }
 
-  void addJourney(Journey journey) {
-    _journeys.add(journey);
+  Future<void> addJourney(Journey journey) async {
+    await userRepository.setJourneyData(journey: journey);
+
+    journeys!.add(journey);
     notifyListeners();
   }
 
-  void markAsCompleted(String journeyId) {
-    final index = _journeys.indexWhere((j) => j.id == journeyId);
-    if (index != -1) {
-      _journeys[index].status.makeCompleted();
-      notifyListeners();
-    }
+  // 為了新增第一個scene的content
+  Future<void> uploadPreSceneContent(
+      String journeyId, String sceneId, Scene scene) async {
+    await userRepository.setPreSceneContent(
+        journeyId: journeyId, sceneId: sceneId, scene: scene);
   }
 
-  void addAll(List<Journey> journeys) {
-    _journeys.addAll(journeys);
+  Future<void> loadJourneys() async {
+    journeys = await userRepository.getJourneys();
+    loading = false;
     notifyListeners();
   }
 
   Journey? getById(String id) {
     try {
-      return _journeys.firstWhere((j) => j.id == id);
+      return journeys!.firstWhere((j) => j.id == id);
     } catch (e) {
       return null;
     }
+  }
+
+  void reset() {
+    journeys = null;
+    loading = true;
+    notifyListeners();
   }
 }
