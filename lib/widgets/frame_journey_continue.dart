@@ -35,86 +35,97 @@ class FrameJourneyContinue extends StatelessWidget {
   // 這個function有不少優化空間吧...
   Future<void> goNextPage(BuildContext context, JourneyStatusNotifier notifier,
       FrameJourneyContinueTab currentTab) async {
+    // journey status先訂死
+    JourneyStatus fixedStatus = JourneyStatus(
+        day: notifier.journey.status.day,
+        scene: notifier.journey.status.scene,
+        mode: notifier.journey.status.mode);
+
     // 把目前頁面內容跟新到db
     switch (currentTab) {
-      case FrameJourneyContinueTab.sceneCover:
-        // 清除暫存資料
-        notifier.cleanTmpData();
-        // 到了scene cover但scene還沒準備好
-        if (notifier.getSceneReady() == false) {
-          // 生成 content
-          await notifier.journey.schedule[notifier.journey.status.day - 1]
-              .scenes[notifier.journey.status.scene - 1]
-              .generateAllContent(journey: notifier.journey);
-
-          // 上傳db
-          await notifier.uploadPreSceneContent(
-              notifier.journey.schedule[notifier.journey.status.day - 1]
-                  .scenes[notifier.journey.status.scene - 1].id,
-              notifier.journey.schedule[notifier.journey.status.day - 1]
-                  .scenes[notifier.journey.status.scene - 1]);
-        }
-        break;
       case FrameJourneyContinueTab.sceneIntro:
-        await notifier.uploadSceneIntro(notifier
-            .journey
-            .schedule[notifier.journey.status.day - 1]
-            .scenes[notifier.journey.status.scene - 1]
-            .id);
+        await notifier.uploadSceneIntro(notifier.journey
+            .schedule[fixedStatus.day - 1].scenes[fixedStatus.scene - 1].id);
         break;
       case FrameJourneyContinueTab.sceneConversation:
         await notifier.uploadSceneConversation(
-            notifier.journey.schedule[notifier.journey.status.day - 1]
-                .scenes[notifier.journey.status.scene - 1].id,
-            notifier
-                .journey
-                .schedule[notifier.journey.status.day - 1]
-                .scenes[notifier.journey.status.scene - 1]
-                .conversationContent!
-                .messages);
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene - 1].id,
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene - 1].conversationContent!.messages);
         break;
       case FrameJourneyContinueTab.sceneSummary:
-        await notifier.uploadSceneSummary(notifier
-            .journey
-            .schedule[notifier.journey.status.day - 1]
-            .scenes[notifier.journey.status.scene - 1]
-            .id);
+        await notifier.uploadSceneSummary(notifier.journey
+            .schedule[fixedStatus.day - 1].scenes[fixedStatus.scene - 1].id);
         break;
       default:
         break;
     }
 
+    // 換頁
     if (await notifier.goNextStatus() == false && context.mounted) {
-      context.pop();
+      context.pop(); // 若抵達最後一頁 離開
     }
 
-    // 預先成下一個scene的content (如果有的話)
+    // 處理scene的生成
     if (currentTab == FrameJourneyContinueTab.sceneCover) {
-      if (notifier.journey.status.scene <
-          notifier.journey.schedule[notifier.journey.status.day - 1].scenes
-              .length) {
-        // 生成 content
-        await notifier.journey.schedule[notifier.journey.status.day - 1]
-            .scenes[notifier.journey.status.scene]
-            .generateAllContent(journey: notifier.journey);
+      //
+      // ******** 先處理當前scene的生成問題 ********
+      //
 
+      // 清除暫存資料
+      notifier.cleanTmpData();
+      // 到了scene cover但scene還沒準備好
+      if (notifier.getSceneReady() == false &&
+          notifier.isSceneGenerating == false) {
+        // 標示生成中
+        notifier.setIsSceneGenerating(true);
+        // 生成 content
+        await notifier
+            .journey.schedule[fixedStatus.day - 1].scenes[fixedStatus.scene - 1]
+            .generateAllContent(journey: notifier.journey);
         // 上傳db
         await notifier.uploadPreSceneContent(
-            notifier.journey.schedule[notifier.journey.status.day - 1]
-                .scenes[notifier.journey.status.scene].id,
-            notifier.journey.schedule[notifier.journey.status.day - 1]
-                .scenes[notifier.journey.status.scene]);
-      } else if (notifier.journey.status.day <
-          notifier.journey.schedule.length) {
-        // 生成 content
-        await notifier.journey.schedule[notifier.journey.status.day].scenes[0]
-            .generateAllContent(journey: notifier.journey);
-
-        // 上傳db
-        await notifier.uploadPreSceneContent(
-            notifier.journey.schedule[notifier.journey.status.day].scenes[0].id,
-            notifier.journey.schedule[notifier.journey.status.day].scenes[0]);
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene - 1].id,
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene - 1]);
+        // 標示生成結束
+        notifier.setIsSceneGenerating(false);
       }
+
+      // 解除loading狀態
+      notifier.setLoading();
+
+      //
+      // ******** 再處理下一個scene的生成問題 ********
+      //
+
+      // 標示生成中
+      notifier.setIsSceneGenerating(true);
+      if (fixedStatus.scene <
+          notifier.journey.schedule[fixedStatus.day - 1].scenes.length) {
+        // 生成 content
+        await notifier
+            .journey.schedule[fixedStatus.day - 1].scenes[fixedStatus.scene]
+            .generateAllContent(journey: notifier.journey);
+        // 上傳db
+        await notifier.uploadPreSceneContent(
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene].id,
+            notifier.journey.schedule[fixedStatus.day - 1]
+                .scenes[fixedStatus.scene]);
+      } else if (fixedStatus.day < notifier.journey.schedule.length) {
+        // 生成 content
+        await notifier.journey.schedule[fixedStatus.day].scenes[0]
+            .generateAllContent(journey: notifier.journey);
+        // 上傳db
+        await notifier.uploadPreSceneContent(
+            notifier.journey.schedule[fixedStatus.day].scenes[0].id,
+            notifier.journey.schedule[fixedStatus.day].scenes[0]);
+      }
+      // 標示生成結束
+      notifier.setIsSceneGenerating(false);
     }
   }
 

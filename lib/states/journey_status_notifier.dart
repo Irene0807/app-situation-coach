@@ -1,15 +1,16 @@
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/models/message.dart';
 import 'package:app_situational_coach/models/scene.dart';
-import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 
 class JourneyStatusNotifier extends ChangeNotifier {
   final UserRepository userRepository;
   final Journey journey;
+
   bool isPass = false; // 僅有sceneDetail會看isPass決定換頁button是否出現
   bool loading = true;
+  bool isSceneGenerating = false;
 
   // 暫存data
   List<bool> tmpResponses = [];
@@ -22,8 +23,19 @@ class JourneyStatusNotifier extends ChangeNotifier {
     loadSchedule();
   }
 
-  JourneyStatus getStatus() {
-    return journey.status;
+  void setIsPass() {
+    isPass = true;
+    notifyListeners();
+  }
+
+  void setLoading() {
+    loading = false;
+    notifyListeners();
+  }
+
+  void setIsSceneGenerating(bool value) {
+    isSceneGenerating = value;
+    notifyListeners();
   }
 
   bool getSceneReady() {
@@ -52,17 +64,13 @@ class JourneyStatusNotifier extends ChangeNotifier {
     // 使用goNextStatus後
     bool b = journey.status.goNextStatus(journey); // 回傳是否有下一頁
     isPass = false; // 重製isPass
+    loading = true; // 重製loading
     // status丟db
     await userRepository.updateJourneyStatus(
         journeyId: journey.id, status: journey.status);
     // 通知UI更新
     notifyListeners();
     return b;
-  }
-
-  void setIsPass() {
-    isPass = true;
-    notifyListeners();
   }
 
   Future<void> uploadPreSceneContent(String sceneId, Scene scene) async {
