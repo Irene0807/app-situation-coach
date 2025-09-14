@@ -9,6 +9,7 @@ import 'agents/bloom_evaluator.dart';
 import 'agents/character_evaluator.dart';
 import '../../models/journey.dart';
 import '../../models/scene.dart';
+import 'package:app_situational_coach/data/dummy_data.dart';
 
 /*
 ScriptGenerator:
@@ -63,7 +64,7 @@ class ScriptGenerator {
         theme: theme!,
         topic: topic!,
         bloomLevel: userBloomLevel,
-        character: character,
+        character: characters.firstWhere((c) => c.name.en == character),
         feedback: feedback,
       );
 

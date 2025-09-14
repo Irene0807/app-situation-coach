@@ -50,7 +50,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       !isTalking &&
       botTextSegments.isNotEmpty &&
       currentSegmentIndex >= botTextSegments.length &&
-      roundCount < 7;
+      roundCount < 7; //測測可改3
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   // 生成response => response_generator
   Future<void> handleResponse() async {
-    if (isTalking || roundCount >= 7 || responseGenerator == null) return;
+    if (isTalking || roundCount >= 7 || responseGenerator == null) return; //測測可改3
 
     final input = _controller.text.trim();
 
@@ -95,14 +95,14 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       botTextSegments = [];
     });
 
-    final isFinalRound = roundCount >= 6;
+    final isFinalRound = roundCount >= 6; //測測可改2
     final response = await responseGenerator!.generateResponse(
       input,
       isFinalRound: isFinalRound,
     );
     setState(() => roundCount++);
 
-    final text = (roundCount >= 7)
+    final text = (roundCount >= 7) //測測可改3
         ? '$response\n\nThat’s all for our chat today. See you later!'
         : response;
     _setBotText(text);
@@ -160,7 +160,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
             // 如果是最後一段最後一回合，觸發isPass
             if (currentSegmentIndex >= botTextSegments.length - 1 &&
-                roundCount >= 7 &&
+                roundCount >= 7 && //測測可改3
                 mounted) {
               print("[DEBUG] Trigger setIsPass()");
               Provider.of<JourneyStatusNotifier>(context, listen: false)

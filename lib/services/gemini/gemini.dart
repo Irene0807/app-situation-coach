@@ -14,6 +14,7 @@ import 'dart:math';
 class GeminiAuto {
   final List<String> apiKeys;
   final Random _random = Random();
+  DateTime _lastRequestTime = DateTime.fromMillisecondsSinceEpoch(0);
 
   GeminiAuto(this.apiKeys);
 
@@ -21,13 +22,27 @@ class GeminiAuto {
   int _pickRandomIndex() => _random.nextInt(apiKeys.length);
 
   // 正常對話版 gemini
-  Future<String> sendPrompt(String prompt, {String model = 'gemini-2.5-flash'}) async {
+  Future<String> sendPrompt(
+    String prompt, {
+    String model = 'gemini-2.5-flash',
+    int max503Retries = 1, // 503 超過1次就 fallback
+  }) async {
     int start = _pickRandomIndex();
-    
+    int error503Count = 0; // 算 503 次數
+
     for (int i = 0; i < apiKeys.length; i++) {
       final key = apiKeys[(start + i) % apiKeys.length];
       try {
-        print('[DEBUG] sendPrompt using key: $key');
+        print('[DEBUG] sendPrompt using key: $key (model=$model)');
+        // ---- 節流：確保兩次請求間隔 >= 500ms ----
+        final now = DateTime.now();
+        final diff = now.difference(_lastRequestTime);
+        if (diff.inMilliseconds < 500) {
+          final wait = 500 - diff.inMilliseconds;
+          print('[INFO] Throttling: wait ${wait}ms before next request');
+          await Future.delayed(Duration(milliseconds: wait));
+        }
+        _lastRequestTime = DateTime.now();
 
         final url = Uri.parse(
           'https://generativelanguage.googleapis.com/v1/models/$model:generateContent?key=$key',
@@ -49,6 +64,23 @@ class GeminiAuto {
         if (response.statusCode == 200) {
           final decoded = jsonDecode(response.body);
           return decoded['candidates'][0]['content']['parts'][0]['text'];
+        } else if (response.statusCode == 429) {
+          // 429: quota爆 換key
+          print('[WARN] 429 quota exceeded, switching key...');
+          continue;
+        } else if (response.statusCode == 503) {
+          // 503: service unavailable 累積cnt
+          error503Count++;
+          print('[WARN] 503 service unavailable (count=$error503Count)');
+          await Future.delayed(const Duration(seconds: 1));
+
+          if (error503Count >= max503Retries) {
+            // fallback 到另一個 model
+            final fallbackModel = 'gemini-1.5-flash';
+            print('[INFO] Too many 503 errors, switching to $fallbackModel');
+            return sendPrompt(prompt, model: fallbackModel);
+          }
+          continue; // 換 key 重試
         } else {
           throw Exception('Error: ${response.statusCode}');
         }
@@ -57,8 +89,9 @@ class GeminiAuto {
         await Future.delayed(const Duration(milliseconds: 200));
       }
     }
-    throw Exception("All keys failed for sendPrompt");
+    throw Exception("All keys failed for sendPrompt (model=$model)");
   }
+
 
   // Embedding 版 gemini
   Future<List<double>> getEmbedding(String text, {String model = 'models/text-embedding-004'}) async {

@@ -36,7 +36,7 @@ Example format:
 "That's a great point. I often feel the same. So what would you change if you had the chance?"
 "Haha I get what you mean. But if you were the shopkeeper, how would you stop people from doing that?"
 
-${isFinalRound ? 'Note: This is the final response of the session. Just give a natural reply to the user without asking any follow-up questions.' : ''}
+${isFinalRound ? 'IMPROTANT Note: This is the final response of the session. Just give a natural reply to the user without asking any follow-up questions.' : ''}
 
 Now generate your reply.
 

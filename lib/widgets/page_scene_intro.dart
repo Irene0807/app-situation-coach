@@ -38,9 +38,9 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
 
       // 若換到最後一頁 設定該頁為已完成
-      if (_currentIndex == _pages.length - 2) {
-        Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
-      }
+      // if (_currentIndex == _pages.length - 2) {
+      //   Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+      // }
     }
   }
 
@@ -108,14 +108,32 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                           setState(() {
                             _currentIndex = index;
                           });
-                          if (_currentIndex == _pages.length - 1) {
-                            Provider.of<JourneyStatusNotifier>(context,
-                                    listen: false)
-                                .setIsPass();
-                          }
                         },
                         itemBuilder: (context, index) {
                           final isDescription = index == 0;
+                          final textWidget = Text(
+                            _pages[index],
+                            textAlign: isDescription
+                                ? TextAlign.left
+                                : TextAlign.center,
+                            style: GoogleFonts.caveat(
+                              fontSize: isDescription
+                                  ? screenWidth * 0.07
+                                  : screenWidth * 0.13,
+                              fontWeight: isDescription
+                                  ? FontWeight.normal
+                                  : FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 0.5,
+                              shadows: [
+                                Shadow(
+                                    blurRadius: 6,
+                                    offset: Offset(1, 1),
+                                    color: Colors.black45)
+                              ],
+                            ),
+                          );
+
                           return Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: screenWidth * 0.12,
@@ -125,28 +143,11 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                               alignment: isDescription
                                   ? Alignment.topLeft
                                   : Alignment.center,
-                              child: Text(
-                                _pages[index],
-                                textAlign: isDescription
-                                    ? TextAlign.left
-                                    : TextAlign.center,
-                                style: GoogleFonts.caveat(
-                                  fontSize: isDescription
-                                      ? screenWidth * 0.07
-                                      : screenWidth * 0.13,
-                                  fontWeight: isDescription
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                  shadows: [
-                                    Shadow(
-                                        blurRadius: 6,
-                                        offset: Offset(1, 1),
-                                        color: Colors.black45)
-                                  ],
-                                ),
-                              ),
+                              child: isDescription
+                                  ? SingleChildScrollView(
+                                      child: textWidget,
+                                    ) // ✅ 加了滾動
+                                  : textWidget,
                             ),
                           );
                         },
@@ -175,32 +176,40 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                         bottom: screenHeight * 0.18,
                         left: 0,
                         right: 0,
-                        child: (_currentIndex == _pages.length - 1)
-                            ? Text(
-                                "\nLet's start!\nGo on to the next page!",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.05,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.white70,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 6,
-                                      offset: Offset(1, 1),
-                                      color: Colors.black45,
-                                    ),
-                                  ],
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_currentIndex == _pages.length - 1)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 100.0),
+                                child: Text(
+                                  "Let's start!\nGo on to the next page!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.05,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.white70,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 6,
+                                        offset: Offset(1, 1),
+                                        color: Colors.black45,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _buildChoiceButton("O", Colors.green),
-                                  const SizedBox(width: 24),
-                                  _buildChoiceButton("X", Colors.red),
-                                ],
                               ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildChoiceButton("O", Colors.green),
+                                const SizedBox(width: 24),
+                                _buildChoiceButton("X", Colors.red),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),
@@ -209,7 +218,11 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(
-                padding: EdgeInsets.all(screenWidth * 0.03),
+                padding: EdgeInsets.fromLTRB(
+                  screenWidth * 0.03, 
+                  screenWidth * 0.03, 
+                  screenWidth * 0.03, 
+                  screenHeight * 0.05,),
                 child: SizedBox(
                   height: screenHeight * 0.3,
                   child: CharacterWidget(
@@ -229,13 +242,17 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
   Widget _buildChoiceButton(String label, Color color) {
     return ElevatedButton(
       onPressed: () {
-        _nextPage();
         if (label == "O") {
           Provider.of<JourneyStatusNotifier>(context, listen: false)
               .appendResponses(true);
         } else {
           Provider.of<JourneyStatusNotifier>(context, listen: false)
               .appendResponses(false);
+        }
+        if (_currentIndex == _pages.length - 1) {
+          Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+        } else {
+          _nextPage();
         }
       },
       style: ElevatedButton.styleFrom(

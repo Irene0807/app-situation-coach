@@ -38,7 +38,7 @@ class _PageJourneyAddCorrectState extends State<PageJourneyAddCorrect> {
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.splitPlan['name']);
-    dayController = TextEditingController(text: "3");
+    dayController = TextEditingController(text: "3"); //測測可改1
     characterController = TextEditingController(text: widget.splitPlan['character']);
     descriptionController = TextEditingController(text: widget.splitPlan['description']);
     learningGoalController = TextEditingController(text: "Food");

@@ -185,7 +185,7 @@ class PageJourneyStart extends StatelessWidget {
 
             // add journey button
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 5),
               child: Container(
                 width: 330,
                 decoration: BoxDecoration(
@@ -243,7 +243,7 @@ class PageJourneyStart extends StatelessWidget {
 
             // go back button
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 64),
               child: Container(
                 width: 330,
                 decoration: BoxDecoration(

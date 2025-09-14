@@ -99,13 +99,25 @@ class _FrameJourneyAddState extends State<FrameJourneyAdd>
                 "Too Weird!",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              content: const Text(
-                "Your journey idea is too weird.\n\n請勿：\n"
-                "- 選擇 Trump、Harry Potter\n"
-                "- 使用「奇怪的場景」\n"
-                "謝謝配合！",
-                style: TextStyle(fontSize: 16),
+              content: const Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Your journey idea is too weird.\n\n",
+                  ),
+                  TextSpan(
+                    text: "請勿：\n",
+                    style: TextStyle(fontWeight: FontWeight.bold), // 粗體
+                  ),
+                  TextSpan(
+                    text: "- 選擇 Trump、Harry Potter\n"
+                        "- 使用「奇怪的場景」\n"
+                        "謝謝配合！",
+                  ),
+                ],
               ),
+              style: TextStyle(fontSize: 16),
+            ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(ctx).pop(),

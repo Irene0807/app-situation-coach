@@ -22,6 +22,11 @@ final geminiA = GeminiAuto([
   'AIzaSyDmv_b_ny6B5EVswbueLl77qbA9rNfVuyI', //8
   'AIzaSyB2OxUCEEPWLVVyrspek6LxAE10GkSCoq0', //9
   'AIzaSyBnaUu1ltEDRGulrMKsSg6bscDlQV61aG8', //10
+  'AIzaSyA6Rgn1pItIMeErxOCZNYvObIDHKs3Aw84', //11
+  'AIzaSyBpnYXfalFctV6OAudQCBr3AQ6WpSkNWZY', //12
+  'AIzaSyAajSXig_RgesJMJ_IKZLiQYng4OybaWkE', //13
+  'AIzaSyC-pakQPAkEwCH__jKliiaE3HflrBQk2QA', //14
+  'AIzaSyC-pakQPAkEwCH__jKliiaE3HflrBQk2QA', //15
 
   // irene-2
   'AIzaSyC6iDJ6dQB5-5icbG9OxXmBBKOn3nnnEyA', //1

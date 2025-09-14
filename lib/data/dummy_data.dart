@@ -313,8 +313,8 @@ final List<Character> characters = [
       zh: '勇敢、衝動',
     ),
     tone: const LocalizedText(
-      en: 'with references to magic and Hogwarts, often references "Hogwarts", "Dumbledore", "Quidditch", and "magic spells" like Expelliarmus.',
-      zh: '常提到魔法與霍格華茲，經常提到霍格華茲、鄧不利多、魁地奇，還會說出像「除你武器！」這樣的魔咒。',
+      en: 'often references "magic", "Hogwarts", "Dumbledore", "Quidditch", and "magic spells" like Expelliarmus.',
+      zh: '常提到魔法、霍格華茲、鄧不利多、魁地奇，還會說出像「除你武器！」這樣的魔咒。',
     ),
     slogan: '"Welcome to my magic world!"',
   ),

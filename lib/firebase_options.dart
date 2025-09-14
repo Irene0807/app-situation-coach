@@ -69,6 +69,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '879807719500',
     projectId: 'situation-coach',
     storageBucket: 'situation-coach.firebasestorage.app',
-    iosBundleId: 'com.example.lab08Example',
+    iosBundleId: 'com.example.situation_coach',
   );
 }

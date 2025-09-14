@@ -43,7 +43,7 @@ class _PageCharacterState extends State<PageCharacter> {
             ),
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                const SizedBox(height: 85),
 
                 // 2. Title
                 Text(
@@ -55,7 +55,7 @@ class _PageCharacterState extends State<PageCharacter> {
                     shadows: [Shadow(color: Colors.black45, blurRadius: 4)],
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 0),
 
                 // 3. Character Card
                 Expanded(
@@ -75,7 +75,7 @@ class _PageCharacterState extends State<PageCharacter> {
                     },
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -92,7 +92,7 @@ class _PageCharacterState extends State<PageCharacter> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 70),
               ],
             ),
           ),
@@ -312,7 +312,7 @@ class _CharacterCardState extends State<CharacterCard>
           const SizedBox(height: 6),
           Text(character.tone.of(context),
               style: const TextStyle(fontSize: 15, height: 1.4)),
-
+  
           // 5. Slogan
           Expanded(
             child: Align(

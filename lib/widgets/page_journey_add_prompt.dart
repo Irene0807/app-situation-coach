@@ -73,7 +73,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 80),
+              padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 73),
               child: ElevatedButton(
                 onPressed: () {
                   onLetsGo(controller.text); // 傳入 TextField 內容
@@ -114,7 +114,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
 
           //go back button
           Positioned(
-            bottom: 40,
+            bottom: 70,
             left: 20,
             child: IconButton(
               icon: Icon(

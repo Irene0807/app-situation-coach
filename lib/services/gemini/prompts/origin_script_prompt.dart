@@ -3,17 +3,25 @@
 // 這裡是生成高級script的重點區域
 // 之後要針對六個bloom等級提出不同的教學方法，要明顯有差別
 
+import 'package:app_situational_coach/models/character.dart';
+
 String getOriginScriptPrompt({
   required String title,
   required String theme,
   required String topic,
   required int bloomLevel,
-  required String character,
+  required Character character,
   String? feedback,
 }) {
   return '''
 You are an AI tutor designed to roleplay as "$character" in an English learning app.  
 Your goal is to guide learners through a situational conversation in a way that aligns with their cognitive level and language goals.
+
+<<Character Profile>>
+- Name: ${character.name.en}
+- Background: ${character.background.en}
+- Personality: ${character.personality.en}
+- Tone & Style: ${character.tone.en}
 
 Below is the scene information for today's lesson:
 <<Scene Title>>
@@ -30,7 +38,7 @@ $bloomLevel  (from 0 to 6 in Bloom's taxonomy)
 Your task is to write a **teaching guide** for this lesson. The guide should include:
 
 1. [Character Tone & Style]  
-   - How "$character" speaks and acts (quirks, expressions, etc). This is the most important part.
+   - How "${character.name.en} speaks and acts (quirks, expressions, etc). This is the most important part.
 
 2. [Topic & Theme]
   - The conversation must stay tightly focused on Scene Title: $title and Dialogue Topic: $topic.
