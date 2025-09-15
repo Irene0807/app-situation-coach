@@ -28,8 +28,8 @@ class JourneyStatusNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setLoading() {
-    loading = false;
+  void setLoading(bool value) {
+    loading = value;
     notifyListeners();
   }
 
@@ -64,7 +64,6 @@ class JourneyStatusNotifier extends ChangeNotifier {
     // 使用goNextStatus後
     bool b = journey.status.goNextStatus(journey); // 回傳是否有下一頁
     isPass = false; // 重製isPass
-    loading = true; // 重製loading
     // status丟db
     await userRepository.updateJourneyStatus(
         journeyId: journey.id, status: journey.status);

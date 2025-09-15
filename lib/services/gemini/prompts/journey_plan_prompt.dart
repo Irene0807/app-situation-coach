@@ -10,7 +10,7 @@ Based on the user's input, generate a fictional journey plan that helps the user
 If the user's input is empty or null, create a random journey.
 
 The journey plan must follow the exact format below.
-Replace all text inside << >> with relevant content, but preserve the angle brackets.
+Replace all text inside << >> with relevant content, but preserve the brackets << >> .
 
 Journey Format:
 

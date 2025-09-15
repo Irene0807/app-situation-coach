@@ -35,28 +35,34 @@ class FrameJourneyContinue extends StatelessWidget {
   // 這個function有不少優化空間吧...
   Future<void> goNextPage(BuildContext context, JourneyStatusNotifier notifier,
       FrameJourneyContinueTab currentTab) async {
-    // journey status先訂死
-    JourneyStatus fixedStatus = JourneyStatus(
-        day: notifier.journey.status.day,
-        scene: notifier.journey.status.scene,
-        mode: notifier.journey.status.mode);
-
+    //  開啟loading狀態
+    notifier.setLoading(true);
     // 把目前頁面內容跟新到db
     switch (currentTab) {
       case FrameJourneyContinueTab.sceneIntro:
-        await notifier.uploadSceneIntro(notifier.journey
-            .schedule[fixedStatus.day - 1].scenes[fixedStatus.scene - 1].id);
+        await notifier.uploadSceneIntro(notifier
+            .journey
+            .schedule[notifier.journey.status.day - 1]
+            .scenes[notifier.journey.status.scene - 1]
+            .id);
         break;
       case FrameJourneyContinueTab.sceneConversation:
         await notifier.uploadSceneConversation(
-            notifier.journey.schedule[fixedStatus.day - 1]
-                .scenes[fixedStatus.scene - 1].id,
-            notifier.journey.schedule[fixedStatus.day - 1]
-                .scenes[fixedStatus.scene - 1].conversationContent!.messages);
+            notifier.journey.schedule[notifier.journey.status.day - 1]
+                .scenes[notifier.journey.status.scene - 1].id,
+            notifier
+                .journey
+                .schedule[notifier.journey.status.day - 1]
+                .scenes[notifier.journey.status.scene - 1]
+                .conversationContent!
+                .messages);
         break;
       case FrameJourneyContinueTab.sceneSummary:
-        await notifier.uploadSceneSummary(notifier.journey
-            .schedule[fixedStatus.day - 1].scenes[fixedStatus.scene - 1].id);
+        await notifier.uploadSceneSummary(notifier
+            .journey
+            .schedule[notifier.journey.status.day - 1]
+            .scenes[notifier.journey.status.scene - 1]
+            .id);
         break;
       default:
         break;
@@ -69,6 +75,12 @@ class FrameJourneyContinue extends StatelessWidget {
 
     // 處理scene的生成
     if (currentTab == FrameJourneyContinueTab.sceneCover) {
+      // journey status先訂死
+      JourneyStatus fixedStatus = JourneyStatus(
+          day: notifier.journey.status.day,
+          scene: notifier.journey.status.scene,
+          mode: notifier.journey.status.mode);
+
       //
       // ******** 先處理當前scene的生成問題 ********
       //
@@ -95,7 +107,7 @@ class FrameJourneyContinue extends StatelessWidget {
       }
 
       // 解除loading狀態
-      notifier.setLoading();
+      notifier.setLoading(false);
 
       //
       // ******** 再處理下一個scene的生成問題 ********
@@ -126,6 +138,9 @@ class FrameJourneyContinue extends StatelessWidget {
       }
       // 標示生成結束
       notifier.setIsSceneGenerating(false);
+    } else {
+      // 解除loading狀態
+      notifier.setLoading(false);
     }
   }
 
