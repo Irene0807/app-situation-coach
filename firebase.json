@@ -1,0 +1,29 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "situation-coach",
+          "appId": "1:879807719500:android:5cf921e9a2fef47167ece9",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "situation-coach",
+          "configurations": {
+            "android": "1:879807719500:android:5cf921e9a2fef47167ece9",
+            "ios": "1:879807719500:ios:264875783c69c71d67ece9",
+            "web": "1:879807719500:web:9e84e7274baed04e67ece9"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firebase.rule",
+    "indexes": "firestore.indexes.json"
+  }
+}

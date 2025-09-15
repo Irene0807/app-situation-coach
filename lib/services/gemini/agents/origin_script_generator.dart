@@ -2,6 +2,7 @@
 
 import '../gemini_instance.dart';
 import '../prompts/origin_script_prompt.dart';
+import '../../../models/character.dart';
 
 class OriginScriptGenerator {
 
@@ -10,7 +11,7 @@ class OriginScriptGenerator {
     required String theme,
     required String topic,
     required int bloomLevel,
-    required String character,
+    required Character character,
     String? feedback,
   }) async {
     final prompt = getOriginScriptPrompt(

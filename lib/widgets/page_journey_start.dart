@@ -2,12 +2,12 @@ import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../state/journey_list_notifier.dart';
+import '../states/journey_list_notifier.dart';
 import 'package:provider/provider.dart';
 import 'animations/twinkling_widget.dart';
 import 'animations/planet_staggered_animation.dart';
 import '../models/journey.dart';
-import '../widgets/widget_star_showDialog.dart';
+import 'widget_star_showDialog.dart';
 
 class PageJourneyStart extends StatelessWidget {
   const PageJourneyStart({super.key});
@@ -20,7 +20,7 @@ class PageJourneyStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final journeys =
-        getCompletedJourneys(context.watch<JourneyListNotifier>().journeys);
+        getCompletedJourneys(context.watch<JourneyListNotifier>().journeys!);
 
     return Scaffold(
         body: Stack(children: [
@@ -163,7 +163,7 @@ class PageJourneyStart extends StatelessWidget {
                                         } else {
                                           return GestureDetector(
                                             onTap: () =>
-                                                context.go('/journey/add'),
+                                                context.go('/home/journey/add'),
                                             child: Image.asset(
                                               'assets/images/add_planet.png',
                                               fit: BoxFit.cover,
@@ -185,7 +185,7 @@ class PageJourneyStart extends StatelessWidget {
 
             // add journey button
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 5),
               child: Container(
                 width: 330,
                 decoration: BoxDecoration(
@@ -220,11 +220,11 @@ class PageJourneyStart extends StatelessWidget {
                     elevation: 0,
                     foregroundColor: const Color(0xFF0D1B2A), // 太空藍
                   ),
-                  onPressed: () => context.go('/journey/add'),
+                  onPressed: () => context.go('/home/journey/add'),
                   child: Text(
                     AppLocalizations.of(context)!.create_new_journey,
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF0D1B2A), // 太空藍
                       letterSpacing: 0.5,
@@ -243,7 +243,7 @@ class PageJourneyStart extends StatelessWidget {
 
             // go back button
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 64),
               child: Container(
                 width: 330,
                 decoration: BoxDecoration(
@@ -278,7 +278,7 @@ class PageJourneyStart extends StatelessWidget {
                     elevation: 0,
                     foregroundColor: const Color(0xFFDDE2F0), // 銀灰白字
                   ),
-                  onPressed: () => context.go('/'),
+                  onPressed: () => context.go('/home'),
                   child: Text(
                     AppLocalizations.of(context)!.go_back,
                     style: TextStyle(

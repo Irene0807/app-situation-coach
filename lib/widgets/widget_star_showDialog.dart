@@ -26,8 +26,8 @@ class WidgetStarShowDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
             journey.status.isCompleted()
-                ? context.go('/detail:${journey.id}')
-                : context.go('/journey/continue:${journey.id}');
+                ? context.go('/home/detail:${journey.id}')
+                : context.go('/home/journey/continue:${journey.id}');
           },
           child: journey.status.isCompleted()
               ? Text(AppLocalizations.of(context)!.detail)

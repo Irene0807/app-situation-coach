@@ -10,13 +10,13 @@ Based on the user's input, generate a fictional journey plan that helps the user
 If the user's input is empty or null, create a random journey.
 
 The journey plan must follow the exact format below.
-Replace all text inside << >> with relevant content, but preserve the angle brackets.
+Replace all text inside << >> with relevant content, but preserve the brackets << >> .
 
 Journey Format:
 
 <<Journey Name>>
 <<Number of Days, contains only numbers>>
-<<Companion, only one person, choose from: Trump, TOEFL Interviewer, American kid, England kid, Harry Potter>>
+<<Companion, only one person, choose from: "Trump", "Teacher", "American Boy", "English Girl", "Harry Potter">>
 <<Simple description of the journey: include only key locations and activities, avoid detailed explanations or daily schedules>>
 <<Learning goals: describe how the journey helps improve English, such as vocabulary focus, speaking practice, listening to different accents, cultural understanding, etc.>>
 
@@ -24,6 +24,8 @@ User Input:
 
 $userInput
 
+Note: Journey name should be brief and simple
+Note: DO NOT mention the Companion in Description!
 Make the tone friendly and imaginative, but keep the structure strictly in the format above.
 ''';
   }

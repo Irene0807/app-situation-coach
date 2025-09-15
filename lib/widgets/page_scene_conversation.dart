@@ -5,10 +5,10 @@ import 'dart:async';
 import 'dart:ui';
 import '../models/scene.dart';
 import '../models/journey.dart';
-import '../services/response_generator.dart';
-import '../widgets/animations/character_animation.dart';
-import '../widgets/animations/continue_dot_animation.dart';
-import 'package:app_situational_coach/state/journey_status_notifier.dart';
+import '../services/gemini/response_generator.dart';
+import 'animations/character_animation.dart';
+import 'animations/continue_dot_animation.dart';
+import 'package:app_situational_coach/states/journey_status_notifier.dart';
 
 // 小問題 frame_journey_continue那邊我已經疊一層image了 這邊又疊一層 不過demo來說沒差哈
 
@@ -20,7 +20,12 @@ class PageSceneConversation extends StatefulWidget {
   final ConversationContent conversationContent;
   final String sceneTitle;
   final Journey journey;
-  const PageSceneConversation({super.key, required this.conversationContent, required this.sceneTitle,required this.journey,});
+  const PageSceneConversation({
+    super.key,
+    required this.conversationContent,
+    required this.sceneTitle,
+    required this.journey,
+  });
 
   @override
   State<PageSceneConversation> createState() => _PageSceneConversationState();
@@ -42,18 +47,20 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
   int currentSegmentIndex = 0;
 
   bool get showGlow =>
-    !isTalking &&
-    botTextSegments.isNotEmpty &&
-    currentSegmentIndex >= botTextSegments.length &&
-    roundCount < 7;
+      !isTalking &&
+      botTextSegments.isNotEmpty &&
+      currentSegmentIndex >= botTextSegments.length &&
+      roundCount < 7; //測測可改3
 
   @override
   void initState() {
     super.initState();
 
-    responseGenerator = ResponseGenerator(conversation: widget.conversationContent);
+    responseGenerator =
+        ResponseGenerator(conversation: widget.conversationContent);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 500), () => startConversation());  // 角色開始主動對話
+      Future.delayed(const Duration(milliseconds: 500),
+          () => startConversation()); // 角色開始主動對話
     });
   }
 
@@ -73,13 +80,13 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   // 生成response => response_generator
   Future<void> handleResponse() async {
-    if (isTalking || roundCount >= 7 || responseGenerator == null) return;
+    if (isTalking || roundCount >= 7 || responseGenerator == null) return; //測測可改3
 
     final input = _controller.text.trim();
-    
+
     if (input.isEmpty) return;
     _controller.clear();
-    FocusScope.of(context).unfocus(); 
+    FocusScope.of(context).unfocus();
 
     setState(() {
       isTalking = false;
@@ -88,14 +95,14 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       botTextSegments = [];
     });
 
-    final isFinalRound = roundCount >= 6;
+    final isFinalRound = roundCount >= 6; //測測可改2
     final response = await responseGenerator!.generateResponse(
       input,
       isFinalRound: isFinalRound,
     );
     setState(() => roundCount++);
 
-    final text = (roundCount >= 7)
+    final text = (roundCount >= 7) //測測可改3
         ? '$response\n\nThat’s all for our chat today. See you later!'
         : response;
     _setBotText(text);
@@ -116,7 +123,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     _startNextSegment();
   }
 
-  void _startNextSegment() { // 下一段
+  void _startNextSegment() {
+    // 下一段
     if (currentSegmentIndex >= botTextSegments.length) return;
 
     final currentText = botTextSegments[currentSegmentIndex];
@@ -133,7 +141,6 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         });
       });
     } else {
-      
       setState(() {
         fullBotText = currentText;
         displayedText = '';
@@ -149,14 +156,17 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
         } else {
           timer.cancel();
           setState(() {
-          isTalking = false;
+            isTalking = false;
 
-          // 如果是最後一段最後一回合，觸發isPass
-          if (currentSegmentIndex >= botTextSegments.length - 1 && roundCount >= 7 && mounted) {
-            print("[DEBUG] Trigger setIsPass()");
-            Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
-          }
-        });
+            // 如果是最後一段最後一回合，觸發isPass
+            if (currentSegmentIndex >= botTextSegments.length - 1 &&
+                roundCount >= 7 && //測測可改3
+                mounted) {
+              print("[DEBUG] Trigger setIsPass()");
+              Provider.of<JourneyStatusNotifier>(context, listen: false)
+                  .setIsPass();
+            }
+          });
         }
       });
     }
@@ -173,7 +183,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      
+
       body: Stack(
         children: [
           // 1. 背景模糊層
@@ -192,7 +202,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                 BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
-                    color: const Color.fromARGB(255, 255, 254, 215).withOpacity(0.15),
+                    color: const Color.fromARGB(255, 255, 254, 215)
+                        .withOpacity(0.15),
                   ),
                 ),
               ],
@@ -203,7 +214,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top),
+              padding:
+                  EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top),
               child: Text(
                 widget.sceneTitle,
                 style: TextStyle(
@@ -214,7 +226,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                     Shadow(
                       offset: Offset(0, 1),
                       blurRadius: 3,
-                      color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
+                      color:
+                          const Color.fromARGB(255, 0, 0, 0).withOpacity(0.8),
                     )
                   ],
                 ),
@@ -226,7 +239,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Stack(
             children: [
               const SizedBox(height: 80),
-              
+
               // 角色
               Align(
                 alignment: Alignment.bottomCenter,
@@ -238,9 +251,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                     widthFactor: 0.83,
                     child: CharacterWidget(
                       characterName: widget.journey.character,
-                      currentSegment: (currentSegmentIndex < botTextSegments.length)
-                          ? botTextSegments[currentSegmentIndex]
-                          : null,
+                      currentSegment:
+                          (currentSegmentIndex < botTextSegments.length)
+                              ? botTextSegments[currentSegmentIndex]
+                              : null,
                       changeHand: roundCount == 0, // 第一次進場揮手
                     ),
                   ),
@@ -250,7 +264,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               // 對話框
               Align(
                 alignment: const Alignment(0.0, -0.47),
-                  child: (isThinking || (isTalking && displayedText.isEmpty))
+                child: (isThinking || (isTalking && displayedText.isEmpty))
                     ? Padding(
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.08,
@@ -277,7 +291,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           maxWidth: MediaQuery.of(context).size.width * 0.82,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 252, 250, 228).withOpacity(0.95),
+                          color: const Color.fromARGB(255, 252, 250, 228)
+                              .withOpacity(0.95),
                           borderRadius: BorderRadius.circular(
                             MediaQuery.of(context).size.width * 0.04,
                           ),
@@ -287,7 +302,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color.fromARGB(255, 233, 203, 30).withOpacity(0.2),
+                              color: const Color.fromARGB(255, 233, 203, 30)
+                                  .withOpacity(0.2),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             )
@@ -307,7 +323,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               ),
 
               // 輸入區
-              
+
               AnimatedPadding(
                 duration: const Duration(milliseconds: 300),
                 padding: EdgeInsets.fromLTRB(
@@ -327,7 +343,8 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               ),
 
               // 點我繼續
-              if (!isTalking && currentSegmentIndex < botTextSegments.length - 1)
+              if (!isTalking &&
+                  currentSegmentIndex < botTextSegments.length - 1)
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
@@ -337,7 +354,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
                       _startNextSegment();
                     },
                     child: Container(
-                      width: 50,  // 可點擊區域寬度
+                      width: 50, // 可點擊區域寬度
                       height: 50, // 可點擊區域高度
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(
@@ -359,48 +376,48 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       ),
 
       // script 浮動按鈕
-      floatingActionButton: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.03,   // 左
-            bottom: MediaQuery.of(context).size.height * 0.005, // 下
-          ),
-          child: Opacity(
-            opacity: 0.55,
-            child: SizedBox(
-              width: 44,
-              height: 44,
-              child: FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 249, 244, 218),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Script'),
-                      content: SingleChildScrollView(
-                        child: Text(widget.conversationContent.script),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Close'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                tooltip: 'Show Script',
-                child: const Icon(Icons.text_snippet, color: Colors.black87, size: 20),
-              ),
-            ),
-          ),
-        ),
-      ),
+      // floatingActionButton: Align(
+      //   alignment: Alignment.bottomLeft,
+      //   child: Padding(
+      //     padding: EdgeInsets.only(
+      //       left: MediaQuery.of(context).size.width * 0.03, // 左
+      //       bottom: MediaQuery.of(context).size.height * 0.005, // 下
+      //     ),
+      //     child: Opacity(
+      //       opacity: 0.55,
+      //       child: SizedBox(
+      //         width: 44,
+      //         height: 44,
+      //         child: FloatingActionButton(
+      //           backgroundColor: const Color.fromARGB(255, 249, 244, 218),
+      //           onPressed: () {
+      //             showDialog(
+      //               context: context,
+      //               builder: (context) => AlertDialog(
+      //                 title: const Text('Script'),
+      //                 content: SingleChildScrollView(
+      //                   child: Text(widget.conversationContent.script),
+      //                 ),
+      //                 actions: [
+      //                   TextButton(
+      //                     onPressed: () => Navigator.of(context).pop(),
+      //                     child: const Text('Close'),
+      //                   ),
+      //                 ],
+      //               ),
+      //             );
+      //           },
+      //           tooltip: 'Show Script',
+      //           child: const Icon(Icons.text_snippet,
+      //               color: Colors.black87, size: 20),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 
-  
   Widget userInputBox() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
@@ -463,6 +480,4 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       ),
     );
   }
-
 }
-

@@ -11,23 +11,29 @@ dependencies:
     sdk: flutter
   win32 : ^5.12.0
   http: ^1.2.1
+  marquee: ^2.3.0
 
   cupertino_icons: ^1.0.2
   google_fonts: ^6.2.1
   provider: ^6.1.2
   transparent_image: ^2.0.1
-  go_router: ^15.1.1
+  go_router: ^16.2.1
   flutter_localizations:
     sdk: flutter
   intl: any
+  firebase_core: ^4.0.0
+  flutter_native_splash: ^2.4.6
+  firebase_auth: ^6.0.1
+  shared_preferences: ^2.5.3
+  cloud_firestore: ^6.0.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_radar_chart: ^0.2.1
-  rive: ^0.12.3
+  rive: ^0.13.20
 
 flutter:
   uses-material-design: true
@@ -60,32 +66,32 @@ flutter:
     - assets/images/trump/32.png
     - assets/images/trump/42.png
 
-    - assets/images/toefl_interviewer/11.png
-    - assets/images/toefl_interviewer/12.png
-    - assets/images/toefl_interviewer/21.png
-    - assets/images/toefl_interviewer/22.png
-    - assets/images/toefl_interviewer/31.png
-    - assets/images/toefl_interviewer/32.png
-    - assets/images/toefl_interviewer/41.png
-    - assets/images/toefl_interviewer/42.png
+    - assets/images/teacher/11.png
+    - assets/images/teacher/12.png
+    - assets/images/teacher/21.png
+    - assets/images/teacher/22.png
+    - assets/images/teacher/31.png
+    - assets/images/teacher/32.png
+    - assets/images/teacher/41.png
+    - assets/images/teacher/42.png
 
-    - assets/images/american_kid/11.png
-    - assets/images/american_kid/12.png
-    - assets/images/american_kid/21.png
-    - assets/images/american_kid/22.png
-    - assets/images/american_kid/31.png
-    - assets/images/american_kid/32.png
-    - assets/images/american_kid/41.png
-    - assets/images/american_kid/42.png
+    - assets/images/american_boy/11.png
+    - assets/images/american_boy/12.png
+    - assets/images/american_boy/21.png
+    - assets/images/american_boy/22.png
+    - assets/images/american_boy/31.png
+    - assets/images/american_boy/32.png
+    - assets/images/american_boy/41.png
+    - assets/images/american_boy/42.png
 
-    - assets/images/england_kid/11.png
-    - assets/images/england_kid/12.png
-    - assets/images/england_kid/21.png
-    - assets/images/england_kid/22.png
-    - assets/images/england_kid/31.png
-    - assets/images/england_kid/32.png
-    - assets/images/england_kid/41.png
-    - assets/images/england_kid/42.png
+    - assets/images/english_girl/11.png
+    - assets/images/english_girl/12.png
+    - assets/images/english_girl/21.png
+    - assets/images/english_girl/22.png
+    - assets/images/english_girl/31.png
+    - assets/images/english_girl/32.png
+    - assets/images/english_girl/41.png
+    - assets/images/english_girl/42.png
 
 
     - assets/images/harry_potter/11.png
@@ -96,5 +102,4 @@ flutter:
     - assets/images/harry_potter/32.png
     - assets/images/harry_potter/41.png
     - assets/images/harry_potter/42.png
-
 

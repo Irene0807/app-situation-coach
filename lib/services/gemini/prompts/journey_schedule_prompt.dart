@@ -38,7 +38,7 @@ The schedule must strictly follow this format for each day:
 Use friendly and clear language, and make sure the content is:
 - Practical and realistic (avoid fantasy or unrelated content unless the companion is magical)
 - Focused on English learning through activities (e.g., shopping, ordering food, asking directions, talking to locals)
-- Each day must include 2 to 4 scenes
+- Each day must include 2 to 3 scenes
 - Each scene should be distinct and meaningful, not filler
 
 Here is the journey plan:
@@ -61,12 +61,19 @@ The output must strictly use the << >> brackets for all content sections as show
         .toList();
   }
 
+  String getSceneId(int dayCnt, int sceneCnt) {
+    final dayStr = (dayCnt + 1).toString().padLeft(2, '0');
+    final sceneStr = (sceneCnt + 1).toString().padLeft(2, '0');
+    return '$dayStr-$sceneStr';
+  }
+
   List<Day>? parseSchedule(String scheduleText, int day) {
     final List<String> items = extractItems(scheduleText);
     List<Day> schedule = [];
 
     int i = 0;
-    final itemNum = items.length;
+    int itemNum = items.length;
+    int dayCnt = 0;
     while (i < itemNum) {
       String title = items[i++];
       final sceneNum = int.tryParse(items[i++]);
@@ -74,8 +81,9 @@ The output must strictly use the << >> brackets for all content sections as show
         return null;
       }
       List<Scene> scenes = [];
-      for (int j = 0; j < sceneNum; j++) {
+      for (int sceneCnt = 0; sceneCnt < sceneNum; sceneCnt++) {
         Scene s = Scene(
+          id: getSceneId(dayCnt, sceneCnt),
           title: items[i++],
           location: items[i++],
           description: items[i++],
@@ -84,9 +92,10 @@ The output must strictly use the << >> brackets for all content sections as show
         scenes.add(s);
       }
       schedule.add(Day(title: title, scenes: scenes));
+      dayCnt++;
     }
 
-    if (i != itemNum || schedule.length != day) {
+    if (i != itemNum || schedule.length != dayCnt) {
       // throw Exception('getOrderedSchedule error\n');
       return null;
     }

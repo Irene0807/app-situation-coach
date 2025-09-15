@@ -1,4 +1,4 @@
-import '../../models/message.dart';
+import '../../../models/message.dart';
 
 String buildResponsePrompt({
   required String script,
@@ -24,8 +24,8 @@ The user just said: "$userInput"
 
 Now:
 1. Start by naturally acknowledging or reacting to what the user said.
-2. Smoothly continue the conversation in a natural way. (if the user's response is off-topic or silly, gently and creatively steer the conversation back toward the lesson without sounding forced or robotic.)
-3. End with a short, Bloom's Taxonomy-style question to prompt deeper thinking, but integrate it into the flow, not as a separate bullet.
+2. Smoothly continue the conversation in a natural way. Do NOT ask any questions here. (if the user's response is off-topic or silly, gently and creatively steer the conversation back toward the lesson without sounding forced or robotic.)
+3. End the message with exactly ONE short question (like Bloom’s Taxonomy style), and it must be the final sentence of your reply.
 
 Respond as ONE complete message that flows naturally (not bullet points).  
 DO NOT ask the same question twice, and avoid questions that are just rephrasing earlier ones.
@@ -36,7 +36,7 @@ Example format:
 "That's a great point. I often feel the same. So what would you change if you had the chance?"
 "Haha I get what you mean. But if you were the shopkeeper, how would you stop people from doing that?"
 
-${isFinalRound ? 'Note: This is the final response of the session. Just give a natural reply to the user without asking any follow-up questions.' : ''}
+${isFinalRound ? 'IMPROTANT Note: This is the final response of the session. Just give a natural reply to the user without asking any follow-up questions.' : ''}
 
 Now generate your reply.
 

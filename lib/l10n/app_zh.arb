@@ -35,8 +35,8 @@
     "@journey_name": {
         "description": "page_journey_add_correct.dart"
     },
-    "day": "天數",
-    "@day": {
+    "day_fixed": "天數 (固定)",
+    "@day_fixed": {
         "description": "page_journey_add_correct.dart"
     },
     "character": "角色",
@@ -47,8 +47,8 @@
     "@journey_description": {
         "description": "page_journey_add_correct.dart"
     },
-    "learning_goal": "學習目標",
-    "@learning_goal": {
+    "learning_goal_fixed": "學習目標 (固定)",
+    "@learning_goal_fixed": {
         "description": "page_journey_add_correct.dart"
     },
     "finish": "完成",

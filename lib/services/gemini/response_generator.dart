@@ -3,8 +3,8 @@
 
 import 'prompts/response_prompt.dart';
 import 'gemini_instance.dart';
-import '../models/scene.dart';
-import '../models/message.dart';
+import '../../models/scene.dart';
+import '../../models/message.dart';
 
 // 根據scene.dart，ConversationContent包含script, message
 class ResponseGenerator {

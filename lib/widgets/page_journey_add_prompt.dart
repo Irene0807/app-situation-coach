@@ -1,8 +1,8 @@
 import 'package:app_situational_coach/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../widgets/widget_letter.dart';
-import '../widgets/animations/letter_animation.dart';
+import 'widget_letter.dart';
+import 'animations/letter_animation.dart';
 
 // lets go 的 button如果連續點擊會有bug 之後再說吧
 
@@ -73,7 +73,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 80),
+              padding: EdgeInsets.fromLTRB(8, 8, 8, isKeyboardVisible ? 8 : 73),
               child: ElevatedButton(
                 onPressed: () {
                   onLetsGo(controller.text); // 傳入 TextField 內容
@@ -114,7 +114,7 @@ class PageJourneyAddPrompt extends StatelessWidget {
 
           //go back button
           Positioned(
-            bottom: 40,
+            bottom: 70,
             left: 20,
             child: IconButton(
               icon: Icon(

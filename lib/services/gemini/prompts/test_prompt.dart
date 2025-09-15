@@ -1,10 +1,23 @@
 import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
+import 'dart:math';
 
-// 目前的prompt沒有使用history message 之後要調整
+// 丟intro進來了
 
 class PromptTest {
-  String getTestPrompt(Scene scene) {
+  String getTestPrompt(
+    Scene scene, {
+    List<String> introVocabulary = const [],
+  }) {
+    // 抽 5 個單字
+    final random = Random();
+    final vocabSample = introVocabulary.toList();
+    vocabSample.shuffle(random);
+    final selected = vocabSample.take(5).toList();
+
+    final vocabHint = selected.isNotEmpty
+        ? "Focus ONLY on these vocabulary words when making questions: ${selected.join(', ')}."
+        : "No vocabulary words were provided, use the learning theme.";
     return '''
 You are an English learning assistant.
 The journey has just ended. Now your job is to help the user review their vocabulary through a short quiz.
@@ -14,6 +27,8 @@ Here is the journey information:
 Location: ${scene.location}  
 Description: ${scene.description}  
 Learning Theme: ${scene.learningTheme}  
+
+$vocabHint
 
 Your task:
 - Write a short friendly summary (2–3 sentences) to the traveler, reminding them what they experienced and telling them about the quiz.
@@ -30,14 +45,19 @@ Output Format (must follow this strictly):
 <<Option 3>>
 <<Correct answer index, must be 0, 1, 2, or 3>>
 
-<<Question 2 text>>
-<<Option 0>>
-<<Option 1>>
-<<Option 2>>
-<<Option 3>>
-<<Correct answer index>>
-
 ...
+
+Output Example:
+
+<<Welcome back! Remember our delicious meal at the cozy London pub? Now, let's quickly review some key vocabulary from ordering food and drinks. Get ready for a short quiz!>>
+
+<<The ceremony was scheduled to last approximately 45 minutes. What does 'approximately' mean?>>
+<<Exactly>>
+<<Much longer than>>
+<<Around>>
+<<Less than>>
+<<Correct answer index, must be 0, 1, 2, or 3>>
+
 
 Output Rules:
 - All content must be enclosed in double angle brackets (<< >>)

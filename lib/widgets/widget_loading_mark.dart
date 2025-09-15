@@ -20,9 +20,9 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
   // slogan
   final Map<String, String> sloganSentece = {
     "Trump": "“Make America Great Again!”",
-    "TOEFL Interviewer": "“Let’s see how you handle this!”",
-    "American Kid": "“Dude, let’s hang out!”",
-    "England Kid": "“Hello, would you like some tea?”",
+    "Teacher": "“Let’s see how you handle this!”",
+    "American Boy": "“Dude, let’s hang out!”",
+    "English Girl": "“Hello, would you like some tea?”",
     "Harry Potter": "“Welcome to my magic world!”",
   };
 
@@ -35,18 +35,18 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
       "Hold on, this will be the greatest result ever.",
       "Just a sec, I'm building a wall of ideas!",
     ],
-    "TOEFL Interviewer": [
+    "Teacher": [
       "Preparing your journey... almost done.",
       "Grammar is important! give me a moment.",
       "One sec, Designing journey...",
     ],
-    "American Kid": [
+    "American Boy": [
       "Yo, can’t wait for this trip!",
       "Yo dude, can’t wait to hit the road!",
       "Almost ready, we’re gonna have so much fun!",
       "Wait up, I’m packing my skateboard already!",
     ],
-    "England Kid": [
+    "English Girl": [
       "Almost ready. Shall I pour you some tea?",
       "One moment, preparing a cup of tea...",
       "My favourite subject is literature, what about you?",
@@ -66,9 +66,9 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
 
   final List<String> characterOrder = [
     "Trump",
-    "TOEFL Interviewer",
-    "American Kid",
-    "England Kid",
+    "Teacher",
+    "American Boy",
+    "English Girl",
     "Harry Potter",
   ];
 
@@ -79,7 +79,7 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
   }
 
   void _startPhraseLoop() {
-    _textTimer = Timer.periodic(const Duration(seconds: 4), (_) {
+    _textTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       setState(() {
         if (_showSlogan) {
           _showSlogan = false;
@@ -115,6 +115,22 @@ class _WidgetLoadingMarkState extends State<WidgetLoadingMark> {
         Positioned.fill(
           child: Container(
             color: const Color.fromARGB(255, 218, 248, 252).withOpacity(0.85),
+          ),
+        ),
+
+        Positioned(
+          top: 120,
+          left: 0,
+          right: 0,
+          child: Text(
+            "系統運作中，請勿關閉畫面",
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF005A78),
+              decoration: TextDecoration.none,
+            ),
           ),
         ),
 

@@ -32,6 +32,9 @@ class JourneyStatus {
 
   bool goNextStatus(Journey j) {
     if (day == 4 && scene == 4 && mode == 4) {
+      day = -1; // 設為旅程完成
+      scene = -1;
+      mode = -1;
       return false; // 沒有下一頁
     } else if (day == j.schedule.length &&
         scene == j.schedule[day - 1].scenes.length &&
@@ -58,12 +61,6 @@ class JourneyStatus {
 
   bool isCompleted() {
     return (day == -1 && scene == -1 && mode == -1);
-  }
-
-  void makeCompleted() {
-    day = -1;
-    scene = -1;
-    mode = -1;
   }
 }
 

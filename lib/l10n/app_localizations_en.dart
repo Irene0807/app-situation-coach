@@ -37,7 +37,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journey_name => 'Journey Name';
 
   @override
-  String get day => 'Day';
+  String get day_fixed => 'Day (Fixed)';
 
   @override
   String get character => 'Character';
@@ -46,7 +46,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get journey_description => 'Journey Description';
 
   @override
-  String get learning_goal => 'Learning Goal';
+  String get learning_goal_fixed => 'Learning Goal (Fixed)';
 
   @override
   String get finish => 'Finish';

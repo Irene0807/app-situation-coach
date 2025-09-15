@@ -1,7 +1,8 @@
 import 'package:app_situational_coach/models/question.dart';
-import 'package:app_situational_coach/services/test_generator.dart';
-import 'package:app_situational_coach/services/vocabulary_generator.dart';
-import 'package:app_situational_coach/services/script_generator.dart';
+import 'package:app_situational_coach/services/gemini/test_generator.dart';
+import 'package:app_situational_coach/services/gemini/vocabulary_generator.dart';
+import 'package:app_situational_coach/services/gemini/script_generator.dart';
+import 'package:app_situational_coach/services/gemini/bloom_scene_evaluator.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/models/message.dart';
 
@@ -9,6 +10,7 @@ import 'package:app_situational_coach/models/message.dart';
 // SummaryContent的summary 需要用到history才能生成 無法套用提前生成的做法?
 
 class Scene {
+  final String id;
   final String title; // user可看 這個場景的名稱
   final String location; // user可看 這個場景的地點
   final String description; // user可看 描述這個場景user須完成的事情
@@ -20,6 +22,7 @@ class Scene {
   SummaryContent? summaryContent; // scene總結 + 題目考試
 
   Scene({
+    required this.id,
     required this.title,
     required this.location,
     required this.description,
@@ -44,10 +47,24 @@ class Scene {
     VocabularyGenerator v = VocabularyGenerator();
     introContent = await v.generateVocabulary(this);
 
+    // 2pre. Bloom Scene Evaluator => 更新 journey.bloomLevel
+    final bloomSceneEvaluator = BloomSceneEvaluator();
+    final newBloomLevel = await bloomSceneEvaluator.evaluateSceneBloomLevel(
+      currentSceneIndex: journey.status.scene,
+      messages: (journey.status.scene <= 2)
+          ? [] // 沒有前前一個，return 1
+          : journey.schedule[journey.status.day - 1]
+              .scenes[journey.status.scene - 2] // 回傳前前一個
+              .conversationContent
+              ?.messages ?? [],
+    );
+
+    journey.bloomLevel = newBloomLevel;
+    print("[DEBUG] Scene ${journey.status.scene} → BloomLevel = $newBloomLevel");
+
     // 2. ConversationContent
     ScriptGenerator s = ScriptGenerator();
 
-    // (增加傳入journey，因為會用到　journey 裡面的 bloomLevel / character）
     final script = await s.generateRefinedScript(
       journey: journey,
       scene: this,
@@ -56,7 +73,10 @@ class Scene {
 
     // 3. SummaryContent
     TestGenerator t = TestGenerator();
-    summaryContent = await t.generateTest(this);
+    summaryContent = await t.generateTest(
+      this,
+      introVocabulary: introContent?.vocabulary ?? [],
+    );
 
     return;
   }

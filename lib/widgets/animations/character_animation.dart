@@ -6,12 +6,14 @@ class CharacterWidget extends StatefulWidget {
   final String characterName;
   final String? currentSegment;
   final bool changeHand;
+  final bool loopHandWave;
 
   const CharacterWidget({
     super.key,
     required this.characterName,
     this.currentSegment,
     this.changeHand = false,
+    this.loopHandWave = false,
   });
 
   @override
@@ -99,17 +101,29 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
   // 2 揮手
   void _startHandWave() {
-    int waveCount = 0;
     _handTimer?.cancel();
 
-    _handTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      setState(() => isHandWave = !isHandWave);
-      waveCount++;
-      if (waveCount >= 4) {
-        timer.cancel();
-        setState(() => isHandWave = false);
-      }
-    });
+    if (widget.loopHandWave) {
+      // 無限揮手模式
+      _handTimer = Timer.periodic(const Duration(milliseconds: 300), (timer) {
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+        setState(() => isHandWave = !isHandWave);
+      });
+    } else {
+      // 正常只揮 4 次
+      int waveCount = 0;
+      _handTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
+        setState(() => isHandWave = !isHandWave);
+        waveCount++;
+        if (waveCount >= 4) {
+          timer.cancel();
+          setState(() => isHandWave = false);
+        }
+      });
+    }
   }
 
   // 3 眨眼
@@ -139,10 +153,10 @@ class _CharacterWidgetState extends State<CharacterWidget> {
   String _normalizeCharacterName(String name) {
     final map = {
       ['Trump', '川普']: 'trump',
-      ['England Kid', '英國少女']: 'england_kid',
+      ['English Girl', '英國少女']: 'english_girl',
       ['Harry Potter', '哈利波特']: 'harry_potter',
-      ['American Kid', '美國少年']: 'american_kid',
-      ['TOEFL Interviewer', '托福口試考官']: 'toefl_interviewer',
+      ['American Boy', '美國少年']: 'american_boy',
+      ['Teacher', '老師']: 'teacher',
     };
 
     for (final entry in map.entries) {

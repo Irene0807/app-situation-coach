@@ -37,7 +37,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get journey_name => '旅程名稱';
 
   @override
-  String get day => '天數';
+  String get day_fixed => '天數 (固定)';
 
   @override
   String get character => '角色';
@@ -46,7 +46,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get journey_description => '旅程描述';
 
   @override
-  String get learning_goal => '學習目標';
+  String get learning_goal_fixed => '學習目標 (固定)';
 
   @override
   String get finish => '完成';

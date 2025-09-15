@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../state/journey_list_notifier.dart';
-import '../state/character_notifier.dart';
+import '../states/journey_list_notifier.dart';
 import 'animations/home_action_sign.dart';
 import 'animations/twinkling_widget.dart';
 import 'painters/home_ground.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
-import '../widgets/widget_star_showDialog.dart';
+import 'widget_star_showDialog.dart';
 import 'package:app_situational_coach/l10n/app_localizations.dart';
 
-class Pagehome extends StatelessWidget {
-  const Pagehome({super.key});
+class PageHome extends StatelessWidget {
+  const PageHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final journeys = context.watch<JourneyListNotifier>().journeys;
-    final character = context.watch<CharacterNotifier>().selectedCharacter;
+    if (context.watch<JourneyListNotifier>().loading == true) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return buildBody(context);
+    }
+  }
+
+  Widget buildBody(BuildContext context) {
     final scrollController = ScrollController();
 
     return Scaffold(
@@ -94,80 +99,84 @@ class Pagehome extends StatelessWidget {
                     controller: scrollController,
                     scrollDirection: Axis.horizontal,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 24),
-                      child: SizedBox(
-                        width: journeys.length * 140,
-                        child: Stack(
-                          children: journeys.asMap().entries.map((entry) {
-                            final index = entry.key;
-                            final journey = entry.value;
-                            final random = Random(index);
-                            final imageIdx = index % 5 + 1;
+                        padding: const EdgeInsets.only(left: 24),
+                        child: Builder(builder: (context) {
+                          final journeys =
+                              context.watch<JourneyListNotifier>().journeys;
 
-                            // 星星大小
-                            final starSizes = [84.0, 96.0, 108.0];
-                            final size =
-                                starSizes[random.nextInt(starSizes.length)];
+                          return SizedBox(
+                            width: journeys!.length * 140,
+                            child: Stack(
+                              children: journeys.asMap().entries.map((entry) {
+                                final index = entry.key;
+                                final journey = entry.value;
+                                final random = Random(index);
+                                final imageIdx = index % 5 + 1;
 
-                            // 星星位置
-                            double baseTop = 100 +
-                                (index % 3) * 60 +
-                                random.nextDouble() * 20;
-                            final baseLeft =
-                                index * 140 + random.nextDouble() * 5;
+                                // 星星大小
+                                final starSizes = [84.0, 96.0, 108.0];
+                                final size =
+                                    starSizes[random.nextInt(starSizes.length)];
 
-                            // 視差因子
-                            final parallaxX = 1 - (baseTop / 400);
-                            final parallaxY = (size - 84) / 24;
+                                // 星星位置
+                                double baseTop = 100 +
+                                    (index % 3) * 60 +
+                                    random.nextDouble() * 20;
+                                final baseLeft =
+                                    index * 140 + random.nextDouble() * 5;
 
-                            return AnimatedBuilder(
-                              animation: scrollController,
-                              builder: (context, child) {
-                                final offset = scrollController.hasClients
-                                    ? scrollController.offset
-                                    : 0.0;
+                                // 視差因子
+                                final parallaxX = 1 - (baseTop / 400);
+                                final parallaxY = (size - 84) / 24;
 
-                                return Positioned(
-                                  top: baseTop,
-                                  left: baseLeft,
-                                  child: Transform.translate(
-                                    offset: Offset(-offset * parallaxX,
-                                        offset * 0.04 * parallaxY),
-                                    child: Transform.rotate(
-                                      angle: sin(index * 1.4) * 0.2,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) =>
-                                                WidgetStarShowDialog(
-                                              journey: journey,
+                                return AnimatedBuilder(
+                                  animation: scrollController,
+                                  builder: (context, child) {
+                                    final offset = scrollController.hasClients
+                                        ? scrollController.offset
+                                        : 0.0;
+
+                                    return Positioned(
+                                      top: baseTop,
+                                      left: baseLeft,
+                                      child: Transform.translate(
+                                        offset: Offset(-offset * parallaxX,
+                                            offset * 0.04 * parallaxY),
+                                        child: Transform.rotate(
+                                          angle: sin(index * 1.4) * 0.2,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (_) =>
+                                                    WidgetStarShowDialog(
+                                                  journey: journey,
+                                                ),
+                                              );
+                                            },
+                                            child: TwinklingWidget(
+                                              enableSwing: true,
+                                              enableGlow: true,
+                                              verticalOffset: 5.0,
+                                              glowSpreadRadius: 2.0,
+                                              glowWidth: size - 15,
+                                              glowHeight: size - 15,
+                                              child: Image.asset(
+                                                'assets/images/home_star_$imageIdx.png',
+                                                width: size,
+                                                height: size,
+                                              ),
                                             ),
-                                          );
-                                        },
-                                        child: TwinklingWidget(
-                                          enableSwing: true,
-                                          enableGlow: true,
-                                          verticalOffset: 5.0,
-                                          glowSpreadRadius: 2.0,
-                                          glowWidth: size - 15,
-                                          glowHeight: size - 15,
-                                          child: Image.asset(
-                                            'assets/images/home_star_$imageIdx.png',
-                                            width: size,
-                                            height: size,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
+                              }).toList(),
+                            ),
+                          );
+                        })),
                   ),
                 ),
               ),
@@ -180,7 +189,7 @@ class Pagehome extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 32, bottom: 64),
               child: GestureDetector(
-                onTap: () => context.go('/character'),
+                onTap: () => context.go('/home/character'),
                 child: HomeActionSign(
                   tiltLeft: true,
                   content: Transform.translate(
@@ -201,7 +210,7 @@ class Pagehome extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 32, bottom: 64),
               child: GestureDetector(
-                onTap: () => context.go('/journey'),
+                onTap: () => context.go('/home/journey'),
                 child: HomeActionSign(
                   content: SizedBox(
                     height: 48,
@@ -231,7 +240,7 @@ class Pagehome extends StatelessWidget {
                     // achievement 按鈕
                     FloatingActionButton(
                       heroTag: 'growth record',
-                      onPressed: () => context.go('/growth_record'),
+                      onPressed: () => context.go('/home/growth_record'),
                       backgroundColor: Colors.white,
                       elevation: 4,
                       child: Icon(Icons.emoji_events,
@@ -241,7 +250,7 @@ class Pagehome extends StatelessWidget {
                     // setting 按鈕
                     FloatingActionButton(
                       heroTag: 'setting',
-                      onPressed: () => context.go('/setting'),
+                      onPressed: () => context.go('/home/setting'),
                       backgroundColor: Colors.white,
                       elevation: 4,
                       child:
