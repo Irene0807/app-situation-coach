@@ -296,54 +296,58 @@ class FrameJourneyContinue extends StatelessWidget {
     FrameJourneyContinueTab currentTab,
     Widget widget,
   ) {
-    return Stack(children: [
-      backGroundImage
-          ? Positioned.fill(
-              // 之後圖片要用生成的
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8), // 調整模糊程度
-                child: Image.asset(
-                  'assets/images/seoul_shopping.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )
-          : SizedBox(),
-      mask
-          ? Positioned.fill(
-              child: ColoredBox(
-                color: Colors.black.withOpacity(0.4),
-              ),
-            )
-          : SizedBox(),
-      widget,
-      button
-          ? Positioned(
-              right: 32,
-              bottom: 32,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black54,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    side: BorderSide.none,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(children: [
+        backGroundImage
+            ? Positioned.fill(
+                // 之後圖片要用生成的
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8), // 調整模糊程度
+                  child: Image.asset(
+                    'assets/images/seoul_shopping.jpg',
+                    fit: BoxFit.cover,
                   ),
-                  elevation: 4,
                 ),
-                onPressed: () => goNextPage(
-                    context,
-                    Provider.of<JourneyStatusNotifier>(context, listen: false),
-                    currentTab),
-                child: Icon(
-                  Icons.navigate_next,
-                  color: Colors.white,
-                  size: 32,
+              )
+            : SizedBox(),
+        mask
+            ? Positioned.fill(
+                child: ColoredBox(
+                  color: Colors.black.withOpacity(0.4),
                 ),
-              ),
-            )
-          : SizedBox(),
-    ]);
+              )
+            : SizedBox(),
+        widget,
+        button
+            ? Positioned(
+                right: 32,
+                bottom: 32,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black54,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide.none,
+                    ),
+                    elevation: 4,
+                  ),
+                  onPressed: () => goNextPage(
+                      context,
+                      Provider.of<JourneyStatusNotifier>(context,
+                          listen: false),
+                      currentTab),
+                  child: Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+              )
+            : SizedBox(),
+      ]),
+    );
   }
 }

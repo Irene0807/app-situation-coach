@@ -39,20 +39,25 @@ Output Format (must follow this strictly):
 <<Short summary to the traveler and introduce the vocabulary test, within 50 words>>
 
 <<Question 1 text>>
-<<Option 0, description of option 0>>
-<<Option 1, description of option 1>>
-<<Option 2, description of option 2>>
-<<Option 3, description of option 3>>
+<<Option 0>>
+<<Option 1>>
+<<Option 2>>
+<<Option 3>>
 <<Correct answer index, must be 0, 1, 2, or 3>>
 
-<<Question 2 text>>
-<<Option 0, description of option 0>>
-<<Option 1, description of option 1>>
-<<Option 2, description of option 2>>
-<<Option 3, description of option 3>>
-<<Correct answer index>>
-
 ...
+
+Output Example:
+
+<<Welcome back! Remember our delicious meal at the cozy London pub? Now, let's quickly review some key vocabulary from ordering food and drinks. Get ready for a short quiz!>>
+
+<<The ceremony was scheduled to last approximately 45 minutes. What does 'approximately' mean?>>
+<<Exactly>>
+<<Much longer than>>
+<<Around>>
+<<Less than>>
+<<Correct answer index, must be 0, 1, 2, or 3>>
+
 
 Output Rules:
 - All content must be enclosed in double angle brackets (<< >>)

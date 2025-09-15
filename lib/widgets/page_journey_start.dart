@@ -224,7 +224,7 @@ class PageJourneyStart extends StatelessWidget {
                   child: Text(
                     AppLocalizations.of(context)!.create_new_journey,
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF0D1B2A), // 太空藍
                       letterSpacing: 0.5,
