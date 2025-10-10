@@ -341,7 +341,8 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                         DropdownMenuItem(value: -1, child: Text("None")), // 無
                         DropdownMenuItem(value: 1, child: Text("初級")),
                         DropdownMenuItem(value: 2, child: Text("中級")),
-                        DropdownMenuItem(value: 3, child: Text("高級")),
+                        DropdownMenuItem(value: 3, child: Text("中高級")),
+                        DropdownMenuItem(value: 4, child: Text("高級")),
                       ],
                       onChanged: (val) {
                         setState(() {

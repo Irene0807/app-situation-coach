@@ -2,11 +2,12 @@ import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/states/journey_status_notifier.dart';
 import 'package:app_situational_coach/widgets/page_day_cover.dart';
 import 'package:app_situational_coach/widgets/page_journey_back_cover.dart';
+import 'package:app_situational_coach/widgets/page_post_test.dart';
+import 'package:app_situational_coach/widgets/page_pre_test.dart';
 import 'package:app_situational_coach/widgets/page_scene_conversation.dart';
 import 'package:app_situational_coach/widgets/page_scene_cover.dart';
 import 'package:app_situational_coach/widgets/page_scene_intro.dart';
 import 'package:app_situational_coach/widgets/page_scene_summary.dart';
-import 'package:app_situational_coach/widgets/widget_loading_mark.dart';
 import 'package:flutter/material.dart';
 import 'package:app_situational_coach/models/journey.dart';
 import 'package:go_router/go_router.dart';
@@ -14,10 +15,13 @@ import 'package:provider/provider.dart';
 import 'package:app_situational_coach/widgets/page_journey_cover.dart';
 import 'dart:ui';
 
+// 已解除雙層loading畫面的問題 但有可能性仍有bug 待測試
+
 // 注意: 在頁面中 journey的status不會變化 由JourneyStatusNotifier控制status
 // 離開旅行時 會將JourneyStatusNotifier當下的status交給journey進行儲存 之後處理
 
 enum FrameJourneyContinueTab {
+  preTest,
   journeyCover,
   dayCover,
   sceneCover,
@@ -25,6 +29,7 @@ enum FrameJourneyContinueTab {
   sceneConversation,
   sceneSummary,
   jourenyBackCover,
+  postTest,
 }
 
 class FrameJourneyContinue extends StatelessWidget {
@@ -145,7 +150,9 @@ class FrameJourneyContinue extends StatelessWidget {
   }
 
   FrameJourneyContinueTab getPageType(JourneyStatus status) {
-    if (status.day == 0 && status.scene == 0 && status.mode == 0) {
+    if (status.day == -3 && status.scene == -3 && status.mode == -3) {
+      return FrameJourneyContinueTab.preTest;
+    } else if (status.day == 0 && status.scene == 0 && status.mode == 0) {
       return FrameJourneyContinueTab.journeyCover;
     } else if (status.scene == 0 && status.mode == 0) {
       return FrameJourneyContinueTab.dayCover;
@@ -164,6 +171,8 @@ class FrameJourneyContinue extends StatelessWidget {
       }
     } else if (status.day == 4 && status.scene == 4 && status.mode == 4) {
       return FrameJourneyContinueTab.jourenyBackCover;
+    } else if (status.day == -2 && status.scene == -2 && status.mode == -2) {
+      return FrameJourneyContinueTab.postTest;
     } else {
       throw Exception('status got wrong in FrameJourneyContinue\n');
     }
@@ -179,28 +188,39 @@ class FrameJourneyContinue extends StatelessWidget {
       FrameJourneyContinueTab tab = getPageType(journey.status);
       switch (tab) {
         // 這邊我只把我即刻需要的參數丟進去 看之後怎麼調整
+        case FrameJourneyContinueTab.preTest:
+          return buildFunction(
+              context: context,
+              backGroundImage: true,
+              mask: false,
+              button: true,
+              currentTab: tab,
+              widget: PagePreTest());
+
         case FrameJourneyContinueTab.journeyCover:
           return buildFunction(
-              context,
-              true,
-              false,
-              true,
-              tab,
-              PageJourneyCover(
+              context: context,
+              backGroundImage: true,
+              mask: false,
+              button: true,
+              currentTab: tab,
+              widget: PageJourneyCover(
                 journeyName: journey.name,
                 journeyDay: journey.day,
               ));
+
         case FrameJourneyContinueTab.dayCover:
           return buildFunction(
-              context,
-              true,
-              true,
-              true,
-              tab,
-              PageDayCover(
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: true,
+              currentTab: tab,
+              widget: PageDayCover(
                   journeyName: journey.name,
                   currentDay: journey.status.day,
                   schedule: journey.schedule));
+
         case FrameJourneyContinueTab.sceneCover:
           final sceneTitle = journey.schedule[journey.status.day - 1]
               .scenes[journey.status.scene - 1].title;
@@ -209,93 +229,88 @@ class FrameJourneyContinue extends StatelessWidget {
           final sceneDescription = journey.schedule[journey.status.day - 1]
               .scenes[journey.status.scene - 1].description;
           return buildFunction(
-              context,
-              true,
-              true,
-              true,
-              tab,
-              PageSceneCover(
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: true,
+              currentTab: tab,
+              widget: PageSceneCover(
                 sceneTitle: sceneTitle,
                 sceneLocation: sceneLocation,
                 sceneDescription: sceneDescription,
               ));
+
         case FrameJourneyContinueTab.sceneIntro:
-          bool sceneReady =
-              Provider.of<JourneyStatusNotifier>(context, listen: true)
-                  .getSceneReady();
-          if (sceneReady) {
-            bool isPass =
-                Provider.of<JourneyStatusNotifier>(context, listen: true)
-                    .isPass;
-            final scene = journey.schedule[journey.status.day - 1]
-                .scenes[journey.status.scene - 1];
-            return buildFunction(
-                context,
-                true,
-                true,
-                isPass,
-                tab,
-                PageSceneIntro(
-                    introContent: scene.introContent!, journey: journey));
-          } else {
-            return buildFunction(
-                context, true, true, true, tab, WidgetLoadingMark());
-          }
+          bool isPass =
+              Provider.of<JourneyStatusNotifier>(context, listen: true).isPass;
+          final scene = journey.schedule[journey.status.day - 1]
+              .scenes[journey.status.scene - 1];
+          return buildFunction(
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: isPass,
+              currentTab: tab,
+              widget: PageSceneIntro(
+                  introContent: scene.introContent!, journey: journey));
+
         case FrameJourneyContinueTab.sceneConversation:
-          bool sceneReady =
-              Provider.of<JourneyStatusNotifier>(context, listen: true)
-                  .getSceneReady();
-          if (sceneReady) {
-            bool isPass =
-                Provider.of<JourneyStatusNotifier>(context, listen: true)
-                    .isPass;
-            final scene = journey.schedule[journey.status.day - 1]
-                .scenes[journey.status.scene - 1];
-            return buildFunction(
-                context,
-                true,
-                true,
-                isPass,
-                tab,
-                PageSceneConversation(
-                    conversationContent: scene.conversationContent!,
-                    sceneTitle: scene.title,
-                    journey: journey));
-          } else {
-            return buildFunction(
-                context, true, true, true, tab, WidgetLoadingMark());
-          }
+          bool isPass =
+              Provider.of<JourneyStatusNotifier>(context, listen: true).isPass;
+          final scene = journey.schedule[journey.status.day - 1]
+              .scenes[journey.status.scene - 1];
+          return buildFunction(
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: isPass,
+              currentTab: tab,
+              widget: PageSceneConversation(
+                  conversationContent: scene.conversationContent!,
+                  sceneTitle: scene.title,
+                  journey: journey));
+
         case FrameJourneyContinueTab.sceneSummary:
-          bool sceneReady =
-              Provider.of<JourneyStatusNotifier>(context, listen: true)
-                  .getSceneReady();
-          if (sceneReady) {
-            bool isPass =
-                Provider.of<JourneyStatusNotifier>(context, listen: true)
-                    .isPass;
-            final scene = journey.schedule[journey.status.day - 1]
-                .scenes[journey.status.scene - 1];
-            return buildFunction(context, true, true, isPass, tab,
-                PageSceneSummary(summaryContent: scene.summaryContent!));
-          } else {
-            return buildFunction(
-                context, true, true, true, tab, WidgetLoadingMark());
-          }
+          bool isPass =
+              Provider.of<JourneyStatusNotifier>(context, listen: true).isPass;
+          final scene = journey.schedule[journey.status.day - 1]
+              .scenes[journey.status.scene - 1];
+          return buildFunction(
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: isPass,
+              currentTab: tab,
+              widget: PageSceneSummary(summaryContent: scene.summaryContent!));
+
         case FrameJourneyContinueTab.jourenyBackCover:
           return buildFunction(
-              context, true, true, true, tab, PageJourneyBackCover());
+              context: context,
+              backGroundImage: true,
+              mask: true,
+              button: true,
+              currentTab: tab,
+              widget: PageJourneyBackCover());
+
+        case FrameJourneyContinueTab.postTest:
+          return buildFunction(
+              context: context,
+              backGroundImage: true,
+              mask: false,
+              button: true,
+              currentTab: tab,
+              widget: PagePostTest());
       }
     }
   }
 
   Widget buildFunction(
-    BuildContext context,
-    bool backGroundImage,
-    bool mask,
-    bool button,
-    FrameJourneyContinueTab currentTab,
-    Widget widget,
-  ) {
+      {required BuildContext context,
+      required bool backGroundImage,
+      required bool mask,
+      required bool button,
+      required FrameJourneyContinueTab currentTab,
+      required Widget widget}) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(children: [

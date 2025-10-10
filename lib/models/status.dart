@@ -15,34 +15,42 @@ class JourneyStatus {
   int scene;
   int mode; // 1: intro // 2: conversation // 3: summary
 
+  // JourneyStatus預設從(-3 -3 -3)開始
   JourneyStatus({
-    this.day = 0,
-    this.scene = 0,
-    this.mode = 0,
-  });
-
-  // 之後沒使用dummy data後可以考慮改成這樣
-  // JourneyStatus({
-  //   int? day,
-  //   int? scene,
-  //   int? mode,
-  // })  : day = 0,
-  //       scene = 0,
-  //       mode = 0;
+    int? day,
+    int? scene,
+    int? mode,
+  })  : day = -3, // 從前冊頁面開始
+        scene = -3,
+        mode = -3;
 
   bool goNextStatus(Journey j) {
-    if (day == 4 && scene == 4 && mode == 4) {
-      day = -1; // 設為旅程完成
-      scene = -1;
-      mode = -1;
-      return false; // 沒有下一頁
+    if (day == -3 && scene == -3 && mode == -3) {
+      // 前測頁面 -> 旅行封面
+      day = 0;
+      scene = 0;
+      mode = 0;
+      return true;
     } else if (day == j.schedule.length &&
         scene == j.schedule[day - 1].scenes.length &&
         mode == 3) {
-      day = 4; // 結束頁面
+      // 最後一頁 -> 結束頁面
+      day = 4;
       scene = 4;
       mode = 4;
       return true;
+    } else if (day == 4 && scene == 4 && mode == 4) {
+      // 結束頁面 -> 後測頁面
+      day = -2;
+      scene = -2;
+      mode = -2;
+      return true;
+    } else if (day == -2 && scene == -2 && mode == -2) {
+      // 後測頁面 -> 旅行已完成
+      day = -1;
+      scene = -1;
+      mode = -1;
+      return false;
     } else if (day == 0 ||
         (scene == j.schedule[day - 1].scenes.length && mode == 3)) {
       day++;
@@ -67,6 +75,8 @@ class JourneyStatus {
 /*
 以一個兩天的旅行為例 (day, scene, mode)
 
+(-3,-3,-3): 前測頁面
+
 (0, 0, 0): 旅行封面       // 整個旅行的封面
   (1, 0, 0): 天數頁面     // 目錄的概念 每過一天會揭露下一天的旅行名稱
     (1, 1, 0): 場景頁面   // 目錄的概念 每過一個場景會揭露下一個場景名稱 //也可簡單介紹該場景
@@ -83,6 +93,8 @@ class JourneyStatus {
       (2, 1, 2): 旅行頁面
       (2, 1, 3): 旅行頁面
 (4, 4, 4): 結束頁面
+
+(-2,-2,-2): 後測頁面
 
 (-1,-1,-1): 旅行已完成
 */
