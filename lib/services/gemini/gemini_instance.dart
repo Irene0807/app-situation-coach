@@ -52,16 +52,16 @@ final geminiA = GeminiAuto([
 final geminiB = GeminiAuto([
 
   // irene - 3
-  'AIzaSyD2Ulo3CWb8Krxalyf2lGD9kKdFgb0JEyM', //1
-  'AIzaSyDd1z8M_Y78DcphFtjPGQpUCOIB45Sotzk', //2
-  'AIzaSyCm7voQL24Ju7lD1Dr8iQsDMzfoC2rchio', //3
-  'AIzaSyCm7voQL24Ju7lD1Dr8iQsDMzfoC2rchio', //4
-  'AIzaSyBHa8aV7f988AAX3c4mKsR0Yytagzv6t8Y', //5
-  'AIzaSyBlTWRtCkJZHp4XEkvouZp6Y2WZhXQstoM', //6
-  'AIzaSyDDNdrETGyQ0j9gVXLTRw6EGMjiXz1aqVc', //7
-  'AIzaSyBj7aKV-mi7Qbvzvnm2NdSorknpAjFOXUY', //8
-  'AIzaSyBDllDLQInR1cnHrIEbRIyZFRIwOR_BKBw', //9
-  'AIzaSyCZ9etGcMGQjIDoK5F7RbiLdLqxSWvuYNs', //10
+  // 'AIzaSyD2Ulo3CWb8Krxalyf2lGD9kKdFgb0JEyM', //1
+  // 'AIzaSyDd1z8M_Y78DcphFtjPGQpUCOIB45Sotzk', //2
+  // 'AIzaSyCm7voQL24Ju7lD1Dr8iQsDMzfoC2rchio', //3
+  // 'AIzaSyCm7voQL24Ju7lD1Dr8iQsDMzfoC2rchio', //4
+  // 'AIzaSyBHa8aV7f988AAX3c4mKsR0Yytagzv6t8Y', //5
+  // 'AIzaSyBlTWRtCkJZHp4XEkvouZp6Y2WZhXQstoM', //6
+  // 'AIzaSyDDNdrETGyQ0j9gVXLTRw6EGMjiXz1aqVc', //7
+  // 'AIzaSyBj7aKV-mi7Qbvzvnm2NdSorknpAjFOXUY', //8
+  // 'AIzaSyBDllDLQInR1cnHrIEbRIyZFRIwOR_BKBw', //9
+  // 'AIzaSyCZ9etGcMGQjIDoK5F7RbiLdLqxSWvuYNs', //10
 
   // coach
   'AIzaSyDVIzbHaXoFzfo_dJAySexoZlK848q0ZVY', //1
@@ -79,5 +79,36 @@ final geminiB = GeminiAuto([
   // 'AIzaSyCRpqIcc4Wf5Z1gqnSP23W7PT9ykgGE_IQ',
   // 'AIzaSyBcnlABFm99VVqdjd6tRzt5HwuY9sdDwnU',
   // 'AIzaSyDtAQ1HuYYo2DDTKfI-puJBNootAeWzFRI'
+
+  // jay 
+  'AIzaSyC9ysvzTh9H6n0nNG7MmiMFfOtCkOZw9tE', //1
+  'AIzaSyDjNlbMVvneKxUz3LttxJ9l5BDgJuuHudU', //2
+  'AIzaSyCYHwWAyBtPbEtQTixgKn8nG2Ah9tLGSEQ', //3
+  'AIzaSyAK_WsOYR4b1YL6me6tmKmmMDV8jS8WW80', //4
+  'AIzaSyD7BZO5rZZ4dSsj0m2tu5kJDWDZF3HhkBM', //5
+
+  // jay nthu
+  'AIzaSyC5lariCP470Axagl3oPtVouKt_vnt-4C4', //1
+  'AIzaSyDfUmA78XsR6P2qW5gu3sMSyelqZcjSNM4', //2
+  'AIzaSyCyxiEuCraJB6NW8l2fGuCWZ-g6xjv0Z_w', //3
+  'AIzaSyD5S7cPlOFTreMd50JnP6R2HaxLoxjtDQE', //4
+  'AIzaSyA3NgcG4nCMZfYBuNE6GzazIB2phOKf0rc', //5
+  'AIzaSyCmt1tbnfj_K383yTMcCjvoOx8k5e3MkJM', //6
+  'AIzaSyBh_uaAJr1qz3gYlYngiiVQCIkcm4kBCOc', //7
+  'AIzaSyCQ6nDNcCNRV7EiABM2j1YaStFuLRKtjkw', //8
+  'AIzaSyCPGIwJGsCAUsxYw0KRbHMGd7Onc8ZD4mQ', //9
+  'AIzaSyCWMZcbLob2C1uk6gz9Eb8NheMyXu6FQdo', //10
+
+  // vio
+  'AIzaSyCDSYfgZ3t8g-QV-9Bzu7DM2-Eo50Y4j9M', //1
+  'AIzaSyCLpO8PpIJvquZG5y0jBrWjTpxrNfJacuA', //2
+  'AIzaSyB6maQKTB7V3niSpydMjehmiDvDPL6RAtw', //3
+  'AIzaSyDs8juq-55LikDVIj9K6GDiEGXk5UXmT5w', //4
+  'AIzaSyB5gm1Y3bz6qUzdVzofukA7fl9ZWRPYo_g', //5
+  'AIzaSyDCwCm-n4IOcfebzJr-7LObHL4NunnvLRU', //6
+  'AIzaSyDqVMOoHEw6IrcjKXC_5rClxX8CRWp817k', //7
+  'AIzaSyA8Lfo45uvrhPGJ8457Y1_9hTCnUBhgi-0', //8
+  'AIzaSyDP-ckRBMTzvVwLZusq-1b2vCtOVqWwR_M', //9
+  'AIzaSyCOPLK_aI6x1-fAqhHOJDy0gtQfW4lPJUQ', //10
 
 ]);
