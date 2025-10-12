@@ -219,10 +219,11 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(
-                  screenWidth * 0.03, 
-                  screenWidth * 0.03, 
-                  screenWidth * 0.03, 
-                  screenHeight * 0.05,),
+                  screenWidth * 0.03,
+                  screenWidth * 0.03,
+                  screenWidth * 0.03,
+                  screenHeight * 0.05,
+                ),
                 child: SizedBox(
                   height: screenHeight * 0.3,
                   child: CharacterWidget(
@@ -242,15 +243,20 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
   Widget _buildChoiceButton(String label, Color color) {
     return ElevatedButton(
       onPressed: () {
-        if (label == "O") {
-          Provider.of<JourneyStatusNotifier>(context, listen: false)
-              .appendResponses(true);
-        } else {
-          Provider.of<JourneyStatusNotifier>(context, listen: false)
-              .appendResponses(false);
+        // 確保不會送一大堆資料到db
+        if (Provider.of<JourneyStatusNotifier>(context, listen: false).isPass ==
+            false) {
+          if (label == "O") {
+            Provider.of<JourneyStatusNotifier>(context, listen: false)
+                .appendResponses(true);
+          } else {
+            Provider.of<JourneyStatusNotifier>(context, listen: false)
+                .appendResponses(false);
+          }
         }
         if (_currentIndex == _pages.length - 1) {
-          Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
+          Provider.of<JourneyStatusNotifier>(context, listen: false)
+              .setIsPass();
         } else {
           _nextPage();
         }

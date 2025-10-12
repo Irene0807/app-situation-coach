@@ -17,12 +17,10 @@ class JourneyStatus {
 
   // JourneyStatus預設從(-3 -3 -3)開始
   JourneyStatus({
-    int? day,
-    int? scene,
-    int? mode,
-  })  : day = -3, // 從前冊頁面開始
-        scene = -3,
-        mode = -3;
+    this.day = -3,
+    this.scene = -3,
+    this.mode = -3,
+  }); // 從前冊頁面開始
 
   bool goNextStatus(Journey j) {
     if (day == -3 && scene == -3 && mode == -3) {

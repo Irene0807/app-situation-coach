@@ -30,9 +30,6 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
     setState(() {
       selectedAnswers[questionIndex] = selectedOption;
     });
-    // 儲存答案
-    Provider.of<JourneyStatusNotifier>(context, listen: false)
-        .appendAnswerIds(selectedOption);
   }
 
   void _handleButtonPress(int questionIndex) {
@@ -50,6 +47,10 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
       setState(() {
         isSubmitted[questionIndex] = true;
       });
+
+      // 儲存答案
+      Provider.of<JourneyStatusNotifier>(context, listen: false)
+          .appendAnswerIds(selectedAnswers[questionIndex]!);
 
       // 如果是最後一題，且剛完成提交，就觸發 setIsPass()
       if (isLastQuestion) {
