@@ -2,6 +2,7 @@ import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import '../models/journey.dart';
+import '../data/dummy_data.dart';
 
 class JourneyListNotifier extends ChangeNotifier {
   final UserRepository userRepository;
@@ -27,7 +28,9 @@ class JourneyListNotifier extends ChangeNotifier {
   }
 
   Future<void> loadJourneys() async {
-    journeys = await userRepository.getJourneys();
+    await Future.delayed(const Duration(milliseconds: 500));
+    journeys = dummyJourneys; //直接給dummyd
+    // journeys = await userRepository.getJourneys();
     loading = false;
     notifyListeners();
   }

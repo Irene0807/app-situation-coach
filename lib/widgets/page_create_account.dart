@@ -36,7 +36,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   bool _agreeRules = false;
 
   void _nextPage() {
-    if (_currentIndex < 5) {
+    if (_currentIndex < 3) {
       // 繼續下一頁
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -86,8 +86,6 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                   children: [
                     _buildInfo1(),
                     _buildInfo2(),
-                    _buildTutorial1(),
-                    _buildTutorial2(),
                     _buildTutorial3(),
                     _buildTutorial4(),
                   ],
@@ -117,9 +115,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
                 ),
               const Spacer(),
               _buildButton(
-                text: _currentIndex < 5 ? "Next" : "Start",
+                text: _currentIndex < 3 ? "Next" : "Start",
                 onPressed:
-                    (_currentIndex == 4 && !_agreeRules) ? null : _nextPage,
+                    (_currentIndex == 2 && !_agreeRules) ? null : _nextPage,
               ),
             ],
           ),
@@ -167,7 +165,7 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
         children: [
           LayoutBuilder(
             builder: (context, constraints) {
-              final progress = (_currentIndex + 1) / 5;
+              final progress = (_currentIndex + 1) / 3;
               final barWidth = constraints.maxWidth;
 
               return Stack(
@@ -203,9 +201,9 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
             },
           ),
           const SizedBox(height: 8),
-          if (_currentIndex < 5)
+          if (_currentIndex < 3)
             Text(
-              "Step ${_currentIndex + 1} of 5",
+              "Step ${_currentIndex + 1} of 3",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -473,193 +471,193 @@ class _PageCreateAccountState extends State<PageCreateAccount> {
   }
 
   // step 3 - tutorial：角色
-  Widget _buildTutorial1() {
-    final characters = [
-      "Trump",
-      "Harry Potter",
-      "English Girl",
-      "American Boy",
-      "Teacher",
-    ];
+  // Widget _buildTutorial1() {
+  //   final characters = [
+  //     "Trump",
+  //     "Harry Potter",
+  //     "English Girl",
+  //     "American Boy",
+  //     "Teacher",
+  //   ];
 
-    return _buildPage(
-      title: "Step 3: Tutorial",
-      child: Column(
-        children: [
-          const Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: "You can choose ONE character\nin your journey.\nAnd ",
-                  style: TextStyle(fontSize: 16),
-                ),
-                TextSpan(
-                  text: "Tap",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextSpan(
-                  text: " to see them wave!",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
+  //   return _buildPage(
+  //     title: "Step 3: Tutorial",
+  //     child: Column(
+  //       children: [
+  //         const Text.rich(
+  //           TextSpan(
+  //             children: [
+  //               TextSpan(
+  //                 text: "You can choose ONE character\nin your journey.\nAnd ",
+  //                 style: TextStyle(fontSize: 16),
+  //               ),
+  //               TextSpan(
+  //                 text: "Tap",
+  //                 style: TextStyle(
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //               TextSpan(
+  //                 text: " to see them wave!",
+  //                 style: TextStyle(fontSize: 16),
+  //               ),
+  //             ],
+  //           ),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         const SizedBox(height: 20),
 
-          // 角色
-          SizedBox(
-            height: 200,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: characters.map((name) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: 120,
-                          height: 120,
-                          child: CharacterWidget(characterName: name),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
+  //         // 角色
+  //         SizedBox(
+  //           height: 200,
+  //           child: SingleChildScrollView(
+  //             scrollDirection: Axis.horizontal,
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: characters.map((name) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 8),
+  //                   child: Column(
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: [
+  //                       SizedBox(
+  //                         width: 120,
+  //                         height: 120,
+  //                         child: CharacterWidget(characterName: name),
+  //                       ),
+  //                       const SizedBox(height: 8),
+  //                       Text(
+  //                         name,
+  //                         style: const TextStyle(
+  //                           fontWeight: FontWeight.bold,
+  //                           fontSize: 14,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }).toList(),
+  //             ),
+  //           ),
+  //         ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.arrow_right_alt,
-                  color: Color.fromARGB(179, 0, 0, 0), size: 22),
-              SizedBox(width: 8),
-              Text(
-                "Swipe to see more characters",
-                style: TextStyle(
-                  color: Color.fromARGB(179, 0, 0, 0),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: const [
+  //             Icon(Icons.arrow_right_alt,
+  //                 color: Color.fromARGB(179, 0, 0, 0), size: 22),
+  //             SizedBox(width: 8),
+  //             Text(
+  //               "Swipe to see more characters",
+  //               style: TextStyle(
+  //                 color: Color.fromARGB(179, 0, 0, 0),
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  // step 4 - tutorial：主題
-  Widget _buildTutorial2() {
-    final roles = ["Teacher", "Trump", "Harry Potter"];
-    final places = ["English classroom", "White House", "American landfill"];
-    final topics = ["Food", "Food", "Food"];
+  // // step 4 - tutorial：主題
+  // Widget _buildTutorial2() {
+  //   final roles = ["Teacher", "Trump", "Harry Potter"];
+  //   final places = ["English classroom", "White House", "American landfill"];
+  //   final topics = ["Food", "Food", "Food"];
 
-    return _buildPage(
-      title: "Step 4: Tutorial",
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "You can create different\nlearning situations in your journey.\nHere are some examples:",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 16),
+  //   return _buildPage(
+  //     title: "Step 4: Tutorial",
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         const Text(
+  //           "You can create different\nlearning situations in your journey.\nHere are some examples:",
+  //           textAlign: TextAlign.center,
+  //           style: TextStyle(fontSize: 16),
+  //         ),
+  //         const SizedBox(height: 16),
 
-          // 三個類別
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildCategory("Role", roles),
-              _buildCategory("Place", places),
-              _buildCategory("Topic", topics),
-            ],
-          ),
+  //         // 三個類別
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //           children: [
+  //             _buildCategory("Role", roles),
+  //             _buildCategory("Place", places),
+  //             _buildCategory("Topic", topics),
+  //           ],
+  //         ),
 
-          const SizedBox(height: 24),
+  //         const SizedBox(height: 24),
 
-          // 提示語
-          const Text(
-            "Try different combinations!\nSome feel normal, some feel surprising.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black54,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //         // 提示語
+  //         const Text(
+  //           "Try different combinations!\nSome feel normal, some feel surprising.",
+  //           textAlign: TextAlign.center,
+  //           style: TextStyle(
+  //             fontSize: 14,
+  //             fontWeight: FontWeight.w500,
+  //             color: Colors.black54,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  // 小分類
-  Widget _buildCategory(String title, List<String> options) {
-    const double cardWidth = 80;
-    const double cardHeight = 50;
+  // // 小分類
+  // Widget _buildCategory(String title, List<String> options) {
+  //   const double cardWidth = 80;
+  //   const double cardHeight = 50;
 
-    return Expanded(
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 8),
-          GridView.count(
-            crossAxisCount: 1,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: cardWidth / cardHeight,
-            mainAxisSpacing: 10, // 上下間距
-            crossAxisSpacing: 10, // 左右間距
-            children: options.map((opt) {
-              return Container(
-                width: cardWidth,
-                height: cardHeight,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                child: Text(
-                  opt,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
+  //   return Expanded(
+  //     child: Column(
+  //       children: [
+  //         Text(
+  //           title,
+  //           style: const TextStyle(
+  //             fontWeight: FontWeight.bold,
+  //             fontSize: 14,
+  //           ),
+  //         ),
+  //         const SizedBox(height: 8),
+  //         GridView.count(
+  //           crossAxisCount: 1,
+  //           shrinkWrap: true,
+  //           physics: const NeverScrollableScrollPhysics(),
+  //           childAspectRatio: cardWidth / cardHeight,
+  //           mainAxisSpacing: 10, // 上下間距
+  //           crossAxisSpacing: 10, // 左右間距
+  //           children: options.map((opt) {
+  //             return Container(
+  //               width: cardWidth,
+  //               height: cardHeight,
+  //               alignment: Alignment.center,
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white.withOpacity(0.9),
+  //                 borderRadius: BorderRadius.circular(12),
+  //                 border: Border.all(color: Colors.grey.shade300),
+  //               ),
+  //               child: Text(
+  //                 opt,
+  //                 textAlign: TextAlign.center,
+  //                 style: const TextStyle(fontSize: 14),
+  //               ),
+  //             );
+  //           }).toList(),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // step 5 - tutorial：提醒事項
   Widget _buildTutorial3() {
     return _buildPage(
-      title: "Step 5: Tutorial",
+      title: "Step 3: Tutorial",
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
         child: Column(

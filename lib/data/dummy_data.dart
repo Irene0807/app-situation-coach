@@ -1,214 +1,326 @@
 import 'package:app_situational_coach/models/day.dart';
 import 'package:app_situational_coach/models/question.dart';
 import 'package:app_situational_coach/models/scene.dart';
+import 'package:app_situational_coach/data/dummy_data_scene_test.dart';
+import 'package:app_situational_coach/data/dummy_data_journey_test.dart';
 
 import '../models/journey.dart';
 import '../models/character.dart';
 import '../models/status.dart';
 
-List<Journey> dummyJourneys = [
-  Journey(
-      id: '1',
-      name: 'Seoul Shopping',
-      day: 3,
-      character: 'Trump',
-      description: '在首爾的購物之旅，體驗當地文化和美食。',
-      learningGoal: '學習如何在購物時使用英語交流。',
-      schedule: [
-        Day(title: 'Shopping & Asking', scenes: [
-          Scene(
-              id: '01-01',
-              title: 'Grocery Shopping',
-              location: 'Market',
-              description:
-                  'Pick up a cart, find items on your list, check labels and prices, ask staff if needed, then pay at checkout. Don’t forget your bags and receipt.',
-              learningTheme: 'Basic Transactions',
-              // 第一個scene會在創建journey的同時建立好
-              introContent: IntroContent(
-                  description:
-                      'Welcome to the market—a lively place for buying fruits, snacks, and daily items! Today, we\'ll practice basic transaction vocabulary to help you ask questions, read labels, and communicate while shopping in English.',
-                  vocabulary: [
-                    'cart',
-                    'aisle',
-                    'shelf',
-                    'label',
-                    'price',
-                    'discount',
-                    'receipt',
-                    'cashier',
-                    'checkout',
-                    'bag',
-                  ]),
-              conversationContent: ConversationContent(
-                script: '''
-You are Trump.You act as a friendly shop assistan at a grocery store. 
-Your job is to guide the learner through a realistic shopping conversation. 
-Make sure to use simple vocabulary and encourage them to improve their thinking.
+List<Journey> dummyJourneys = [journeyLow, journeyHigh];
 
-Start with a warm greeting, then ask what they are looking for.
-Make sure to talk like Trump and focus on shopping at a grocery store in korea.
-At the end, help them check out and say goodbye.
-                ''',
-                messages: [],
-              ),
-              summaryContent: SummaryContent(
-                summary:
-                    'Your grocery shopping journey has come to an end. Now, let’s review what you’ve learned with a vocabulary quiz!',
-                questions: [
-                  Question(
-                    questionText:
-                        'What do you use to carry items while shopping?',
-                    options: ['Basket', 'Bag', 'Trolley', 'Box'],
-                    answerId: 2,
-                  ),
-                  Question(
-                    questionText:
-                        'Where do you find different product categories in a supermarket?',
-                    options: ['Counter', 'Shelf', 'Aisle', 'Register'],
-                    answerId: 2,
-                  ),
-                  Question(
-                    questionText:
-                        'What is the place where you pay for your items?',
-                    options: ['Cashier', 'Checkout', 'Stockroom', 'Warehouse'],
-                    answerId: 1,
-                  ),
-                  Question(
-                    questionText:
-                        'What is the small note you get after paying?',
-                    options: ['Bill', 'Receipt', 'Tag', 'Label'],
-                    answerId: 1,
-                  ),
-                  Question(
-                    questionText:
-                        'Which of the following means “a price reduction”?',
-                    options: ['Sale', 'Tax', 'Cost', 'Item'],
-                    answerId: 0,
-                  ),
-                  Question(
-                    questionText:
-                        'What do you usually check to know how much a product costs?',
-                    options: ['Logo', 'Barcode', 'Label', 'Manual'],
-                    answerId: 2,
-                  ),
-                ],
-              )),
-          Scene(
-            id: '01-02',
-            title: 'Asking for Directions',
-            location: 'On the road',
-            description:
-                'Ask someone or use a map app to find the nearest subway station. Follow signs, walk in the right direction, and watch for subway symbols. When you arrive, check the entrance, buy a ticket if needed, and get ready to board the train.',
-            learningTheme: 'Navigation',
-          ),
-        ]),
-        Day(title: 'Ording & Cloth shopping', scenes: [
-          Scene(
-            id: '02-01',
-            title: 'Ordering at a Café',
-            location: 'Breakfast shop',
-            description:
-                'Go to the counter, look at the menu, and choose your coffee and breakfast. Tell the cashier your order clearly and politely. Pay with cash or card. Wait for your food and drink, then take them when your name or number is called. Enjoy your meal!',
-            learningTheme: 'Food & Drinks',
-          ),
-          Scene(
-            id: '02-02',
-            title: 'Shopping for Clothes',
-            location: 'Clothing store',
-            description:
-                'Go to a clothing store and browse the racks for styles you like. When you find something, ask a staff member, “Do you have this in a different size or color?” Try it on in the fitting room if available. Choose what fits best, then pay at the counter.',
-            learningTheme: 'Fashion & Sizes',
-          ),
-        ]),
-        Day(title: 'Hotel & Texi', scenes: [
-          Scene(
-            id: '03-01',
-            title: 'Hotel Check-In',
-            location: 'in the Hotel',
-            description:
-                'Go to the hotel front desk and say you’d like to check in. Provide your name and ID or booking confirmation. Ask politely about amenities by saying, “Do you have Wi-Fi?” or “Is breakfast included?” Get your room key, directions to your room, and enjoy your stay.',
-            learningTheme: 'Travel Accommodation',
-          ),
-          Scene(
-            id: '03-02',
-            title: 'Calling a Taxi',
-            location: 'Taxi',
-            description:
-                'When calling a taxi, clearly say your destination address or a well-known place nearby. For example, “Please take me to Central Park.” When the ride ends, tell the driver how you want to pay, such as “I will pay by cash” or “Do you accept credit cards?”',
-            learningTheme: 'Transportation',
-          ),
-        ])
-      ],
-      bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0),
-      group: 'A'),
-  Journey(
-      id: '2',
-      name: 'Job Interview',
-      day: 1,
-      character: 'Trump',
-      description: '模擬一次英語工作面試，提升口語表達能力。',
-      learningGoal: '學習如何在面試中自信地表達自己。',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1),
-      group: 'A'),
-  Journey(
-      id: '3',
-      name: 'Taipei Night Market',
-      day: 1,
-      character: 'Trump',
-      description: '在台北夜市體驗當地小吃和文化。',
-      learningGoal: '學習如何在日常生活中使用英語進行交流',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0),
-      group: 'A'),
-  Journey(
-      id: '4',
-      name: 'Tokyo Vacation',
-      day: 1,
-      character: 'Trump',
-      description: '在東京的假期，探索城市和文化。',
-      learningGoal: '學習如何在旅遊中使用英語進行溝通。',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1),
-      group: 'A'),
-  Journey(
-      id: '5',
-      name: 'Hong Kong Business Trip',
-      day: 1,
-      character: 'Trump',
-      description: '在香港的商務旅行，與當地商人交流。',
-      learningGoal: '學習如何在商務場合使用英語。',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0),
-      group: 'A'),
-  Journey(
-      id: '6',
-      name: 'Shanghai Conference',
-      day: 1,
-      character: 'Trump',
-      description: '參加上海的國際會議，與各國代表交流。',
-      learningGoal: '學習如何在正式場合使用英語。',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: -1, scene: -1, mode: -1),
-      group: 'A'),
-  Journey(
-      id: '7',
-      name: 'Singapore Expo',
-      day: 1,
-      character: 'Trump',
-      description: '在新加坡的博覽會上展示產品，與客戶交流。',
-      learningGoal: '學習如何在展覽中使用英語進行推銷和交流。',
-      schedule: [],
-      bloomLevel: 1,
-      status: JourneyStatus(day: 0, scene: 0, mode: 0), 
-      group: 'A'),
-];
+// === 低怪組：Teacher / Cafe + Sushi =========================================
+final Journey journeyLow = Journey(
+  id: 'low_food_teacher',
+  name: 'Café Sushi Lesson',
+  day: 2,
+  character: 'Teacher',
+  description: '在咖啡廳跟著老師學壽司，專注在食材、步驟、味覺表達的正規英語。',
+  learningGoal: '學習餐飲中高階詞彙並能清楚描述食材特性與烹飪步驟。',
+  schedule: [
+    // Day 1
+    Day(title: 'Café Basics & Preferences', scenes: [
+      Scene(
+        id: '01-01',
+        title: 'Menu & Preferences',
+        location: 'Café',
+        description: '閱讀菜單、表達偏好、處理替代與分量。',
+        learningTheme: 'Menu Literacy',
+        introContent: IntroContent(
+          description: '學會談偏好與菜單閱讀的關鍵詞。',
+          vocabulary: [
+            'beverage',     // 飲品（比 drink 更正式）
+            'preference',   // 偏好
+            'portion',      // 份量
+            'substitute',   // 替代品/替換
+            'dietary',      // 飲食的（需求/限制）
+          ],
+          questions: lowScenePreTests['01-01']!
+        ),
+        conversationContent: ConversationContent(
+          script: '''
+You are a polite café teacher. 
+Teaching Guide – Menu & Preferences
+
+Tone & Style:
+Teacher speaks calmly, clearly, and politely. Formal but gentle, gives short feedback like “Good, try again” or “Say it after me.”
+
+Theme:
+Menu literacy – ordering drinks and expressing preferences.
+Key words: beverage, preference, portion, substitute, dietary.
+
+Strategy:
+Focus on recognition and repetition.
+
+Teach key words with examples.
+
+Model full sentences: “I prefer tea to coffee.”
+
+Encourage polite phrases: “Can I have a smaller portion?”
+
+Tips:
+Use short sentences, wait for responses, correct gently, model naturally. Keep tone calm and professional.
+          ''',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: 'Your journey has come to an end. Now, let’s review what you’ve learned with a vocabulary quiz!',
+          questions: lowScenePostTests['01-01']!,
+        ),
+      ),
+      Scene(
+        id: '01-02',
+        title: 'Small Talk & Feedback',
+        location: 'Café',
+        description: '用禮貌英語進行寒暄與回饋。',
+        learningTheme: 'Service Interaction',
+        introContent: IntroContent(
+          description: '強化禮貌對話與用餐體驗描寫。',
+          vocabulary: [
+            'courteous',    // 客氣、有禮
+            'ambiance',     // 氛圍
+            'recommendation', // 推薦
+            'compliment',   // 讚美
+            'satisfaction', // 滿意度
+          ],
+          questions: lowScenePreTests['01-02']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：服務互動用語！',
+          questions: lowScenePostTests['01-02']!,
+        ),
+      ),
+    ]),
+    // Day 2
+    Day(title: 'Sushi Prep & Plating', scenes: [
+      Scene(
+        id: '02-01',
+        title: 'Sushi Prep: Fish & Rice',
+        location: 'Café Kitchen',
+        description: '處理食材、口感、鮮度與醃漬。',
+        learningTheme: 'Preparation',
+        introContent: IntroContent(
+          description: '強化描述食材特性與處理動作。',
+          vocabulary: [
+            'ingredient',  // 食材
+            'fillet',      // 魚片（動/名）
+            'marinate',    // 醃漬（動詞）
+            'texture',     // 口感
+            'freshness',   // 新鮮度
+          ],
+          questions: lowScenePreTests['02-01']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：壽司前處理字彙！',
+          questions: lowScenePostTests['02-01']!,
+        ),
+      ),
+      Scene(
+        id: '02-02',
+        title: 'Rolling & Presentation',
+        location: 'Café Counter',
+        description: '捲壽司、擺盤、味覺平衡與風味描寫。',
+        learningTheme: 'Plating & Flavor',
+        introContent: IntroContent(
+          description: '學會談擺盤與風味平衡。',
+          vocabulary: [
+            'assemble',      // 組合
+            'garnish',       // 點綴物/裝飾
+            'presentation',  // 擺盤呈現
+            'balance',       // 平衡
+            'savory',        // 鮮/鹹香
+          ],
+          questions: lowScenePreTests['02-02']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：擺盤與風味！',
+          questions: lowScenePostTests['02-02']!,
+        ),
+      ),
+    ]),
+  ],
+  bloomLevel: 1,
+  status: JourneyStatus(day: 0, scene: 0, mode: 0),
+  group: 'A',
+  preTest: lowBizarrePreTest,
+  postTest: lowBizarrePostTest
+);
+
+// === 高怪組：Trump / Disneyland + French（情境怪，但單字正常）===================
+final Journey journeyHigh = Journey(
+  id: 'high_food_trump',
+  name: 'Disney French Session',
+  day: 2,
+  character: 'Trump',
+  description: '在迪士尼樂園的臨時法式廚房裡跟著 Trump 學做菜，秀很瘋但詞彙很正經。',
+  learningGoal: '用正規餐飲詞彙描述選材、烹飪技法與擺盤評論。',
+  schedule: [
+    // Day 1
+    Day(title: 'Market & Bistro', scenes: [
+      Scene(
+        id: '01-01',
+        title: 'Selecting Produce & Tools',
+        location: 'Disney Market',
+        description: '挑選食材與器具、注意衛生與醃料。',
+        learningTheme: 'Sourcing',
+        introContent: IntroContent(
+          description: '用正式詞彙談選材與準備。',
+          vocabulary: [
+            'produce',    // 農產品/生鮮
+            'selection',  // 選品
+            'utensil',    // 器具
+            'hygiene',    // 衛生
+            'marinade',   // 醃料（名詞）
+          ],
+          questions: highScenePreTests['01-01']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '''
+You are Donald Trump hosting a Disney cooking show.
+ChatGPT 說：
+
+Teaching Guide – Selecting Produce & Tools (Bloom L1)
+
+Tone & Style:
+Trump speaks loudly, confidently, and humorously. Uses exaggeration: “This is tremendous!” “Nobody does it better!” Keeps energy high but explains clearly.
+
+Theme:
+Scene: Trump at Disneyland Market teaching how to pick ingredients.
+Focus words: produce, selection, utensil, hygiene, marinade.
+
+Strategy:
+
+Introduce each word dramatically.
+
+Give simple examples: “Produce means fruits and vegetables.”
+
+Use short, playful prompts to check comprehension.
+
+Flow Example:
+T: Welcome to the Disney Market! We’re finding the most tremendous produce. Do you know what “produce” means?
+S: Fruits and vegetables.
+T: Exactly! The best answer! Now, which one looks cleaner?
+S: This one.
+T: Great choice—perfect hygiene! You need hygiene to win at cooking. And the utensil—your secret weapon! A spoon, a whisk—tremendous tools!
+
+Tips for AI Tutor:
+Keep tone fun and bold.
+Repeat key terms often.
+Praise enthusiastically: “Fantastic!” “Incredible answer!”
+Avoid politics; stay on food theme.
+Short sentences, clear explanations, strong rhythm.
+          ''',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：選材與器具！',
+          questions: highScenePostTests['01-01']!,
+        ),
+      ),
+      Scene(
+        id: '01-02',
+        title: 'Bistro Ordering & Pairing',
+        location: 'Disney Bistro',
+        description: '訂位、前菜主菜概念、口感與餐酒搭配。',
+        learningTheme: 'Dining Structure',
+        introContent: IntroContent(
+          description: '正式用餐流程與口味表達。',
+          vocabulary: [
+            'reservation', // 訂位
+            'appetizer',   // 前菜
+            'entree',      // 主菜
+            'palate',      // 味覺/口味偏好
+            'pairing',     // 搭配（常指餐酒）
+          ],
+          questions: highScenePreTests['01-02']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：用餐結構與搭配！',
+          questions: highScenePostTests['01-02']!,
+        ),
+      ),
+    ]),
+    // Day 2
+    Day(title: 'Techniques & Plating', scenes: [
+      Scene(
+        id: '02-01',
+        title: 'Hot Techniques',
+        location: 'Disney Kitchen',
+        description: '實作煎、炒、小火燉、脫釉、打蛋器操作。',
+        learningTheme: 'Techniques',
+        introContent: IntroContent(
+          description: '掌握核心熱處理技法的精準用語。',
+          vocabulary: [
+            'sauté',     // 快炒
+            'simmer',    // 小火燉
+            'sear',      // 大火快煎上色
+            'deglaze',   // 脫釉
+            'whisk',     // 打蛋器/打發
+          ],
+          questions: highScenePreTests['02-01']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：烹飪技法精準字！',
+          questions: highScenePostTests['02-01']!,
+        ),
+      ),
+      Scene(
+        id: '02-02',
+        title: 'Plating & Sensory Review',
+        location: 'Disney Castle',
+        description: '擺盤、口感一致性、對比、香氣與餘韻評論。',
+        learningTheme: 'Critique',
+        introContent: IntroContent(
+          description: '用專業詞彙為菜色做感官評論。',
+          vocabulary: [
+            'plating',      // 擺盤（名詞）
+            'consistency',  // 一致性（口感/濃度）
+            'contrast',     // 對比
+            'aroma',        // 香氣
+            'aftertaste',   // 餘韻
+          ],
+          questions: highScenePreTests['02-02']!,
+        ),
+        conversationContent: ConversationContent(
+          script: '',
+          messages: [],
+        ),
+        summaryContent: SummaryContent(
+          summary: '小測：專業擺盤與感官評論！',
+          questions: highScenePostTests['02-02']!,
+        ),
+      ),
+    ]),
+  ],
+  bloomLevel: 1,
+  status: JourneyStatus(day: 0, scene: 0, mode: 0),
+  group: 'B',
+  preTest: highBizarrePreTest,
+  postTest: lowBizarrePostTest
+);
+
+//-------------------------------------------------------------
 
 const int dummyDialogCount = 6;
 const int dummyLoginDays = 4;

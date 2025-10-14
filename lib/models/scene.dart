@@ -43,9 +43,9 @@ class Scene {
     required Journey journey,
     // 因為script需要journey的資訊，所以把journey也傳進來了，如果 Intro、Summary需要也可以用
   }) async {
-    // 1. IntroContent
-    VocabularyGenerator v = VocabularyGenerator();
-    introContent = await v.generateVocabulary(this);
+    // // 1. IntroContent
+    // VocabularyGenerator v = VocabularyGenerator();
+    // introContent = await v.generateVocabulary(this);
 
     // 2pre. Bloom Scene Evaluator => 更新 journey.bloomLevel
     final bloomSceneEvaluator = BloomSceneEvaluator();
@@ -72,11 +72,11 @@ class Scene {
     conversationContent = ConversationContent(script: script);
 
     // 3. SummaryContent
-    TestGenerator t = TestGenerator();
-    summaryContent = await t.generateTest(
-      this,
-      introVocabulary: introContent?.vocabulary ?? [],
-    );
+    // TestGenerator t = TestGenerator();
+    // summaryContent = await t.generateTest(
+    //   this,
+    //   introVocabulary: introContent?.vocabulary ?? [],
+    // );
 
     return;
   }
@@ -85,10 +85,12 @@ class Scene {
 class IntroContent {
   final String description; //角色風格的單字介紹
   final List<String> vocabulary;
+  final List<Question> questions;
 
   IntroContent({
     required this.description,
     required this.vocabulary,
+    required this.questions,
   });
 }
 
