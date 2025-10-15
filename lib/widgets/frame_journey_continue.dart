@@ -28,7 +28,7 @@ enum FrameJourneyContinueTab {
   sceneIntro,
   sceneConversation,
   sceneSummary,
-  jourenyBackCover,
+  journeyBackCover,
   postTest,
 }
 
@@ -86,6 +86,13 @@ class FrameJourneyContinue extends StatelessWidget {
           scene: notifier.journey.status.scene,
           mode: notifier.journey.status.mode);
 
+      if (fixedStatus.day <= 0 ||
+          fixedStatus.scene <= 0 ||
+          fixedStatus.day > notifier.journey.schedule.length) {
+        notifier.setLoading(false);
+        return;
+      } // 加這個避免index取到負數的exception
+
       //
       // ******** 先處理當前scene的生成問題 ********
       //
@@ -120,7 +127,7 @@ class FrameJourneyContinue extends StatelessWidget {
 
       // 標示生成中
       notifier.setIsSceneGenerating(true);
-      if (fixedStatus.scene <
+      if (fixedStatus.day > 0 && fixedStatus.scene <
           notifier.journey.schedule[fixedStatus.day - 1].scenes.length) {
         // 生成 content
         await notifier
@@ -170,7 +177,7 @@ class FrameJourneyContinue extends StatelessWidget {
           throw Exception('status got wrong in FrameJourneyContinue\n');
       }
     } else if (status.day == 4 && status.scene == 4 && status.mode == 4) {
-      return FrameJourneyContinueTab.jourenyBackCover;
+      return FrameJourneyContinueTab.journeyBackCover;
     } else if (status.day == -2 && status.scene == -2 && status.mode == -2) {
       return FrameJourneyContinueTab.postTest;
     } else {
@@ -189,11 +196,13 @@ class FrameJourneyContinue extends StatelessWidget {
       switch (tab) {
         // 這邊我只把我即刻需要的參數丟進去 看之後怎麼調整
         case FrameJourneyContinueTab.preTest:
+          bool isPass =
+              Provider.of<JourneyStatusNotifier>(context, listen: true).isPass;
           return buildFunction(
               context: context,
               backGroundImage: true,
               mask: false,
-              button: true,
+              button: isPass,
               currentTab: tab,
               widget: PagePreTest());
 
@@ -283,7 +292,7 @@ class FrameJourneyContinue extends StatelessWidget {
               currentTab: tab,
               widget: PageSceneSummary(summaryContent: scene.summaryContent!));
 
-        case FrameJourneyContinueTab.jourenyBackCover:
+        case FrameJourneyContinueTab.journeyBackCover:
           return buildFunction(
               context: context,
               backGroundImage: true,

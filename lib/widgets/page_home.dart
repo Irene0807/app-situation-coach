@@ -9,6 +9,7 @@ import 'dart:math';
 import 'widget_star_showDialog.dart';
 import 'package:app_situational_coach/l10n/app_localizations.dart';
 
+
 class PageHome extends StatelessWidget {
   const PageHome({super.key});
 

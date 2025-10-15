@@ -6,10 +6,37 @@ import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/models/status.dart';
 import 'package:app_situational_coach/models/user.dart';
 import 'package:app_situational_coach/models/day.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../services/authentication.dart';
 import '../services/database.dart';
 
 // getSchedule 可優化 代處理
+
+//-----------------------------------------
+// 可能希望類似這樣存DB？
+// - User
+//   - {userId}
+//     - journeys
+//       - {journeyId} // 以journey為單位
+//         - progress // 存使用者進度
+//         - conversations // 存對話
+//           - scene_01-01
+//           - scene_01-02
+//           - scene_02-01
+//           - scene_02-02
+//         - pretests
+//           - journeyPreTest
+//           - scene_01-01_preTest
+//           - scene_01-02_preTest
+//           - scene_02-01_preTest
+//           - scene_02-02_preTest
+//         - posttests
+//           - journeyPreTest
+//           - scene_01-01_postTest
+//           - scene_01-02_postTest
+//           - scene_02-01_postTest
+//           - scene_02-02_postTest
+//-----------------------------------------
 
 class UserRepository {
   final AuthenticationService authService;
@@ -337,7 +364,18 @@ class UserRepository {
                 vocabulary:
                     (sceneData['introContent']['vocabulary'] as List<dynamic>)
                         .map((e) => e as String)
-                        .toList())
+                        .toList(),
+                questions: sceneData['introContent']['questions'] != null
+                  ? (sceneData['introContent']['questions'] as List<dynamic>)
+                      .map((q) => Question(
+                            questionText: q['questionText'] as String,
+                            options:
+                                List<String>.from(q['options'] as List<dynamic>),
+                            answerId: q['answerId'] as int,
+                          ))
+                      .toList()
+                  : [],
+            )
             : null,
         conversationContent: sceneData['conversationContent'] != null
             ? ConversationContent(

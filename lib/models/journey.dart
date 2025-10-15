@@ -1,5 +1,6 @@
 import 'package:app_situational_coach/models/day.dart';
 import 'package:app_situational_coach/models/status.dart';
+import 'package:app_situational_coach/models/question.dart';
 
 class Journey {
   final String id;
@@ -12,6 +13,8 @@ class Journey {
   int bloomLevel; // 使用者在這個旅行中的bloom等級 預設每個旅程的bloom不同
   JourneyStatus status;
   final String group;
+  final List<Question>? preTest;
+  final List<Question>? postTest;
 
   // 沒用dummy data的話可以用這個
   // Journey({
@@ -36,5 +39,7 @@ class Journey {
     required this.bloomLevel,
     required this.status,
     required this.group,
+    this.preTest,
+    this.postTest,
   });
 }

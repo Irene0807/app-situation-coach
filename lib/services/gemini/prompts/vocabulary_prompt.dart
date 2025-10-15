@@ -46,6 +46,6 @@ Output Rules:
     if (matches.length < 11) return null;
 
     return IntroContent(
-        description: matches.first, vocabulary: matches.sublist(1));
+        description: matches.first, vocabulary: matches.sublist(1), questions: []);
   }
 }
