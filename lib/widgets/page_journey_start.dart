@@ -162,8 +162,8 @@ class PageJourneyStart extends StatelessWidget {
                                           );
                                         } else {
                                           return GestureDetector(
-                                            onTap: () =>
-                                                context.go('/home/journey/add'),
+                                            // onTap: () =>
+                                            //     context.go('/home/journey/add'),
                                             child: Image.asset(
                                               'assets/images/add_planet.png',
                                               fit: BoxFit.cover,
@@ -220,7 +220,8 @@ class PageJourneyStart extends StatelessWidget {
                     elevation: 0,
                     foregroundColor: const Color(0xFF0D1B2A), // 太空藍
                   ),
-                  onPressed: () => context.go('/home/journey/add'),
+                  // onPressed: () => context.go('/home/journey/add'),
+                  onPressed: () {},
                   child: Text(
                     AppLocalizations.of(context)!.create_new_journey,
                     style: TextStyle(

@@ -146,7 +146,8 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                                     ),
                                   ),
                                   SizedBox(height: screenHeight * 0.04),
-                                  ...List.generate(question.options.length, (i) {
+                                  ...List.generate(question.options.length,
+                                      (i) {
                                     return Padding(
                                       padding: EdgeInsets.symmetric(
                                           vertical: screenHeight * 0.008),
@@ -158,17 +159,18 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                                               ? null
                                               : () async {
                                                   final isCorrect =
-                                                      i == question.answerId;
+                                                      (i == question.answerId);
+
                                                   setState(() {
                                                     _hasAnswered[index] = true;
                                                     _selectedIndex[index] = i;
                                                   });
 
-                                                  Provider.of<
-                                                              JourneyStatusNotifier>(
+                                                  Provider.of<JourneyStatusNotifier>(
                                                           context,
                                                           listen: false)
-                                                      .appendResponses(isCorrect);
+                                                      .appendResponses(
+                                                          isCorrect);
 
                                                   final isLast =
                                                       index == _qCount - 1;
@@ -177,8 +179,7 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                                                     await Future.delayed(
                                                         const Duration(
                                                             milliseconds: 300));
-                                                    Provider.of<
-                                                                JourneyStatusNotifier>(
+                                                    Provider.of<JourneyStatusNotifier>(
                                                             context,
                                                             listen: false)
                                                         .setIsPass();

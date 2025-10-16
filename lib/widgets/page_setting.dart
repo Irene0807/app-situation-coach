@@ -59,10 +59,10 @@ class _PageSettingState extends State<PageSetting> {
             icon:
                 Icon(isEditing ? Icons.check : Icons.edit, color: Colors.white),
             onPressed: () {
-              if (isEditing) {
-                Provider.of<UserNotifier>(context, listen: false)
-                    .updateSetting(nationality, darkMode, isNotificationOn);
-              }
+              // if (isEditing) {
+              //   Provider.of<UserNotifier>(context, listen: false)
+              //       .updateSetting(nationality, darkMode, isNotificationOn);
+              // }
               setState(() {
                 isEditing = !isEditing;
               });

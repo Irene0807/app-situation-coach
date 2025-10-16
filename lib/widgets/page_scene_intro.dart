@@ -23,7 +23,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
   int _currentIndex = 0;
 
   late final int _qCount;
-  late List<bool> _hasAnswered;   // 每題是否已作答
+  late List<bool> _hasAnswered; // 每題是否已作答
   late List<int?> _selectedIndex; // 每題點了哪個選項
 
   @override
@@ -45,7 +45,6 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -166,114 +165,134 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                         ),
                       ),
 
-                  // Question 頁：選擇題按鈕
-                  if (_currentIndex > 0)
-                    Positioned(
-                      bottom: screenHeight * 0.15,
-                      left: screenWidth * 0.05,
-                      right: screenWidth * 0.05,
-                      child: Builder(builder: (context) {
-                        final questionIndex = _currentIndex - 1;
-                        final question = widget.introContent.questions[questionIndex];
+                    // Question 頁：選擇題按鈕
+                    if (_currentIndex > 0)
+                      Positioned(
+                        bottom: screenHeight * 0.15,
+                        left: screenWidth * 0.05,
+                        right: screenWidth * 0.05,
+                        child: Builder(builder: (context) {
+                          final questionIndex = _currentIndex - 1;
+                          final question =
+                              widget.introContent.questions[questionIndex];
 
-                        Color getButtonColor(int i) {
-                          if (!_hasAnswered[questionIndex]) return Colors.white.withOpacity(0.15);
-                          if (i == question.answerId) {
-                            if (_selectedIndex[questionIndex] == question.answerId) {
-                              return Colors.greenAccent.withOpacity(0.7);
-                            } else {
-                              return Colors.redAccent.withOpacity(0.7);
+                          Color getButtonColor(int i) {
+                            if (!_hasAnswered[questionIndex])
+                              return Colors.white.withOpacity(0.15);
+                            if (i == question.answerId) {
+                              if (_selectedIndex[questionIndex] ==
+                                  question.answerId) {
+                                return Colors.greenAccent.withOpacity(0.7);
+                              } else {
+                                return Colors.redAccent.withOpacity(0.7);
+                              }
                             }
+                            return Colors.white.withOpacity(0.06);
                           }
-                          return Colors.white.withOpacity(0.06);
-                        }
 
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // 題目
-                            Padding(
-                              padding: EdgeInsets.only(bottom: screenHeight * 0.03),
-                              child: Text(
-                                question.questionText,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.05,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  height: 1.4,
-                                  shadows: const [
-                                    Shadow(blurRadius: 4, offset: Offset(1,1), color: Colors.black45),
-                                  ],
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // 題目
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: screenHeight * 0.03),
+                                child: Text(
+                                  question.questionText,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.05,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    height: 1.4,
+                                    shadows: const [
+                                      Shadow(
+                                          blurRadius: 4,
+                                          offset: Offset(1, 1),
+                                          color: Colors.black45),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
 
-                            // 選項
-                            ...List.generate(question.options.length, (i) {
-                              final disabled = _hasAnswered[questionIndex];
-                              return Padding(
-                                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.008),
-                                child: SizedBox(
-                                  width: screenWidth * 0.75,
-                                  height: screenHeight * 0.07,
-                                  child: ElevatedButton(
-                                    onPressed: disabled
-                                        ? null
-                                        : () async {
-                                            final isCorrect = i == question.answerId;
+                              // 選項
+                              ...List.generate(question.options.length, (i) {
+                                final disabled = _hasAnswered[questionIndex];
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: screenHeight * 0.008),
+                                  child: SizedBox(
+                                    width: screenWidth * 0.75,
+                                    height: screenHeight * 0.07,
+                                    child: ElevatedButton(
+                                      onPressed: disabled
+                                          ? null
+                                          : () async {
+                                              final isCorrect =
+                                                  (i == question.answerId);
 
-                                            setState(() {
-                                              _hasAnswered[questionIndex] = true;
-                                              _selectedIndex[questionIndex] = i;
-                                            });
+                                              setState(() {
+                                                _hasAnswered[questionIndex] =
+                                                    true;
+                                                _selectedIndex[questionIndex] =
+                                                    i;
+                                              });
 
-                                            // 紀錄作答正誤
-                                            Provider.of<JourneyStatusNotifier>(context, listen: false)
-                                                .appendResponses(isCorrect);
+                                              // 紀錄作答正誤
+                                              Provider.of<JourneyStatusNotifier>(
+                                                      context,
+                                                      listen: false)
+                                                  .appendResponses(
+                                                      isCorrect);
 
-                                            final isLastQuestion = questionIndex == _qCount - 1;
+                                              final isLastQuestion =
+                                                  questionIndex == _qCount - 1;
 
-                                            if (isLastQuestion) {
-                                              await Future.delayed(const Duration(milliseconds: 200));
-                                              Provider.of<JourneyStatusNotifier>(context, listen: false)
-                                                  .setIsPass();
-                                            } else {
-                                              await Future.delayed(const Duration(seconds: 1));
-                                              _nextPage();
-                                            }
-                                          },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: getButtonColor(i),
-                                      disabledBackgroundColor: getButtonColor(i),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(14),
-                                        side: const BorderSide(color: Colors.white30),
+                                              if (isLastQuestion) {
+                                                await Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 200));
+                                                Provider.of<JourneyStatusNotifier>(
+                                                        context,
+                                                        listen: false)
+                                                    .setIsPass();
+                                              } else {
+                                                await Future.delayed(
+                                                    const Duration(seconds: 1));
+                                                _nextPage();
+                                              }
+                                            },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: getButtonColor(i),
+                                        disabledBackgroundColor:
+                                            getButtonColor(i),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          side: const BorderSide(
+                                              color: Colors.white30),
+                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: screenHeight * 0.01,
+                                          horizontal: screenWidth * 0.04,
+                                        ),
                                       ),
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: screenHeight * 0.01,
-                                        horizontal: screenWidth * 0.04,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      question.options[i],
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: screenWidth * 0.05,
-                                        fontWeight: FontWeight.w500,
+                                      child: Text(
+                                        question.options[i],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: screenWidth * 0.05,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }),
-                          ],
-                        );
-                      }),
-                    ),
-
-
-
+                                );
+                              }),
+                            ],
+                          );
+                        }),
+                      ),
                   ],
                 ),
               ),
@@ -283,10 +302,11 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(
-                  screenWidth * 0.03, 
-                  screenWidth * 0.03, 
-                  screenWidth * 0.03, 
-                  screenHeight * 0.05,),
+                  screenWidth * 0.03,
+                  screenWidth * 0.03,
+                  screenWidth * 0.03,
+                  screenHeight * 0.05,
+                ),
                 child: SizedBox(
                   height: screenHeight * 0.3,
                   child: CharacterWidget(
@@ -298,8 +318,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
               ),
             ),
             // 左下角文字
-            if (_currentIndex == _pages.length - 1 &&
-                _hasAnswered[_qCount - 1])
+            if (_currentIndex == _pages.length - 1 && _hasAnswered[_qCount - 1])
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(

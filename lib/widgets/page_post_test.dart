@@ -19,7 +19,8 @@ class _PagePostTestState extends State<PagePostTest> {
   @override
   void initState() {
     super.initState();
-    final journey = Provider.of<JourneyStatusNotifier>(context, listen: false).journey;
+    final journey =
+        Provider.of<JourneyStatusNotifier>(context, listen: false).journey;
     questions = journey.postTest ?? [];
     selectedAnswers = List<int?>.filled(questions.length, null);
     isSubmitted = List<bool>.filled(questions.length, false);
@@ -30,19 +31,19 @@ class _PagePostTestState extends State<PagePostTest> {
     setState(() {
       selectedAnswers[questionIndex] = selectedOption;
     });
-    Provider.of<JourneyStatusNotifier>(context, listen: false)
-        .appendAnswerIds(selectedOption);
   }
 
-  void _handleButtonPress(int questionIndex) {
+  void _handleButtonPress(int questionIndex, bool isCorrect) {
     final isLast = questionIndex == questions.length - 1;
     if (!isSubmitted[questionIndex]) {
       if (selectedAnswers[questionIndex] == null) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Please select an option')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please select an option')));
         return;
       }
       setState(() => isSubmitted[questionIndex] = true);
+      Provider.of<JourneyStatusNotifier>(context, listen: false)
+          .appendResponses(isCorrect);
       if (isLast) {
         Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
       }
@@ -67,9 +68,11 @@ class _PagePostTestState extends State<PagePostTest> {
     Icon? trailing;
     if (submitted) {
       if (isCorrect) {
-        trailing = const Icon(Icons.check, color: Color.fromARGB(255, 0, 255, 8), size: 26);
+        trailing = const Icon(Icons.check,
+            color: Color.fromARGB(255, 0, 255, 8), size: 26);
       } else if (isSelected && !isCorrect) {
-        trailing = const Icon(Icons.close, color: Color.fromARGB(255, 255, 17, 0), size: 26);
+        trailing = const Icon(Icons.close,
+            color: Color.fromARGB(255, 255, 17, 0), size: 26);
       }
     }
 
@@ -103,7 +106,8 @@ class _PagePostTestState extends State<PagePostTest> {
         ),
         value: optionIndex,
         groupValue: selected,
-        onChanged: submitted ? null : (val) => _selectAnswer(questionIndex, val!),
+        onChanged:
+            submitted ? null : (val) => _selectAnswer(questionIndex, val!),
         activeColor: Colors.greenAccent,
       ),
     );
@@ -126,7 +130,10 @@ class _PagePostTestState extends State<PagePostTest> {
                   fontWeight: FontWeight.bold,
                   color: Colors.lightBlueAccent,
                   shadows: [
-                    Shadow(blurRadius: 4, offset: Offset(1, 1), color: Colors.black54),
+                    Shadow(
+                        blurRadius: 4,
+                        offset: Offset(1, 1),
+                        color: Colors.black54),
                   ],
                 ),
               ),
@@ -172,9 +179,7 @@ class _PagePostTestState extends State<PagePostTest> {
                           const SizedBox(height: 12),
                           ...List.generate(q.options.length,
                               (i) => _buildOptionRow(index, i)),
-
                           const SizedBox(height: 20),
-
                           if (feedback != null)
                             Center(
                               child: AnimatedOpacity(
@@ -192,12 +197,12 @@ class _PagePostTestState extends State<PagePostTest> {
                                 ),
                               ),
                             ),
-
                           const SizedBox(height: 40),
                           if (!(isLast && allDone))
                             Center(
                               child: ElevatedButton(
-                                onPressed: () => _handleButtonPress(index),
+                                onPressed: () => _handleButtonPress(index,
+                                    selectedAnswers[index] == q.answerId),
                                 child: Text(submitted ? 'Next' : 'Submit'),
                               ),
                             )

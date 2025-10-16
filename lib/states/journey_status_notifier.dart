@@ -9,18 +9,17 @@ class JourneyStatusNotifier extends ChangeNotifier {
   final Journey journey;
 
   bool isPass = false; // 僅有sceneDetail會看isPass決定換頁button是否出現
-  bool loading = true;
-  bool isSceneGenerating = false;
+  bool loading = false;
+  // bool isSceneGenerating = false;
 
   // 暫存data
   List<bool> tmpResponses = [];
-  List<int> tmpAnswerIds = [];
 
   JourneyStatusNotifier({
     required this.userRepository,
     required this.journey,
   }) {
-    loadSchedule();
+    // loadSchedule();
   }
 
   void setIsPass() {
@@ -33,10 +32,10 @@ class JourneyStatusNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setIsSceneGenerating(bool value) {
-    isSceneGenerating = value;
-    notifyListeners();
-  }
+  // void setIsSceneGenerating(bool value) {
+  //   isSceneGenerating = value;
+  //   notifyListeners();
+  // }
 
   bool getSceneReady() {
     return journey
@@ -46,17 +45,11 @@ class JourneyStatusNotifier extends ChangeNotifier {
 
   void cleanTmpData() {
     tmpResponses.clear();
-    tmpAnswerIds.clear();
     notifyListeners();
   }
 
-  void appendResponses(bool response) {
-    tmpResponses.add(response);
-    // notifyListeners();
-  }
-
-  void appendAnswerIds(int answerId) {
-    tmpAnswerIds.add(answerId);
+  void appendResponses(bool correct) {
+    tmpResponses.add(correct);
     // notifyListeners();
   }
 
@@ -72,34 +65,58 @@ class JourneyStatusNotifier extends ChangeNotifier {
     return b;
   }
 
-  Future<void> uploadPreSceneContent(String sceneId, Scene scene) async {
-    await userRepository.setPreSceneContent(
-        journeyId: journey.id, sceneId: sceneId, scene: scene);
+  // Future<void> uploadPreSceneContent(String sceneId, Scene scene) async {
+  //   await userRepository.setPreSceneContent(
+  //       journeyId: journey.id, sceneId: sceneId, scene: scene);
+  // }
+
+  Future<void> uploadPreTestResponses() async {
+    await userRepository.serPreTestResponse(
+        journeyId: journey.id, preTestId: 'pre_test', responses: tmpResponses);
   }
 
-  Future<void> uploadSceneIntro(String sceneId) async {
+  Future<void> uploadPostTestResponses() async {
+    await userRepository.setPostTestResponse(
+        journeyId: journey.id,
+        postTestId: 'post_test',
+        responses: tmpResponses);
+  }
+
+  ///////////////////////////////////////////////////////
+  /// 下面三個function代處理 introId conversationId summaryId
+  ///////////////////////////////////////////////////////
+
+  String formatDayScene() {
+    return '${journey.status.day.toString().padLeft(2, '0')}-${journey.status.scene.toString().padLeft(2, '0')}';
+  }
+
+  Future<void> uploadSceneIntro() async {
+    String introId = 'scene_pretest_${formatDayScene()}';
     await userRepository.setSceneIntro(
-        journeyId: journey.id, sceneId: sceneId, responses: tmpResponses);
+        journeyId: journey.id, introId: introId, responses: tmpResponses);
   }
 
-  Future<void> uploadSceneConversation(
-      String sceneId, List<Message> messages) async {
+  Future<void> uploadSceneConversation(List<Message> messages) async {
+    String conversationId = 'conversation_${formatDayScene()}';
     await userRepository.setSceneConversation(
-        journeyId: journey.id, sceneId: sceneId, messages: messages);
+        journeyId: journey.id,
+        conversationId: conversationId,
+        messages: messages);
   }
 
-  Future<void> uploadSceneSummary(String sceneId) async {
+  Future<void> uploadSceneSummary() async {
+    String summaryId = 'scene_posttest_${formatDayScene()}';
     await userRepository.setSceneSummary(
-        journeyId: journey.id, sceneId: sceneId, answerIds: tmpAnswerIds);
+        journeyId: journey.id, summaryId: summaryId, responses: tmpResponses);
   }
 
-  Future<void> loadSchedule() async {
-    if (journey.schedule.isEmpty) {
-      journey.schedule = await userRepository.getSchedule(
-          journeyId: journey.id, day: journey.day);
-    }
+  // Future<void> loadSchedule() async {
+  //   if (journey.schedule.isEmpty) {
+  //     journey.schedule = await userRepository.getSchedule(
+  //         journeyId: journey.id, day: journey.day);
+  //   }
 
-    loading = false;
-    notifyListeners();
-  }
+  //   loading = false;
+  //   notifyListeners();
+  // }
 }

@@ -49,20 +49,20 @@ class UserNotifier extends ChangeNotifier {
     // notifyListeners();
   }
 
-  Future<void> updateSetting(
-      String nationality, bool darkMode, bool isNotificationOn) async {
-    await userRepository.updateSetting(
-        nationality: nationality,
-        darkMode: darkMode,
-        isNotificationOn: isNotificationOn);
+  // Future<void> updateSetting(
+  //     String nationality, bool darkMode, bool isNotificationOn) async {
+  //   await userRepository.updateSetting(
+  //       nationality: nationality,
+  //       darkMode: darkMode,
+  //       isNotificationOn: isNotificationOn);
 
-    if (user != null) {
-      user!.nationality = nationality;
-      user!.darkMode = darkMode;
-      user!.isNotificationOn = isNotificationOn;
-    }
-    notifyListeners();
-  }
+  //   if (user != null) {
+  //     user!.nationality = nationality;
+  //     user!.darkMode = darkMode;
+  //     user!.isNotificationOn = isNotificationOn;
+  //   }
+  //   notifyListeners();
+  // }
 
   Future<void> loadUserData() async {
     user = await userRepository.getUserData();

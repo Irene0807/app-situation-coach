@@ -54,76 +54,78 @@ class _PageJourneyBackCoverState extends State<PageJourneyBackCover>
 
           // 主要內容
           SafeArea(
-            child: Column(
-              children: [
-                SizedBox(height: size.height * 0.25),
-
-                // Icon
-                Icon(
-                  Icons.military_tech,
-                  color: Colors.amberAccent,
-                  size: size.width * 0.25,
-                ),
-                SizedBox(height: size.height * 0.05),
-
-                // 文字
-                Text(
-                  "Congratulations!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: size.width * 0.07,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                          blurRadius: 6,
-                          offset: Offset(2, 2),
-                          color: Colors.black45)
-                    ],
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(height: size.height * 0.25),
+              
+                  // Icon
+                  Icon(
+                    Icons.military_tech,
+                    color: Colors.amberAccent,
+                    size: size.width * 0.25,
                   ),
-                ),
-                SizedBox(height: size.height * 0.05),
-                Text(
-                  "You’ve completed this journey!\n",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: size.width * 0.055,
-                    height: 1.4,
-                    color: const Color.fromARGB(226, 255, 255, 255),
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-
-                Spacer(),
-
-                // 下一頁button
-                Padding(
-                  padding: EdgeInsets.only(
-                      bottom: size.height * 0.08, left: 24, right: 24),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _goHome,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4B296B),
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(
-                            vertical: size.height * 0.02),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: Text(
-                        "Go to Home",
-                        style: TextStyle(
-                          fontSize: size.width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                  SizedBox(height: size.height * 0.05),
+              
+                  // 文字
+                  Text(
+                    "Congratulations!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: size.width * 0.07,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                            color: Colors.black45)
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: size.height * 0.05),
+                  Text(
+                    "You’ve completed this journey!\n",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: size.width * 0.055,
+                      height: 1.4,
+                      color: const Color.fromARGB(226, 255, 255, 255),
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+              
+                  // Spacer(),
+              
+                  // 下一頁button
+                  // Padding(
+                  //   padding: EdgeInsets.only(
+                  //       bottom: size.height * 0.08, left: 24, right: 24),
+                  //   child: SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //       onPressed: _goHome,
+                  //       style: ElevatedButton.styleFrom(
+                  //         backgroundColor: const Color(0xFF4B296B),
+                  //         foregroundColor: Colors.white,
+                  //         padding: EdgeInsets.symmetric(
+                  //             vertical: size.height * 0.02),
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(12),
+                  //         ),
+                  //       ),
+                  //       child: Text(
+                  //         "Go to Home",
+                  //         style: TextStyle(
+                  //           fontSize: size.width * 0.05,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           ),
         ],
