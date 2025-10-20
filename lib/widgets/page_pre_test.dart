@@ -16,6 +16,7 @@ class _PagePreTestState extends State<PagePreTest> {
   late List<Question> questions;
   late List<int?> selectedAnswers;
   late List<bool> isSubmitted;
+  int correctCnt = 0;
 
   @override
   void initState() {
@@ -43,9 +44,18 @@ class _PagePreTestState extends State<PagePreTest> {
         return;
       }
       setState(() => isSubmitted[questionIndex] = true);
+      // 記錄使用者選項
       Provider.of<JourneyStatusNotifier>(context, listen: false)
-          .appendResponses(isCorrect);
+          .appendResponses(selectedAnswers[questionIndex]!);
+      // 計算答對題數
+      if (selectedAnswers[questionIndex] == questions[questionIndex].answerId) {
+        correctCnt += 1;
+      }
       if (isLast) {
+        // 紀錄答對題數
+        Provider.of<JourneyStatusNotifier>(context, listen: false)
+            .appendCorrectNum(correctCnt);
+        // 標記isPass
         Provider.of<JourneyStatusNotifier>(context, listen: false).setIsPass();
       }
     } else {

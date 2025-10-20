@@ -7,110 +7,167 @@ import '../models/question.dart';
 final Map<String, List<Question>> lowScenePreTests = {
   '01-01': [
     Question(
-      questionText: "What does 'beverage' mean?",
-      options: ['A drink', 'A dessert', 'A utensil', 'A sauce'],
+      questionText: "How do you say \"炒蛋\" in English?",
+      options: [
+        'Scrambled eggs',
+        'Boiled yolk',
+        'Creamy custard',
+        'Rolled omelette'
+      ],
       answerId: 0,
     ),
     Question(
-      questionText: "Which word means someone’s personal choice?",
-      options: ['Preference', 'Recipe', 'Request', 'Habit'],
-      answerId: 0,
+      questionText: "Translate \"鬆餅\" to English — what’s the correct word?",
+      options: ['Syrup waffles', 'Pancakes', 'Sweet crackers', 'Cake rolls'],
+      answerId: 1,
     ),
     Question(
-      questionText: "A 'portion' refers to ____.",
-      options: ['A serving size', 'A recipe', 'A tableware', 'A side dish'],
-      answerId: 0,
+      questionText: "What does \"單面煎蛋\" mean in English?",
+      options: [
+        'Half-fried omelette',
+        'Sunny-side up',
+        'Crispy egg top',
+        'Morning skillet'
+      ],
+      answerId: 1,
     ),
     Question(
-      questionText: "A 'substitute' is something used ____.",
-      options: ['Instead of another thing', 'After a meal', 'For decoration', 'Before cooking'],
-      answerId: 0,
+      questionText: "Choose the correct translation for \"薯餅\".",
+      options: ['Potato bricks', 'Crispy hash', 'Hash browns', 'Golden fries'],
+      answerId: 2,
     ),
     Question(
-      questionText: "'Dietary' relates to ____ habits.",
-      options: ['Eating', 'Sleeping', 'Shopping', 'Working'],
+      questionText: "How do you say \"兩面煎但蛋黃半熟的蛋\" in English?",
+      options: [
+        'Over medium',
+        'Middle fried yolk',
+        'Half-ready sunny',
+        'Soft skillet egg'
+      ],
       answerId: 0,
     ),
   ],
   '01-02': [
     Question(
-      questionText: "What does 'courteous' describe?",
-      options: ['Polite behavior', 'Fast service', 'Strict rules', 'Busy atmosphere'],
+      questionText: "How would you say \"拿鐵\" in English?",
+      options: ['placid', 'Latte', 'Single-origin', 'candor'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "Translate \"義式濃縮\" to English. Which one is correct?",
+      options: ['Cold brew', 'hindrance', 'Espresso', 'lucid'],
+      answerId: 2,
+    ),
+    Question(
+      questionText:
+          "If someone orders \"低因咖啡\", what are they asking for in English?",
+      options: ['Single-origin', 'Decaf', 'Latte', 'tapestry'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "Do you know the English for \"冷萃咖啡\"? Pick the right one.",
+      options: ['Cold brew', 'rhetoric', 'Decaf', 'Latte'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Ambiance' means the restaurant’s ____.",
-      options: ['Mood or atmosphere', 'Food prices', 'Staff size', 'Reservation time'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'recommendation' is a ____.",
-      options: ['Suggestion', 'Receipt', 'Flavor', 'Complaint'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'compliment' is ____.",
-      options: ['A nice remark', 'A free dessert', 'A refund', 'A menu item'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Satisfaction' means feeling ____.",
-      options: ['Happy and fulfilled', 'Hungry and tired', 'Surprised', 'Confused'],
+      questionText: "How do you say \"單一產區咖啡\" in English?",
+      options: ['Single-origin', 'menagerie', 'Espresso', 'conjecture'],
       answerId: 0,
     ),
   ],
   '02-01': [
     Question(
-      questionText: "An 'ingredient' is ____.",
-      options: ['A food component', 'A kitchen tool', 'A flavor type', 'A menu name'],
+      questionText: "How would you say \"原味貝果\" in English?",
+      options: ['Sesame bagel', 'Plain bagel', 'Bagel roll', 'Wheat donut'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "Translate \"奶油起司抹醬\" into English. What's the correct word?",
+      options: [
+        'Cheese whip',
+        'Cream cheese',
+        'Butter jam',
+        'Fresh milk spread',
+      ],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "If someone orders a \"芝麻口味的貝果\", which bagel are they asking for?",
+      options: [
+        'Plain bagel',
+        'Toasted roll',
+        'Cinnamon bagel',
+        'Sesame bagel',
+      ],
+      answerId: 3,
+    ),
+    Question(
+      questionText: "What's the English name for \"燻鮭魚抹醬\"?",
+      options: [
+        'Smoked salmon spread',
+        'Salmon butter',
+        'Creamy fish dip',
+        'Seafood jam'
+      ],
       answerId: 0,
     ),
     Question(
-      questionText: "To 'fillet' a fish means to ____.",
-      options: ['Cut it into slices', 'Cook it with sauce', 'Freeze it', 'Serve it with rice'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "To 'marinate' food means to ____.",
-      options: ['Soak it in seasoned liquid', 'Slice it thin', 'Bake it', 'Dry it in the sun'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Texture' is about how food ____.",
-      options: ['Feels in your mouth', 'Looks on the plate', 'Smells', 'Costs'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Freshness' shows how ____ the food is.",
-      options: ['New and good in quality', 'Cheap', 'Colorful', 'Spicy'],
-      answerId: 0,
+      questionText:
+          "You see \"煙燻鮭魚切片(百吉圈常用配料)\" on a menu. Which English word matches it?",
+      options: ['Salmon roll', 'Fish slices', 'Lox', 'Cured tuna'],
+      answerId: 2,
     ),
   ],
   '02-02': [
     Question(
-      questionText: "To 'assemble' means to ____.",
-      options: ['Put parts together', 'Heat ingredients', 'Cut vegetables', 'Serve customers'],
-      answerId: 0,
+      questionText: "Hungry already? How do you say \"早午餐\" in English?",
+      options: [
+        'Supper',
+        'Tea break',
+        'Midnight snack',
+        'Brunch',
+      ],
+      answerId: 3,
     ),
     Question(
-      questionText: "A 'garnish' is used to ____ a dish.",
-      options: ['Decorate', 'Flavor', 'Weigh', 'Cool down'],
-      answerId: 0,
+      questionText:
+          "In a restaurant, how would you translate \"菜單描述\" into English?",
+      options: [
+        'Order summary',
+        'Menu description',
+        'Customer review',
+        'Meal notice'
+      ],
+      answerId: 1,
     ),
     Question(
-      questionText: "'Presentation' means how a dish ____.",
-      options: ['Looks on the plate', 'Smells', 'Tastes', 'Is cooked'],
-      answerId: 0,
+      questionText: "Chef exam! What is the English word for \"白醬\"?",
+      options: ['Cream sauce', 'Béchamel', 'Milk roux', 'Velouté'],
+      answerId: 1,
     ),
     Question(
-      questionText: "To 'balance' flavors means to make sure they are ____.",
-      options: ['Even and not too strong', 'Sweet only', 'Spicy only', 'Unclear'],
-      answerId: 0,
+      questionText:
+          "Translate this cooking term: \"蒜味蛋黃醬\". Which one is correct?",
+      options: [
+        'Tartar sauce',
+        'Garlic dip',
+        'Egg mayo dressing',
+        'Aioli',
+      ],
+      answerId: 3,
     ),
     Question(
-      questionText: "'Savory' describes a flavor that is ____.",
-      options: ['Salty or umami', 'Sweet', 'Sour', 'Plain'],
-      answerId: 0,
+      questionText:
+          "Fancy French cuisine? How do you say \"發酵鮮奶油\" in English?",
+      options: [
+        'Heavy cream',
+        'Custard cream',
+        'Crème fraîche',
+        'Fermented butter'
+      ],
+      answerId: 2,
     ),
   ],
 };
@@ -118,110 +175,149 @@ final Map<String, List<Question>> lowScenePreTests = {
 final Map<String, List<Question>> lowScenePostTests = {
   '01-01': [
     Question(
-      questionText: "'Beverage' most likely means ____.",
-      options: ['A type of drink', 'A cooking tool', 'A sauce', 'A plate'],
+      questionText:
+          "I'm ordering breakfast. What does 'scrambled eggs' mean in Chinese?",
+      options: ['炒蛋', '陽光', '堅果', '湯匙'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Preference' refers to ____.",
-      options: ['Something you like more', 'A payment method', 'A cooking step', 'A smell'],
+      questionText:
+          "What does 'pancakes' mean in Chinese? I want something sweet for breakfast.",
+      options: [
+        '燈塔',
+        '外套',
+        '奶油麵包',
+        '鬆餅',
+      ],
+      answerId: 3,
+    ),
+    Question(
+      questionText:
+          "At the diner, I said I want my eggs 'sunny-side up'. What does that mean in Chinese?",
+      options: ['太陽蛋', '炒高麗菜', '烤土司', '馬鈴薯泥'],
       answerId: 0,
     ),
     Question(
-      questionText: "A 'portion' is best described as ____.",
-      options: ['An amount of food served', 'A cooking utensil', 'A dining seat', 'A dish name'],
-      answerId: 0,
+      questionText: "I'm hungry! What are 'hash browns' in Chinese?",
+      options: ['杏仁片', '薯餅', '奶茶', '蕃茄片'],
+      answerId: 1,
     ),
     Question(
-      questionText: "A 'substitute' replaces ____.",
-      options: ['Another ingredient', 'A waiter', 'A menu', 'A plate'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Dietary restrictions' mean limits on ____.",
-      options: ['Food you can eat', 'Places to visit', 'Time to sleep', 'Drinks to order'],
-      answerId: 0,
+      questionText:
+          "How do you want your eggs? What does 'over medium' mean in Chinese?",
+      options: ['堅硬的石頭', '豆漿', '七分熟煎蛋', '水煮蛋'],
+      answerId: 2,
     ),
   ],
   '01-02': [
     Question(
-      questionText: "'Courteous' service makes customers feel ____.",
-      options: ['Respected', 'Ignored', 'Rushed', 'Confused'],
+      questionText:
+          "I'm at a café ordering a drink. What does 'latte' mean in Chinese?",
+      options: [
+        '綠茶',
+        '葡萄汁',
+        '海洋',
+        '拿鐵',
+      ],
+      answerId: 3,
+    ),
+    Question(
+      questionText:
+          "You need a strong morning boost. What does 'espresso' mean in Chinese?",
+      options: ['濃縮咖啡', '紙箱', '沙漠', '番茄汁'],
       answerId: 0,
     ),
     Question(
-      questionText: "A restaurant’s 'ambiance' is its ____.",
-      options: ['Atmosphere', 'Menu', 'Bill', 'Temperature'],
-      answerId: 0,
+      questionText:
+          "On a hot day, I prefer 'cold brew'. What is its Chinese meaning?",
+      options: ['地毯', '冷萃咖啡', '冰箱', '花園'],
+      answerId: 1,
     ),
     Question(
-      questionText: "A 'recommendation' from a waiter is a ____.",
-      options: ['Helpful suggestion', 'Criticism', 'Joke', 'Bill'],
-      answerId: 0,
+      questionText:
+          "Before bed, I drink 'decaf'. What does it mean in Chinese?",
+      options: ['衛星', '無咖啡因咖啡', '運動鞋', '藍色小屋'],
+      answerId: 1,
     ),
     Question(
-      questionText: "A 'compliment' means saying something ____.",
-      options: ['Nice', 'Negative', 'Formal', 'Random'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "High 'satisfaction' means customers are ____.",
-      options: ['Pleased', 'Disappointed', 'Angry', 'Tired'],
-      answerId: 0,
+      questionText:
+          "This café serves 'single-origin' coffee. What is the Chinese meaning?",
+      options: [
+        '火山口',
+        '郵局',
+        '香蕉奶昔',
+        '單一產區',
+      ],
+      answerId: 3,
     ),
   ],
   '02-01': [
     Question(
-      questionText: "'Ingredient' means ____.",
-      options: ['A component used in a recipe', 'A cooking method', 'A dish name', 'A portion size'],
+      questionText:
+          "At the café, you ordered a *plain bagel*. What does 'plain bagel' mean in Chinese?",
+      options: ['奶油麵包', '煎鬆餅', '原味貝果', '黑糖甜甜圈'],
+      answerId: 2,
+    ),
+    Question(
+      questionText:
+          "I spread some *cream cheese* on my bread. What does 'cream cheese' mean in Chinese?",
+      options: [
+        '花生奶霜',
+        '優格醬',
+        '椰奶抹醬',
+        '奶油乳酪',
+      ],
+      answerId: 3,
+    ),
+    Question(
+      questionText:
+          "He bought a *sesame bagel* for breakfast. What does 'sesame bagel' mean in Chinese?",
+      options: ['蜂蜜麵包', '芝麻貝果', '葡萄乾吐司', '奶油可頌'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "She loves *smoked salmon spread* on her toast. What does it mean in Chinese?",
+      options: ['煙燻鮭魚抹醬', '醃檸檬乳霜', '香草奶油醬', '鮪魚沙拉醬'],
       answerId: 0,
     ),
     Question(
-      questionText: "To 'fillet' a fish means to ____.",
-      options: ['Cut clean slices', 'Add sauce', 'Mix vegetables', 'Stir-fry quickly'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Marinate' means to ____ food in liquid.",
-      options: ['Soak', 'Slice', 'Serve', 'Freeze'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Texture' describes how something ____.",
-      options: ['Feels', 'Smells', 'Sounds', 'Tastes bitter'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "High 'freshness' means the food is ____.",
-      options: ['Recently made', 'Frozen long ago', 'Imported', 'Decorative only'],
+      questionText:
+          "They served *lox* on a bagel. What does 'lox' mean in Chinese?",
+      options: ['醃製鮭魚片', '煎火腿', '烤牛肉片', '煙燻雞絲'],
       answerId: 0,
     ),
   ],
   '02-02': [
     Question(
-      questionText: "To 'assemble' means to ____.",
-      options: ['Put together parts', 'Boil water', 'Decorate walls', 'Taste food'],
+      questionText:
+          "You're on vacation and wake up late. What does 'brunch' mean in Chinese?",
+      options: ['小吃', '早午餐', '宵夜', '套餐'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "At a restaurant, you read a long 'menu description'. What is the Chinese meaning of this phrase?",
+      options: ['菜單描述', '點餐服務', '廚師特輯', '顧客回饋'],
       answerId: 0,
     ),
     Question(
-      questionText: "A 'garnish' is a small item used for ____.",
-      options: ['Decoration', 'Flavoring', 'Cooking', 'Measuring'],
-      answerId: 0,
+      questionText:
+          "In cooking class, the chef teaches 'béchamel'. What does it mean in Chinese?",
+      options: ['黑胡椒', '蒜末', '白醬', '烤盤'],
+      answerId: 2,
     ),
     Question(
-      questionText: "'Presentation' focuses on how food ____.",
-      options: ['Looks visually', 'Smells pleasant', 'Tastes sweet', 'Feels soft'],
-      answerId: 0,
+      questionText:
+          "This sauce goes great with fries—what does 'aioli' mean in Chinese?",
+      options: ['咖哩粉', '番茄丁', '蒜味美乃滋', '醃檸檬'],
+      answerId: 2,
     ),
     Question(
-      questionText: "Balanced flavor means it’s not too ____.",
-      options: ['Salty or sweet', 'Bright', 'Thick', 'Dry'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Savory' is a taste that’s ____.",
-      options: ['Rich and salty', 'Cold and bland', 'Sweet and sour', 'Burnt and bitter'],
-      answerId: 0,
+      questionText:
+          "The recipe says to add 'crème fraîche'. What is the Chinese meaning?",
+      options: ['煎餅糊', '法式鮮奶油', '牛骨湯', '奶油起司'],
+      answerId: 1,
     ),
   ],
 };
@@ -233,110 +329,118 @@ final Map<String, List<Question>> lowScenePostTests = {
 final Map<String, List<Question>> highScenePreTests = {
   '01-01': [
     Question(
-      questionText: "'Produce' refers to ____.",
-      options: ['Fresh fruits and vegetables', 'Cooked dishes', 'Drinks', 'Desserts'],
+      questionText: "How would you say \"楊桃\" in English?",
+      options: ['Starfruit', 'Grapefruit', 'Persimmon', 'Carambola'],
       answerId: 0,
     ),
     Question(
-      questionText: "A 'selection' means ____.",
-      options: ['A group of things to choose from', 'A cooking step', 'A reservation', 'A garnish'],
+      questionText: "Translate \"海藻\" to English. Do you know the word?",
+      options: ['Kelp', 'Seaweed', 'Seashell', 'Coral'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "What is the correct English for \"野生山藥\"?",
+      options: ['Wild yam', 'Sweet potato', 'Cassava', 'Taro root'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Utensil' refers to ____.",
-      options: ['A kitchen tool', 'A food ingredient', 'A drink', 'A plate'],
-      answerId: 0,
+      questionText:
+          "If someone loves growing \"多肉植物\", what is the English word for it?",
+      options: ['Shrub', 'Succulent', 'Vine', 'Bonsai'],
+      answerId: 1,
     ),
     Question(
-      questionText: "'Hygiene' relates to ____.",
-      options: ['Cleanliness', 'Cooking time', 'Flavor', 'Price'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'marinade' is ____.",
-      options: ['A seasoned liquid', 'A fried dish', 'A type of utensil', 'A table decoration'],
-      answerId: 0,
+      questionText: "How do you say \"樹薯根\" in English?",
+      options: ['Lotus root', 'Sugar beet', 'Tapioca root', 'Arrowroot'],
+      answerId: 2,
     ),
   ],
   '01-02': [
     Question(
-      questionText: "A 'reservation' means ____.",
-      options: ['Booking a table', 'Ordering dessert', 'Paying the bill', 'Leaving a tip'],
+      questionText: "How would you translate \"鞭打\" into English?",
+      options: ['Platform', 'Lash', 'Carve', 'Frost'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "What is the English word for \"月台\"?",
+      options: ['Platform', 'Canyon', 'Ribbon', 'Shelter'],
       answerId: 0,
     ),
     Question(
-      questionText: "An 'appetizer' is ____.",
-      options: ['A small dish before the main meal', 'The last dish', 'A drink', 'A side salad'],
+      questionText: "Translate \"確保安全\" to English. Which word fits best?",
+      options: ['Secure', 'Melt', 'Bracelet', 'Tumble'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Entrée' means ____.",
-      options: ['Main course', 'First bite', 'Dessert', 'Drink'],
-      answerId: 0,
+      questionText: "Do you know how to say \"壁爐前的地面\" in English?",
+      options: [
+        'Lantern',
+        'Harvest',
+        'Coconut',
+        'Hearth',
+      ],
+      answerId: 3,
     ),
     Question(
-      questionText: "Someone’s 'palate' refers to ____.",
-      options: ['Their taste preference', 'Their plate', 'Their wallet', 'Their smell sense'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Pairing' means combining ____.",
-      options: ['Food and drink', 'Menu and bill', 'Chef and waiter', 'Table and chair'],
-      answerId: 0,
+      questionText: "What does \"扁斧\" translate to in English?",
+      options: ['Canvas', 'Galaxy', 'Adze', 'Shutter'],
+      answerId: 2,
     ),
   ],
   '02-01': [
     Question(
-      questionText: "To 'sauté' means to ____ quickly.",
-      options: ['Fry', 'Boil', 'Bake', 'Freeze'],
+      questionText: "In cooking instructions, how do you say『折疊』in English?",
+      options: ['Slice', 'Fold', 'Crush', 'Whisk'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "To make dough, you must『揉麵』first. What's the correct verb in English?",
+      options: ['Stir', 'Chop', 'Peel', 'Knead'],
+      answerId: 3,
+    ),
+    Question(
+      questionText: "When making dumplings, what do we call the『外皮』in English?",
+      options: ['Wrapper', 'Shell', 'Crust', 'Skin'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Simmer' means to cook ____.",
-      options: ['Gently below boiling', 'At high heat', 'In cold water', 'Without liquid'],
-      answerId: 0,
+      questionText:
+          "For buns or dumplings, the『內餡』is known as what in English?",
+      options: ['Stuff', 'Filling', 'Paste', 'Mix'],
+      answerId: 1,
     ),
     Question(
-      questionText: "To 'sear' food means to ____.",
-      options: ['Brown it quickly', 'Boil it slowly', 'Soak it in sauce', 'Serve it raw'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "To 'deglaze' a pan means to ____.",
-      options: ['Add liquid to loosen bits', 'Scrub the surface', 'Add seasoning', 'Reduce sauce'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'whisk' is a tool used to ____.",
-      options: ['Beat mixtures', 'Cut meat', 'Sear fish', 'Peel vegetables'],
+      questionText: "In bread or wine making, how do you say『發酵』in English?",
+      options: ['Ferment', 'Defrost', 'Season', 'Blend'],
       answerId: 0,
     ),
   ],
   '02-02': [
     Question(
-      questionText: "'Plating' means arranging food on ____.",
-      options: ['A dish for serving', 'The stove', 'The shelf', 'The cutting board'],
+      questionText: "How would you say \"酥脆的\" in English?",
+      options: ['spicy', 'crisp', 'soft', 'chewy'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "Translate \"辛辣的\" into English. Which one is correct?",
+      options: ['bitter', 'tasteless', 'spicy', 'creamy'],
+      answerId: 2,
+    ),
+    Question(
+      questionText: "Do you know the English word for \"甜鹹的\"?",
+      options: ['savory-sweet', 'plain', 'rich', 'fluffy'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Consistency' means ____.",
-      options: ['Uniform texture or thickness', 'Color contrast', 'A pleasant smell', 'Taste balance'],
+      questionText: "What does \"泥土味的\" translate to in English?",
+      options: ['earthy', 'zesty', 'oily', 'watery'],
       answerId: 0,
     ),
     Question(
-      questionText: "'Contrast' refers to ____.",
-      options: ['Differences in texture or color', 'The same flavor', 'Meal timing', 'Temperature'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Aroma' means ____.",
-      options: ['Smell', 'Taste', 'Touch', 'Appearance'],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Aftertaste' is the flavor that ____.",
-      options: ['Remains after eating', 'Appears before cooking', 'Is on the menu', 'Comes with sauce'],
-      answerId: 0,
+      questionText: "How to say \"清新又帶勁的\" in English?",
+      options: ['salty', 'zesty', 'starchy', 'sticky'],
+      answerId: 1,
     ),
   ],
 };
@@ -344,212 +448,149 @@ final Map<String, List<Question>> highScenePreTests = {
 final Map<String, List<Question>> highScenePostTests = {
   '01-01': [
     Question(
-      questionText: "'Produce' in a grocery context usually refers to ____.",
-      options: [
-        'Fresh fruits and vegetables',
-        'Cooked meat dishes',
-        'Condiments and sauces',
-        'Baked goods'
-      ],
+      questionText:
+          "You're at a tropical market. What does 'starfruit' mean in Chinese?",
+      options: ['海星果', '楊桃', '地瓜葉', '燈籠果'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "You find something green by the beach. What does 'seaweed' mean in Chinese?",
+      options: ['海草', '洋蔥', '海藻', '青苔'],
+      answerId: 2,
+    ),
+    Question(
+      questionText:
+          "Grandma is cooking a mountain dish. What does 'wild yam' mean in Chinese?",
+      options: ['山藥', '野山芋', '蓮藕', '牛蒡'],
       answerId: 0,
     ),
     Question(
-      questionText: "A store’s 'selection' describes ____.",
-      options: [
-        'The range of items it offers',
-        'Its pricing policy',
-        'The kitchen equipment used',
-        'How fast food is delivered'
-      ],
-      answerId: 0,
+      questionText:
+          "In a plant shop, you hear: This is a 'succulent'. What does it mean in Chinese?",
+      options: ['盆景', '仙人掌', '多肉植物', '含水植物'],
+      answerId: 2,
     ),
     Question(
-      questionText: "A 'utensil' such as a spatula or whisk is mainly used for ____.",
-      options: [
-        'Cooking or serving food',
-        'Decorating the dining room',
-        'Reading recipes',
-        'Measuring calories'
-      ],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Hygiene' standards in a kitchen help ensure ____.",
-      options: [
-        'Food safety and cleanliness',
-        'Faster meal service',
-        'Better flavor contrast',
-        'Cheaper ingredient cost'
-      ],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'marinade' helps to ____ food before cooking.",
-      options: [
-        'Flavor and tenderize',
-        'Cool and dry',
-        'Slice and shape',
-        'Grate and steam'
-      ],
-      answerId: 0,
+      questionText:
+          "A dessert vendor says the ingredient is 'tapioca root'. What is its Chinese meaning?",
+      options: ['樹薯', '芋頭', '木薯根', '葛根'],
+      answerId: 3,
     ),
   ],
-
   '01-02': [
     Question(
-      questionText: "If you make a 'reservation' at a restaurant, you ____.",
-      options: [
-        'Book a table in advance',
-        'Order food online',
-        'Cancel a meal',
-        'Ask for a refund'
-      ],
+      questionText:
+          "You see a movie scene where someone gets hit by a whip. What does the word 'lash' mean in Chinese?",
+      options: ['鞭打', '棉被', '磁鐵', '香氣'],
       answerId: 0,
     ),
     Question(
-      questionText: "An 'appetizer' is best described as ____.",
-      options: [
-        'A light dish served before the main meal',
-        'A sweet dessert',
-        'A drink with alcohol',
-        'A chef’s daily special'
-      ],
+      questionText:
+          "At the train station, people wait for their ride on the 'platform'. What is the Chinese meaning of 'platform'?",
+      options: ['平台', '音量', '海報', '鯨魚'],
       answerId: 0,
     ),
     Question(
-      questionText: "In Western dining, an 'entrée' means ____.",
-      options: [
-        'The main course of the meal',
-        'A snack after dessert',
-        'The side dish with soup',
-        'A complimentary beverage'
-      ],
+      questionText:
+          "If you want to make your house safe, you must 'secure' it. What does 'secure' mean in Chinese?",
+      options: ['搖晃', '移動', '保護、固定', '釀造'],
+      answerId: 2,
+    ),
+    Question(
+      questionText:
+          "In old houses, a family might sit by the warm 'hearth'. What does 'hearth' mean in Chinese?",
+      options: ['灶台 / 炉床', '雕刻', '象牙', '長廊'],
       answerId: 0,
     ),
     Question(
-      questionText: "A person’s 'palate' affects how they ____.",
-      options: [
-        'Perceive and enjoy flavors',
-        'Hold their chopsticks',
-        'Decorate a dish',
-        'Judge a restaurant’s cost'
-      ],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "'Pairing' food and wine means choosing combinations that ____.",
-      options: [
-        'Enhance each other’s flavor',
-        'Reduce total calories',
-        'Look visually similar',
-        'Simplify cooking steps'
-      ],
-      answerId: 0,
+      questionText:
+          "A craftsman uses an 'adze' to shape wood. What is the Chinese of 'adze'?",
+      options: ['魚叉', '扁斧', '羅盤', '翼龍'],
+      answerId: 1,
     ),
   ],
-
   '02-01': [
     Question(
-      questionText: "To 'sauté' vegetables means to cook them quickly in ____.",
-      options: [
-        'A small amount of oil over high heat',
-        'Boiling water for a long time',
-        'An oven at low temperature',
-        'Cold vinegar and spices'
-      ],
+      questionText:
+          "In cooking class, the teacher said we need to *fold* the dough gently. What does 'fold' mean in Chinese?",
+      options: ['浸泡', '折疊', '雕刻', '熄滅'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "To make bread, we must *knead* the dough for a smooth texture. What does 'knead' mean in Chinese?",
+      options: ['烘烤', '揉捏', '灑鹽', '削皮'],
+      answerId: 1,
+    ),
+    Question(
+      questionText:
+          "To make dumplings, you first place meat on the *wrapper*. What does 'wrapper' mean in Chinese?",
+      options: ['外皮', '鍋鏟', '湯匙', '砂糖'],
       answerId: 0,
     ),
     Question(
-      questionText: "To 'simmer' a soup means to cook it ____.",
+      questionText:
+          "The chef said the *filling* must be juicy. What does 'filling' mean in Chinese?",
       options: [
-        'Gently below the boiling point',
-        'Rapidly over an open flame',
-        'Without any liquid added',
-        'Until the ingredients burn'
+        '調味料',
+        '碗盤',
+        '火焰',
+        '內餡',
       ],
-      answerId: 0,
+      answerId: 3,
     ),
     Question(
-      questionText: "To 'sear' a steak gives it ____.",
+      questionText:
+          "To make yogurt, you must let the milk *ferment*. What does 'ferment' mean in Chinese?",
       options: [
-        'A brown, flavorful crust',
-        'A sour aroma',
-        'A soft white surface',
-        'A steamed texture'
+        '沸騰',
+        '冷凍',
+        '漂洗',
+        '發酵',
       ],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "When you 'deglaze' a pan, you ____.",
-      options: [
-        'Add liquid to dissolve the browned bits',
-        'Scrape the pan with a knife',
-        'Cover the food tightly',
-        'Mix sauce with flour'
-      ],
-      answerId: 0,
-    ),
-    Question(
-      questionText: "A 'whisk' is mainly used to ____ ingredients.",
-      options: [
-        'Beat or blend air into',
-        'Cut and chop finely',
-        'Press and flatten',
-        'Cool and serve'
-      ],
-      answerId: 0,
+      answerId: 3,
     ),
   ],
-
   '02-02': [
     Question(
-      questionText: "Good 'plating' means arranging food in a way that looks ____.",
-      options: [
-        'Attractive and balanced',
-        'Quick and simple',
-        'Tall and crowded',
-        'Hidden and minimal'
-      ],
-      answerId: 0,
+      questionText:
+          "On the menu it says the fries are 'crisp'. What does 'crisp' mean in Chinese?",
+      options: ['沉重的', '疲倦的', '脆的', '溼潤的'],
+      answerId: 2,
     ),
     Question(
-      questionText: "'Consistency' describes how food maintains the same ____.",
-      options: [
-        'Texture or thickness throughout',
-        'Temperature before serving',
-        'Level of sweetness',
-        'Portion size for guests'
-      ],
-      answerId: 0,
+      questionText:
+          "This curry tastes really 'spicy'! What does 'spicy' mean in Chinese?",
+      options: ['緩慢的', '微弱的', '辛辣的', '空洞的'],
+      answerId: 2,
     ),
     Question(
-      questionText: "A 'contrast' in flavor or color makes a dish feel ____.",
+      questionText:
+          "The sauce has a 'savory-sweet' flavor. What does 'savory-sweet' mean in Chinese?",
       options: [
-        'More dynamic and interesting',
-        'Unstable and bitter',
-        'Heavy and bland',
-        'Simpler and duller'
+        '灰灰的',
+        '苦澀的',
+        '巨大的',
+        '香甜的',
       ],
-      answerId: 0,
+      answerId: 3,
     ),
     Question(
-      questionText: "'Aroma' contributes most to a food’s ____.",
+      questionText:
+          "The soup has an 'earthy' aroma. What does 'earthy' mean in Chinese?",
       options: [
-        'Smell and first impression',
-        'Serving temperature',
-        'Nutritional value',
-        'Cooking time'
+        '結冰的',
+        '柔軟的',
+        '透明的',
+        '泥土味的',
       ],
-      answerId: 0,
+      answerId: 3,
     ),
     Question(
-      questionText: "A pleasant 'aftertaste' means the flavor ____.",
-      options: [
-        'Lingers pleasantly after swallowing',
-        'Disappears immediately',
-        'Becomes spicy afterward',
-        'Turns sour while chewing'
-      ],
+      questionText:
+          "This lemonade tastes very 'zesty'! What does 'zesty' mean in Chinese?",
+      options: ['刺激又帶勁的', '寒冷的', '寬廣的', '尖銳的'],
       answerId: 0,
     ),
   ],

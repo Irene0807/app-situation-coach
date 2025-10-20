@@ -25,6 +25,7 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
   late final int _qCount;
   late List<bool> _hasAnswered; // 每題是否已作答
   late List<int?> _selectedIndex; // 每題點了哪個選項
+  int correctCnt = 0;
 
   @override
   void initState() {
@@ -228,9 +229,6 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                                       onPressed: disabled
                                           ? null
                                           : () async {
-                                              final isCorrect =
-                                                  (i == question.answerId);
-
                                               setState(() {
                                                 _hasAnswered[questionIndex] =
                                                     true;
@@ -238,20 +236,34 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                                                     i;
                                               });
 
-                                              // 紀錄作答正誤
+                                              // 記錄使用者選項
                                               Provider.of<JourneyStatusNotifier>(
                                                       context,
                                                       listen: false)
                                                   .appendResponses(
-                                                      isCorrect);
+                                                      _selectedIndex[
+                                                          questionIndex]!);
+
+                                              // 計算答對題數
+                                              if (_selectedIndex[
+                                                      questionIndex] ==
+                                                  question.answerId) {
+                                                correctCnt += 1;
+                                              }
 
                                               final isLastQuestion =
                                                   questionIndex == _qCount - 1;
-
                                               if (isLastQuestion) {
                                                 await Future.delayed(
                                                     const Duration(
                                                         milliseconds: 200));
+                                                // 紀錄答對題數
+                                                Provider.of<JourneyStatusNotifier>(
+                                                        context,
+                                                        listen: false)
+                                                    .appendCorrectNum(
+                                                        correctCnt);
+                                                // 標記isPass
                                                 Provider.of<JourneyStatusNotifier>(
                                                         context,
                                                         listen: false)

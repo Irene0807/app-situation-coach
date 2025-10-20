@@ -13,7 +13,7 @@ class JourneyStatusNotifier extends ChangeNotifier {
   // bool isSceneGenerating = false;
 
   // 暫存data
-  List<bool> tmpResponses = [];
+  List<int> tmpResponses = []; // 儲存使用者的回答(0, 1, 2, 3) + 正確答案數量
 
   JourneyStatusNotifier({
     required this.userRepository,
@@ -48,8 +48,13 @@ class JourneyStatusNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void appendResponses(bool correct) {
-    tmpResponses.add(correct);
+  void appendResponses(int response) {
+    tmpResponses.add(response);
+    // notifyListeners();
+  }
+
+  void appendCorrectNum(int correctNum) {
+    tmpResponses.insert(0, correctNum);
     // notifyListeners();
   }
 
@@ -72,14 +77,16 @@ class JourneyStatusNotifier extends ChangeNotifier {
 
   Future<void> uploadPreTestResponses() async {
     await userRepository.serPreTestResponse(
-        journeyId: journey.id, preTestId: 'pre_test', responses: tmpResponses);
+        journeyId: journey.id,
+        preTestId: 'pre_test',
+        responseAndCorrectCnt: tmpResponses);
   }
 
   Future<void> uploadPostTestResponses() async {
     await userRepository.setPostTestResponse(
         journeyId: journey.id,
         postTestId: 'post_test',
-        responses: tmpResponses);
+        responseAndCorrectCnt: tmpResponses);
   }
 
   ///////////////////////////////////////////////////////
@@ -93,7 +100,9 @@ class JourneyStatusNotifier extends ChangeNotifier {
   Future<void> uploadSceneIntro() async {
     String introId = 'scene_pretest_${formatDayScene()}';
     await userRepository.setSceneIntro(
-        journeyId: journey.id, introId: introId, responses: tmpResponses);
+        journeyId: journey.id,
+        introId: introId,
+        responseAndCorrectCnt: tmpResponses);
   }
 
   Future<void> uploadSceneConversation(List<Message> messages) async {
@@ -107,7 +116,9 @@ class JourneyStatusNotifier extends ChangeNotifier {
   Future<void> uploadSceneSummary() async {
     String summaryId = 'scene_posttest_${formatDayScene()}';
     await userRepository.setSceneSummary(
-        journeyId: journey.id, summaryId: summaryId, responses: tmpResponses);
+        journeyId: journey.id,
+        summaryId: summaryId,
+        responseAndCorrectCnt: tmpResponses);
   }
 
   // Future<void> loadSchedule() async {

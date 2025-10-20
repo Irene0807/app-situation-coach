@@ -6,104 +6,185 @@ import '../models/question.dart';
 
 final List<Question> lowBizarrePreTest = [
   Question(
-    questionText: "Which word is closest in meaning to 'beverage'?",
-    options: ["a type of drink", "a cooked meal", "a small snack", "a kitchen tool"],
+    questionText: "A sesame bagel can be identified by...",
+    options: [
+      "Its chocolate topping",
+      "Its sesame seed crust",
+      "Its sugar coating",
+      "Its jam filling"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText:
+        "When you order pancakes, what kind of food are you expecting?",
+    options: [
+      "Thin coffee drink",
+      "Egg-based salad",
+      "Cold soup dish",
+      "Stacked fluffy cakes",
+    ],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "A sunny-side up egg is cooked in which way?",
+    options: [
+      "With both sides fried",
+      "Boiled completely",
+      "With yolk facing up and not flipped",
+      "Scrambled with butter"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText:
+        "If you order scrambled eggs at a diner, what would you most likely receive?",
+    options: [
+      "Whipped and cooked eggs",
+      "A cup of coffee",
+      "A slice of toast",
+      "A grilled steak"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'preference' mean?",
-    options: ["a greater liking for one thing over another", "a way of cooking", "a kind of recipe", "a food portion"],
+    questionText: "Hash browns are made mainly from which ingredient?",
+    options: ["Eggs", "Potatoes", "Bacon", "Pancake batter"],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "What does 'over medium' describe when cooking eggs?",
+    options: [
+      "Eggs fried and flipped until yolk is slightly runny",
+      "Completely raw egg whites",
+      "Poached eggs",
+      "Scrambled eggs with milk"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word best describes a 'portion'?",
-    options: ["a serving size of food", "a cooking method", "a decoration on a plate", "a restaurant type"],
+    questionText: "Which beverage is strongest in flavor and caffeine?",
+    options: ["Espresso", "Latte", "Decaf coffee", "Hot chocolate"],
     answerId: 0,
   ),
   Question(
-    questionText: "What is the meaning of 'substitute'?",
-    options: ["to replace one thing with another", "to divide food evenly", "to season with spices", "to clean utensils"],
+    questionText:
+        "Cold brew coffee differs from regular coffee because it is...",
+    options: [
+      "Mixed with milk foam",
+      "Roasted with spices",
+      "Brewed with cold water over time",
+      "Heated quickly in a pan",
+    ],
+    answerId: 2,
+  ),
+  Question(
+      questionText: "Decaf coffee is special because it...",
+      options: [
+        "Is served with ice",
+        "Is sweetened with syrup",
+        "Contains little or no caffeine",
+        "Has extra espresso shots"
+      ],
+      answerId: 2),
+  Question(
+    questionText: "Single-origin coffee means it comes from...",
+    options: [
+      "Multiple farms blended together",
+      "A single geographic source",
+      "Instant powder mix",
+      "Different roasting levels"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "A latte usually contains which two main ingredients?",
+    options: [
+      "Espresso and steamed milk",
+      "Cold brew and cream",
+      "Hot water and sugar",
+      "Tea and honey"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word means 'related to diet or nutrition'?",
-    options: ["dietary", "culinary", "ordinary", "temporary"],
+    questionText: "A plain bagel is best described as...",
+    options: [
+      "A croissant filled with jam",
+      "A sweet breakfast pastry",
+      "A muffin with raisins",
+      "A boiled and baked bread ring with no toppings",
+    ],
+    answerId: 3,
+  ),
+  Question(
+      questionText: "Cream cheese is often spread on what breakfast item?",
+      options: ["Bacon", "Pancakes", "Bagels", "Cereal"],
+      answerId: 3),
+  Question(
+    questionText: "Smoked salmon spread usually tastes...",
+    options: [
+      "Sweet and buttery",
+      "Spicy and sour",
+      "Fishy and creamy",
+      "Dry and bland"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Lox is a type of food made from...",
+    options: ["Boiled egg", "Smoked salmon", "Roasted beef", "Fried tofu"],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "Brunch is best known as...",
+    options: [
+      "A midnight snack",
+      "A coffee flavor",
+      "A cooking sauce"
+          "A late-morning meal combining breakfast and lunch",
+    ],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Béchamel is a type of...",
+    options: [
+      "Breakfast drink",
+      "Sweet pastry cream",
+      "Egg mixture"
+          "White sauce made with butter, flour, and milk",
+    ],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Crème fraîche is best described as...",
+    options: [
+      "A rich, slightly tangy cream",
+      "A type of syrup",
+      "A baked dessert",
+      "A frozen custard"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'courteous' mean?",
-    options: ["polite and respectful", "fast and efficient", "curious and friendly", "relaxed and calm"],
+    questionText: "Aioli is a sauce primarily made from...",
+    options: [
+      "Garlic and olive oil",
+      "Egg yolk and sugar",
+      "Butter and flour",
+      "Tomatoes and onions"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word best describes 'ambiance'?",
-    options: ["the atmosphere or mood of a place", "the taste of a dish", "the noise in a kitchen", "the lighting color"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'recommendation'?",
-    options: ["a suggestion or advice", "a written instruction", "a type of meal", "a preparation step"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'compliment' mean?",
-    options: ["to express praise or admiration", "to give instructions", "to cook food well", "to prepare drinks"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word is closest in meaning to 'satisfaction'?",
-    options: ["a feeling of contentment or happiness", "a food craving", "a restaurant order", "a polite greeting"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'ingredient' mean?",
-    options: ["a part used to make a dish", "a type of cooking style", "a food allergy", "a dining location"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word best fits 'fillet'?",
-    options: ["a boneless piece of meat or fish", "a cooking sauce", "a cutting board", "a food container"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'marinate'?",
-    options: ["to soak food in seasoned liquid", "to mix sauces", "to bake slowly", "to remove moisture"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word best defines 'texture'?",
-    options: ["how food feels when eaten", "the food’s color", "the amount of sugar", "the cooking speed"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'freshness' refer to?",
-    options: ["the quality of being recently made or gathered", "the type of seasoning", "the cooking difficulty", "the portion size"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'assemble'?",
-    options: ["to put together parts into one whole", "to wash vegetables", "to heat food evenly", "to cool dishes before serving"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word is closest in meaning to 'garnish'?",
-    options: ["to decorate food for better appearance", "to store leftovers", "to wash fruit", "to taste ingredients"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'presentation' mean in cooking?",
-    options: ["the way food is arranged or shown", "the timing of service", "the sound of cooking", "the preparation tools"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'balance' mean when talking about flavor?",
-    options: ["having all tastes in harmony", "using strong spices", "avoiding sweet food", "reducing portion size"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'savory'?",
-    options: ["pleasantly salty or spicy in flavor", "sweet and creamy", "cold and plain", "hot and sour"],
-    answerId: 0,
+    questionText: "A menu description helps customers...",
+    options: [
+      "Cook the food themselves",
+      "Write reviews online",
+      "Understand the dishes offered",
+      "Order faster using an app"
+    ],
+    answerId: 2,
   ),
 ];
 
@@ -113,105 +194,182 @@ final List<Question> lowBizarrePreTest = [
 
 final List<Question> lowBizarrePostTest = [
   Question(
-    questionText: "Choose the correct definition for 'beverage'.",
-    options: ["a type of drink", "a cooked meal", "a kitchen tool", "a sweet dessert"],
+    questionText:
+        "If you order scrambled eggs, what are you most likely eating?",
+    options: [
+      "softly mixed cooked eggs",
+      "a sweet pastry",
+      "grilled chicken",
+      "fried rice"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which statement defines 'preference' best?",
-    options: ["a greater liking for one option over another", "a food recipe", "a meal choice", "a cooking habit"],
+    questionText:
+        "When someone eats pancakes for breakfast, which topping is MOST commonly paired with it?",
+    options: ["soy sauce", "gravy", "chocolate steak sauce", "maple syrup"],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "If you like your eggs sunny-side up, how are they cooked?",
+    options: [
+      "beaten and folded",
+      "fried on both sides",
+      "fried with the yolk showing",
+      "boiled for 10 minutes"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Hash browns are made from what main ingredient?",
+    options: ["potatoes", "bread", "eggs", "flour"],
+    answerId: 0, // ← 修正
+  ),
+  Question(
+    questionText:
+        "When a customer wants eggs cooked over medium, how are they prepared?",
+    options: ["soft yolk", "runny white", "yolk partly firm", "deep fried"],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "A latte is usually made with espresso and what?",
+    options: [
+      "tomato juice",
+      "caramelized onions",
+      "ice cream",
+      "steamed milk"
+    ],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Espresso is best described as:",
+    options: [
+      "a strong concentrated coffee",
+      "a salad topping",
+      "a French sauce",
+      "a type of cereal"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What is a 'portion'?",
-    options: ["a single serving size", "a restaurant type", "a decoration", "a tool used for cutting"],
+    questionText: "Cold brew coffee is made by brewing coffee in what way?",
+    options: [
+      "boiling",
+      "pressure steaming",
+      "steeping in cold water",
+      "whisking with milk"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "What does it mean when coffee is decaf?",
+    options: [
+      "it has little or no caffeine",
+      "it has double sugar",
+      "it contains chocolate",
+      "it’s served frozen"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Choose the correct meaning of 'substitute'.",
-    options: ["to replace something else", "to season with salt", "to clean dishes", "to decorate food"],
+      questionText: "Single-origin coffee comes from:",
+      options: [
+        "a blend of 5 beans",
+        "a random mixture",
+        "one farm or region",
+        "instant powder"
+      ],
+      answerId: 2),
+  Question(
+    questionText: "A plain bagel is best described as:",
+    options: [
+      "a sweet chocolate bun",
+      "a butter croissant",
+      "a toasted garlic roll"
+          "a bagel with no toppings",
+    ],
+    answerId: 3, // ← 修正
+  ),
+  Question(
+    questionText:
+        "Cream cheese is most commonly spread on which breakfast item?",
+    options: [
+      "burger buns",
+      "sesame bagels",
+      "grilled salmon skin",
+      "fried dumplings"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "A sesame bagel is different because it is topped with:",
+    options: [
+      "peanut chips",
+      "roasted vegetables",
+      "sesame seeds",
+      "rice powder"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Smoked salmon spread is usually paired with what?",
+    options: ["noodle soup", "banana fritters", "grilled sausage", "bagels"],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Lox is most commonly served with which breakfast bread?",
+    options: ["pita chips", "banana bread", "brioche toast", "bagels"],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Brunch is a meal that combines which two meals of the day?",
+    options: [
+      "breakfast and lunch",
+      "lunch and dinner",
+      "dinner and dessert",
+      "supper and snack"
+    ],
+    answerId: 0, // ← 修正
+  ),
+  Question(
+    questionText: "A menu description helps customers understand what?",
+    options: [
+      "what each dish contains",
+      "the waiter’s schedule",
+      "the size of the restaurant",
+      "how to wash dishes"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'dietary' describe?",
-    options: ["related to food or nutrition", "related to travel", "related to sound", "related to design"],
-    answerId: 0,
+      questionText: "Béchamel is what type of sauce?",
+      options: [
+        "a spicy chili dip",
+        "a meat glaze",
+        "a white sauce",
+        "a sweet syrup"
+      ],
+      answerId: 2),
+  Question(
+    questionText: "Aioli traditionally includes which main flavor?",
+    options: [
+      "strawberry",
+      "matcha",
+      "banana",
+      "garlic",
+    ],
+    answerId: 3, // ← 修正
   ),
   Question(
-    questionText: "What is the meaning of 'courteous'?",
-    options: ["polite and well-mannered", "careful and slow", "quiet and shy", "fast and efficient"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which definition best fits 'ambiance'?",
-    options: ["the mood or feeling of a place", "the sound of cooking", "the quality of taste", "the type of service"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'recommendation' mean?",
-    options: ["a suggestion or piece of advice", "a formal rule", "a type of dish", "a small tip for service"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'compliment' mean in communication?",
-    options: ["to say something nice or approving", "to give directions", "to ask a question", "to offer food"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Choose the correct meaning of 'satisfaction'.",
-    options: ["a sense of pleasure from something done well", "a request for food", "a cooking result", "a polite farewell"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'ingredient' mean?",
-    options: ["an item used in preparing food", "a method of cooking", "a type of appliance", "a flavor enhancer"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word matches the definition 'a boneless piece of fish or meat'?",
-    options: ["fillet", "cutlet", "slice", "portion"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Choose the correct definition of 'marinate'.",
-    options: ["to soak in flavored liquid before cooking", "to fry quickly in oil", "to serve on a plate", "to boil until soft"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'texture' describe in food?",
-    options: ["how food feels in the mouth", "how food smells", "how food is plated", "how food is priced"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is meant by 'freshness'?",
-    options: ["recently made or gathered quality", "the type of seasoning", "the cooking time", "the level of sweetness"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'assemble' mean in cooking?",
-    options: ["to put parts together to form a dish", "to wash ingredients", "to heat evenly", "to measure spices"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Choose the correct definition of 'garnish'.",
-    options: ["to decorate food for appearance", "to cool dishes before serving", "to cut ingredients smaller", "to store ingredients"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'presentation' refer to?",
-    options: ["the way food looks when served", "the order of cooking", "the type of plate used", "the amount of seasoning"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'balance' mean when describing food?",
-    options: ["a good mix of flavors and taste", "avoiding spicy ingredients", "keeping dishes light", "reducing calories"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the correct meaning of 'savory'?",
-    options: ["pleasantly salty or spicy in flavor", "soft and chewy", "cold and bland", "sweet and sticky"],
-    answerId: 0,
-  ),
+      questionText: "Crème fraîche is best described as:",
+      options: [
+        "frozen juice",
+        "boiled syrup",
+        "dried cheese",
+        "thick cultured cream",
+      ],
+      answerId: 3 // ← 修正
+      ),
 ];
 
 // ===============================
@@ -220,107 +378,155 @@ final List<Question> lowBizarrePostTest = [
 
 final List<Question> highBizarrePreTest = [
   Question(
-    questionText: "Which word is closest in meaning to 'produce'?",
-    options: ["fresh fruits and vegetables", "a cooking utensil", "a small appetizer", "a dessert item"],
+    questionText:
+        "Which ingredient is most similar to starfruit in a tropical fruit salad?",
+    options: ["mango", "cucumber", "onion", "garlic"],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'selection' mean?",
-    options: ["a range of things chosen or available", "a way of preparing food", "a restaurant menu", "a cooking habit"],
+    questionText:
+        "Seaweed is often used in soups and sushi. What natural environment does seaweed mainly grow in?",
+    options: ["deserts", "mountains", "oceans", "grasslands"],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "A wild yam can be cooked like which of the following foods?",
+    options: ["potato", "ice cream", "pudding", "candy"],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word best describes a 'utensil'?",
-    options: ["a tool used in cooking", "a type of ingredient", "a serving size", "a dining experience"],
+    questionText:
+        "Which word best describes a succulent plant known for storing water?",
+    options: [
+      "dry and brittle",
+      "water-rich and thick",
+      "crunchy and salty",
+      "soft and sour"
+    ],
+    answerId: 1,
+  ),
+  Question(
+      questionText:
+          "Tapioca root is commonly turned into chewy pearls. Which dessert often uses it?",
+      options: ["pizza", "steak", "bubble tea", "taco"],
+      answerId: 2),
+  Question(
+      questionText: "Which tool could be used to lash pieces of wood together?",
+      options: ["cabbage", "sugar", "rope", "blanket"],
+      answerId: 2),
+  Question(
+    questionText:
+        "A platform can be used for standing or performing. Where might you commonly see one?",
+    options: ["train station", "refrigerator", "pillow", "sandwich"],
     answerId: 0,
   ),
   Question(
-    questionText: "What is the meaning of 'hygiene'?",
-    options: ["clean habits to maintain health", "the art of plating dishes", "the process of baking", "the type of seasoning"],
+    questionText: "To secure a tent during a storm, what should you do?",
+    options: [
+      "leave it open",
+      "tie it firmly",
+      "slice it apart",
+      "float it on water"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "A hearth is usually found in which part of a home?",
+    options: ["kitchen oven", "roof", "garage", "swimming pool"],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'marinade' mean?",
-    options: ["a seasoned liquid used to flavor food", "a sauce made from sugar", "a spice used for soup", "a type of dessert topping"],
+      questionText: "An adze is most useful for shaping which material?",
+      options: ["paper", "wood", "water", "flour"],
+      answerId: 1),
+  Question(
+    questionText: "To fold dough in baking means to do what?",
+    options: [
+      "turn it gently to combine",
+      "burn it on purpose",
+      "freeze it quickly",
+      "slice it into cubes"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word is closest in meaning to 'reservation'?",
-    options: ["a booking made in advance", "a type of dish", "a kitchen rule", "a food label"],
+    questionText: "Which action describes how to knead bread dough?",
+    options: [
+      "press and stretch it repeatedly",
+      "boil it in water",
+      "decorate it with sauce",
+      "store it in a jar"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What is an 'appetizer'?",
-    options: ["a small dish served before the main course", "a dessert served last", "a drink before dinner", "a cooking technique"],
+      questionText: "A wrapper in cooking is used to do what?",
+      options: [
+        "freeze vegetables",
+        "boil meat",
+        "cover a filling",
+        "grow herbs"
+      ],
+      answerId: 2),
+  Question(
+      questionText: "What goes inside a dumpling wrapper to create a filling?",
+      options: ["a frying pan", "meat or vegetables", "plastic wrap", "soap"],
+      answerId: 1),
+  Question(
+      questionText:
+          "To ferment food like kimchi or yogurt means to let it do what?",
+      options: [
+        "spoil in sunlight",
+        "burn into ash",
+        "dry instantly",
+        "naturally change over time with microbes",
+      ],
+      answerId: 3),
+  Question(
+    questionText: "A crisp cracker would most likely taste and feel how?",
+    options: [
+      "soft and bendy",
+      "hard and crunchy",
+      "watery and bland",
+      "sticky and stretchy"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "Spicy food is best described as having which quality?",
+    options: ["hot flavor", "no flavor", "icy cold taste", "watery sweetness"],
     answerId: 0,
   ),
   Question(
-    questionText: "Which word best fits 'entree'?",
-    options: ["the main course of a meal", "a type of sauce", "a restaurant section", "a cooking tool"],
+    questionText: "A savory-sweet sauce combines which flavors?",
+    options: [
+      "salty and sweet",
+      "bitter and sour",
+      "plain and dull",
+      "cold and frozen"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'palate' mean?",
-    options: ["a person’s sense of taste", "a serving tray", "a cooking process", "a type of dessert"],
-    answerId: 0,
-  ),
+      questionText:
+          "Earthy flavors are often found in vegetables like mushrooms. What does 'earthy' suggest?",
+      options: [
+        "sharp, chemical taste",
+        "burnt sweetness",
+        "rich, natural taste",
+        "icy bitterness"
+      ],
+      answerId: 2),
   Question(
-    questionText: "Which word is closest in meaning to 'pairing'?",
-    options: ["matching food and drink well together", "cutting ingredients evenly", "adding spices", "serving hot food quickly"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'sauté'?",
-    options: ["to fry quickly in a small amount of fat", "to bake slowly in the oven", "to soak food overnight", "to freeze ingredients"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word best fits 'simmer'?",
-    options: ["to cook gently just below boiling", "to cool food before serving", "to fry in hot oil", "to mix cold sauces"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'sear' mean?",
-    options: ["to brown food quickly at high heat", "to cut ingredients thinly", "to add salt and herbs", "to cover food while boiling"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'deglaze'?",
-    options: ["to add liquid to loosen browned bits in a pan", "to remove fat from meat", "to cover food with foil", "to bake under low heat"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word best defines 'whisk'?",
-    options: ["to beat or stir quickly with a utensil", "to store liquid ingredients", "to pour sauces slowly", "to taste food samples"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'plating' mean in cooking?",
-    options: ["arranging food attractively on a dish", "washing plates after service", "tasting sauces", "storing utensils"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word is closest in meaning to 'consistency'?",
-    options: ["the thickness or texture of a mixture", "the color of ingredients", "the portion size", "the temperature of cooking"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'contrast' in food?",
-    options: ["a difference between colors or flavors", "a type of sauce", "a cooking error", "a storage method"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'aroma' mean?",
-    options: ["a pleasant smell of food", "a visual style", "a touch of flavor", "a method of plating"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which word best defines 'aftertaste'?",
-    options: ["a flavor that remains after eating", "a dessert topping", "a kind of appetizer", "a taste during chewing"],
-    answerId: 0,
-  ),
+      questionText: "A zesty sauce would most likely taste how?",
+      options: [
+        "plain and boring",
+        "burnt and dusty",
+        "fresh and tangy",
+        "sticky and stale"
+      ],
+      answerId: 2),
 ];
-
 
 // ===============================
 // HighBizarre 組 — 後測題庫
@@ -328,103 +534,199 @@ final List<Question> highBizarrePreTest = [
 
 final List<Question> highBizarrePostTest = [
   Question(
-    questionText: "Choose the correct definition of 'produce'.",
-    options: ["fresh fruits and vegetables", "a type of utensil", "a main course meal", "a sweet pastry"],
+      questionText: "Wild yam can be described as which of the following?",
+      options: [
+        "a kitchen wrapper",
+        "a leather strap",
+        "a root vegetable",
+        "a musical style",
+      ],
+      answerId: 2),
+  Question(
+    questionText: "To secure something means to:",
+    options: [
+      "make it safe or fasten it",
+      "prepare a savory-sweet sauce",
+      "slice earthy vegetables",
+      "heat the hearth stone"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What is the correct meaning of 'selection'?",
-    options: ["a group of choices or options", "a dish preparation", "a service routine", "a plating method"],
+    questionText:
+        "What does the word succulent most closely refer to when describing food?",
+    options: [
+      "dry and flaky",
+      "hard and stale",
+      "juicy and tender",
+      "bitter and sour"
+    ],
+    answerId: 2,
+  ),
+  Question(
+      questionText: "Tapioca root is typically used as what in recipes?",
+      options: [
+        "a cutting platform",
+        "a zesty sauce",
+        "a seafood topping",
+        "a starch source",
+      ],
+      answerId: 3),
+  Question(
+      questionText: "What does lash most likely mean in a story context?",
+      options: [
+        "to grow underground",
+        "to ferment food",
+        "to tie or bind tightly",
+        "to knead dough"
+      ],
+      answerId: 2),
+  Question(
+      questionText: "Which statement fits the meaning of platform?",
+      options: [
+        "a spicy filling",
+        "a wild seaweed snack",
+        "a fermented drink",
+        "a place to stand or support something",
+      ],
+      answerId: 3),
+  Question(
+    questionText: "What is starfruit commonly known for?",
+    options: [
+      "a tropical fruit",
+      "a metal tool",
+      "a sea plant",
+      "a baked grain"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Which definition best fits 'utensil'?",
-    options: ["a tool used in food preparation", "a recipe ingredient", "a flavor description", "a dining location"],
+    questionText: "An adze is best defined as:",
+    options: [
+      "a root used in tea",
+      "a zesty sweet glaze",
+      "a chewy wrapper",
+      "a cutting tool similar to an axe"
+    ],
+    answerId: 3,
+  ),
+  Question(
+      questionText: "To fold dough means to:",
+      options: [
+        "store it on a hearth",
+        "gently combine it by layering",
+        "secure it with a lash",
+        "ferment it underground"
+      ],
+      answerId: 1),
+  Question(
+      questionText: "Spicy flavor is best described as:",
+      options: [
+        "tropical and star-like",
+        "causing heat or sharp taste",
+        "soft like tapioca root",
+        "mild like wild yam"
+      ],
+      answerId: 1),
+  Question(
+    questionText: "To knead dough is to:",
+    options: [
+      "sprinkle with spice",
+      "bake over a fire",
+      "work and press it by hand",
+      "wrap it in seaweed"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "In older homes, a hearth is best described as:",
+    options: [
+      "a tropical starfruit soup",
+      "a platform for drying fish",
+      "a type of fermented wrapper",
+      "a fireplace or area around it"
+    ],
+    answerId: 3,
+  ),
+  Question(
+    questionText: "Which option best describes seaweed in cooking?",
+    options: [
+      "a farming vehicle",
+      "a mountain bird",
+      "a chewy ocean plant used in food",
+      "a wooden platform"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "A wrapper in cooking is used to:",
+    options: [
+      "hold a filling",
+      "sharpen an adze",
+      "create a hearth flame",
+      "lash wooden beams"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'hygiene' refer to?",
-    options: ["clean practices that keep things healthy", "flavor mixing", "cooking temperature", "table setting"],
+    questionText: "To ferment food means to:",
+    options: [
+      "heat crisply",
+      "let it chemically change over time",
+      "lash it tightly",
+      "slice it into platforms"
+    ],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "Crisp most nearly describes food that is:",
+    options: [
+      "chewy and fermented",
+      "tender and juicy",
+      "firm and snappy",
+      "earthy and zesty"
+    ],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Filling in food refers to:",
+    options: [
+      "the ingredients inside a wrapper",
+      "a tall wooden platform",
+      "a bitter wild yam peel",
+      "a fermented seaweed paste"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What does 'marinade' mean?",
-    options: ["a flavored liquid for soaking food", "a cooked sauce", "a vegetable soup", "a sweet topping"],
+    questionText: "Zesty flavor typically means:",
+    options: [
+      "fresh and lively taste",
+      "heavy and earthy tone",
+      "mild and flavorless",
+      "sticky and savory-sweet"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "What is the meaning of 'reservation'?",
-    options: ["an arrangement to hold a table or seat", "a menu section", "a special dish", "a payment method"],
+    questionText: "Savory-sweet flavor refers to a mix of:",
+    options: [
+      "meaty and sugary notes",
+      "crispy and salty crusts",
+      "earthy wild-yam roots",
+      "spicy seaweed broth"
+    ],
     answerId: 0,
   ),
   Question(
-    questionText: "Choose the correct meaning of 'appetizer'.",
-    options: ["a small dish served before a meal", "a drink for dessert", "a cooking pan", "a spice mixture"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'entree' mean?",
-    options: ["the main dish of a meal", "a side order", "a cooking utensil", "a sweet pastry"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the definition of 'palate'?",
-    options: ["the sense of taste or flavor", "the appearance of food", "the amount of seasoning", "the sound of dining"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Choose the correct definition of 'pairing'.",
-    options: ["matching foods or drinks that complement each other", "adding extra salt", "mixing sauces together", "cooking with steam"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'sauté' mean?",
-    options: ["to cook quickly in a small amount of oil", "to mix cold ingredients", "to bake for hours", "to season before serving"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which statement defines 'simmer' best?",
-    options: ["to cook gently below the boiling point", "to boil rapidly", "to fry in oil", "to chill before serving"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'sear' mean?",
-    options: ["to brown the surface quickly with high heat", "to mix liquids evenly", "to soak overnight", "to cover and rest"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which definition matches 'deglaze'?",
-    options: ["to loosen browned bits by adding liquid", "to cool a dish quickly", "to season meat with sugar", "to slice vegetables thinly"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the meaning of 'whisk'?",
-    options: ["to beat ingredients rapidly with a light motion", "to heat a sauce slowly", "to layer food neatly", "to cut vegetables finely"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'plating' describe?",
-    options: ["arranging food attractively on a plate", "serving drinks", "mixing sauces", "storing leftovers"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Choose the correct definition of 'consistency'.",
-    options: ["the texture or thickness of a mixture", "the flavor strength", "the temperature of dishes", "the portion amount"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What does 'contrast' mean in food presentation?",
-    options: ["a visible or flavor difference that enhances appeal", "a cooking method", "a plating tool", "a serving temperature"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "Which definition fits 'aroma'?",
-    options: ["a pleasant or distinctive smell", "a cooking utensil", "a cold sauce", "a color shade"],
-    answerId: 0,
-  ),
-  Question(
-    questionText: "What is the correct meaning of 'aftertaste'?",
-    options: ["a taste that remains in the mouth after eating", "a taste before seasoning", "a dessert topping", "a drink served after meals"],
-    answerId: 0,
+    questionText:
+        "Earthy flavor is commonly found in which type of ingredient?",
+    options: [
+      "bright starfruit",
+      "light zesty sugar",
+      "crispy seaweed",
+      "root vegetables like yam"
+    ],
+    answerId: 3,
   ),
 ];

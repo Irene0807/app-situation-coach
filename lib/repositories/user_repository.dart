@@ -219,21 +219,21 @@ class UserRepository {
   Future<void> serPreTestResponse({
     required String journeyId,
     required String preTestId,
-    required List<bool> responses,
+    required List<int> responseAndCorrectCnt,
   }) async {
     await dbService.setDocument(
         ['users', getCurrentUserId()!, 'journeys', journeyId],
-        {preTestId: responses});
+        {preTestId: responseAndCorrectCnt});
   }
 
   Future<void> setPostTestResponse({
     required String journeyId,
     required String postTestId,
-    required List<bool> responses,
+    required List<int> responseAndCorrectCnt,
   }) async {
     await dbService.setDocument(
         ['users', getCurrentUserId()!, 'journeys', journeyId],
-        {postTestId: responses});
+        {postTestId: responseAndCorrectCnt});
   }
 
   // Future<void> setPreSceneContent({
@@ -290,14 +290,14 @@ class UserRepository {
   Future<void> setSceneIntro(
       {required String journeyId,
       required String introId, // 'scene_pretest_01-01'
-      required List<bool> responses}) async {
+      required List<int> responseAndCorrectCnt}) async {
     await dbService.setDocument([
       'users',
       getCurrentUserId()!,
       'journeys',
       journeyId,
     ], {
-      introId: responses
+      introId: responseAndCorrectCnt
     });
   }
 
@@ -366,14 +366,14 @@ class UserRepository {
   Future<void> setSceneSummary(
       {required String journeyId,
       required String summaryId, // 'scene_posttest_01-01'
-      required List<bool> responses}) async {
+      required List<int> responseAndCorrectCnt}) async {
     await dbService.setDocument([
       'users',
       getCurrentUserId()!,
       'journeys',
       journeyId,
     ], {
-      summaryId: responses
+      summaryId: responseAndCorrectCnt
     });
   }
 
