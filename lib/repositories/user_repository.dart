@@ -216,6 +216,23 @@ class UserRepository {
     });
   }
 
+  Future<void> updateTimeRecord({
+    required String journeyId,
+    required String timeRecordId,
+    required int seconds,
+  }) async {
+    await dbService.setDocument([
+      'users',
+      getCurrentUserId()!,
+      'journeys',
+      journeyId
+    ], {
+      'timeRecord': {
+        timeRecordId: seconds,
+      },
+    });
+  }
+
   Future<void> serPreTestResponse({
     required String journeyId,
     required String preTestId,

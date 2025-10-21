@@ -3,6 +3,8 @@ import 'package:app_situational_coach/models/message.dart';
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:app_situational_coach/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:async';
 
 class JourneyStatusNotifier extends ChangeNotifier {
   final UserRepository userRepository;
@@ -11,6 +13,8 @@ class JourneyStatusNotifier extends ChangeNotifier {
   bool isPass = false; // 僅有sceneDetail會看isPass決定換頁button是否出現
   bool loading = false;
   // bool isSceneGenerating = false;
+  Timer? timer;
+  int seconds = 0;
 
   // 暫存data
   List<int> tmpResponses = []; // 儲存使用者的回答(0, 1, 2, 3) + 正確答案數量
@@ -20,6 +24,12 @@ class JourneyStatusNotifier extends ChangeNotifier {
     required this.journey,
   }) {
     // loadSchedule();
+    if (timer != null) {
+      timer!.cancel();
+    }
+    timer = Timer.periodic(const Duration(seconds: 5), (_) {
+      seconds = seconds + 5;
+    });
   }
 
   void setIsPass() {
@@ -58,7 +68,19 @@ class JourneyStatusNotifier extends ChangeNotifier {
     // notifyListeners();
   }
 
+  String formatTimeRecordId() {
+    return '${journey.status.day.toString()}_${journey.status.scene.toString()}_${journey.status.mode.toString()}';
+  }
+
   Future<bool> goNextStatus() async {
+    // 上傳time record
+    await userRepository.updateTimeRecord(
+      journeyId: journey.id,
+      timeRecordId: formatTimeRecordId(),
+      seconds: seconds,
+    );
+    // timer reset
+    seconds = 0;
     // 使用goNextStatus後
     bool b = journey.status.goNextStatus(journey); // 回傳是否有下一頁
     isPass = false; // 重製isPass
