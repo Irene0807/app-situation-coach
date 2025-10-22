@@ -308,13 +308,31 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
             children: List.generate(5, (i) {
               final isSelected = _selectedRating == i + 1;
               return GestureDetector(
-                onTap: () {
+                onTap: () async {
                   setState(() => _selectedRating = i + 1);
 
                   Provider.of<JourneyStatusNotifier>(
                     context,
                     listen: false,
                   ).setIsPass();
+
+                  // 上傳到Firestore
+                  final journey = Provider.of<JourneyStatusNotifier>(
+                    context,
+                    listen: false,
+                  ).journey;
+
+                  final userRepo = UserRepository(
+                    authService: AuthenticationService(),
+                    dbService: DatabaseService(),
+                  );
+
+                  await userRepo.setSceneFunRating(
+                    journeyId: journey.id,
+                    funRatingId:
+                        'scene_funRating_${journey.status.day.toString().padLeft(2, '0')}-${journey.status.scene.toString().padLeft(2, '0')}',
+                    funRating: i + 1,
+                  );
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),

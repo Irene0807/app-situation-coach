@@ -394,6 +394,17 @@ class UserRepository {
     });
   }
 
+  Future<void> setSceneFunRating({
+    required String journeyId,
+    required String funRatingId, // 'scene_funRating_01-01'
+    required int funRating,
+  }) async {
+    await dbService.setDocument(
+      ['users', getCurrentUserId()!, 'journeys', journeyId],
+      {funRatingId: funRating},
+    );
+  }
+
   ///////////////////////////////////////////////////////////////
   ///             load db的function                           ///
   ///////////////////////////////////////////////////////////////
