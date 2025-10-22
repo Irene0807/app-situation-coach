@@ -7,6 +7,11 @@ import '../models/question.dart';
 final Map<String, List<Question>> lowScenePreTests = {
   '01-01': [
     Question(
+      questionText: "Translate \"鬆餅\" to English — what’s the correct word?",
+      options: ['Syrup waffles', 'Pancakes', 'Sweet crackers', 'Cake rolls'],
+      answerId: 1,
+    ),
+    Question(
       questionText: "How do you say \"炒蛋\" in English?",
       options: [
         'Scrambled eggs',
@@ -15,21 +20,6 @@ final Map<String, List<Question>> lowScenePreTests = {
         'Rolled omelette'
       ],
       answerId: 0,
-    ),
-    Question(
-      questionText: "Translate \"鬆餅\" to English — what’s the correct word?",
-      options: ['Syrup waffles', 'Pancakes', 'Sweet crackers', 'Cake rolls'],
-      answerId: 1,
-    ),
-    Question(
-      questionText: "What does \"單面煎蛋\" mean in English?",
-      options: [
-        'Half-fried omelette',
-        'Sunny-side up',
-        'Crispy egg top',
-        'Morning skillet'
-      ],
-      answerId: 1,
     ),
     Question(
       questionText: "Choose the correct translation for \"薯餅\".",
@@ -46,6 +36,16 @@ final Map<String, List<Question>> lowScenePreTests = {
       ],
       answerId: 0,
     ),
+    Question(
+      questionText: "What does \"單面煎蛋\" mean in English?",
+      options: [
+        'Half-fried omelette',
+        'Sunny-side up',
+        'Crispy egg top',
+        'Morning skillet'
+      ],
+      answerId: 1,
+    ),
   ],
   '01-02': [
     Question(
@@ -59,12 +59,6 @@ final Map<String, List<Question>> lowScenePreTests = {
       answerId: 2,
     ),
     Question(
-      questionText:
-          "If someone orders \"低因咖啡\", what are they asking for in English?",
-      options: ['Single-origin', 'Decaf', 'Latte', 'tapestry'],
-      answerId: 1,
-    ),
-    Question(
       questionText: "Do you know the English for \"冷萃咖啡\"? Pick the right one.",
       options: ['Cold brew', 'rhetoric', 'Decaf', 'Latte'],
       answerId: 0,
@@ -74,13 +68,14 @@ final Map<String, List<Question>> lowScenePreTests = {
       options: ['Single-origin', 'menagerie', 'Espresso', 'conjecture'],
       answerId: 0,
     ),
-  ],
-  '02-01': [
     Question(
-      questionText: "How would you say \"原味貝果\" in English?",
-      options: ['Sesame bagel', 'Plain bagel', 'Bagel roll', 'Wheat donut'],
+      questionText:
+          "If someone orders \"低因咖啡\", what are they asking for in English?",
+      options: ['Single-origin', 'Decaf', 'Latte', 'tapestry'],
       answerId: 1,
     ),
+  ],
+  '02-01': [
     Question(
       questionText:
           "Translate \"奶油起司抹醬\" into English. What's the correct word?",
@@ -90,6 +85,11 @@ final Map<String, List<Question>> lowScenePreTests = {
         'Butter jam',
         'Fresh milk spread',
       ],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "How would you say \"原味貝果\" in English?",
+      options: ['Sesame bagel', 'Plain bagel', 'Bagel roll', 'Wheat donut'],
       answerId: 1,
     ),
     Question(
@@ -132,17 +132,6 @@ final Map<String, List<Question>> lowScenePreTests = {
       answerId: 3,
     ),
     Question(
-      questionText:
-          "In a restaurant, how would you translate \"菜單描述\" into English?",
-      options: [
-        'Order summary',
-        'Menu description',
-        'Customer review',
-        'Meal notice'
-      ],
-      answerId: 1,
-    ),
-    Question(
       questionText: "Chef exam! What is the English word for \"白醬\"?",
       options: ['Cream sauce', 'Béchamel', 'Milk roux', 'Velouté'],
       answerId: 1,
@@ -157,6 +146,17 @@ final Map<String, List<Question>> lowScenePreTests = {
         'Aioli',
       ],
       answerId: 3,
+    ),
+    Question(
+      questionText:
+          "In a restaurant, how would you translate \"菜單描述\" into English?",
+      options: [
+        'Order summary',
+        'Menu description',
+        'Customer review',
+        'Meal notice'
+      ],
+      answerId: 1,
     ),
     Question(
       questionText:
