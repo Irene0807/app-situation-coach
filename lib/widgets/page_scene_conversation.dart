@@ -215,7 +215,7 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
             alignment: Alignment.topCenter,
             child: Padding(
               padding:
-                  EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top),
+                  EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top, left: 16,),
               child: Text(
                 widget.sceneTitle,
                 style: TextStyle(

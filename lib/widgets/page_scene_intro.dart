@@ -176,19 +176,19 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                           final questionIndex = _currentIndex - 1;
                           final question =
                               widget.introContent.questions[questionIndex];
+                          
+                          final hasAnswered = _hasAnswered[questionIndex];
+                          final selectedIndex = _selectedIndex[questionIndex];
 
                           Color getButtonColor(int i) {
-                            if (!_hasAnswered[questionIndex])
+                            if (!hasAnswered)
                               return Colors.white.withOpacity(0.15);
-                            if (i == question.answerId) {
-                              if (_selectedIndex[questionIndex] ==
-                                  question.answerId) {
-                                return Colors.greenAccent.withOpacity(0.7);
-                              } else {
-                                return Colors.redAccent.withOpacity(0.7);
-                              }
-                            }
-                            return Colors.white.withOpacity(0.06);
+                            if (i == question.answerId)
+                              return Colors.greenAccent.withOpacity(0.75);
+                            if (i == selectedIndex &&
+                                selectedIndex != question.answerId)
+                              return Colors.redAccent.withOpacity(0.75);
+                            return Colors.white.withOpacity(0.05);
                           }
 
                           return Column(
@@ -198,20 +198,27 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                               Padding(
                                 padding: EdgeInsets.only(
                                     bottom: screenHeight * 0.03),
-                                child: Text(
-                                  question.questionText,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.05,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    height: 1.4,
-                                    shadows: const [
-                                      Shadow(
-                                          blurRadius: 4,
-                                          offset: Offset(1, 1),
-                                          color: Colors.black45),
-                                    ],
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: screenWidth * 0.8,
+                                  ),
+                                  child: Text(
+                                    question.questionText,
+                                    textAlign: TextAlign.center,
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
+                                    style: TextStyle(
+                                      fontSize: screenWidth * 0.05,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      height: 1.4,
+                                      shadows: const [
+                                        Shadow(
+                                            blurRadius: 4,
+                                            offset: Offset(1, 1),
+                                            color: Colors.black45),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -335,8 +342,8 @@ class _PageSceneIntroState extends State<PageSceneIntro> {
                 alignment: Alignment.bottomLeft,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: screenWidth * 0.15,
-                    bottom: screenHeight * 0.13,
+                    left: screenWidth * 0.12,
+                    bottom: screenHeight * 0.14,
                   ),
                   child: Text(
                     "Let's GO!",
