@@ -16,6 +16,7 @@ class _PagePostTestState extends State<PagePostTest> {
   late List<int?> selectedAnswers;
   late List<bool> isSubmitted;
   int correctCnt = 0;
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -26,6 +27,9 @@ class _PagePostTestState extends State<PagePostTest> {
     selectedAnswers = List<int?>.filled(questions.length, null);
     isSubmitted = List<bool>.filled(questions.length, false);
   }
+
+  double get progress =>
+      (currentIndex + 1) / (questions.isNotEmpty ? questions.length : 1);
 
   void _selectAnswer(int questionIndex, int selectedOption) {
     if (isSubmitted[questionIndex]) return;
@@ -147,16 +151,41 @@ class _PagePostTestState extends State<PagePostTest> {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text(
-                "Let’s test what you’ve learned!",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color.fromARGB(224, 255, 255, 255),
-                ),
-                textAlign: TextAlign.center,
+              
+              // const Text(
+              //   "Let’s test what you’ve learned!",
+              //   style: TextStyle(
+              //     fontSize: 15,
+              //     color: Color.fromARGB(224, 255, 255, 255),
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
+
+              const SizedBox(height: 24),
+              Column(
+                children: [
+                  Text(
+                    'Question ${currentIndex + 1} of ${questions.length}',
+                    style: const TextStyle(
+                      color: Color.fromARGB(233, 173, 216, 255),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 10,
+                      backgroundColor: Colors.white24,
+                      color: const Color.fromARGB(255, 105, 180, 240),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 32),
+
+              const SizedBox(height: 30),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 3.0),
@@ -164,6 +193,7 @@ class _PagePostTestState extends State<PagePostTest> {
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: questions.length,
+                    onPageChanged: (i) => setState(() => currentIndex = i),
                     itemBuilder: (context, index) {
                       final q = questions[index];
                       final submitted = isSubmitted[index];

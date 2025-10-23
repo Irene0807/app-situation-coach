@@ -17,6 +17,7 @@ class _PagePreTestState extends State<PagePreTest> {
   late List<int?> selectedAnswers;
   late List<bool> isSubmitted;
   int correctCnt = 0;
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -27,6 +28,9 @@ class _PagePreTestState extends State<PagePreTest> {
     selectedAnswers = List<int?>.filled(questions.length, null);
     isSubmitted = List<bool>.filled(questions.length, false);
   }
+
+  double get progress =>
+      (currentIndex + 1) / (questions.isNotEmpty ? questions.length : 1);
 
   void _selectAnswer(int questionIndex, int selectedOption) {
     if (isSubmitted[questionIndex]) return;
@@ -148,16 +152,43 @@ class _PagePreTestState extends State<PagePreTest> {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text(
-                "Let’s see what you already know!",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color.fromARGB(224, 255, 255, 255),
-                ),
-                textAlign: TextAlign.center,
+              // const SizedBox(height: 8),
+              
+              // const Text(
+              //   "Let’s see what you already know!",
+              //   style: TextStyle(
+              //     fontSize: 15,
+              //     color: Color.fromARGB(224, 255, 255, 255),
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
+
+              const SizedBox(height: 24),
+        
+              Column(
+                children: [
+                  Text(
+                    'Question ${currentIndex + 1} of ${questions.length}',
+                    style: const TextStyle(
+                      color: Color.fromARGB(233, 255, 225, 2),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 10,
+                      backgroundColor: Colors.white24,
+                      color: const Color.fromARGB(255, 240, 215, 105),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 32),
+
+              const SizedBox(height: 30),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 3.0),
@@ -165,6 +196,8 @@ class _PagePreTestState extends State<PagePreTest> {
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: questions.length,
+                    onPageChanged: (i) =>
+                        setState(() => currentIndex = i),
                     itemBuilder: (context, index) {
                       final q = questions[index];
                       final submitted = isSubmitted[index];
