@@ -9,6 +9,7 @@ import '../services/gemini/response_generator.dart';
 import 'animations/character_animation.dart';
 import 'animations/continue_dot_animation.dart';
 import 'package:app_situational_coach/states/journey_status_notifier.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 // 小問題 frame_journey_continue那邊我已經疊一層image了 這邊又疊一層 不過demo來說沒差哈
 
@@ -52,12 +53,21 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       currentSegmentIndex >= botTextSegments.length &&
       roundCount < 7; //測測可改3
 
+  // 新增 STT 欄位
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
+  bool _canProcessResults = false;
+
   @override
   void initState() {
     super.initState();
 
     responseGenerator =
         ResponseGenerator(conversation: widget.conversationContent);
+
+    // initialize speech to text
+    _speech = stt.SpeechToText();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 500),
           () => startConversation()); // 角色開始主動對話
@@ -80,7 +90,13 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
 
   // 生成response => response_generator
   Future<void> handleResponse() async {
-    if (isTalking || roundCount >= 7 || responseGenerator == null) return; //測測可改3
+    if (isTalking || roundCount >= 7 || responseGenerator == null)
+      return; //測測可改3
+
+    // 關閉麥克風
+    setState(() {
+      _isListening = false;
+    });
 
     final input = _controller.text.trim();
 
@@ -172,10 +188,62 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
     }
   }
 
+  // 新增：啟動/停止語音辨識（不會自動送出）
+  void _listen() async {
+    if (isTalking || roundCount >= 7 || responseGenerator == null) {
+      return; //測測可改3
+    }
+
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('STT onStatus: $val'),
+        onError: (val) {
+          print('STT onError: $val');
+          setState(() {
+            _isListening = false;
+            _canProcessResults = false;
+          });
+        },
+      );
+      if (available) {
+        setState(() {
+          _isListening = true;
+          _canProcessResults = true;
+        });
+        _speech.listen(
+          onResult: (val) {
+            if (_canProcessResults) {
+              setState(() {
+                _controller.text = val.recognizedWords;
+                // caret to end
+                _controller.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _controller.text.length));
+              });
+            }
+          },
+        );
+      } else {
+        setState(() {
+          _isListening = false;
+          _canProcessResults = false;
+        });
+        _speech.stop();
+      }
+    } else {
+      setState(() {
+        _isListening = false;
+        _canProcessResults = false;
+      });
+      _speech.stop();
+    }
+  }
+
   @override
   void dispose() {
     _typingTimer?.cancel();
     _controller.dispose();
+    // stop speech to text if running
+    _speech.stop();
     super.dispose();
   }
 
@@ -214,8 +282,10 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding:
-                  EdgeInsets.only(top: 28 + MediaQuery.of(context).padding.top, left: 16,),
+              padding: EdgeInsets.only(
+                top: 28 + MediaQuery.of(context).padding.top,
+                left: 16,
+              ),
               child: Text(
                 widget.sceneTitle,
                 style: TextStyle(
@@ -327,9 +397,9 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
               AnimatedPadding(
                 duration: const Duration(milliseconds: 300),
                 padding: EdgeInsets.fromLTRB(
-                  MediaQuery.of(context).size.width * 0.05,
+                  12,
                   0,
-                  MediaQuery.of(context).size.width * 0.05,
+                  12,
                   MediaQuery.of(context).viewInsets.bottom > 0
                       ? MediaQuery.of(context).viewInsets.bottom + 10
                       : MediaQuery.of(context).size.height * 0.1,
@@ -447,35 +517,52 @@ class _PageSceneConversationState extends State<PageSceneConversation> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: '輸入你的對話',
-                filled: true,
-                fillColor: Colors.grey[100],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
-                isDense: true,
+              child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              hintText: '輸入你的對話',
+              filled: true,
+              fillColor: Colors.grey[100],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey.shade300),
+              ),
+              isDense: true,
+            ),
+            minLines: 1, // 起始行數
+            maxLines: null, // 行數無上限，自動換行並撐高
+          )),
+          const SizedBox(width: 8),
+          IconButton(
+            onPressed: _listen,
+            icon: Icon(_isListening ? Icons.mic : Icons.mic_none,
+                color: Colors.white),
+            style: IconButton.styleFrom(
+              backgroundColor: _isListening ? Colors.redAccent : Colors.grey,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
               ),
             ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 12,
+            ),
           ),
-          const SizedBox(width: 8),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
+          const SizedBox(width: 4),
+          IconButton(
+            onPressed: handleResponse,
+            icon: const Icon(Icons.send, color: Colors.white),
+            style: IconButton.styleFrom(
               backgroundColor: const Color.fromARGB(255, 64, 204, 255),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14),
               ),
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.03,
-                vertical: MediaQuery.of(context).size.height * 0.015,
-              ),
             ),
-            onPressed: handleResponse,
-            child: const Icon(Icons.send, color: Colors.white),
-          ),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 12,
+            ),
+          )
         ],
       ),
     );
