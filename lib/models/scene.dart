@@ -107,6 +107,7 @@ class ConversationContent {
 class SummaryContent {
   final String summary; // 旅程總結
   final List<Question> questions;
+  int? funRating;
 
-  SummaryContent({required this.summary, required this.questions});
+  SummaryContent({required this.summary, required this.questions, this.funRating});
 }

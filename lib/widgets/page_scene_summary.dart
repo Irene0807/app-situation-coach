@@ -4,6 +4,9 @@ import 'package:app_situational_coach/models/journey.dart';
 import 'package:app_situational_coach/models/scene.dart';
 import 'package:provider/provider.dart';
 import '../widgets/animations/character_animation.dart';
+import 'package:app_situational_coach/repositories/user_repository.dart';
+import 'package:app_situational_coach/services/authentication.dart';
+import 'package:app_situational_coach/services/database.dart';
 
 class PageSceneSummary extends StatefulWidget {
   final SummaryContent summaryContent;
@@ -13,6 +16,7 @@ class PageSceneSummary extends StatefulWidget {
     super.key,
     required this.summaryContent,
     this.journey,
+
   });
 
   @override
@@ -26,6 +30,7 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
   late List<int?> _selectedIndex;
   int _currentIndex = 0;
   int correctCnt = 0;
+  int? _selectedRating;
 
   @override
   void initState() {
@@ -99,13 +104,17 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                       child: PageView.builder(
                         controller: _pageController,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _qCount,
+                        itemCount: _qCount + 1,
                         onPageChanged: (index) {
                           setState(() {
                             _currentIndex = index;
                           });
                         },
                         itemBuilder: (context, index) {
+                          if (index == _qCount) {
+                            // 自評頁面
+                            return _buildFunRatingPage(screenWidth, screenHeight);
+                          }
                           final question = questions[index];
                           final hasAnswered = _hasAnswered[index];
                           final selectedIndex = _selectedIndex[index];
@@ -191,10 +200,15 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
                                                         .appendCorrectNum(
                                                             correctCnt);
                                                     // 標記isPass
-                                                    Provider.of<JourneyStatusNotifier>(
-                                                            context,
-                                                            listen: false)
-                                                        .setIsPass();
+                                                    // Provider.of<JourneyStatusNotifier>(
+                                                    //         context,
+                                                    //         listen: false)
+                                                    //     .setIsPass();
+                                                    await Future.delayed(const Duration(milliseconds: 400));
+                                                      _pageController.nextPage(
+                                                        duration: const Duration(milliseconds: 300),
+                                                        curve: Curves.easeInOut,
+                                                      );
                                                   } else {
                                                     await Future.delayed(
                                                         const Duration(
@@ -259,4 +273,113 @@ class _PageSceneSummaryState extends State<PageSceneSummary> {
       ),
     );
   }
+
+  Widget _buildFunRatingPage(double screenWidth, double screenHeight) {
+  final emojis = ["😩", "☹️", "😐", "🙂", "😃"];
+  final labels = ["糟透了", "有點悶", "普通啦", "不錯欸", "超好玩！"];
+
+  return StatefulBuilder(
+    builder: (context, setState) {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.1,
+          vertical: screenHeight * 0.1,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "How fun was this scene?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: screenWidth * 0.06,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: const [
+                  Shadow(blurRadius: 4, offset: Offset(1, 1), color: Colors.black45)
+                ],
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.05),
+
+            // emoji 選擇列（點了就選）
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(5, (i) {
+              final isSelected = _selectedRating == i + 1;
+              return GestureDetector(
+                onTap: () async {
+                  setState(() => _selectedRating = i + 1);
+
+                  Provider.of<JourneyStatusNotifier>(
+                    context,
+                    listen: false,
+                  ).setIsPass();
+
+                  // 上傳到Firestore
+                  final journey = Provider.of<JourneyStatusNotifier>(
+                    context,
+                    listen: false,
+                  ).journey;
+
+                  final userRepo = UserRepository(
+                    authService: AuthenticationService(),
+                    dbService: DatabaseService(),
+                  );
+
+                  await userRepo.setSceneFunRating(
+                    journeyId: journey.id,
+                    funRatingId:
+                        'scene_funRating_${journey.status.day.toString().padLeft(2, '0')}-${journey.status.scene.toString().padLeft(2, '0')}',
+                    funRating: i + 1,
+                  );
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOut,
+                  padding: const EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? Colors.greenAccent
+                        : Colors.white.withOpacity(0.1),
+                
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: AnimatedScale(
+                    duration: const Duration(milliseconds: 200),
+                    scale: 1.0,
+                    child: Text(
+                      emojis[i],
+                      style: TextStyle(
+                        fontSize: 42,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+
+            SizedBox(height: screenHeight * 0.05),
+
+            // 顯示對應的提示文字
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: _selectedRating == null ? 0 : 1,
+              child: Text(
+                _selectedRating == null ? "" : labels[_selectedRating! - 1],
+                style: TextStyle(
+                  color: Colors.greenAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.045,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 }
