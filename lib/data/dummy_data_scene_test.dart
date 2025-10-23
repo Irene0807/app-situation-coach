@@ -46,6 +46,16 @@ final Map<String, List<Question>> lowScenePreTests = {
       ],
       answerId: 1,
     ),
+    Question(
+      questionText: "Translate '煎蛋捲' into English. What's the correct word?",
+      options: ['Scrambled egg', 'Omelette', 'Pancake', 'Crepe'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "At a diner, what is '培根' in English?",
+      options: ['Bacon', 'Sausage', 'Ham', 'Steak'],
+      answerId: 0,
+    ),
   ],
   '01-02': [
     Question(
@@ -72,6 +82,16 @@ final Map<String, List<Question>> lowScenePreTests = {
       questionText:
           "If someone orders \"低因咖啡\", what are they asking for in English?",
       options: ['Single-origin', 'Decaf', 'Latte', 'tapestry'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "Translate '摩卡' into English. Which one is correct?",
+      options: ['Mocha', 'Latte', 'Espresso', 'Macchiato'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "You see '卡布奇諾' on a menu. What is it in English?",
+      options: ['Americano', 'Cappuccino', 'Mocha', 'Flat white'],
       answerId: 1,
     ),
   ],
@@ -118,6 +138,16 @@ final Map<String, List<Question>> lowScenePreTests = {
           "You see \"煙燻鮭魚切片(百吉圈常用配料)\" on a menu. Which English word matches it?",
       options: ['Salmon roll', 'Fish slices', 'Lox', 'Cured tuna'],
       answerId: 2,
+    ),
+    Question(
+      questionText: "Which English word means '藍莓'?",
+      options: ['Blueberry', 'Raspberry', 'Cranberry', 'Blackberry'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "When you see '洋蔥貝果', how do you say '洋蔥' in English?",
+      options: ['Onion', 'Garlic', 'Scallion', 'Chili'],
+      answerId: 0,
     ),
   ],
   '02-02': [
@@ -169,6 +199,16 @@ final Map<String, List<Question>> lowScenePreTests = {
       ],
       answerId: 2,
     ),
+    Question(
+      questionText: "Translate '荷蘭醬' into English.",
+      options: ['Hollandaise', 'Aioli', 'Béchamel', 'Mayonnaise'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "How do you say '酪梨' in English?",
+      options: ['Avocado', 'Mango', 'Melon', 'Kiwi'],
+      answerId: 0,
+    ),
   ],
 };
 
@@ -206,6 +246,16 @@ final Map<String, List<Question>> lowScenePostTests = {
       questionText:
           "How do you want your eggs? What does 'over medium' mean in Chinese?",
       options: ['堅硬的石頭', '豆漿', '七分熟煎蛋', '水煮蛋'],
+      answerId: 2,
+    ),
+    Question(
+      questionText: "You ordered an 'omelette' for breakfast. What does it mean in Chinese?",
+      options: ['煎蛋捲', '炒飯', '薯條', '鬆餅'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "What does 'bacon' mean in Chinese?",
+      options: ['火腿', '雞腿', '培根', '麵包'],
       answerId: 2,
     ),
   ],
@@ -250,6 +300,16 @@ final Map<String, List<Question>> lowScenePostTests = {
       ],
       answerId: 3,
     ),
+    Question(
+      questionText: "I love drinking 'mocha'. What does it mean in Chinese?",
+      options: ['摩卡咖啡', '奶茶', '果汁', '熱可可'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "Your friend ordered a 'cappuccino'. What is it in Chinese?",
+      options: ['拿鐵', '卡布奇諾', '黑咖啡', '冷萃'],
+      answerId: 1,
+    ),
   ],
   '02-01': [
     Question(
@@ -287,6 +347,16 @@ final Map<String, List<Question>> lowScenePostTests = {
       options: ['醃製鮭魚片', '煎火腿', '烤牛肉片', '煙燻雞絲'],
       answerId: 0,
     ),
+    Question(
+      questionText: "This bagel has 'blueberry'. What does that mean in Chinese?",
+      options: ['藍莓', '草莓', '櫻桃', '哈密瓜'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "What does 'onion' mean in Chinese?",
+      options: ['洋蔥', '蒜頭', '蔥', '青椒'],
+      answerId: 0,
+    ),
   ],
   '02-02': [
     Question(
@@ -317,6 +387,16 @@ final Map<String, List<Question>> lowScenePostTests = {
       questionText:
           "The recipe says to add 'crème fraîche'. What is the Chinese meaning?",
       options: ['煎餅糊', '法式鮮奶油', '牛骨湯', '奶油起司'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "What does 'hollandaise' mean in Chinese?",
+      options: ['荷蘭醬', '蒜味奶油', '白醬', '優格醬'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "She added 'avocado' to her toast. What does that mean in Chinese?",
+      options: ['香蕉', '酪梨', '鳳梨', '芒果'],
       answerId: 1,
     ),
   ],
@@ -354,6 +434,16 @@ final Map<String, List<Question>> highScenePreTests = {
       options: ['Lotus root', 'Sugar beet', 'Tapioca root', 'Arrowroot'],
       answerId: 2,
     ),
+    Question(
+      questionText: "Translate '椰子' into English.",
+      options: ['Coconut', 'Mango', 'Banana', 'Palm'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "How do you say '木瓜' in English?",
+      options: ['Papaya', 'Peach', 'Guava', 'Lychee'],
+      answerId: 0,
+    ),
   ],
   '01-02': [
     Question(
@@ -386,6 +476,16 @@ final Map<String, List<Question>> highScenePreTests = {
       options: ['Canvas', 'Galaxy', 'Adze', 'Shutter'],
       answerId: 2,
     ),
+    Question(
+      questionText: "Translate '繩子' into English.",
+      options: ['Rope', 'Thread', 'String', 'Cord'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "In building a shelter, what is the English word for '竿子'?",
+      options: ['Pole', 'Bar', 'Stick', 'Rod'],
+      answerId: 0,
+    ),
   ],
   '02-01': [
     Question(
@@ -415,6 +515,16 @@ final Map<String, List<Question>> highScenePreTests = {
       options: ['Ferment', 'Defrost', 'Season', 'Blend'],
       answerId: 0,
     ),
+    Question(
+      questionText: "How do you say '蒸' in English?",
+      options: ['Steam', 'Boil', 'Bake', 'Fry'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "Translate '麵團' into English.",
+      options: ['Dough', 'Bread', 'Crust', 'Paste'],
+      answerId: 0,
+    ),
   ],
   '02-02': [
     Question(
@@ -442,8 +552,20 @@ final Map<String, List<Question>> highScenePreTests = {
       options: ['salty', 'zesty', 'starchy', 'sticky'],
       answerId: 1,
     ),
+    Question(
+      questionText: "When describing food, what does '芳香的' translate to in English?",
+      options: ['Aromatic', 'Fragrant', 'Spicy', 'Sweet'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "Translate '嫩的' into English.",
+      options: ['Tender', 'Soft', 'Juicy', 'Chewy'],
+      answerId: 0,
+    ),
   ],
 };
+
+
 
 final Map<String, List<Question>> highScenePostTests = {
   '01-01': [
@@ -477,6 +599,16 @@ final Map<String, List<Question>> highScenePostTests = {
       options: ['樹薯', '芋頭', '木薯根', '葛根'],
       answerId: 3,
     ),
+    Question(
+      questionText: "You found a 'coconut' on the beach. What does it mean in Chinese?",
+      options: ['芒果', '椰子', '鳳梨', '香瓜'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "What does 'papaya' mean in Chinese?",
+      options: ['蘋果', '木瓜', '奇異果', '橘子'],
+      answerId: 1,
+    ),
   ],
   '01-02': [
     Question(
@@ -507,6 +639,16 @@ final Map<String, List<Question>> highScenePostTests = {
       questionText:
           "A craftsman uses an 'adze' to shape wood. What is the Chinese of 'adze'?",
       options: ['魚叉', '扁斧', '羅盤', '翼龍'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "What does 'rope' mean in Chinese?",
+      options: ['繩子', '鐵鍊', '電線', '木條'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "You tied the tent to a 'pole'. What does that mean in Chinese?",
+      options: ['石頭', '棍子 / 竿子', '木屑', '繩索'],
       answerId: 1,
     ),
   ],
@@ -551,6 +693,16 @@ final Map<String, List<Question>> highScenePostTests = {
       ],
       answerId: 3,
     ),
+    Question(
+      questionText: "The chef said to 'steam' the buns. What does it mean in Chinese?",
+      options: ['蒸', '烤', '炸', '煮'],
+      answerId: 0,
+    ),
+    Question(
+      questionText: "What does 'dough' mean in Chinese?",
+      options: ['麵團', '醬汁', '麵粉', '餅皮'],
+      answerId: 0,
+    ),
   ],
   '02-02': [
     Question(
@@ -592,6 +744,16 @@ final Map<String, List<Question>> highScenePostTests = {
           "This lemonade tastes very 'zesty'! What does 'zesty' mean in Chinese?",
       options: ['刺激又帶勁的', '寒冷的', '寬廣的', '尖銳的'],
       answerId: 0,
+    ),
+    Question(
+      questionText: "The soup smells 'aromatic'. What does that mean in Chinese?",
+      options: ['辣的', '芳香的', '酸的', '苦的'],
+      answerId: 1,
+    ),
+    Question(
+      questionText: "This meat is so 'tender'. What does it mean in Chinese?",
+      options: ['堅硬的', '乾的', '嫩的', '濕的'],
+      answerId: 2,
     ),
   ],
 };

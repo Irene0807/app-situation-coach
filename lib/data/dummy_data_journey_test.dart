@@ -5,16 +5,7 @@ import '../models/question.dart';
 // ===============================
 
 final List<Question> lowBizarrePreTest = [
-  Question(
-    questionText: "A sesame bagel can be identified by...",
-    options: [
-      "Its chocolate topping",
-      "Its sesame seed crust",
-      "Its sugar coating",
-      "Its jam filling"
-    ],
-    answerId: 1,
-  ),
+  // 1-1
   Question(
     questionText:
         "When you order pancakes, what kind of food are you expecting?",
@@ -63,6 +54,22 @@ final List<Question> lowBizarrePreTest = [
     answerId: 0,
   ),
   Question(
+    questionText: "An omelette usually contains which ingredient?",
+    options: ["rice", "potatoes", "eggs", "flour"],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Bacon is best described as...",
+    options: [
+      "crispy slices of smoked pork",
+      "boiled vegetables",
+      "sweet pastries",
+      "cold noodles"
+    ],
+    answerId: 0,
+  ),
+  // 1-2
+  Question(
     questionText: "Which beverage is strongest in flavor and caffeine?",
     options: ["Espresso", "Latte", "Decaf coffee", "Hot chocolate"],
     answerId: 0,
@@ -108,6 +115,17 @@ final List<Question> lowBizarrePreTest = [
     answerId: 0,
   ),
   Question(
+    questionText: "Mocha is a coffee flavor that mixes...",
+    options: ["coffee and chocolate", "milk and lemon", "tea and honey", "cream and mint"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Cappuccino is easily recognized by its...",
+    options: ["thick milk foam on top", "iced lemon flavor", "layer of whipped cream", "caramel swirl"],
+    answerId: 0,
+  ),
+  // 2-1
+  Question(
     questionText: "A plain bagel is best described as...",
     options: [
       "A croissant filled with jam",
@@ -121,6 +139,16 @@ final List<Question> lowBizarrePreTest = [
       questionText: "Cream cheese is often spread on what breakfast item?",
       options: ["Bacon", "Pancakes", "Bagels", "Cereal"],
       answerId: 3),
+  Question(
+    questionText: "A sesame bagel can be identified by...",
+    options: [
+      "Its chocolate topping",
+      "Its sesame seed crust",
+      "Its sugar coating",
+      "Its jam filling"
+    ],
+    answerId: 1,
+  ),
   Question(
     questionText: "Smoked salmon spread usually tastes...",
     options: [
@@ -137,12 +165,23 @@ final List<Question> lowBizarrePreTest = [
     answerId: 1,
   ),
   Question(
+    questionText: "A blueberry bagel would taste mostly...",
+    options: ["sweet and fruity", "spicy and salty", "bitter and sour", "plain and dry"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "An onion bagel is known for its...",
+    options: ["sweet jam layer", "savory roasted flavor", "buttery filling", "crispy sugar crust"],
+    answerId: 1,
+  ),
+  // 2-2
+  Question(
     questionText: "Brunch is best known as...",
     options: [
       "A midnight snack",
       "A coffee flavor",
-      "A cooking sauce"
-          "A late-morning meal combining breakfast and lunch",
+      "A cooking sauce",
+      "A late-morning meal combining breakfast and lunch",
     ],
     answerId: 3,
   ),
@@ -151,8 +190,8 @@ final List<Question> lowBizarrePreTest = [
     options: [
       "Breakfast drink",
       "Sweet pastry cream",
-      "Egg mixture"
-          "White sauce made with butter, flour, and milk",
+      "Egg mixture",
+      "White sauce made with butter, flour, and milk",
     ],
     answerId: 3,
   ),
@@ -186,6 +225,16 @@ final List<Question> lowBizarrePreTest = [
     ],
     answerId: 2,
   ),
+  Question(
+    questionText: "Eggs Benedict is topped with which sauce?",
+    options: ["hollandaise", "soy sauce", "maple syrup", "chili paste"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Avocado toast is popular because it’s...",
+    options: ["creamy and healthy", "dry and spicy", "crispy and cold", "sweet and buttery"],
+    answerId: 0,
+  ),
 ];
 
 // ===============================
@@ -193,6 +242,7 @@ final List<Question> lowBizarrePreTest = [
 // ===============================
 
 final List<Question> lowBizarrePostTest = [
+  // 1-1
   Question(
     questionText:
         "If you order scrambled eggs, what are you most likely eating?",
@@ -231,6 +281,17 @@ final List<Question> lowBizarrePostTest = [
     options: ["soft yolk", "runny white", "yolk partly firm", "deep fried"],
     answerId: 2,
   ),
+  Question(
+    questionText: "An omelette is mainly made from what ingredient?",
+    options: ["bread", "flour","eggs", "milk"],
+    answerId: 2,
+  ),
+  Question(
+    questionText: "Bacon is often served with which breakfast food?",
+    options: ["ice cream", "pasta", "salad","pancakes"],
+    answerId: 3,
+  ),
+  // 1-2
   Question(
     questionText: "A latte is usually made with espresso and what?",
     options: [
@@ -281,6 +342,17 @@ final List<Question> lowBizarrePostTest = [
       ],
       answerId: 2),
   Question(
+    questionText: "Mocha coffee has which flavor added?",
+    options: ["chocolate", "mint", "coconut", "vanilla"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Cappuccino is topped with what?",
+    options: ["lemon juice", "milk foam", "chocolate syrup", "ice cubes"],
+    answerId: 1,
+  ),
+  // 2-1
+  Question(
     questionText: "A plain bagel is best described as:",
     options: [
       "a sweet chocolate bun",
@@ -321,6 +393,17 @@ final List<Question> lowBizarrePostTest = [
     options: ["pita chips", "banana bread", "brioche toast", "bagels"],
     answerId: 3,
   ),
+  Question(
+    questionText: "Blueberry bagels taste mostly...",
+    options: ["sweet and fruity", "bitter and salty", "spicy and sour", "plain and dry"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "An onion bagel has what kind of flavor?",
+    options: ["savory", "sweet", "sour", "fruity"],
+    answerId: 0,
+  ),
+  // 2-2
   Question(
     questionText: "Brunch is a meal that combines which two meals of the day?",
     options: [
@@ -370,6 +453,16 @@ final List<Question> lowBizarrePostTest = [
       ],
       answerId: 3 // ← 修正
       ),
+  Question(
+    questionText: "Hollandaise sauce is commonly used on which dish?",
+    options: ["French toast", "Eggs Benedict", "Hot dog", "Tacos"],
+    answerId: 1,
+  ),
+  Question(
+    questionText: "Avocado is a popular topping because it is...",
+    options: ["creamy and rich", "dry and bitter", "crispy and salty", "frozen and sweet"],
+    answerId: 0,
+),
 ];
 
 // ===============================
@@ -377,6 +470,7 @@ final List<Question> lowBizarrePostTest = [
 // ===============================
 
 final List<Question> highBizarrePreTest = [
+  // 1-1
   Question(
     questionText:
         "Which ingredient is most similar to starfruit in a tropical fruit salad?",
@@ -411,6 +505,17 @@ final List<Question> highBizarrePreTest = [
       options: ["pizza", "steak", "bubble tea", "taco"],
       answerId: 2),
   Question(
+    questionText: "Coconut is often used for making...",
+    options: ["milk and oil", "bread and cheese", "jam and sauce", "chili powder"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Papaya is best described as...",
+    options: ["a salty sea plant", "a dried root", "a leafy herb", "a tropical orange fruit"],
+    answerId: 3,
+  ),
+  // 1-2
+  Question(
       questionText: "Which tool could be used to lash pieces of wood together?",
       options: ["cabbage", "sugar", "rope", "blanket"],
       answerId: 2),
@@ -439,6 +544,17 @@ final List<Question> highBizarrePreTest = [
       questionText: "An adze is most useful for shaping which material?",
       options: ["paper", "wood", "water", "flour"],
       answerId: 1),
+  Question(
+    questionText: "A rope is commonly used to...",
+    options: ["tie or secure things", "serve food", "cut wood", "store grains"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "A bamboo pole could be used to build...",
+    options: ["a coffee drink", "a fruit salad", "a sauce pan", "a tent frame"],
+    answerId: 3,
+  ),
+  // 2-1
   Question(
     questionText: "To fold dough in baking means to do what?",
     options: [
@@ -473,6 +589,11 @@ final List<Question> highBizarrePreTest = [
       options: ["a frying pan", "meat or vegetables", "plastic wrap", "soap"],
       answerId: 1),
   Question(
+    questionText: "To steam dumplings means to...",
+    options: ["cook them with hot vapor", "bake them in an oven", "fry them in oil", "freeze them quickly"],
+    answerId: 0,
+  ),
+  Question(
       questionText:
           "To ferment food like kimchi or yogurt means to let it do what?",
       options: [
@@ -482,6 +603,12 @@ final List<Question> highBizarrePreTest = [
         "naturally change over time with microbes",
       ],
       answerId: 3),
+  Question(
+    questionText: "Dough is the mixture used to make...",
+    options: ["bread or noodles", "soup or salad", "juice or coffee", "ice cream"],
+    answerId: 0,
+  ),
+  // 2-2
   Question(
     questionText: "A crisp cracker would most likely taste and feel how?",
     options: [
@@ -518,6 +645,11 @@ final List<Question> highBizarrePreTest = [
       ],
       answerId: 2),
   Question(
+    questionText: "An aromatic dish usually smells...",
+    options: ["fragrant and appetizing", "cold and sour", "bitter and burnt", "plain and dull"],
+    answerId: 0,
+  ),
+  Question(
       questionText: "A zesty sauce would most likely taste how?",
       options: [
         "plain and boring",
@@ -526,6 +658,11 @@ final List<Question> highBizarrePreTest = [
         "sticky and stale"
       ],
       answerId: 2),
+  Question(
+    questionText: "Tender meat is easy to...",
+    options: ["chew", "boil", "freeze", "slice thickly"],
+    answerId: 0,
+  ),
 ];
 
 // ===============================
@@ -533,6 +670,7 @@ final List<Question> highBizarrePreTest = [
 // ===============================
 
 final List<Question> highBizarrePostTest = [
+  // 1-1
   Question(
       questionText: "Wild yam can be described as which of the following?",
       options: [
@@ -573,6 +711,17 @@ final List<Question> highBizarrePostTest = [
       ],
       answerId: 3),
   Question(
+    questionText: "Coconut is used to make what kind of product?",
+    options: ["milk", "chili sauce", "bread crumbs", "vinegar"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Papaya is best described as a...",
+    options: ["tropical fruit", "green herb", "root vegetable", "seaweed"],
+    answerId: 0,
+  ),
+  // 1-2
+  Question(
       questionText: "What does lash most likely mean in a story context?",
       options: [
         "to grow underground",
@@ -609,6 +758,16 @@ final List<Question> highBizarrePostTest = [
       "a cutting tool similar to an axe"
     ],
     answerId: 3,
+  ),
+  Question(
+    questionText: "A rope can be used to do what?",
+    options: ["tie objects together", "make coffee", "boil soup", "spread butter"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "A pole is useful for building what?",
+    options: ["a tent or shelter", "a sandwich", "a coffee grinder", "a salad bowl"],
+    answerId: 0,
   ),
   Question(
       questionText: "To fold dough means to:",
@@ -649,6 +808,16 @@ final List<Question> highBizarrePostTest = [
     answerId: 3,
   ),
   Question(
+    questionText: "To steam food means to cook it with what?",
+    options: ["hot vapor", "boiling oil", "frozen air", "dry heat"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Dough is used to make which food?",
+    options: ["bread", "juice", "jam", "yogurt"],
+    answerId: 0,
+  ),
+  Question(
     questionText: "Which option best describes seaweed in cooking?",
     options: [
       "a farming vehicle",
@@ -679,6 +848,16 @@ final List<Question> highBizarrePostTest = [
     answerId: 1,
   ),
   Question(
+    questionText: "If a dish smells aromatic, it means it is...",
+    options: ["fragrant", "sour", "cold", "plain"],
+    answerId: 0,
+  ),
+  Question(
+    questionText: "Tender meat is best described as...",
+    options: ["hard and dry","soft and easy to chew",  "crispy and salty", "cold and sour"],
+    answerId: 1,
+  ),
+  Question(
     questionText: "Crisp most nearly describes food that is:",
     options: [
       "chewy and fermented",
@@ -701,12 +880,12 @@ final List<Question> highBizarrePostTest = [
   Question(
     questionText: "Zesty flavor typically means:",
     options: [
-      "fresh and lively taste",
       "heavy and earthy tone",
       "mild and flavorless",
-      "sticky and savory-sweet"
+      "sticky and savory-sweet",
+      "fresh and lively taste"
     ],
-    answerId: 0,
+    answerId: 3,
   ),
   Question(
     questionText: "Savory-sweet flavor refers to a mix of:",
