@@ -357,8 +357,8 @@ final List<Question> lowBizarrePostTest = [
     options: [
       "a sweet chocolate bun",
       "a butter croissant",
-      "a toasted garlic roll"
-          "a bagel with no toppings",
+      "a toasted garlic roll",
+      "a bagel with no toppings",
     ],
     answerId: 3, // ← 修正
   ),

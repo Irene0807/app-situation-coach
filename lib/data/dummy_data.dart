@@ -692,7 +692,7 @@ For a Bloom Level 1 learner (Analyzing, Evaluating, Creating), "Trump" will:
     status: JourneyStatus(),
     group: 'B',
     preTest: highBizarrePreTest,
-    postTest: lowBizarrePostTest);
+    postTest: highBizarrePostTest);
 
 //-------------------------------------------------------------
 
